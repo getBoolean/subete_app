@@ -12,15 +12,11 @@ Kavita and Audiobookshelf client for mobile and desktop (coming soon)
 - [About](#about)
 - [Demo](#demo)
 - [Template: Getting Started](#template-getting-started)
-  - [Change App/Package Name](#change-apppackage-name)
-  - [Workflow Permissions](#workflow-permissions)
 - [Setup](#setup)
 - [Testing](#testing)
   - [Integration Tests](#integration-tests)
 - [Building](#building)
   - [Flavors](#flavors)
-  - [Build for Windows Release](#build-for-windows-release)
-  - [Build for other platforms](#build-for-other-platforms)
 - [Architecture](#architecture)
   - [Data Layer (Repositories)](#data-layer-repositories)
   - [Domain Layer (Models)](#domain-layer-models)
@@ -29,16 +25,8 @@ Kavita and Audiobookshelf client for mobile and desktop (coming soon)
 - [Libraries](#libraries)
   - [Melos](#melos)
     - [Scripts](#scripts)
-  - [AutoRoute Navigation](#autoroute-navigation)
+  - [GoRouter Navigation](#gorouter-navigation)
   - [ENVied Environment Variables](#envied-environment-variables)
-  - [Mason Bricks](#mason-bricks)
-  - [JSON Serialization, Unions, Sealed Classes and copyWith](#json-serialization-unions-sealed-classes-and-copywith)
-  - [State Management](#state-management)
-  - [Async Data Loading and Caching](#async-data-loading-and-caching)
-  - [Native Splash Screen](#native-splash-screen)
-  - [Native Platform Dialogs/Alerts](#native-platform-dialogsalerts)
-  - [Bottom Sheets](#bottom-sheets)
-  - [Layout List/Grid](#layout-listgrid)
 - [Contributing](#contributing)
 
 ## Motivation
@@ -63,52 +51,13 @@ A preview of the application is deployed to [getboolean.github.io/subete](https:
 
 ## Template: Getting Started
 
-1. Setup:
-   1. [x] Install [puro](https://puro.dev) Flutter Environment Manager
-   1. [x] Install Flutter using Puro
-   1. [x] Install [Melos](https://pub.dev/packages/melos) globally
-   1. [x] Install [Mason CLI](https://docs.brickhub.dev/)
-1. [x] Run `melos bootstrap` to install dependencies for all packages and generate env files.
-1. [x] Rename App: [Change App/Package Name](#change-apppackage-name)
-1. [x] [Workflow Permissions](#workflow-permissions)
-1. [x] Update Description: [pubspec.yaml](pubspec.yaml) and [README.md](README.md).
-1. [x] Replace [codemagic.io](https://codemagic.io) badge with your own.
 1. [ ] Add Environment Variables: [ENVied Environment Variables](#envied-environment-variables) section for details.
 1. [ ] [Change App Icon: flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons)
 1. [ ] [Change Splash Screen: flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
 1. [ ] Setup the release build configuration, see the [Building](#building) section.
 1. [ ] Setup Codecov for the repository, see the [Codecov documentation](https://docs.codecov.com/docs/quick-start).
 1. [ ] Update contribution guidelines at the [Contributing](#contributing) section.
-1. [ ] (**Important!**) Update the [LICENSE](./LICENSE.md) file. I give permission to relicense any
-code provided in this template, but the licenses of the packages must still be followed.
 1. [ ] Delete this `Template: Getting Started` section from the README.
-
-### Change App/Package Name
-
-1. [ ] Run the following command to change the package name, where `com.author.app_name` is the new name for the app.
-
-   ```bash
-   dart run change_app_package_name:main com.author.app_name
-   ```
-
-1. [ ] Search for `github.com/getBoolean/subete_app` and update it with your GitHub username and repository name
-1. [ ] Search for `com.getboolean.subete` and replace it with your new Android bundle identifier
-1. [ ] Search for `com.getboolean.subete` and replace it with your new iOS bundle identifier
-1. [ ] Search for `subete` and replace it with your new package identifier
-1. [ ] Search for `Subete` and replace it with your new app name
-
-### Workflow Permissions
-
-1. Github Repo: Settings -> Actions -> General -> Workflow permissions
-   1. Enable "Read and write permissions"
-   1. Enable "Allow GitHub Actions to create and approve pull requests"
-1. Github Repo: Settings -> Environments -> github-pages -> Deployment branches and tags
-   1. Change "Selected branches and tags" to "No restriction"
-1. Github Repo: Settings -> Secrets and variables -> Repository secrets -> New repository secret
-   1. Name: `PAT`
-   1. Value: Your GitHub Personal Access Token
-      1. Github Profile -> Settings -> Developer settings -> Personal access tokens -> Tokens (classic)
-      1. Generate a new token (classic), name it `<AppName> Web Deploy`, and give it the `repo` and `workflow` scopes
 
 ## Setup
 
@@ -139,10 +88,7 @@ To run the tests, see the instructions in the [Patrol documentation](https://pub
 
 This project automatically builds for all platforms without code signing using GitHub Actions.
 To build the project locally, follow the instructions in the
-[Flutter docs](https://flutter.dev/docs). Only Windows, Android, and iOS build files are currently
-uploaded to the CI action fragments.
-
-Instructions for building for release are below:
+[Flutter docs](https://flutter.dev/docs).
 
 ### Flavors
 
@@ -154,21 +100,6 @@ to change the flavor. The following flavors are supported:
 - `beta` - Beta build intended for release to testers.
 - `staging` - Staging build intended for device integration testing.
 - `prod` - Production build intended for release to stores.
-
-### Build for Windows Release
-
-1. Customize `msix_config` in [pubspec.yaml](pubspec.yaml) according to the documentation
-for [msix](https://pub.dev/packages/msix) for your method of publication. The default
-configuration is for CI/CD testing builds only, not releases.
-1. Run the corresponding command for your method of publication
-
-### Build for other platforms
-
-- [Flutter Docs for Android](https://docs.flutter.dev/deployment/android).
-- [Flutter Docs for iOS](https://docs.flutter.dev/deployment/ios).
-- [Flutter Docs for MacOS](https://docs.flutter.dev/deployment/macos).
-- [Flutter Docs for Linux](https://docs.flutter.dev/deployment/linux).
-- [Flutter Docs for Web](https://docs.flutter.dev/deployment/web).
 
 ## Architecture
 
@@ -267,18 +198,10 @@ Tests:
 - `melos run flutter_test:pkg` - Run Flutter tests for a specific package.
 - `melos run dart_test:pkg` - Run Dart tests for a specific (Dart only) package.
 
-### AutoRoute Navigation
+### GoRouter Navigation
 
-This project uses [AutoRoute](https://pub.dev/packages/auto_route) for navigation
-and provides some starter boilerplate for adaptive multitab navigation using `AutoAdaptiveRouterScaffold`.
-
-- For the AppBar title to be updated when the route changes, the `RoutePage` must be a `StatefulWidget` and
-  use the `AutoUpdateTitleStateMixin<T extends State>` mixin. This mixin will update the title when the `RoutePage` is pushed.
-- Use `goTo` from the mixin to push new routes instead of the default methods AutoRoute provides.
-  - Unfortunately the route observer does not detect when a page becomes active again after
-    top page was popped. As a workaround, this method will call `updateTitle` after the page is popped.
-- Use the `AutoRoute.title` builder in [app_router.dart](lib/src/routing/router/app_router.dart) to
-  customize the AppBar title per route. (Required for `NavigationType.bottom`/`NavigationType.drawer`)
+This project uses [GoRouter](https://pub.dev/packages/go_router) for navigation
+and provides some starter boilerplate for adaptive multitab navigation using `ResponsiveScaffold`.
 
 ### ENVied Environment Variables
 
@@ -295,60 +218,8 @@ defined for debug, profile, and release modes.
 with the new environment variables for `AppEnvFieldsGenerated` and `AppEnvFieldsNullable`.
 1. Add the new environment variables to the implementing `*Env` classes in the [src/env](packages/env/src/env/) directory.
    - It must be done for *all* even if only one `.env` file is planned to be used
-1. Enable `obfuscate` for API keys in the `@EnviedField` annotation. (Note: still assume it is not secure)
-1. Optionally, add a `defaultValue` to the `@EnviedField` annotation for keys which are
+1. Optionally, add a `@EnviedField` `defaultValue` or enable `optional` on the annotation for keys which are
 not required in all modes.
-
-### Mason Bricks
-
-[Mason](https://pub.dev/packages/mason) to generate code for features
-and tests using templates. To use the bricks, install the Mason VS Code extension. To create
-addition bricks, use [Mason CLI](https://pub.dev/packages/mason_cli).
-
-### JSON Serialization, Unions, Sealed Classes and copyWith
-
-- [dart_mappable](https://pub.dev/packages/dart_mappable)
-  - Used for Unions, JSON serialization, and copyWith
-- [modddels](https://pub.dev/packages/modddels)
-  - Used for type-safe data validation, NOT serialization
-
-### State Management
-
-This project is preconfigured to use [Riverpod Generator](https://pub.dev/packages/riverpod_generator).
-The normal riverpod syntax is still supported. See Andrea's article on
-[Riverpod architecture](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/)
-for how to structure your code.
-
-It is recommend to run build_runner in watch mode to generate the code for Riverpod.
-
-```dart
-dart run build_runner watch -d
-```
-
-### Async Data Loading and Caching
-
-The [stock](https://pub.dev/packages/stock) package is recommended for loading data from both remote and
-local sources. Its main goal is to prevent excessive calls to the network and disk cache. By
-utilizing it, you eliminate the possibility of flooding your network with the same request
-while, at the same time, adding layers of caching.
-
-Although you can use it without a local source, the greatest benefit comes from combining Stock with a local database such as Floor, Drift, Sqflite, Realm, etc. *(excerpt from the README)*
-
-### Native Splash Screen
-
-Follow the instructions in the file [flutter_native_splash.yaml](flutter_native_splash.yaml)
-
-### Native Platform Dialogs/Alerts
-
-Use [flutter_native_dialog](https://pub.dev/packages/flutter_native_dialog) to show native dialogs/alerts.
-
-### Bottom Sheets
-
-Use [wolt_modal_sheet](https://pub.dev/packages/wolt_modal_sheet) to show customizable and responsive bottom sheets.
-
-### Layout List/Grid
-
-Use [wolt_responsive_layout_grid](https://pub.dev/packages/wolt_responsive_layout_grid) to show a responsive list/grid.
 
 ## Contributing
 
