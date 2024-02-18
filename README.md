@@ -10,7 +10,6 @@ Kavita and Audiobookshelf client for mobile and desktop (coming soon)
 
 - [Motivation](#motivation)
 - [About](#about)
-- [Demo](#demo)
 - [Template: Getting Started](#template-getting-started)
 - [Setup](#setup)
 - [Testing](#testing)
@@ -35,6 +34,8 @@ this app provides some basic functionality for them.
 
 ## About
 
+A preview of the application is deployed to [getboolean.github.io/subete](https://getboolean.github.io/subete).
+
 - Made with Flutter
 - Template by [@getBoolean](https://github.com/getBoolean)
 - Minimal OS Version:
@@ -43,10 +44,6 @@ this app provides some basic functionality for them.
   - MacOS: 10.14.6
   - Windows 10
   - Linux: Any modern distribution
-
-## Demo
-
-A preview of the application is deployed to [getboolean.github.io/subete](https://getboolean.github.io/subete).
 
 ## Template: Getting Started
 
