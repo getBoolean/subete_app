@@ -1,0 +1,206 @@
+name: flutter_boolean_template
+
+packages:
+  - .
+  - packages/**
+
+command:
+  bootstrap:
+    # It seems so that running "pub get" in parallel has some issues (like
+    # https://github.com/dart-lang/pub/issues/3404). Disabling this feature
+    # makes the CI much more stable.
+    # runPubGetInParallel: false
+    hooks:
+      # Activate the coverage package globally so that it can be used in the
+      # `test` command.
+      #
+      # Generate environment files which should not be committed to the repository.
+      # Instead, they are generated during the CI process before checking
+      # if the rest of the package's code generation is up to date.
+      pre: cd packages/env && dart run build_runner build -d
+      post: dart pub global activate coverage ^1.6.4
+
+# See https://github.com/firebase/flutterfire/blob/master/melos.yaml for more examples
+scripts:
+  # Custom lint is only applied to the packages and not the root app because of a dependency conflict with `integration_test` and `melos`
+  pub:
+    run: melos run dart:pkg --no-select && melos run flutter:pkg --no-select
+    description: Run `dart pub get` in all packages.
+
+  dart:pkg:
+    run: dart pub get
+    exec:
+      failFast: true
+      # concurrency: 1
+    description: Run `dart pub get` in the selected package.
+    packageFilters:
+      noDependsOn: flutter
+
+  flutter:pkg:
+    run: flutter pub get
+    exec:
+      failFast: true
+      # concurrency: 1
+    description: Run `flutter pub get` in the selected package.
+    packageFilters:
+      dependsOn: flutter
+
+  lint:
+    run: melos run analyze && melos run custom_lint
+    description: Run `melos run analyze` and `melos run custom_lint` in all packages.
+
+  # which use different versions of `path`.
+  analyze:
+    run: melos run analyze:pkg --no-select
+    description: Run `dart analyze` in all packages.
+
+  analyze:pkg:
+    run: dart analyze --fatal-infos lib
+    exec:
+      failFast: true
+      # concurrency: 1
+    description: Run `dart analyze` on all packages.
+
+  custom_lint:
+    run: melos run custom_lint:pkg --no-select
+    description: Run `dart run custom_lint` in all packages with custom lints.
+
+  custom_lint:pkg:
+    run: dart run custom_lint
+    exec:
+      failFast: true
+      # concurrency: 1
+    description: Run `dart run custom_lint` in the selected package.
+    packageFilters:
+      dependsOn: custom_lint
+
+  upgrade:
+    run: |
+      dart pub upgrade
+      melos run upgrade:pkg --no-select
+    description: Run `dart pub upgrade` in all packages.
+
+  upgrade:pkg:
+    run: dart pub upgrade
+    exec:
+      failFast: true
+    description: Run `dart pub upgrade` in the selected package.
+
+  upgrade-major:
+    run: |
+      dart pub upgrade
+      melos run upgrade:pkg --no-select
+    description: Run `dart pub upgrade --major-versions` in all packages.
+
+  upgrade-major:pkg:
+    run: dart pub upgrade --major-versions
+    exec:
+      failFast: true
+    description: Run `dart pub upgrade --major-versions` in the selected package.
+
+  format:
+    exec: dart format .
+    description: Run `dart format` in all packages.
+
+  fix:
+    exec: dart fix --apply
+    description: Run `dart fix --apply` in all packages.
+
+  verify_format:
+    run: dart format --output=none --set-exit-if-changed .
+    exec:
+      failFast: true
+    description: Verify formatting was applied.
+
+  generate:
+    run: melos run assets && melos run env --no-select && melos run generate:pkg --no-select
+    description: Run `build_runner build` in all packages.
+
+  generate:pkg:
+    run: dart run build_runner build --delete-conflicting-outputs
+    exec:
+      # concurrency: 5
+      failFast: true
+    description: Run `build_runner build` in the selected packages.
+    packageFilters:
+      dependsOn: build_runner
+      noDependsOn: envied
+      ignore: localization
+
+  watch:pkg:
+    run: dart run build_runner watch
+    exec:
+      # concurrency: 1
+      failFast: true
+    description: Run `build_runner watch` in the selected package. If all is selected, the command will only run in the first package.
+    packageFilters:
+      dependsOn: build_runner
+      noDependsOn: envied
+      ignore: localization
+
+  env:
+    run: melos run env:pkg --no-select
+    description: Run `build_runner` in all packages that depends on `envied`.
+
+  env:pkg:
+    run: dart run build_runner clean && dart run build_runner build --delete-conflicting-outputs
+    exec:
+      failFast: true
+    description: Run `build_runner` in a specific package that depends on `envied`.
+    packageFilters:
+      dependsOn: envied
+
+  assets:
+    run: melos run assets:pkg --no-select
+    description: Run `flutter pub run assets_gen build` all packages with assets gen.
+
+  assets:pkg:
+    run: flutter pub run assets_gen build
+    exec:
+      failFast: true
+    description: Run `flutter pub run assets_gen build` in the selected package.
+    packageFilters:
+      dependsOn: assets_gen
+
+  dart_test:pkg:
+    run: dart pub global run coverage:test_with_coverage
+    exec:
+      failFast: true
+      # concurrency: 1
+    description: Run Dart tests for a specific package in this project.
+    packageFilters:
+      dirExists: test
+      dependsOn: test
+      noDependsOn: flutter
+
+  flutter_test:pkg:
+    run: flutter test --no-pub --coverage
+    exec:
+      failFast: true
+      # concurrency: 1
+    description: Run Flutter tests for a specific package in this project.
+    packageFilters:
+      flutter: true
+      dirExists: test
+      dependsOn: flutter_test
+
+  test:
+    run: melos run flutter_test && melos run dart_test
+    description: Run all tests in this project.
+
+  flutter_test:
+    run: melos run flutter_test:pkg --no-select
+    description: Run all Flutter tests in this project.
+
+  dart_test:
+    run: melos run dart_test:pkg --no-select
+    description: Run all Flutter tests in this project.
+
+  loc:
+    run: flutter gen-l10n
+    exec:
+      failFast: true
+    description: Run `flutter gen-l10n` in the localization package.
+    packageFilters:
+      dirExists: lib/src/translations
+      scope: localization

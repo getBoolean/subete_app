@@ -1,0 +1,908 @@
+name: CI
+on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        type: choice
+        description: "Flavor"
+        default: "dev"
+        required: false
+        options:
+          - "dev"
+          - "staging"
+          - "prod"
+      run_tests:
+        description: "Run tests"
+        default: true
+        required: false
+        type: boolean
+  push:
+    branches:
+      - '**'
+      - '!gh-pages'
+    tags:
+      - 'v*'
+
+env:
+  FLUTTER_CHANNEL: "stable"
+  FLUTTER_VERSION: "3.19"
+  FLAVOR: ""
+  # https://github.com/transferwise/sanitize-branch-name/blob/main/action.yml
+  BRANCH_NAME: $(echo -n ${{ github.head_ref || github.ref_name }} | tr "/" "-")
+
+# Needed to deploy to GitHub Pages
+permissions:
+  contents: write
+
+jobs:
+  flutter_test:
+    name: Run flutter test and analyze
+    runs-on: macos-14
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        run: |
+          echo "Inputs: ${{ toJSON(github.event.inputs) }}"
+
+          is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
+          is_tag=false
+          if [ "$is_tag_string" = "true" ]; then
+            is_tag=true
+          fi
+
+          flavor=""
+          if $is_tag; then
+            flavor="prod"
+          elif [ -z "${{ github.event.inputs.flavor }}" ]; then
+            flavor="dev"
+          else
+            flavor="${{ github.event.inputs.flavor }}"
+          fi
+          echo "FLAVOR=$flavor" >> $GITHUB_ENV
+          echo "FLAVOR=$flavor"
+          
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+
+      - name: Print Variables
+        run: |
+          echo "Flutter Channel: ${{ env.FLUTTER_CHANNEL }}"
+          echo "Flutter Version: ${{ env.FLUTTER_VERSION }}"
+          echo "Current Flavor: ${{ env.FLAVOR }}"
+          echo "Current Branch: ${{ env.BRANCH_NAME }}"
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          architecture: x64
+
+      - name: Check Flutter Version
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        uses: oNaiPs/secrets-to-env-action@v1
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        run: dart pub global activate melos ^3.4.0
+
+      - name: Bootstrap Melos
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        run: melos bootstrap
+
+      # Comment out this task if you don't want to enforce formatting.
+      - name: Verify Formatting
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        run: melos run verify_format
+
+      - name: Annotate PR
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        uses: invertase/github-action-dart-analyzer@v2.0.0
+        with:
+          fatal-infos: false
+          fatal-warnings: false
+          annotate-only: true
+          # custom-lint: true
+
+      - name: Run Dart Analyzer
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        run: melos run analyze
+
+      - name: Run Custom Lints
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        run: melos run custom_lint
+
+      # Project needs to have tests in test/ and a dependency on
+      # package:flutter_test for this step to succeed.
+      #
+      # Each package in the packages/ directory should have its own
+      # test/ directory with tests for that package.
+      - name: Run Tests
+        if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
+        run: melos run test
+
+      - name: Upload Coverage to Codecov
+        if: github.event_name == 'push' && !startsWith(github.event.ref, 'refs/tags/v')
+        uses: codecov/codecov-action@v3
+        with:
+          files: "**/*/lcov.info"
+
+  build_ios:
+    name: Build Flutter for iOS (Without Signing)
+    needs: [flutter_test]
+    runs-on: macos-14
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        run: |
+          echo "Inputs: ${{ toJSON(github.event.inputs) }}"
+
+          is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
+          is_tag=false
+          if [ "$is_tag_string" = "true" ]; then
+            is_tag=true
+          fi
+
+          flavor=""
+          if $is_tag; then
+            flavor="prod"
+          elif [ -z "${{ github.event.inputs.flavor }}" ]; then
+            flavor="dev"
+          else
+            flavor="${{ github.event.inputs.flavor }}"
+          fi
+          echo "FLAVOR=$flavor" >> $GITHUB_ENV
+          echo "FLAVOR=$flavor"
+          
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          architecture: x64
+
+      - name: Check Flutter Version
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        run: dart pub global activate melos ^3.4.0
+
+      - name: Bootstrap Melos
+        run: melos bootstrap
+
+      # Zip into IPA from here:
+      # https://gist.github.com/devhammed/617d920b7ee886591a46c22633ab0093
+      - name: Build Flutter IPA
+        run: |
+          flutter build ios --release --no-codesign --dart-define FLAVOR=${{ env.FLAVOR }}
+          cd build/ios/iphoneos
+          mkdir Payload
+          cd Payload
+          ln -s ../Runner.app
+          cd ..
+          zip -r app-release.ipa Payload
+          mv app-release.ipa flutter_boolean_template-${{ env.BRANCH_NAME }}-ios.ipa
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-ios
+          path: build/ios/iphoneos/flutter_boolean_template-*.ipa
+      - name: Release IPA
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/ios/iphoneos/flutter_boolean_template-*.ipa
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+
+  # build_ios_with_signing:
+  #   name: Build Flutter for iOS (Signed)
+  #   needs: [flutter_test]
+  #   runs-on: macos-14
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #       # From github documentation
+  # 
+  #     - name: Set Variables
+  #       run: |
+  #         echo "Inputs: ${{ toJSON(github.event.inputs) }}"
+  # 
+  #         is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
+  #         is_tag=false
+  #         if [ "$is_tag_string" = "true" ]; then
+  #           is_tag=true
+  #         fi
+  # 
+  #         flavor=""
+  #         if $is_tag; then
+  #           flavor="prod"
+  #         elif [ -z "${{ github.event.inputs.flavor }}" ]; then
+  #           flavor="dev"
+  #         else
+  #           flavor="${{ github.event.inputs.flavor }}"
+  #         fi
+  #         echo "FLAVOR=$flavor" >> $GITHUB_ENV
+  #         echo "FLAVOR=$flavor"
+          
+          # echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+          # echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+  #
+  #     - name: Install the Apple certificate, provisioning profile, and Firebase google services
+  #       env:
+  #         BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+  #         P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+  #         BUILD_PROVISION_PROFILE_BASE64: ${{ secrets.BUILD_PROVISION_PROFILE_BASE64 }}
+  #         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+  #       run: |
+  #         # create variables
+  #         CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+  #         PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+  #         KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+  #         # import certificate and provisioning profile from secrets
+  #         echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode --output $CERTIFICATE_PATH
+  #         echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode --output $PP_PATH
+
+  #         # create temporary keychain
+  #         security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+  #         security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+  #         security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+  #         # import certificate to keychain
+  #         security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+  #         security list-keychain -d user -s $KEYCHAIN_PATH
+
+  #         # apply provisioning profile
+  #         mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+  #         cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
+  #
+  #     - name: Install and set Flutter version
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: ${{env.FLUTTER_CHANNEL}}
+  #         flutter-version: ${{env.FLUTTER_VERSION}}
+  #         cache: true
+  #         cache-key: 'flutter-:os:-:channel:-:version:-:arch:-:hash:'
+  #         cache-path: '${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:'
+  #         architecture: x64
+  #     - run: flutter pub get
+  #     - run: flutter clean
+  #     # Zip into IPA from here:
+  #     # https://gist.github.com/devhammed/617d920b7ee886591a46c22633ab0093
+  #     - name: Build Flutter IPA
+  #       run: |
+  #         flutter build ios --release --no-codesign --dart-define FLAVOR=${{ env.FLAVOR }}
+  #         cd build/ios/iphoneos
+  #         mkdir Payload
+  #         cd Payload
+  #         ln -s ../Runner.app
+  #         cd ..
+  #         zip -r app-release.ipa Payload
+  #         mv app-release.ipa flutter_boolean_template-${{ env.BRANCH_NAME }}-ios.ipa
+  #     - name: Upload IPA
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         path: build/ios/iphoneos/flutter_boolean_template-*.ipa
+  #     - name: Release IPA
+  #       if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+  #       uses: ncipollo/release-action@v1
+  #       with:
+  #         artifacts: build/ios/iphoneos/flutter_boolean_template-*.ipa
+  #         allowUpdates: true
+  #         omitBodyDuringUpdate: true
+
+  build_android:
+    name: Build Flutter for Android
+    needs: [flutter_test]
+    runs-on: macos-14
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        run: |
+          echo "Inputs: ${{ toJSON(github.event.inputs) }}"
+
+          is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
+          is_tag=false
+          if [ "$is_tag_string" = "true" ]; then
+            is_tag=true
+          fi
+
+          flavor=""
+          if $is_tag; then
+            flavor="prod"
+          elif [ -z "${{ github.event.inputs.flavor }}" ]; then
+            flavor="dev"
+          else
+            flavor="${{ github.event.inputs.flavor }}"
+          fi
+          echo "FLAVOR=$flavor" >> $GITHUB_ENV
+          echo "FLAVOR=$flavor"
+          
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.0.0
+        with:
+          distribution: 'temurin'
+          java-version: '18'
+      
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          architecture: x64
+
+      - name: Check Flutter Version
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        run: dart pub global activate melos ^3.4.0
+
+      - name: Bootstrap Melos
+        run: melos bootstrap
+
+      - name: Build Android Split APK
+        run: |
+          flutter pub get
+          flutter build apk --release --split-per-abi --dart-define FLAVOR=${{ env.FLAVOR }}
+          cd build/app/outputs/flutter-apk
+          mv app-arm64-v8a-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-arm64-v8a.apk
+          mv app-armeabi-v7a-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-armeabi-v7a.apk
+          mv app-x86_64-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-x86_64.apk
+
+      - name: Upload Split APKs
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-android-split
+          path: build/app/outputs/flutter-apk/flutter_boolean_template-*.apk
+
+      - name: Release Split APKs
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/app/outputs/flutter-apk/flutter_boolean_template-*.apk
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+
+      - name: Build Universal APK
+        run: |
+          flutter pub get
+          flutter build apk --release --dart-define FLAVOR=${{ env.FLAVOR }}
+          cd build/app/outputs/flutter-apk
+          mv app-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal.apk
+
+      - name: Upload Universal APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal
+          path: build/app/outputs/flutter-apk/flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal.apk
+
+      - name: Release Universal APKs
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/app/outputs/flutter-apk/flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal.apk
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+
+      - name: Build Android App Bundle
+        run: |
+          flutter pub get
+          flutter build appbundle --release --dart-define FLAVOR=${{ env.FLAVOR }}
+          cd build/app/outputs/bundle/release
+          mv app-release.aab flutter_boolean_template-${{ env.BRANCH_NAME }}-android-appbundle.aab
+
+      - name: Upload Android App Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-android-appbundle
+          path: build/app/outputs/bundle/release/*.aab
+          
+      - name: Release Android App Bundle
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/app/outputs/bundle/release/flutter_boolean_template-*.aab
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+
+  build_windows:
+    name: Build Flutter for Windows x64
+    needs: [flutter_test]
+    runs-on: windows-latest
+    steps:
+      # Need to enable long paths for Windows because the forked version of go_router
+      # causes a long path error when building for Windows in CI
+      - name: Enable Git Long Paths
+        run: git config --system core.longpaths true
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        run: |
+          $is_tag = "${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}"
+          $flavor = ""
+          if ($is_tag) {
+              $flavor = "prod"
+          }
+          elseif ([string]::IsNullOrEmpty("${{ github.event.inputs.flavor }}")) {
+              $flavor = "dev"
+          }
+          else {
+              $flavor = "${{ github.event.inputs.flavor }}"
+          }
+
+          "FLAVOR=$flavor" | Out-File -Append -LiteralPath $Env:GITHUB_ENV
+          Write-Output "FLAVOR=$flavor"
+
+          
+          "BRANCH_NAME=${{ env.BRANCH_NAME }}" | Out-File -Append -LiteralPath $Env:GITHUB_ENV
+          Write-Output "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+        shell: pwsh
+
+        
+      - name: Print Variables
+        run: |
+          Write-Output "Current Flavor: ${{ env.FLAVOR }}"
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          architecture: x64
+
+      - name: Check Flutter Version
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        run: dart pub global activate melos ^3.4.0
+
+      - name: Bootstrap Melos
+        run: melos bootstrap
+
+      - name: Build Windows
+        run: flutter build windows --dart-define FLAVOR=${{ env.FLAVOR }}
+      
+      - name: Build MSIX
+        run: |
+          dart run msix:create --build-windows false
+          cd build\windows\x64\runner\Release
+          mv flutter_boolean_template.msix flutter_boolean_template-${{ env.BRANCH_NAME }}-windows.msix
+      - name: Upload MSIX
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-windows
+          path: build/windows/x64/runner/Release/*.msix
+          
+      - name: Release MSIX
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/windows/x64/runner/Release/flutter_boolean_template-*.msix
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+
+  build_linux:
+    name: Build Flutter for Linux
+    needs: [flutter_test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        run: |
+          echo "Inputs: ${{ toJSON(github.event.inputs) }}"
+
+          is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
+          is_tag=false
+          if [ "$is_tag_string" = "true" ]; then
+            is_tag=true
+          fi
+
+          flavor=""
+          if $is_tag; then
+            flavor="prod"
+          elif [ -z "${{ github.event.inputs.flavor }}" ]; then
+            flavor="dev"
+          else
+            flavor="${{ github.event.inputs.flavor }}"
+          fi
+          echo "FLAVOR=$flavor" >> $GITHUB_ENV
+          echo "FLAVOR=$flavor"
+          
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          architecture: x64
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install webkit2gtk-4.1 clang cmake ninja-build pkg-config libgtk-3-dev mpv libmpv-dev dpkg-dev
+          sudo apt install -y libfuse2
+
+      - name: Check Flutter Version
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        run: dart pub global activate melos ^3.4.0
+
+      - name: Bootstrap Melos
+        run: melos bootstrap
+
+      - name: Build Linux
+        run: flutter build linux --release --dart-define FLAVOR=${{ env.FLAVOR }}
+
+      - name: Build AppImage
+        run: |
+          curl -JOL https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod a+x appimagetool-x86_64.AppImage
+          mv appimagetool-x86_64.AppImage appimagetool
+
+          mv build/linux/x64/release/bundle/{flutter_boolean_template,AppRun}
+          cp linux/appimage/* build/linux/x64/release/bundle/
+          ./appimagetool build/linux/x64/release/bundle/
+          mv *.AppImage build/flutter_boolean_template-${{ env.BRANCH_NAME }}-linux.AppImage
+
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-linux-appimage
+          path: build/flutter_boolean_template-*.AppImage
+          
+      - name: Release AppImage
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: build/flutter_boolean_template-*.AppImage
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+
+  build_macos:
+    name: Build Flutter for MacOS
+    needs: [flutter_test]
+    runs-on: macos-14
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        run: |
+          echo "Inputs: ${{ toJSON(github.event.inputs) }}"
+
+          is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
+          is_tag=false
+          if [ "$is_tag_string" = "true" ]; then
+            is_tag=true
+          fi
+
+          flavor=""
+          if $is_tag; then
+            flavor="prod"
+          elif [ -z "${{ github.event.inputs.flavor }}" ]; then
+            flavor="dev"
+          else
+            flavor="${{ github.event.inputs.flavor }}"
+          fi
+          echo "FLAVOR=$flavor" >> $GITHUB_ENV
+          echo "FLAVOR=$flavor"
+          
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+          architecture: x64
+
+      - name: Check Flutter Version
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        run: dart pub global activate melos ^3.4.0
+
+      - name: Bootstrap Melos
+        run: melos bootstrap
+
+      - name: Build MacOS
+        run: |
+          git config --global core.longpaths true
+          flutter pub get
+          flutter build macos --release --dart-define FLAVOR=${{ env.FLAVOR }}
+      
+      - name: Build DMG
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_on: error
+          command: |
+            brew install create-dmg 
+            create-dmg --volname flutter_boolean_template-${{ env.BRANCH_NAME }}-macos --window-pos 200 120 --window-size 800 450 --icon-size 100 --app-drop-link 600 185 flutter_boolean_template-${{ env.BRANCH_NAME }}-macos.dmg build/macos/Build/Products/Release/flutter_boolean_template.app
+      
+      - name: Upload DMG
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-macos-dmg
+          path: "/Users/runner/work/flutter_boolean_template/flutter_boolean_template/*.dmg"
+          
+      - name: Release DMG
+        if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: /Users/runner/work/flutter_boolean_template/flutter_boolean_template/flutter_boolean_template-*.dmg
+          allowUpdates: true
+          omitBodyDuringUpdate: true
+
+  build_web:
+    name: Build Flutter for Web
+    needs: [flutter_test]
+    runs-on: macos-14
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Variables
+        run: |
+          echo "Inputs: ${{ toJSON(github.event.inputs) }}"
+
+          is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
+          is_tag=false
+          if [ "$is_tag_string" = "true" ]; then
+            is_tag=true
+          fi
+
+          flavor=""
+          if $is_tag; then
+            flavor="prod"
+          elif [ -z "${{ github.event.inputs.flavor }}" ]; then
+            flavor="dev"
+          else
+            flavor="${{ github.event.inputs.flavor }}"
+          fi
+          echo "FLAVOR=$flavor" >> $GITHUB_ENV
+          echo "FLAVOR=$flavor"
+          
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+
+      - name: Install and set Flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+
+      - name: Check Flutter Version
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        run: dart pub global activate melos ^3.4.0
+
+      - name: Bootstrap Melos
+        run: melos bootstrap
+
+      - name: Build Web
+        run: |
+          flutter pub get
+          flutter build web --dart-define FLAVOR=${{ env.FLAVOR }} --release --web-renderer=canvaskit
+          
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-web
+          path: build/web
+
+  deploy_web:
+    name: Deploy Flutter Web to GitHub Pages
+    runs-on: macos-14
+    needs: [build_web]
+    environment:
+      name: github-pages
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write         # to deploy to Pages
+      id-token: write      # to verify the deployment originates from an appropriate source
+      contents: read       # to find the issue number from the commit
+      pull-requests: write # to find the issue number from the pr and leave a comment
+      issues: write        # to leave a comment on the issue
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    if: github.event_name == 'push' && !startsWith(github.event.ref, 'refs/tags/v')
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install and set Flutter version
+        if: github.actor != 'dependabot[bot]'
+        uses: subosito/flutter-action@v2
+        with:
+          channel: ${{env.FLUTTER_CHANNEL}}
+          flutter-version: ${{env.FLUTTER_VERSION}}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+
+      - name: Get branch name
+        id: branch-name
+        if: github.actor != 'dependabot[bot]'
+        uses: tj-actions/branch-names@v8
+
+      - name: Build Web
+        if: github.actor != 'dependabot[bot]'
+        run: |
+          flutter pub get
+          flutter build web --dart-define FLAVOR=staging --release --web-renderer=canvaskit --base-href="/${{ github.event.repository.name }}/${{ steps.branch-name.outputs.current_branch }}/"
+      
+      - name: Deploy to GitHub Pages 🚀
+        if: github.actor != 'dependabot[bot]'
+        uses: JamesIves/github-pages-deploy-action@releases/v4
+        id: deployment
+        with:
+          # PAT required to trigger gh_pages_readme.yml workflow
+          token: ${{ secrets.PAT }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build/web # The folder the action should deploy.
+          target-folder: "${{ steps.branch-name.outputs.current_branch }}"
+
+      # Ref: https://github.com/orgs/community/discussions/27071
+      - name: Find PR Number
+        uses: actions/github-script@v6
+        id: get_pr_number
+        if: github.actor != 'dependabot[bot]' && steps.deployment.outputs.deployment-status == 'success'
+        with:
+          script: |
+            if (context.issue.number) {
+              // Return issue number if present
+              return context.issue.number;
+            } else {
+              // Otherwise return issue number from commit
+              const comment = (
+                await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                  commit_sha: context.sha,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                })
+              ).data[0];
+
+              if (comment != null) {
+                return comment.number;
+              }
+              return null;
+            }
+          result-encoding: string
+
+      - name: Get PR State
+        uses: actions/github-script@v6
+        id: get_pr_state
+        if: github.actor != 'dependabot[bot]' && steps.get_pr_number.outputs.result != 'null' && steps.deployment.outputs.deployment-status == 'success'
+        with:
+          script: |
+            return (
+                await github.rest.issues.get({
+                  issue_number: ${{ steps.get_pr_number.outputs.result }},
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                })
+              ).data.state;
+          result-encoding: string
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v3
+        id: comment
+        if: github.actor != 'dependabot[bot]' && steps.get_pr_number.outputs.result != 'null' && steps.deployment.outputs.deployment-status == 'success'
+        with:
+          issue-number: ${{ steps.get_pr_number.outputs.result }}
+          body-includes: Deployed to GitHub Pages 🚀
+          comment-author: github-actions[bot]
+
+      - name: Link Deployment in Pull Request Comment
+        if: github.actor != 'dependabot[bot]' && steps.get_pr_number.outputs.result != 'null' && steps.deployment.outputs.deployment-status == 'success' && steps.get_pr_state.outputs.result == 'open' && steps.comment.outputs.comment-id == ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: ${{ steps.get_pr_number.outputs.result }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Deployed to GitHub Pages 🚀: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ steps.branch-name.outputs.current_branch }}/'
+            });

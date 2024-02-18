@@ -1,0 +1,103 @@
+name: flutter_boolean_template
+description: An opinionated template for a Flutter project.
+
+publish_to: none
+
+version: 0.5.6
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+  flutter: ">=3.19.0 <4.0.0"
+
+dependencies:
+  accessibility_tools: ^1.0.1
+  assets:
+    path: packages/assets
+  awesome_flutter_extensions: ^1.2.0
+  collection: ^1.18.0
+  connectivity_plus: ^5.0.2
+  constants:
+    path: packages/constants
+  cupertino_icons: ^1.0.6
+  dart_mappable: ^4.1.0
+  env:
+    path: packages/env
+  flex_color_picker: ^3.3.1
+  flex_color_scheme: ^7.3.1
+  flutter:
+    sdk: flutter
+  flutter_adaptive_scaffold: ^0.1.8
+  flutter_flavor: ^3.1.1
+  flutter_hooks: ^0.20.5
+  flutter_native_splash: ^2.3.10
+  flutter_settings_ui: ^3.0.0
+  flutter_web_plugins:
+    sdk: flutter
+  fpdart: ^1.1.0
+  freezed_annotation: ^2.2.0
+  go_router: ^13.1.0
+  google_fonts: ^6.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  hooks_riverpod: ^2.4.9
+  http: ^1.2.0
+  localization:
+    path: packages/localization
+  log:
+    path: packages/log
+  modddels_annotation_fpdart: ^0.2.0
+  package_info_plus: ^5.0.1
+  path: ^1.9.0
+  path_provider: ^2.1.2
+  riverpod: ^2.3.6
+  riverpod_annotation: ^2.3.4
+  sidebarx:
+    path: packages/pub/sidebarx
+  skeletonizer: ^1.0.1
+  stock: ^1.0.1
+  super_clipboard: ^0.8.5
+  universal_html: ^2.2.4
+  url_launcher: ^6.2.4
+  window_manager: ^0.3.8
+  wolt_modal_sheet: ^0.4.1
+
+dev_dependencies:
+  app_lints:
+    path: packages/app_lints
+  build_runner: ^2.4.8
+  build_verify: ^3.1.0
+  change_app_package_name: ^1.1.0
+  custom_lint: ^0.6.0
+  dart_mappable_builder: ^4.2.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^3.0.1
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.4.7
+  hive_generator: ^2.0.1
+  integration_test:
+    sdk: flutter
+  mason: ^0.1.0-dev.52
+  melos: ^4.1.0
+  mocktail: ^1.0.3
+  modddels: ^0.2.0
+  msix: ^3.16.7
+  patrol: ^3.5.1
+  riverpod_generator: ^2.3.10
+  riverpod_lint: ^2.3.8
+  solid_lints: ^0.1.3
+  test: any
+
+flutter:
+  uses-material-design: true
+
+msix_config:
+  display_name: Flutter Template App
+  install_certificate: false
+
+patrol:
+  app_name: Flutter Boolean Template
+  android:
+    package_name: com.example.flutter_boolean_template
+  ios:
+    bundle_id: com.example.flutterBooleanTemplate

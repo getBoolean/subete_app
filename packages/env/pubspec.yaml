@@ -1,0 +1,28 @@
+name: env
+description: A new Flutter package which provides environment variables for the
+  app. These variables can also be obfuscated.
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.0.0"
+
+dependencies:
+  constants:
+    path: ../constants
+  envied: ^0.5.2
+  flutter:
+    sdk: flutter
+  fpdart: ^1.1.0
+  hooks_riverpod: ^2.3.6
+
+dev_dependencies:
+  app_lints:
+    path: ../app_lints
+  build_runner: ^2.4.5
+  envied_generator: ^0.5.2
+  flutter_test:
+    sdk: flutter
+
+flutter: null

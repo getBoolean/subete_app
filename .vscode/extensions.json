@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "robert-brunhage.flutter-riverpod-snippets",
+    "dart-code.flutter",
+    "dart-code.dart-code",
+    "felixangelov.mason",
+    "ryanluker.vscode-coverage-gutters",
+    "jeroen-meijer.pubspec-assist",
+    "usernamehw.remove-empty-lines",
+    "albert.tabout",
+    "pflannery.vscode-versionlens",
+    "gruntfuggly.todo-tree",
+    "redhat.vscode-yaml",
+    "blaugold.melos-code",
+    "peterschmalfeldt.explorer-exclude",
+    "irongeek.vscode-env"
+  ]
+}
