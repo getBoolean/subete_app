@@ -99013,7 +99013,7 @@ A.a7t.prototype={}
 A.wU.prototype={
 C(a){var s=null,r=this.c
 r=r==null?s:"GoException: "+r.a
-return A.jO(!0,A.dw(A.de(A.a([B.ap9,B.k5,A.cd(r==null?"page not found":r,s,s,s,s,s,s,s),B.k5,new A.I3(new A.aif(a),B.ap4,s)],t.p),B.Q,B.dp,B.S),s,s),B.R,!0)}}
+return A.jO(!0,A.dw(A.de(A.a([B.ap8,B.k5,A.cd(r==null?"page not found":r,s,s,s,s,s,s,s),B.k5,new A.I3(new A.aif(a),B.ap3,s)],t.p),B.Q,B.dp,B.S),s,s),B.R,!0)}}
 A.aif.prototype={
 $0(){return A.xa(this.a).tP(0,"/",null)},
 $S:0}
@@ -103361,7 +103361,7 @@ A.vK().$1(a.l(0))},
 $S:660}
 A.aQt.prototype={
 $1(a){var s=null
-return A.aSo(!1,A.lU(A.Br(s,s,!0,B.eH,s,1,s,s,s,!1,s,!1,s,s,s,s,!0,s,s,s,s,s,B.ap8,s,s,s,1,s),s,A.aT2(A.dw(A.de(A.a([B.k5,A.cd(a.Y2(),s,s,s,s,B.am3,s,s),B.k5,B.ap1],t.p),B.Q,B.K,B.bx),s,s),s,B.M,s,s,B.ak),s,s,s,B.M,s,!0,s,s,!0,!1,!1,s,s,s,!0,s))},
+return A.aSo(!1,A.lU(A.Br(s,s,!0,B.eH,s,1,s,s,s,!1,s,!1,s,s,s,s,!0,s,s,s,s,s,B.ap7,s,s,s,1,s),s,A.aT2(A.dw(A.de(A.a([B.k5,A.cd(a.Y2(),s,s,s,s,B.am3,s,s),B.k5,B.ap1],t.p),B.Q,B.K,B.bx),s,s),s,B.M,s,s,B.ak),s,s,s,B.M,s,!0,s,s,!0,!1,!1,s,s,s,!0,s))},
 $S:661}
 A.Ou.prototype={
 C(a){var s=null
@@ -103714,7 +103714,7 @@ C(a){var s,r=null,q=this.gpQ().jd($.aR0(),t.IA),p=t.A9
 p=A.cd("v"+A.Bu(q,p).c+"+"+A.Bu(q,p).d,r,r,r,r,r,r,r)
 s=this.w
 s===$&&A.b()
-return A.d1(B.I,!0,r,A.aSm(A.a([A.ts(B.uP,s==null?r:new A.aC9(this,q,a),!1,r,r,p,B.apc,r),A.ts(B.a1d,new A.aCa(a,q),!1,r,r,r,B.apg,r),A.ts(B.a1c,new A.aCb(),!1,r,r,B.ap2,B.ap3,r)],t.p),r,r,!1),B.n,r,0,r,r,r,r,r,B.aM)}}
+return A.d1(B.I,!0,r,A.aSm(A.a([A.ts(B.uP,s==null?r:new A.aC9(this,q,a),!1,r,r,p,B.apc,r),A.ts(B.a1d,new A.aCa(a,q),!1,r,r,r,B.apg,r),A.ts(B.a1c,new A.aCb(),!1,r,r,B.apb,B.ap2,r)],t.p),r,r,!1),B.n,r,0,r,r,r,r,r,B.aM)}}
 A.aC9.prototype={
 $0(){var s=0,r=A.U(t.H),q=this,p,o,n,m
 var $async$$0=A.Q(function(a,b){if(a===1)return A.R(b,r)
@@ -103765,7 +103765,7 @@ return A.T($async$$0,r)},
 $S:19}
 A.O2.prototype={
 mi(a,b){var s=null,r=b.jd($.mG(),t.u),q=A.H(a).ay.a===B.C,p=b.jd($.b78(),t.vp),o=r.d,n=q?r.e:r.f
-return A.d1(B.I,!0,s,A.aSm(A.a([new A.yI(o,B.a9L,new A.ad1(b),s,t.M7),new A.H7(n,p,new A.ad2(q,b),new A.ad3(q),s),A.ts(s,new A.ad4(a,r,b),!1,s,s,A.cd(r.b.c,s,s,s,s,s,s,s),B.apa,s),A.ts(s,new A.ad5(a,r,b),!1,s,s,A.cd(r.c.c,s,s,s,s,s,s,s),B.ap5,s)],t.p),s,s,!0),B.n,s,0,s,s,s,s,s,B.aM)}}
+return A.d1(B.I,!0,s,A.aSm(A.a([new A.yI(o,B.a9L,new A.ad1(b),s,t.M7),new A.H7(n,p,new A.ad2(q,b),new A.ad3(q),s),A.ts(s,new A.ad4(a,r,b),!1,s,s,A.cd(r.b.c,s,s,s,s,s,s,s),B.ap9,s),A.ts(s,new A.ad5(a,r,b),!1,s,s,A.cd(r.c.c,s,s,s,s,s,s,s),B.ap4,s)],t.p),s,s,!0),B.n,s,0,s,s,s,s,s,B.aM)}}
 A.ad1.prototype={
 $1(a){var s,r=this.a.jT(0,$.mG().gpF(),t.T2),q=r.a
 q===$&&A.b()
@@ -103842,7 +103842,7 @@ if($.O_==null)$.O_=A.aTC($.aQI())
 s=A.H(a)
 r=s.ay.CW
 q=s.db
-p=A.a([A.b_y(A.a([A.b_z(B.a1e,new A.aLc(),B.ap7),A.b_z(B.uP,new A.aLd(),B.apf)],t.jD),o),this.anQ()],t.m0)
+p=A.a([A.b_y(A.a([A.b_z(B.a1e,new A.aLc(),B.ap6),A.b_z(B.uP,new A.aLd(),B.apf)],t.jD),o),this.anQ()],t.m0)
 return new A.Yc(B.Xj,new A.pX(r,o,o,r,o,o,q,o,o,o,o),new A.pX(r,o,o,r,o,o,q,o,o,o,o),p,o)},
 anQ(){var s=new A.uE(B.a1a,B.Lw,new A.aLb(this),null)
 s.z=s.ax=s.as=null
@@ -103867,7 +103867,7 @@ return A.T($async$$1,r)},
 $S:672}
 A.aLa.prototype={
 $1(a){var s=null,r=A.H(a)
-return new A.a0T(s,s,s,B.Lw,s,s,B.aph,s,s,A.a([A.GV(!1,B.apb,B.n,s,s,s,s,s,new A.aL8(a),s,s),A.GV(!1,A.cd("Reset",s,s,s,s,A.bM(s,s,r.ay.at,s,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),B.n,s,s,s,s,s,new A.aL9(this.a,a),s,s)],t.p),s,s,s,s,s,s,s,s,s,s,s,B.tT,B.n,s,s,!1,s)},
+return new A.a0T(s,s,s,B.Lw,s,s,B.aph,s,s,A.a([A.GV(!1,B.apa,B.n,s,s,s,s,s,new A.aL8(a),s,s),A.GV(!1,A.cd("Reset",s,s,s,s,A.bM(s,s,r.ay.at,s,s,s,s,s,s,s,s,s,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),B.n,s,s,s,s,s,new A.aL9(this.a,a),s,s)],t.p),s,s,s,s,s,s,s,s,s,s,s,B.tT,B.n,s,s,!1,s)},
 $S:673}
 A.aL8.prototype={
 $0(){return A.hK(this.a,!1).eQ()},
@@ -114620,8 +114620,8 @@ B.ajr=new A.m0(3,"hide")
 B.aus=new A.m0(4,"remove")
 B.L2=new A.m0(5,"timeout")
 B.ajs=new A.yZ(null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ap6=new A.dh("Version copied to clipboard",null,null,null,null,null,null,null,null,null)
-B.ajt=new A.uK(B.ap6,null,null,null,null,null,null,null,null,null,null,null,null,B.XU,null,null,null,B.P,null)
+B.ap5=new A.dh("Version copied to clipboard",null,null,null,null,null,null,null,null,null)
+B.ajt=new A.uK(B.ap5,null,null,null,null,null,null,null,null,null,null,null,null,B.XU,null,null,null,B.P,null)
 B.L3=new A.Yz(0,"permissive")
 B.aut=new A.Yz(1,"normal")
 B.aju=new A.GA(0)
@@ -115026,18 +115026,18 @@ B.ap_=new A.dZ(B.an_,B.aoy,B.aob,B.al7,B.ao3,B.amP,B.aoF,B.alQ,B.amo,B.anX,B.akZ
 B.ap0=new A.dh("Retry",null,null,null,null,null,null,null,null,null)
 B.anG=new A.r(!0,B.eH,null,null,null,null,null,B.bS,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.ap1=new A.dh("Restart the app to continue.",null,B.anG,null,null,null,null,null,null,null)
-B.ap2=new A.dh("getBoolean/subete",null,null,null,null,null,null,null,null,null)
-B.ap3=new A.dh("GitHub",null,null,null,null,null,null,null,null,null)
+B.ap2=new A.dh("GitHub",null,null,null,null,null,null,null,null,null)
 B.Lu=new A.dh("Home",null,null,null,null,null,null,null,null,null)
 B.ana=new A.r(!0,B.f,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.ap4=new A.dh("Go to home page",null,B.ana,null,null,null,null,null,null,null)
-B.ap5=new A.dh("Landscape Navigation",null,null,null,null,null,null,null,null,null)
+B.ap3=new A.dh("Go to home page",null,B.ana,null,null,null,null,null,null,null)
+B.ap4=new A.dh("Landscape Navigation",null,null,null,null,null,null,null,null,null)
 B.Lw=new A.dh("Reset settings",null,null,null,null,null,null,null,null,null)
-B.ap7=new A.dh("Appearance",null,null,null,null,null,null,null,null,null)
-B.ap8=new A.dh("An error occurred",null,null,null,null,null,null,null,null,null)
-B.ap9=new A.dh("Page Not Found",null,B.f0,null,null,null,null,null,null,null)
-B.apa=new A.dh("Portrait Navigation",null,null,null,null,null,null,null,null,null)
-B.apb=new A.dh("Cancel",null,null,null,null,null,null,null,null,null)
+B.ap6=new A.dh("Appearance",null,null,null,null,null,null,null,null,null)
+B.ap7=new A.dh("An error occurred",null,null,null,null,null,null,null,null,null)
+B.ap8=new A.dh("Page Not Found",null,B.f0,null,null,null,null,null,null,null)
+B.ap9=new A.dh("Portrait Navigation",null,null,null,null,null,null,null,null,null)
+B.apa=new A.dh("Cancel",null,null,null,null,null,null,null,null,null)
+B.apb=new A.dh("getBoolean/subete_app",null,null,null,null,null,null,null,null,null)
 B.apc=new A.dh("Version",null,null,null,null,null,null,null,null,null)
 B.ape=new A.dh("Advanced",null,null,null,null,null,null,null,null,null)
 B.Lx=new A.dh("Push Details",null,null,null,null,null,null,null,null,null)
