@@ -1,15 +1,15 @@
 import 'package:constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/application/settings_service.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/navigation_type_override.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/widgets/auto_leading_button.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/widgets/responsive_scaffold.dart';
-import 'package:flutter_boolean_template/src/routing/router/router_extensions.dart';
-import 'package:flutter_boolean_template/utils/utils.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
+import 'package:subete/src/features/settings/application/settings_service.dart';
+import 'package:subete/src/features/settings/data/dto/navigation_type_override.dart';
+import 'package:subete/src/routing/presentation/widgets/auto_leading_button.dart';
+import 'package:subete/src/routing/presentation/widgets/responsive_scaffold.dart';
+import 'package:subete/src/routing/router/router_extensions.dart';
+import 'package:subete/utils/utils.dart';
 
 class RootScaffoldShell extends ConsumerStatefulWidget {
   const RootScaffoldShell({

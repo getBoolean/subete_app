@@ -5,7 +5,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([super.locale = 'en']);
 
   @override
-  String get appTitle => 'flutter_boolean_template';
+  String get appTitle => 'subete';
 
   @override
   String get timesButtonPressed =>

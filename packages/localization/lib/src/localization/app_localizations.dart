@@ -95,7 +95,7 @@ abstract class AppLocalizations {
   /// The title of the application
   ///
   /// In en, this message translates to:
-  /// **'flutter_boolean_template'**
+  /// **'subete'**
   String get appTitle;
 
   /// The number of times the user has pressed the Add (+) button

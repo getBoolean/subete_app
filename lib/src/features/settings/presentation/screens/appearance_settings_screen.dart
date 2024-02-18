@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/application/settings_service.dart';
-import 'package:flutter_boolean_template/src/features/settings/application/themes.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/navigation_type_override.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/theme_type.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/extensions.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/widgets/segmented_button_tile.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/widgets/theme_selector_tile.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subete/src/features/settings/application/settings_service.dart';
+import 'package:subete/src/features/settings/application/themes.dart';
+import 'package:subete/src/features/settings/data/dto/navigation_type_override.dart';
+import 'package:subete/src/features/settings/data/dto/theme_type.dart';
+import 'package:subete/src/features/settings/presentation/extensions.dart';
+import 'package:subete/src/features/settings/presentation/widgets/segmented_button_tile.dart';
+import 'package:subete/src/features/settings/presentation/widgets/theme_selector_tile.dart';
 
 class AppearanceSettingsScreen extends ConsumerWidget {
   const AppearanceSettingsScreen({super.key});

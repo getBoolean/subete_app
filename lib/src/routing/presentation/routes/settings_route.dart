@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/screens/settings_screen.dart';
+import 'package:subete/src/features/settings/presentation/screens/settings_screen.dart';
 
 class SettingsRoute extends StatefulWidget {
   const SettingsRoute({super.key});

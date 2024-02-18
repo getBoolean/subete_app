@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/routes/book_details_route.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/routes/books_route.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/routes/profile_details_route.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/routes/profile_route.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/routes/setting_details_route.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/routes/settings_route.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/widgets/implicitly_animated_page_switcher.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/widgets/responsive_scaffold.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/widgets/root_scaffold_shell.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
+import 'package:subete/src/routing/presentation/routes/book_details_route.dart';
+import 'package:subete/src/routing/presentation/routes/books_route.dart';
+import 'package:subete/src/routing/presentation/routes/profile_details_route.dart';
+import 'package:subete/src/routing/presentation/routes/profile_route.dart';
+import 'package:subete/src/routing/presentation/routes/setting_details_route.dart';
+import 'package:subete/src/routing/presentation/routes/settings_route.dart';
+import 'package:subete/src/routing/presentation/widgets/implicitly_animated_page_switcher.dart';
+import 'package:subete/src/routing/presentation/widgets/responsive_scaffold.dart';
+import 'package:subete/src/routing/presentation/widgets/root_scaffold_shell.dart';
 
 export 'router_extensions.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/human_name_enum.dart';
+import 'package:subete/src/features/settings/data/dto/human_name_enum.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 Future<OptionT?> showOptionsMenu<OptionT extends HumanReadableEnum>(

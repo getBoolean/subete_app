@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/human_name_enum.dart';
+import 'package:subete/src/features/settings/data/dto/human_name_enum.dart';
 
 class SegmentedButtonTile<T extends HumanReadableEnum> extends StatefulWidget {
   const SegmentedButtonTile({

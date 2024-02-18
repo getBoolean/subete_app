@@ -18,10 +18,10 @@ on:
         type: boolean
   push:
     branches:
-      - '**'
-      - '!gh-pages'
+      - "**"
+      - "!gh-pages"
     tags:
-      - 'v*'
+      - "v*"
 
 env:
   FLUTTER_CHANNEL: "stable"
@@ -62,7 +62,7 @@ jobs:
           fi
           echo "FLAVOR=$flavor" >> $GITHUB_ENV
           echo "FLAVOR=$flavor"
-          
+
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
 
@@ -170,7 +170,7 @@ jobs:
           fi
           echo "FLAVOR=$flavor" >> $GITHUB_ENV
           echo "FLAVOR=$flavor"
-          
+
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
 
@@ -212,17 +212,17 @@ jobs:
           ln -s ../Runner.app
           cd ..
           zip -r app-release.ipa Payload
-          mv app-release.ipa flutter_boolean_template-${{ env.BRANCH_NAME }}-ios.ipa
+          mv app-release.ipa subete-${{ env.BRANCH_NAME }}-ios.ipa
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-ios
-          path: build/ios/iphoneos/flutter_boolean_template-*.ipa
+          name: subete-${{ env.BRANCH_NAME }}-ios
+          path: build/ios/iphoneos/subete-*.ipa
       - name: Release IPA
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: build/ios/iphoneos/flutter_boolean_template-*.ipa
+          artifacts: build/ios/iphoneos/subete-*.ipa
           allowUpdates: true
           omitBodyDuringUpdate: true
 
@@ -234,17 +234,17 @@ jobs:
   #     - name: Checkout repository
   #       uses: actions/checkout@v4
   #       # From github documentation
-  # 
+  #
   #     - name: Set Variables
   #       run: |
   #         echo "Inputs: ${{ toJSON(github.event.inputs) }}"
-  # 
+  #
   #         is_tag_string=${{ github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v') }}
   #         is_tag=false
   #         if [ "$is_tag_string" = "true" ]; then
   #           is_tag=true
   #         fi
-  # 
+  #
   #         flavor=""
   #         if $is_tag; then
   #           flavor="prod"
@@ -255,9 +255,9 @@ jobs:
   #         fi
   #         echo "FLAVOR=$flavor" >> $GITHUB_ENV
   #         echo "FLAVOR=$flavor"
-          
-          # echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
-          # echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
+
+  # echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
+  # echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
   #
   #     - name: Install the Apple certificate, provisioning profile, and Firebase google services
   #       env:
@@ -310,16 +310,16 @@ jobs:
   #         ln -s ../Runner.app
   #         cd ..
   #         zip -r app-release.ipa Payload
-  #         mv app-release.ipa flutter_boolean_template-${{ env.BRANCH_NAME }}-ios.ipa
+  #         mv app-release.ipa subete-${{ env.BRANCH_NAME }}-ios.ipa
   #     - name: Upload IPA
   #       uses: actions/upload-artifact@v4
   #       with:
-  #         path: build/ios/iphoneos/flutter_boolean_template-*.ipa
+  #         path: build/ios/iphoneos/subete-*.ipa
   #     - name: Release IPA
   #       if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
   #       uses: ncipollo/release-action@v1
   #       with:
-  #         artifacts: build/ios/iphoneos/flutter_boolean_template-*.ipa
+  #         artifacts: build/ios/iphoneos/subete-*.ipa
   #         allowUpdates: true
   #         omitBodyDuringUpdate: true
 
@@ -351,16 +351,15 @@ jobs:
           fi
           echo "FLAVOR=$flavor" >> $GITHUB_ENV
           echo "FLAVOR=$flavor"
-          
+
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
 
       - name: Setup Java JDK
         uses: actions/setup-java@v4.0.0
         with:
-          distribution: 'temurin'
-          java-version: '18'
-      
+          distribution: "temurin"
+          java-version: "18"
 
       - name: Install and set Flutter version
         uses: subosito/flutter-action@v2
@@ -394,21 +393,21 @@ jobs:
           flutter pub get
           flutter build apk --release --split-per-abi --dart-define FLAVOR=${{ env.FLAVOR }}
           cd build/app/outputs/flutter-apk
-          mv app-arm64-v8a-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-arm64-v8a.apk
-          mv app-armeabi-v7a-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-armeabi-v7a.apk
-          mv app-x86_64-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-x86_64.apk
+          mv app-arm64-v8a-release.apk subete-${{ env.BRANCH_NAME }}-android-arm64-v8a.apk
+          mv app-armeabi-v7a-release.apk subete-${{ env.BRANCH_NAME }}-android-armeabi-v7a.apk
+          mv app-x86_64-release.apk subete-${{ env.BRANCH_NAME }}-android-x86_64.apk
 
       - name: Upload Split APKs
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-android-split
-          path: build/app/outputs/flutter-apk/flutter_boolean_template-*.apk
+          name: subete-${{ env.BRANCH_NAME }}-android-split
+          path: build/app/outputs/flutter-apk/subete-*.apk
 
       - name: Release Split APKs
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: build/app/outputs/flutter-apk/flutter_boolean_template-*.apk
+          artifacts: build/app/outputs/flutter-apk/subete-*.apk
           allowUpdates: true
           omitBodyDuringUpdate: true
 
@@ -417,19 +416,19 @@ jobs:
           flutter pub get
           flutter build apk --release --dart-define FLAVOR=${{ env.FLAVOR }}
           cd build/app/outputs/flutter-apk
-          mv app-release.apk flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal.apk
+          mv app-release.apk subete-${{ env.BRANCH_NAME }}-android-universal.apk
 
       - name: Upload Universal APK
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal
-          path: build/app/outputs/flutter-apk/flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal.apk
+          name: subete-${{ env.BRANCH_NAME }}-android-universal
+          path: build/app/outputs/flutter-apk/subete-${{ env.BRANCH_NAME }}-android-universal.apk
 
       - name: Release Universal APKs
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: build/app/outputs/flutter-apk/flutter_boolean_template-${{ env.BRANCH_NAME }}-android-universal.apk
+          artifacts: build/app/outputs/flutter-apk/subete-${{ env.BRANCH_NAME }}-android-universal.apk
           allowUpdates: true
           omitBodyDuringUpdate: true
 
@@ -438,19 +437,19 @@ jobs:
           flutter pub get
           flutter build appbundle --release --dart-define FLAVOR=${{ env.FLAVOR }}
           cd build/app/outputs/bundle/release
-          mv app-release.aab flutter_boolean_template-${{ env.BRANCH_NAME }}-android-appbundle.aab
+          mv app-release.aab subete-${{ env.BRANCH_NAME }}-android-appbundle.aab
 
       - name: Upload Android App Bundle
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-android-appbundle
+          name: subete-${{ env.BRANCH_NAME }}-android-appbundle
           path: build/app/outputs/bundle/release/*.aab
-          
+
       - name: Release Android App Bundle
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: build/app/outputs/bundle/release/flutter_boolean_template-*.aab
+          artifacts: build/app/outputs/bundle/release/subete-*.aab
           allowUpdates: true
           omitBodyDuringUpdate: true
 
@@ -483,12 +482,11 @@ jobs:
           "FLAVOR=$flavor" | Out-File -Append -LiteralPath $Env:GITHUB_ENV
           Write-Output "FLAVOR=$flavor"
 
-          
+
           "BRANCH_NAME=${{ env.BRANCH_NAME }}" | Out-File -Append -LiteralPath $Env:GITHUB_ENV
           Write-Output "BRANCH_NAME=${{ env.BRANCH_NAME }}"
         shell: pwsh
 
-        
       - name: Print Variables
         run: |
           Write-Output "Current Flavor: ${{ env.FLAVOR }}"
@@ -522,23 +520,23 @@ jobs:
 
       - name: Build Windows
         run: flutter build windows --dart-define FLAVOR=${{ env.FLAVOR }}
-      
+
       - name: Build MSIX
         run: |
           dart run msix:create --build-windows false
           cd build\windows\x64\runner\Release
-          mv flutter_boolean_template.msix flutter_boolean_template-${{ env.BRANCH_NAME }}-windows.msix
+          mv subete.msix subete-${{ env.BRANCH_NAME }}-windows.msix
       - name: Upload MSIX
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-windows
+          name: subete-${{ env.BRANCH_NAME }}-windows
           path: build/windows/x64/runner/Release/*.msix
-          
+
       - name: Release MSIX
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: build/windows/x64/runner/Release/flutter_boolean_template-*.msix
+          artifacts: build/windows/x64/runner/Release/subete-*.msix
           allowUpdates: true
           omitBodyDuringUpdate: true
 
@@ -570,7 +568,7 @@ jobs:
           fi
           echo "FLAVOR=$flavor" >> $GITHUB_ENV
           echo "FLAVOR=$flavor"
-          
+
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
 
@@ -615,22 +613,22 @@ jobs:
           chmod a+x appimagetool-x86_64.AppImage
           mv appimagetool-x86_64.AppImage appimagetool
 
-          mv build/linux/x64/release/bundle/{flutter_boolean_template,AppRun}
+          mv build/linux/x64/release/bundle/{subete,AppRun}
           cp linux/appimage/* build/linux/x64/release/bundle/
           ./appimagetool build/linux/x64/release/bundle/
-          mv *.AppImage build/flutter_boolean_template-${{ env.BRANCH_NAME }}-linux.AppImage
+          mv *.AppImage build/subete-${{ env.BRANCH_NAME }}-linux.AppImage
 
       - name: Upload AppImage
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-linux-appimage
-          path: build/flutter_boolean_template-*.AppImage
-          
+          name: subete-${{ env.BRANCH_NAME }}-linux-appimage
+          path: build/subete-*.AppImage
+
       - name: Release AppImage
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: build/flutter_boolean_template-*.AppImage
+          artifacts: build/subete-*.AppImage
           allowUpdates: true
           omitBodyDuringUpdate: true
 
@@ -662,7 +660,7 @@ jobs:
           fi
           echo "FLAVOR=$flavor" >> $GITHUB_ENV
           echo "FLAVOR=$flavor"
-          
+
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
 
@@ -698,7 +696,7 @@ jobs:
           git config --global core.longpaths true
           flutter pub get
           flutter build macos --release --dart-define FLAVOR=${{ env.FLAVOR }}
-      
+
       - name: Build DMG
         uses: nick-fields/retry@v2
         with:
@@ -707,19 +705,19 @@ jobs:
           retry_on: error
           command: |
             brew install create-dmg 
-            create-dmg --volname flutter_boolean_template-${{ env.BRANCH_NAME }}-macos --window-pos 200 120 --window-size 800 450 --icon-size 100 --app-drop-link 600 185 flutter_boolean_template-${{ env.BRANCH_NAME }}-macos.dmg build/macos/Build/Products/Release/flutter_boolean_template.app
-      
+            create-dmg --volname subete-${{ env.BRANCH_NAME }}-macos --window-pos 200 120 --window-size 800 450 --icon-size 100 --app-drop-link 600 185 subete-${{ env.BRANCH_NAME }}-macos.dmg build/macos/Build/Products/Release/subete.app
+
       - name: Upload DMG
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-macos-dmg
-          path: "/Users/runner/work/flutter_boolean_template/flutter_boolean_template/*.dmg"
-          
+          name: subete-${{ env.BRANCH_NAME }}-macos-dmg
+          path: "/Users/runner/work/subete/subete/*.dmg"
+
       - name: Release DMG
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         uses: ncipollo/release-action@v1
         with:
-          artifacts: /Users/runner/work/flutter_boolean_template/flutter_boolean_template/flutter_boolean_template-*.dmg
+          artifacts: /Users/runner/work/subete/subete/subete-*.dmg
           allowUpdates: true
           omitBodyDuringUpdate: true
 
@@ -751,7 +749,7 @@ jobs:
           fi
           echo "FLAVOR=$flavor" >> $GITHUB_ENV
           echo "FLAVOR=$flavor"
-          
+
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> $GITHUB_ENV
           echo "BRANCH_NAME=${{ env.BRANCH_NAME }}"
 
@@ -785,11 +783,11 @@ jobs:
         run: |
           flutter pub get
           flutter build web --dart-define FLAVOR=${{ env.FLAVOR }} --release --web-renderer=canvaskit
-          
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: flutter_boolean_template-${{ env.BRANCH_NAME }}-web
+          name: subete-${{ env.BRANCH_NAME }}-web
           path: build/web
 
   deploy_web:
@@ -800,11 +798,11 @@ jobs:
       name: github-pages
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write         # to deploy to Pages
-      id-token: write      # to verify the deployment originates from an appropriate source
-      contents: read       # to find the issue number from the commit
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
+      contents: read # to find the issue number from the commit
       pull-requests: write # to find the issue number from the pr and leave a comment
-      issues: write        # to leave a comment on the issue
+      issues: write # to leave a comment on the issue
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     if: github.event_name == 'push' && !startsWith(github.event.ref, 'refs/tags/v')
@@ -832,7 +830,7 @@ jobs:
         run: |
           flutter pub get
           flutter build web --dart-define FLAVOR=staging --release --web-renderer=canvaskit --base-href="/${{ github.event.repository.name }}/${{ steps.branch-name.outputs.current_branch }}/"
-      
+
       - name: Deploy to GitHub Pages 🚀
         if: github.actor != 'dependabot[bot]'
         uses: JamesIves/github-pages-deploy-action@releases/v4

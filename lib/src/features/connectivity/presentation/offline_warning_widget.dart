@@ -1,7 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/connectivity/presentation/connectivity_builder.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subete/src/features/connectivity/presentation/connectivity_builder.dart';
 
 class OfflineWarningBanner extends ConsumerWidget {
   const OfflineWarningBanner({super.key});

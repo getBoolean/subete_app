@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart' show ThemeMode;
-import 'package:flutter_boolean_template/src/features/settings/data/dto/human_name_enum.dart';
 import 'package:hive/hive.dart';
+import 'package:subete/src/features/settings/data/dto/human_name_enum.dart';
 
 part 'theme_type.g.dart';
 part 'theme_type.mapper.dart';

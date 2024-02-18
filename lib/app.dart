@@ -3,14 +3,14 @@ library app;
 import 'package:accessibility_tools/accessibility_tools.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/application/settings_service.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/settings.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/widgets/app_settings.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/widgets/router_widget.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:localization/localization.dart';
+import 'package:subete/src/features/settings/application/settings_service.dart';
+import 'package:subete/src/features/settings/data/dto/settings.dart';
+import 'package:subete/src/features/settings/presentation/widgets/app_settings.dart';
+import 'package:subete/src/routing/presentation/widgets/router_widget.dart';
 
 /// The main app widget at the root of the widget tree.
 class App extends ConsumerWidget {

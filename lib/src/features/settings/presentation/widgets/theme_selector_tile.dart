@@ -2,7 +2,7 @@ import 'package:constants/constants.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/utils/utils.dart';
+import 'package:subete/utils/utils.dart';
 
 class ThemeSelectorTile extends StatefulWidget {
   const ThemeSelectorTile({

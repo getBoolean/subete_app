@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/settings.dart';
+import 'package:subete/src/features/settings/data/dto/settings.dart';
 
 class AppSettings extends InheritedModel<String> {
   const AppSettings({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/screens/about_settings_screen.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/screens/appearance_settings_screen.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/screens/unknown_settings_screen.dart';
+import 'package:subete/src/features/settings/presentation/screens/about_settings_screen.dart';
+import 'package:subete/src/features/settings/presentation/screens/appearance_settings_screen.dart';
+import 'package:subete/src/features/settings/presentation/screens/unknown_settings_screen.dart';
 
 class SettingDetailsRoute extends StatefulWidget {
   const SettingDetailsRoute({super.key, this.id});

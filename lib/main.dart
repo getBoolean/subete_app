@@ -1,10 +1,10 @@
 import 'package:constants/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/app.dart';
-import 'package:flutter_boolean_template/src/features/initialization/presentation/app_startup_widget.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subete/app.dart';
+import 'package:subete/src/features/initialization/presentation/app_startup_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

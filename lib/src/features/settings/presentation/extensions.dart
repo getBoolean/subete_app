@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/human_name_enum.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/settings.dart';
-import 'package:flutter_boolean_template/src/features/settings/presentation/utils.dart'
-    as utils;
-import 'package:flutter_boolean_template/src/features/settings/presentation/widgets/app_settings.dart';
+import 'package:subete/src/features/settings/data/dto/human_name_enum.dart';
+import 'package:subete/src/features/settings/data/dto/settings.dart';
+import 'package:subete/src/features/settings/presentation/utils.dart' as utils;
+import 'package:subete/src/features/settings/presentation/widgets/app_settings.dart';
 
 extension BuildContextSettings on BuildContext {
   Settings get settings => AppSettings.of(this);

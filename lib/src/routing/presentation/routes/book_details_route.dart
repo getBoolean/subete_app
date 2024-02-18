@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/books/presentation/book_details_screen.dart';
+import 'package:subete/src/features/books/presentation/book_details_screen.dart';
 
 class BookDetailsRoute extends StatefulWidget {
   const BookDetailsRoute({

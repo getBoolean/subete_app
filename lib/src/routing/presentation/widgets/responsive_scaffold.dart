@@ -6,13 +6,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
-import 'package:flutter_boolean_template/src/routing/data/navigation_type.dart';
-import 'package:flutter_boolean_template/src/routing/presentation/widgets/responsive_sidebar.dart';
-import 'package:flutter_boolean_template/src/routing/router/router.dart';
-import 'package:flutter_boolean_template/utils/utils.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:subete/src/routing/data/navigation_type.dart';
+import 'package:subete/src/routing/presentation/widgets/responsive_sidebar.dart';
+import 'package:subete/src/routing/router/router.dart';
+import 'package:subete/utils/utils.dart';
 
 typedef NavigationTypeResolver = NavigationType Function(BuildContext context);
 

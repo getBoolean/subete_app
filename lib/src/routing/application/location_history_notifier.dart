@@ -1,8 +1,8 @@
-import 'package:flutter_boolean_template/src/routing/application/location_notifier.dart';
-import 'package:flutter_boolean_template/src/routing/data/location_history.dart';
-import 'package:flutter_boolean_template/src/routing/router/router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subete/src/routing/application/location_notifier.dart';
+import 'package:subete/src/routing/data/location_history.dart';
+import 'package:subete/src/routing/router/router.dart';
 
 final locationHistoryProvider =
     NotifierProvider<LocationHistoryNotifier, LocationHistory>(

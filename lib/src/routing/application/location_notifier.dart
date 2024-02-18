@@ -1,5 +1,5 @@
-import 'package:flutter_boolean_template/src/routing/router/router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subete/src/routing/router/router.dart';
 
 final locationProvider =
     NotifierProvider<LocationNotifier, Uri>(LocationNotifier.new);

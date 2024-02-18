@@ -1,6 +1,6 @@
-import 'package:flutter_boolean_template/src/features/example_feature/data/data_source/weather_api.dart';
-import 'package:flutter_boolean_template/src/features/example_feature/data/dto/weather.dart';
 import 'package:http/http.dart' as http;
+import 'package:subete/src/features/example_feature/data/data_source/weather_api.dart';
+import 'package:subete/src/features/example_feature/data/dto/weather.dart';
 
 abstract class WeatherRepository {
   Future<Weather> getWeather({required String city});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/connectivity/presentation/offline_warning_widget.dart';
-import 'package:flutter_boolean_template/src/routing/router/router.dart';
 import 'package:go_router/go_router.dart';
+import 'package:subete/src/features/connectivity/presentation/offline_warning_widget.dart';
+import 'package:subete/src/routing/router/router.dart';
 
 class BooksScreen extends StatelessWidget {
   const BooksScreen({

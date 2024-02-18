@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/human_name_enum.dart';
-import 'package:flutter_boolean_template/src/routing/data/navigation_type.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:subete/src/features/settings/data/dto/human_name_enum.dart';
+import 'package:subete/src/routing/data/navigation_type.dart';
 
 part 'navigation_type_override.g.dart';
 part 'navigation_type_override.mapper.dart';

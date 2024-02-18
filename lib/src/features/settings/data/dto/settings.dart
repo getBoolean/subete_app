@@ -2,9 +2,9 @@ import 'package:constants/constants.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/navigation_type_override.dart';
-import 'package:flutter_boolean_template/src/features/settings/data/dto/theme_type.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:subete/src/features/settings/data/dto/navigation_type_override.dart';
+import 'package:subete/src/features/settings/data/dto/theme_type.dart';
 
 part 'settings.g.dart';
 part 'settings.mapper.dart';

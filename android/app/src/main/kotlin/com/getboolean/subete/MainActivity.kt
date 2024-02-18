@@ -1,4 +1,4 @@
-package com.example.flutter_boolean_template
+package com.getboolean.subete
 
 import io.flutter.embedding.android.FlutterActivity
 

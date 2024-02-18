@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/profile/presentation/profile_screen.dart';
+import 'package:subete/src/features/profile/presentation/profile_screen.dart';
 
 class ProfileRoute extends StatefulWidget {
   const ProfileRoute({super.key});

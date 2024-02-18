@@ -1,12 +1,10 @@
-# flutter_boolean_template <!-- omit in toc -->
+# Subete <!-- omit in toc -->
 
-[![latest release](https://img.shields.io/github/release/getBoolean/flutter_boolean_template.svg?maxAge=3600&label=download)](https://github.com/getBoolean/flutter_boolean_template/releases)
-[![coverage](https://img.shields.io/codecov/c/github/getBoolean/flutter_boolean_template)](https://app.codecov.io/gh/getBoolean/flutter_boolean_template)
-[![Codemagic build status](https://api.codemagic.io/apps/64d885be0dff4f86138da577/64d885be0dff4f86138da576/status_badge.svg)](https://codemagic.io/apps/64d885be0dff4f86138da577/64d885be0dff4f86138da576/latest_build)
+[![latest release](https://img.shields.io/github/release/getBoolean/subete.svg?maxAge=3600&label=download)](https://github.com/getBoolean/subete_app/releases)
+[![coverage](https://img.shields.io/codecov/c/github/getBoolean/subete)](https://app.codecov.io/gh/getBoolean/subete)
+[![Codemagic build status](https://api.codemagic.io/apps/65d2775c4e369a6b975b5c92/65d2775c4e369a6b975b5c91/status_badge.svg)](https://codemagic.io/apps/65d2775c4e369a6b975b5c92/65d2775c4e369a6b975b5c91/latest_build)
 
-An opinionated starting point for a Flutter app intended to provide the boilerplate
-needed to create a large app and provides utilities to separate code generation into
-separate packages.
+Kavita and Audiobookshelf client for mobile and desktop (coming soon)
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -15,6 +13,7 @@ separate packages.
 - [Demo](#demo)
 - [Template: Getting Started](#template-getting-started)
   - [Change App/Package Name](#change-apppackage-name)
+  - [Workflow Permissions](#workflow-permissions)
 - [Setup](#setup)
 - [Testing](#testing)
   - [Integration Tests](#integration-tests)
@@ -44,12 +43,8 @@ separate packages.
 
 ## Motivation
 
-This is an opinionated template I use for my personal projects. It uses `melos` monorepo
-to separate the code generation into separate packages for [assets/](./packages/assets/), [env/](./packages/env/),
-and [localization/](./packages/localization/)
-
-This repository also follows [Riverpod App Architecture](https://codewithandrea.com/articles/flutter-app-architecture-riverpod-introduction/),
-I highly recommend reading the article. Each `layer` has its own folder per feature in the [lib/src/features/](./lib/src/features/) folder.
+There is a lack of apps for self hosted services like Kavita and Audiobookshelf,
+this app provides some basic functionality for them.
 
 ## About
 
@@ -64,34 +59,20 @@ I highly recommend reading the article. Each `layer` has its own folder per feat
 
 ## Demo
 
-Flutter Web is deployed to GitHub Pages in a separate subfolder for each branch. The `main` branch is deployed to
-[getboolean.github.io/flutter_boolean_template](https://getboolean.github.io/flutter_boolean_template).
-
-- This GitHub Pages setup requires the Flutter `#` from [HashUrlStrategy](https://api.flutter.dev/flutter/package-flutter_web_plugins_url_strategy/HashUrlStrategy-class.html), so ensure it is not disabled for your Flutter Web CI builds deployed to GitHub Pages. If it is disabled, the Navigator 2.0 subroutes will prevent GitHub Pages from resolving the correct app when refreshed.
-
-For example, in the CI workflow using the argument `--dart-define ENABLE_HASH_URL_STRATEGY=true`
-
-```dart
-void main() {
-  const useHashUrlStrategy = bool.fromEnvironment('ENABLE_HASH_URL_STRATEGY', defaultValue: false);
-  if (!useHashUrlStrategy) {
-    setUrlStrategy();
-  }
-  runApp(MyApp());
-}
-```
+A preview of the application is deployed to [getboolean.github.io/subete](https://getboolean.github.io/subete).
 
 ## Template: Getting Started
 
 1. Setup:
-   1. [ ] Install [puro](https://puro.dev) Flutter Environment Manager
-   1. [ ] Install Flutter using Puro
-   1. [ ] Install [Melos](https://pub.dev/packages/melos) globally
-   1. [ ] Install [Mason CLI](https://docs.brickhub.dev/)
-1. [ ] Run `melos bootstrap` to install dependencies for all packages and generate env files.
-1. [ ] Rename App: [Change App/Package Name](#change-apppackage-name)
-1. [ ] [Workflow Permissions](#workflow-permissions)
-1. [ ] Update Description: [pubspec.yaml](pubspec.yaml) and [README.md](README.md).
+   1. [x] Install [puro](https://puro.dev) Flutter Environment Manager
+   1. [x] Install Flutter using Puro
+   1. [x] Install [Melos](https://pub.dev/packages/melos) globally
+   1. [x] Install [Mason CLI](https://docs.brickhub.dev/)
+1. [x] Run `melos bootstrap` to install dependencies for all packages and generate env files.
+1. [x] Rename App: [Change App/Package Name](#change-apppackage-name)
+1. [x] [Workflow Permissions](#workflow-permissions)
+1. [x] Update Description: [pubspec.yaml](pubspec.yaml) and [README.md](README.md).
+1. [x] Replace [codemagic.io](https://codemagic.io) badge with your own.
 1. [ ] Add Environment Variables: [ENVied Environment Variables](#envied-environment-variables) section for details.
 1. [ ] [Change App Icon: flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons)
 1. [ ] [Change Splash Screen: flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
@@ -107,14 +88,14 @@ code provided in this template, but the licenses of the packages must still be f
 1. [ ] Run the following command to change the package name, where `com.author.app_name` is the new name for the app.
 
    ```bash
-   flutter pub run change_app_package_name:main com.author.app_name
+   dart run change_app_package_name:main com.author.app_name
    ```
 
-1. [ ] Search for `github.com/getBoolean/flutter_boolean_template` and update it with your GitHub username and repository name
-1. [ ] Search for `com.example.flutter_boolean_template` and replace it with your new Android bundle identifier
-1. [ ] Search for `com.example.flutterBooleanTemplate` and replace it with your new iOS bundle identifier
-1. [ ] Search for `flutter_boolean_template` and replace it with your new package identifier
-1. [ ] Search for `Flutter Boolean Template` and replace it with your new app name
+1. [ ] Search for `github.com/getBoolean/subete_app` and update it with your GitHub username and repository name
+1. [ ] Search for `com.getboolean.subete` and replace it with your new Android bundle identifier
+1. [ ] Search for `com.getboolean.subete` and replace it with your new iOS bundle identifier
+1. [ ] Search for `subete` and replace it with your new package identifier
+1. [ ] Search for `Subete` and replace it with your new app name
 
 ### Workflow Permissions
 
@@ -364,7 +345,7 @@ Use [wolt_responsive_layout_grid](https://pub.dev/packages/wolt_responsive_layou
 
 ## Contributing
 
-1. Fork it [https://github.com/getBoolean/flutter_boolean_template/fork](https://github.com/getBoolean/flutter_boolean_template/fork)
+1. Fork it [https://github.com/getBoolean/subete_app/fork](https://github.com/getBoolean/subete_app/fork)
 1. Create your feature branch (git checkout -b feature/fooBar)
 1. Commit your changes (git commit -am 'Add some fooBar')
 1. Push to the branch (git push origin feature/fooBar)

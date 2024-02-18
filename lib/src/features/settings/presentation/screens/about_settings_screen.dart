@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_boolean_template/src/features/initialization/application/info_service.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
+import 'package:subete/src/features/initialization/application/info_service.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -70,10 +70,10 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
           ListTile(
             title: const Text('GitHub'),
             leading: const Icon(Icons.code),
-            subtitle: const Text('getBoolean/flutter_boolean_template'),
+            subtitle: const Text('getBoolean/subete'),
             onTap: () async {
               final url = Uri.parse(
-                'https://www.github.com/getBoolean/flutter_boolean_template',
+                'https://www.github.com/getBoolean/subete_app',
               );
               try {
                 final success = await launchUrl(url);

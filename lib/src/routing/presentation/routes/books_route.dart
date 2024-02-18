@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/books/presentation/books_screen.dart';
 import 'package:log/log.dart';
+import 'package:subete/src/features/books/presentation/books_screen.dart';
 
 class BooksRoute extends StatefulWidget {
   const BooksRoute({super.key});

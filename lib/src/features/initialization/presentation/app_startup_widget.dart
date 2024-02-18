@@ -1,7 +1,7 @@
 import 'package:constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boolean_template/src/features/initialization/application/app_startup.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:subete/src/features/initialization/application/app_startup.dart';
 
 class AppStartupWidget extends ConsumerWidget {
   const AppStartupWidget({required this.onLoaded, super.key});
