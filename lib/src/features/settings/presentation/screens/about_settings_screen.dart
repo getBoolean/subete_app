@@ -70,7 +70,7 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
           ListTile(
             title: const Text('GitHub'),
             leading: const Icon(Icons.code),
-            subtitle: const Text('getBoolean/subete'),
+            subtitle: const Text('getBoolean/subete_app'),
             onTap: () async {
               final url = Uri.parse(
                 'https://www.github.com/getBoolean/subete_app',
