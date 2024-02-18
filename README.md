@@ -1,7 +1,7 @@
 # Subete <!-- omit in toc -->
 
-[![latest release](https://img.shields.io/github/release/getBoolean/subete.svg?maxAge=3600&label=download)](https://github.com/getBoolean/subete_app/releases)
-[![coverage](https://img.shields.io/codecov/c/github/getBoolean/subete)](https://app.codecov.io/gh/getBoolean/subete)
+[![latest release](https://img.shields.io/github/release/getBoolean/subete_app.svg?maxAge=3600&label=download)](https://github.com/getBoolean/subete_app/releases)
+[![coverage](https://img.shields.io/codecov/c/github/getBoolean/subete_app)](https://app.codecov.io/gh/getBoolean/subete_app)
 [![Codemagic build status](https://api.codemagic.io/apps/65d2775c4e369a6b975b5c92/65d2775c4e369a6b975b5c91/status_badge.svg)](https://codemagic.io/apps/65d2775c4e369a6b975b5c92/65d2775c4e369a6b975b5c91/latest_build)
 
 Kavita and Audiobookshelf client for mobile and desktop (coming soon)
@@ -25,7 +25,6 @@ Kavita and Audiobookshelf client for mobile and desktop (coming soon)
 - [Libraries](#libraries)
   - [Melos](#melos)
     - [Scripts](#scripts)
-  - [GoRouter Navigation](#gorouter-navigation)
   - [ENVied Environment Variables](#envied-environment-variables)
 - [Contributing](#contributing)
 
@@ -54,9 +53,7 @@ A preview of the application is deployed to [getboolean.github.io/subete](https:
 1. [ ] Add Environment Variables: [ENVied Environment Variables](#envied-environment-variables) section for details.
 1. [ ] [Change App Icon: flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons)
 1. [ ] [Change Splash Screen: flutter_native_splash](https://pub.dev/packages/flutter_native_splash)
-1. [ ] Setup the release build configuration, see the [Building](#building) section.
 1. [ ] Setup Codecov for the repository, see the [Codecov documentation](https://docs.codecov.com/docs/quick-start).
-1. [ ] Update contribution guidelines at the [Contributing](#contributing) section.
 1. [ ] Delete this `Template: Getting Started` section from the README.
 
 ## Setup
@@ -92,7 +89,8 @@ To build the project locally, follow the instructions in the
 
 ### Flavors
 
-By default, the app uses the "local" flavor. Run/build the app with `--dart-define FLAVOR=<flavorname>`
+Flavors are used to provide different environment variables based on the current flavor. By default,
+the app uses the "local" flavor. Run/build the app with `--dart-define FLAVOR=<flavorname>`
 to change the flavor. The following flavors are supported:
 
 - `local` - Local development. The text banner changes to "Debug" when in debug mode, "Local" in profile mode, and hidden in release mode.
@@ -197,11 +195,6 @@ Tests:
 - `melos run dart_test` - Run all Dart tests in the project.
 - `melos run flutter_test:pkg` - Run Flutter tests for a specific package.
 - `melos run dart_test:pkg` - Run Dart tests for a specific (Dart only) package.
-
-### GoRouter Navigation
-
-This project uses [GoRouter](https://pub.dev/packages/go_router) for navigation
-and provides some starter boilerplate for adaptive multitab navigation using `ResponsiveScaffold`.
 
 ### ENVied Environment Variables
 
