@@ -56,7 +56,7 @@ A preview of the application is deployed to [getboolean.github.io/subete](https:
 ## Setup
 
 1. Install [puro](https://puro.dev) Flutter Environment Manager
-   - Install Flutter using Puro
+   - Install Flutter stable using Puro
 1. Install [Melos](https://pub.dev/packages/melos) globally
 1. Install [Mason CLI](https://docs.brickhub.dev/)
 1. Run `melos bootstrap` to install dependencies for all packages and generate env files.
