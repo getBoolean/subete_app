@@ -1,10 +1,14 @@
 import 'package:chopper/chopper.dart';
+import 'package:kavita_api/src/entities/user.dart';
 import 'package:kavita_api/src/kavita_response.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 
+import '../entities/mappr.dart';
+
 class KavitaApiV1 {
   final client.KavitaApi api;
+  final Mappr _mappr = const Mappr();
 
   const KavitaApiV1({
     required this.api,
@@ -277,38 +281,39 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   /// Register the first user (admin) on the server. Will not do anything if an admin is already confirmed
-  Future<KavitaResponse<client.UserDto>> registerFirstUser({
+  Future<KavitaResponse<User>> registerFirstUser({
     required String username,
     required String password,
     String? email,
   }) async {
-    return KavitaResponse(await api.apiAccountRegisterPost(
+    return KavitaResponse(_mappr.convert(await api.apiAccountRegisterPost(
       body: client.RegisterDto(
         username: username,
         password: password,
         email: email,
       ),
-    ));
+    )));
   }
 
   /// Perform a login. Will send JWT Token of the logged in user back.
-  Future<KavitaResponse<client.UserDto>> login({
+  Future<KavitaResponse<User>> login({
     required String username,
     required String password,
     String? apiKey,
   }) async {
-    return KavitaResponse(await api.apiAccountLoginPost(
+    return KavitaResponse(_mappr.convert(await api.apiAccountLoginPost(
       body: client.LoginDto(
         username: username,
         password: password,
         apiKey: apiKey,
       ),
-    ));
+    )));
   }
 
   /// Returns an up-to-date user account
-  Future<KavitaResponse<client.UserDto>> refreshAccount() async {
-    return KavitaResponse(await api.apiAccountRefreshAccountGet());
+  Future<KavitaResponse<User>> refreshAccount() async {
+    return KavitaResponse(
+        _mappr.convert(await api.apiAccountRefreshAccountGet()));
   }
 
   /// Refreshes the user's JWT token
@@ -413,20 +418,20 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   /// Last step in authentication flow, confirms the email token for email
-  Future<KavitaResponse<client.UserDto>> confirmEmail({
+  Future<KavitaResponse<User>> confirmEmail({
     required String email,
     required String token,
     required String password,
     required String username,
   }) async {
-    return KavitaResponse(await api.apiAccountConfirmEmailPost(
+    return KavitaResponse(_mappr.convert(await api.apiAccountConfirmEmailPost(
       body: client.ConfirmEmailDto(
         email: email,
         token: token,
         password: password,
         username: username,
       ),
-    ));
+    )));
   }
 
   /// Confirm password reset
@@ -459,16 +464,17 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   // confirm migration email
-  Future<KavitaResponse<client.UserDto>> confirmMigrationEmail({
+  Future<KavitaResponse<User>> confirmMigrationEmail({
     required String email,
     required String token,
   }) async {
-    return KavitaResponse(await api.apiAccountConfirmMigrationEmailPost(
+    return KavitaResponse(
+        _mappr.convert(await api.apiAccountConfirmMigrationEmailPost(
       body: client.ConfirmMigrationEmailDto(
         email: email,
         token: token,
       ),
-    ));
+    )));
   }
 
   /// Resend an invite to a user already invited

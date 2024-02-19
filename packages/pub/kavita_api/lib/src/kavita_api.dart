@@ -4,10 +4,12 @@ import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 import 'package:kavita_api/src/v1/kavita_api_v1.dart';
 
+import 'entities/user.dart';
+
 final class KavitaApi {
   final client.KavitaApi api;
 
-  static Future<Response<client.UserDto>> login({
+  static Future<Response<User>> login({
     required Uri baseUrl,
     String? username,
     String? password,
