@@ -11,6 +11,8 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
+# Kavita API Client
+
 An unofficial Dart package for Kavita API generated using [swagger_dart_code_generator](https://pub.dev/packages/swagger_dart_code_generator)
 
 ## Usage
