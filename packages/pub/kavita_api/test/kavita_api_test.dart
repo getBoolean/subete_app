@@ -15,19 +15,10 @@ void main() {
 
     final baseUrl = Uri.parse(
         env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'));
-    final userResponse = await KavitaApi.login(
-      username: env['KAVITA_USERNAME'],
-      password: env['KAVITA_PASSWORD'],
-      baseUrl: baseUrl,
-    );
-    final userDto = userResponse.body;
-    if (userDto == null || userDto.token == null) {
-      throw Exception('Could not log in');
-    }
-
-    client = KavitaApi(
-      userDto.token!,
-      baseUrl: baseUrl,
+    client = KavitaApi(baseUrl: baseUrl);
+    await client.v1.account.login(
+      username: env['KAVITA_USERNAME']!,
+      password: env['KAVITA_PASSWORD']!,
     );
   });
 

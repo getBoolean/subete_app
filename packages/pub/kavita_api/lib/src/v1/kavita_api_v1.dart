@@ -1,5 +1,11 @@
 import 'package:chopper/chopper.dart';
-import 'package:kavita_api/kavita_api.dart';
+import 'package:kavita_api/src/entities/cbl_import_summary.dart';
+import 'package:kavita_api/src/entities/collection_tag.dart';
+import 'package:kavita_api/src/entities/invite_user_response.dart';
+import 'package:kavita_api/src/entities/server_info.dart';
+import 'package:kavita_api/src/entities/token_request.dart';
+import 'package:kavita_api/src/entities/user.dart';
+import 'package:kavita_api/src/kavita_context.dart';
 import 'package:kavita_api/src/kavita_response.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
@@ -8,263 +14,193 @@ import '../entities/device.dart';
 import '../entities/mappr.dart';
 
 class KavitaApiV1 {
-  final client.KavitaApi api;
+  final KavitaContext context;
   final Mappr _mappr = const Mappr();
 
   const KavitaApiV1({
-    required this.api,
+    required this.context,
   });
 
   /// All Account matters
   KavitaApiAccount get account {
-    return KavitaApiAccount._(
-      api: api,
-    );
+    return KavitaApiAccount._(context: context);
   }
 
   /// Responsible for the CBL import flow
   KavitaApiCbl get cbl {
-    return KavitaApiCbl._(
-      api: api,
-    );
+    return KavitaApiCbl._(context: context);
   }
 
   /// APIs for Collections
   KavitaApiCollection get collection {
-    return KavitaApiCollection._(
-      api: api,
-    );
+    return KavitaApiCollection._(context: context);
   }
 
   /// Responsible for interacting with and creating Devices
   KavitaApiDevice get device {
-    return KavitaApiDevice._(
-      api: api,
-    );
+    return KavitaApiDevice._(context: context);
   }
 
   /// All APIs related to downloading entities from the system.
   ///
   /// Requires Download Role or Admin Role.
   KavitaApiDownload get download {
-    return KavitaApiDownload._(
-      api: api,
-    );
+    return KavitaApiDownload._(context: context);
   }
 
   /// This is reponsible for Filter caching
   KavitaApiFilter get filter {
-    return KavitaApiFilter._(
-      api: api,
-    );
+    return KavitaApiFilter._(context: context);
   }
 
   /// Responsible for servicing up images stored in Kavita for entities
   KavitaApiImage get image {
-    return KavitaApiImage._(
-      api: api,
-    );
+    return KavitaApiImage._(context: context);
   }
 
   /// For the Panels app explicitly
   KavitaApiPanels get panels {
-    return KavitaApiPanels._(
-      api: api,
-    );
+    return KavitaApiPanels._(context: context);
   }
 
   /// Responsible for providing external ratings for Series
   KavitaApiRating get rating {
-    return KavitaApiRating._(
-      api: api,
-    );
+    return KavitaApiRating._(context: context);
   }
 
   /// For all things regarding reading, mainly focusing on non-Book
   /// related entities
   KavitaApiReader get reader {
-    return KavitaApiReader._(
-      api: api,
-    );
+    return KavitaApiReader._(context: context);
   }
 
   /// Responsible for hte Search interface from the UI
   KavitaApiSearch get search {
-    return KavitaApiSearch._(
-      api: api,
-    );
+    return KavitaApiSearch._(context: context);
   }
 
   /// Responsible for anything that deals with Streams (SmartFilters,
   /// ExternalSource, DashboardStream, SideNavStream)
   KavitaApiStream get stream {
-    return KavitaApiStream._(
-      api: api,
-    );
+    return KavitaApiStream._(context: context);
   }
 
   /// All APIs are for Tachiyomi extension and app. They have hacks for
   /// our implementation and should not be used for any other purposes.
   KavitaApiTachiyomi get tachiyomi {
-    return KavitaApiTachiyomi._(
-      api: api,
-    );
+    return KavitaApiTachiyomi._(context: context);
   }
 
   /// All APIs related to uploading entities to the system.
   KavitaApiUpload get upload {
-    return KavitaApiUpload._(
-      api: api,
-    );
+    return KavitaApiUpload._(context: context);
   }
 
   /// Responsible for all things Want To Read
   KavitaApiWantToRead get wantToRead {
-    return KavitaApiWantToRead._(
-      api: api,
-    );
+    return KavitaApiWantToRead._(context: context);
   }
 
   /// All Admin APIs
   KavitaApiAdmin get admin {
-    return KavitaApiAdmin._(
-      api: api,
-    );
+    return KavitaApiAdmin._(context: context);
   }
 
   /// All Book related APIs
   KavitaApiBook get book {
-    return KavitaApiBook._(
-      api: api,
-    );
+    return KavitaApiBook._(context: context);
   }
 
   /// All Health related APIs
   KavitaApiHealth get health {
-    return KavitaApiHealth._(
-      api: api,
-    );
+    return KavitaApiHealth._(context: context);
   }
 
   /// All Library related APIs
   KavitaApiLibrary get library {
-    return KavitaApiLibrary._(
-      api: api,
-    );
+    return KavitaApiLibrary._(context: context);
   }
 
   /// All License related APIs
   KavitaApiLicense get license {
-    return KavitaApiLicense._(
-      api: api,
-    );
+    return KavitaApiLicense._(context: context);
   }
 
   /// All Locale related APIs
   KavitaApiLocale get locale {
-    return KavitaApiLocale._(
-      api: api,
-    );
+    return KavitaApiLocale._(context: context);
   }
 
   /// All Metadata related APIs
   KavitaApiMetadata get metadata {
-    return KavitaApiMetadata._(
-      api: api,
-    );
+    return KavitaApiMetadata._(context: context);
   }
 
   /// All OPDS related APIs
   KavitaApiOpds get opds {
-    return KavitaApiOpds._(
-      api: api,
-    );
+    return KavitaApiOpds._(context: context);
   }
 
   /// All Plugin related APIs
   KavitaApiPlugin get plugin {
-    return KavitaApiPlugin._(
-      api: api,
-    );
+    return KavitaApiPlugin._(context: context);
   }
 
   /// All ReadingList related APIs
   KavitaApiReadingList get readingList {
-    return KavitaApiReadingList._(
-      api: api,
-    );
+    return KavitaApiReadingList._(context: context);
   }
 
   /// All Recommended related APIs
   KavitaApiRecommended get recommended {
-    return KavitaApiRecommended._(
-      api: api,
-    );
+    return KavitaApiRecommended._(context: context);
   }
 
   /// All Review related APIs
   KavitaApiReview get review {
-    return KavitaApiReview._(
-      api: api,
-    );
+    return KavitaApiReview._(context: context);
   }
 
   /// All Scrobbling related APIs
   KavitaApiScrobbling get scrobbling {
-    return KavitaApiScrobbling._(
-      api: api,
-    );
+    return KavitaApiScrobbling._(context: context);
   }
 
   /// All Series related APIs
   KavitaApiSeries get series {
-    return KavitaApiSeries._(
-      api: api,
-    );
+    return KavitaApiSeries._(context: context);
   }
 
   /// All Server related APIs
   KavitaApiServer get server {
-    return KavitaApiServer._(
-      api: api,
-    );
+    return KavitaApiServer._(context: context);
   }
 
   /// All Settings related APIs
   KavitaApiSettings get settings {
-    return KavitaApiSettings._(
-      api: api,
-    );
+    return KavitaApiSettings._(context: context);
   }
 
   /// All Stats related APIs
   KavitaApiStats get stats {
-    return KavitaApiStats._(
-      api: api,
-    );
+    return KavitaApiStats._(context: context);
   }
 
   /// All Theme related APIs
   KavitaApiTheme get theme {
-    return KavitaApiTheme._(
-      api: api,
-    );
+    return KavitaApiTheme._(context: context);
   }
 
   /// All Users related APIs
   KavitaApiUsers get users {
-    return KavitaApiUsers._(
-      api: api,
-    );
+    return KavitaApiUsers._(context: context);
   }
 }
 
 /// All Account matters
 final class KavitaApiAccount extends KavitaApiV1 {
   /// All Account matters
-  KavitaApiAccount._({
-    required super.api,
-  });
+  KavitaApiAccount._({required super.context});
 
   /// Update a user's password
   Future<KavitaResponse<void>> resetPassword({
@@ -273,7 +209,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     String? oldPassword,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiAccountResetPasswordPost(
+        await context.api.apiAccountResetPasswordPost(
       body: client.ResetPasswordDto(
         userName: userName,
         password: password,
@@ -289,7 +225,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     String? email,
   }) async {
     return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
-        await api.apiAccountRegisterPost(
+        await context.api.apiAccountRegisterPost(
       body: client.RegisterDto(
         username: username,
         password: password,
@@ -304,20 +240,29 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
     String? apiKey,
   }) async {
-    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
-        await api.apiAccountLoginPost(
+    final user = _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
+        await context.api.apiAccountLoginPost(
       body: client.LoginDto(
         username: username,
         password: password,
         apiKey: apiKey,
       ),
     ));
+    if (user.isSuccessful && user.body != null) {
+      context.setCurrentUser(user.body!);
+    }
+
+    return user;
+  }
+
+  void logout() async {
+    context.clearCurrentUser();
   }
 
   /// Returns an up-to-date user account
   Future<KavitaResponse<User>> refreshAccount() async {
     return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
-        await api.apiAccountRefreshAccountGet());
+        await context.api.apiAccountRefreshAccountGet());
   }
 
   /// Refreshes the user's JWT token
@@ -326,7 +271,8 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String refreshToken,
   }) async {
     return _mappr.convert<Response<client.TokenRequestDto>,
-        KavitaResponse<TokenRequest>>(await api.apiAccountRefreshTokenPost(
+            KavitaResponse<TokenRequest>>(
+        await context.api.apiAccountRefreshTokenPost(
       body: client.TokenRequestDto(token: token, refreshToken: refreshToken),
     ));
   }
@@ -334,13 +280,13 @@ final class KavitaApiAccount extends KavitaApiV1 {
   /// Get All Roles back. See API.Constants.PolicyConstants
   Future<KavitaResponse<List<String>>> getRoles() async {
     return _mappr.convert<Response<List<String>>, KavitaResponse<List<String>>>(
-        await api.apiAccountRolesGet());
+        await context.api.apiAccountRolesGet());
   }
 
   /// Resets the API Key assigned with a user
   Future<KavitaResponse<String>> resetApiKey() async {
     return _mappr.convert<Response<String>, KavitaResponse<String>>(
-        await api.apiAccountResetApiKeyPost());
+        await context.api.apiAccountResetApiKeyPost());
   }
 
   /// Initiates the flow to update a user's email address. If email is not setup,
@@ -352,7 +298,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiAccountUpdateEmailPost(
+        await context.api.apiAccountUpdateEmailPost(
       body: client.UpdateEmailDto(
         email: email,
         password: password,
@@ -366,7 +312,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required bool includeUnknowns,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiAccountUpdateAgeRestrictionPost(
+        await context.api.apiAccountUpdateAgeRestrictionPost(
       body: client.UpdateAgeRestrictionDto(
         ageRating: ageRating,
         includeUnknowns: includeUnknowns,
@@ -382,7 +328,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     List<int>? libraries,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiAccountUpdatePost(
+        await context.api.apiAccountUpdatePost(
       body: client.UpdateUserDto(
         userId: userId,
         username: username,
@@ -398,7 +344,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     bool? withBaseUrl,
   }) async {
     return _mappr.convert<Response<String>, KavitaResponse<String>>(
-        await api.apiAccountInviteUrlGet(
+        await context.api.apiAccountInviteUrlGet(
       userId: userId,
       withBaseUrl: withBaseUrl,
     ));
@@ -414,7 +360,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     bool? includeUnknowns,
   }) async {
     return _mappr.convert<Response<String>, KavitaResponse<String>>(
-        await api.apiAccountInvitePost(
+        await context.api.apiAccountInvitePost(
       body: client.InviteUserDto(
         email: email,
         roles: roles,
@@ -437,7 +383,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String username,
   }) async {
     return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
-        await api.apiAccountConfirmEmailPost(
+        await context.api.apiAccountConfirmEmailPost(
       body: client.ConfirmEmailDto(
         email: email,
         token: token,
@@ -454,7 +400,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
   }) async {
     return _mappr.convert<Response<String>, KavitaResponse<String>>(
-        await api.apiAccountConfirmPasswordResetPost(
+        await context.api.apiAccountConfirmPasswordResetPost(
       body: client.ConfirmPasswordResetDto(
         email: email,
         token: token,
@@ -468,7 +414,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String email,
   }) async {
     return _mappr.convert<Response<String>, KavitaResponse<String>>(
-        await api.apiAccountForgotPasswordPost(
+        await context.api.apiAccountForgotPasswordPost(
       email: email,
     ));
   }
@@ -476,7 +422,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   /// Email is confirmed
   Future<KavitaResponse<bool>> isEmailConfirmed() async {
     return _mappr.convert<Response<bool>, KavitaResponse<bool>>(
-        await api.apiAccountEmailConfirmedGet());
+        await context.api.apiAccountEmailConfirmedGet());
   }
 
   // confirm migration email
@@ -485,7 +431,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String token,
   }) async {
     return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
-        await api.apiAccountConfirmMigrationEmailPost(
+        await context.api.apiAccountConfirmMigrationEmailPost(
       body: client.ConfirmMigrationEmailDto(
         email: email,
         token: token,
@@ -499,7 +445,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }) async {
     return _mappr.convert<Response<client.InviteUserResponse>,
             KavitaResponse<InviteUserResponse>>(
-        await api.apiAccountResendConfirmationEmailPost(
+        await context.api.apiAccountResendConfirmationEmailPost(
       userId: userId,
     ));
   }
@@ -507,22 +453,20 @@ final class KavitaApiAccount extends KavitaApiV1 {
   /// Returns the OPDS url for this user
   Future<KavitaResponse<String>> getOpdsUrl() async {
     return _mappr.convert<Response<String>, KavitaResponse<String>>(
-        await api.apiAccountOpdsUrlGet());
+        await context.api.apiAccountOpdsUrlGet());
   }
 
   /// Is the user's current email valid or not
   Future<KavitaResponse<bool>> isEmailValid() async {
     return _mappr.convert<Response<bool>, KavitaResponse<bool>>(
-        await api.apiAccountIsEmailValidGet());
+        await context.api.apiAccountIsEmailValidGet());
   }
 }
 
 /// Responsible for the CBL import flow
 final class KavitaApiCbl extends KavitaApiV1 {
   /// Responsible for the CBL import flow
-  KavitaApiCbl._({
-    required super.api,
-  });
+  KavitaApiCbl._({required super.context});
 
   /// The first step in a cbl import. This validates the cbl
   /// file that if an import occured, would it be successful.
@@ -537,7 +481,7 @@ final class KavitaApiCbl extends KavitaApiV1 {
     String? fileName,
   }) async {
     return _mappr.convert<Response<client.CblImportSummaryDto>,
-        KavitaResponse<CblImportSummary>>(await api.apiCblValidatePost(
+        KavitaResponse<CblImportSummary>>(await context.api.apiCblValidatePost(
       contentType: contentType,
       contentDisposition: contentDisposition,
       headers: headers,
@@ -558,7 +502,7 @@ final class KavitaApiCbl extends KavitaApiV1 {
     bool? dryRun,
   }) async {
     return _mappr.convert<Response<client.CblImportSummaryDto>,
-        KavitaResponse<CblImportSummary>>(await api.apiCblImportPost(
+        KavitaResponse<CblImportSummary>>(await context.api.apiCblImportPost(
       contentType: contentType,
       contentDisposition: contentDisposition,
       headers: headers,
@@ -573,14 +517,13 @@ final class KavitaApiCbl extends KavitaApiV1 {
 /// APIs for Collections
 final class KavitaApiCollection extends KavitaApiV1 {
   /// APIs for Collections
-  KavitaApiCollection._({
-    required super.api,
-  });
+  KavitaApiCollection._({required super.context});
 
   /// Return a list of all collection tags on the server for the logged in user.
   Future<KavitaResponse<List<CollectionTag>>> getCollections() async {
     return _mappr.convert<Response<List<client.CollectionTagDto>>,
-        KavitaResponse<List<CollectionTag>>>(await api.apiCollectionGet());
+            KavitaResponse<List<CollectionTag>>>(
+        await context.api.apiCollectionGet());
   }
 
   /// Removes the collection tag from all Series it was attached to
@@ -588,7 +531,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
     required int tagId,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiCollectionDelete(
+        await context.api.apiCollectionDelete(
       tagId: tagId,
     ));
   }
@@ -601,7 +544,8 @@ final class KavitaApiCollection extends KavitaApiV1 {
     String queryString,
   ) async {
     return _mappr.convert<Response<List<client.CollectionTagDto>>,
-        KavitaResponse<List<CollectionTag>>>(await api.apiCollectionSearchGet(
+            KavitaResponse<List<CollectionTag>>>(
+        await context.api.apiCollectionSearchGet(
       queryString: queryString,
     ));
   }
@@ -613,7 +557,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
     required String name,
   }) async {
     return _mappr.convert<Response<bool>, KavitaResponse<bool>>(
-        await api.apiCollectionNameExistsGet(
+        await context.api.apiCollectionNameExistsGet(
       name: name,
     ));
   }
@@ -627,7 +571,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
     bool? promoted,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiCollectionUpdatePost(
+        await context.api.apiCollectionUpdatePost(
       body: client.CollectionTagDto(
         id: id,
         title: title,
@@ -646,7 +590,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
     required List<int> seriesIds,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiCollectionUpdateForSeriesPost(
+        await context.api.apiCollectionUpdateForSeriesPost(
       body: client.CollectionTagBulkAddDto(
         collectionTagId: collectionTagId,
         collectionTagTitle: collectionTagTitle,
@@ -662,7 +606,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
     required List<int> seriesIdsToRemove,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiCollectionUpdateSeriesPost(
+        await context.api.apiCollectionUpdateSeriesPost(
       body: client.UpdateSeriesForTagDto(
         tag: _mappr.convert<CollectionTag, client.CollectionTagDto>(tag),
         seriesIdsToRemove: seriesIdsToRemove,
@@ -674,9 +618,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
 /// Responsible for interacting with and creating Devices
 final class KavitaApiDevice extends KavitaApiV1 {
   /// Responsible for interacting with and creating Devices
-  KavitaApiDevice._({
-    required super.api,
-  });
+  KavitaApiDevice._({required super.context});
 
   /// Create a device
   Future<KavitaResponse<void>> createDevice({
@@ -685,7 +627,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
     required String emailAddress,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiDeviceCreatePost(
+        await context.api.apiDeviceCreatePost(
       body: client.CreateDeviceDto(
         name: name,
         platform: platform,
@@ -702,7 +644,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
     required String emailAddress,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiDeviceUpdatePost(
+        await context.api.apiDeviceUpdatePost(
       body: client.UpdateDeviceDto(
         id: id,
         name: name,
@@ -717,7 +659,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
     required int deviceId,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiDeviceDelete(
+        await context.api.apiDeviceDelete(
       deviceId: deviceId,
     ));
   }
@@ -725,7 +667,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
   /// Returns a list of all devices for the user
   Future<KavitaResponse<List<Device>>> getDevices() async {
     return _mappr.convert<Response<List<client.DeviceDto>>,
-        KavitaResponse<List<Device>>>(await api.apiDeviceGet());
+        KavitaResponse<List<Device>>>(await context.api.apiDeviceGet());
   }
 
   /// Sends a collection of chapters to the user's device
@@ -734,7 +676,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
     List<int>? chapterIds,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiDeviceSendToPost(
+        await context.api.apiDeviceSendToPost(
       body: client.SendToDeviceDto(
         deviceId: deviceId,
         chapterIds: chapterIds,
@@ -748,7 +690,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
     required int seriesId,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
-        await api.apiDeviceSendSeriesToPost(
+        await context.api.apiDeviceSendSeriesToPost(
       body: client.SendSeriesToDeviceDto(
         deviceId: deviceId,
         seriesId: seriesId,
@@ -764,41 +706,31 @@ final class KavitaApiDownload extends KavitaApiV1 {
   /// All APIs related to downloading entities from the system.
   ///
   /// Requires Download Role or Admin Role.
-  KavitaApiDownload._({
-    required super.api,
-  });
+  KavitaApiDownload._({required super.context});
 }
 
 /// This is reponsible for Filter caching
 final class KavitaApiFilter extends KavitaApiV1 {
   /// This is reponsible for Filter caching
-  KavitaApiFilter._({
-    required super.api,
-  });
+  KavitaApiFilter._({required super.context});
 }
 
 /// Responsible for servicing up images stored in Kavita for entities
 final class KavitaApiImage extends KavitaApiV1 {
   /// Responsible for servicing up images stored in Kavita for entities
-  KavitaApiImage._({
-    required super.api,
-  });
+  KavitaApiImage._({required super.context});
 }
 
 /// For the Panels app explicitly
 final class KavitaApiPanels extends KavitaApiV1 {
   /// For the Panels app explicitly
-  KavitaApiPanels._({
-    required super.api,
-  });
+  KavitaApiPanels._({required super.context});
 }
 
 /// Responsible for providing external ratings for Series
 final class KavitaApiRating extends KavitaApiV1 {
   /// Responsible for providing external ratings for Series
-  KavitaApiRating._({
-    required super.api,
-  });
+  KavitaApiRating._({required super.context});
 }
 
 /// For all things regarding reading, mainly focusing on non-Book
@@ -806,17 +738,13 @@ final class KavitaApiRating extends KavitaApiV1 {
 final class KavitaApiReader extends KavitaApiV1 {
   /// For all things regarding reading, mainly focusing on non-Book
   /// related entities
-  KavitaApiReader._({
-    required super.api,
-  });
+  KavitaApiReader._({required super.context});
 }
 
 /// Responsible for hte Search interface from the UI
 final class KavitaApiSearch extends KavitaApiV1 {
   /// Responsible for hte Search interface from the UI
-  KavitaApiSearch._({
-    required super.api,
-  });
+  KavitaApiSearch._({required super.context});
 }
 
 /// Responsible for anything that deals with Streams (SmartFilters,
@@ -824,9 +752,7 @@ final class KavitaApiSearch extends KavitaApiV1 {
 final class KavitaApiStream extends KavitaApiV1 {
   /// Responsible for anything that deals with Streams (SmartFilters,
   /// ExternalSource, DashboardStream, SideNavStream)
-  KavitaApiStream._({
-    required super.api,
-  });
+  KavitaApiStream._({required super.context});
 }
 
 /// All APIs are for Tachiyomi extension and app. They have hacks for
@@ -834,180 +760,136 @@ final class KavitaApiStream extends KavitaApiV1 {
 final class KavitaApiTachiyomi extends KavitaApiV1 {
   /// All APIs are for Tachiyomi extension and app. They have hacks for
   /// our implementation and should not be used for any other purposes.
-  KavitaApiTachiyomi._({
-    required super.api,
-  });
+  KavitaApiTachiyomi._({required super.context});
 }
 
 /// All APIs related to uploading entities to the system.
 final class KavitaApiUpload extends KavitaApiV1 {
   /// All APIs related to uploading entities to the system.
-  KavitaApiUpload._({
-    required super.api,
-  });
+  KavitaApiUpload._({required super.context});
 }
 
 /// Responsible for all things Want To Read
 final class KavitaApiWantToRead extends KavitaApiV1 {
   /// Responsible for all things Want To Read
-  KavitaApiWantToRead._({
-    required super.api,
-  });
+  KavitaApiWantToRead._({required super.context});
 }
 
 /// All Admin APIs
 final class KavitaApiAdmin extends KavitaApiV1 {
   /// All Admin APIs
-  KavitaApiAdmin._({
-    required super.api,
-  });
+  KavitaApiAdmin._({required super.context});
 }
 
 /// All Book related APIs
 final class KavitaApiBook extends KavitaApiV1 {
   /// All Book related APIs
-  KavitaApiBook._({
-    required super.api,
-  });
+  KavitaApiBook._({required super.context});
 }
 
 /// All Health related APIs
 final class KavitaApiHealth extends KavitaApiV1 {
   /// All Health related APIs
-  KavitaApiHealth._({
-    required super.api,
-  });
+  KavitaApiHealth._({required super.context});
 }
 
 /// All Library related APIs
 final class KavitaApiLibrary extends KavitaApiV1 {
   /// All Library related APIs
-  KavitaApiLibrary._({
-    required super.api,
-  });
+  KavitaApiLibrary._({required super.context});
 }
 
 /// All License related APIs
 final class KavitaApiLicense extends KavitaApiV1 {
   /// All License related APIs
-  KavitaApiLicense._({
-    required super.api,
-  });
+  KavitaApiLicense._({required super.context});
 }
 
 /// All Locale related APIs
 final class KavitaApiLocale extends KavitaApiV1 {
   /// All Locale related APIs
-  KavitaApiLocale._({
-    required super.api,
-  });
+  KavitaApiLocale._({required super.context});
 }
 
 /// All Metadata related APIs
 final class KavitaApiMetadata extends KavitaApiV1 {
   /// All Metadata related APIs
-  KavitaApiMetadata._({
-    required super.api,
-  });
+  KavitaApiMetadata._({required super.context});
 }
 
 /// All OPDS related APIs
 final class KavitaApiOpds extends KavitaApiV1 {
   /// All OPDS related APIs
-  KavitaApiOpds._({
-    required super.api,
-  });
+  KavitaApiOpds._({required super.context});
 }
 
 /// All Plugin related APIs
 final class KavitaApiPlugin extends KavitaApiV1 {
   /// All Plugin related APIs
-  KavitaApiPlugin._({
-    required super.api,
-  });
+  KavitaApiPlugin._({required super.context});
 }
 
 /// All ReadingList related APIs
 final class KavitaApiReadingList extends KavitaApiV1 {
   /// All ReadingList related APIs
-  KavitaApiReadingList._({
-    required super.api,
-  });
+  KavitaApiReadingList._({required super.context});
 }
 
 /// All Recommended related APIs
 final class KavitaApiRecommended extends KavitaApiV1 {
   /// All Recommended related APIs
-  KavitaApiRecommended._({
-    required super.api,
-  });
+  KavitaApiRecommended._({required super.context});
 }
 
 /// All Review related APIs
 final class KavitaApiReview extends KavitaApiV1 {
   /// All Review related APIs
-  KavitaApiReview._({
-    required super.api,
-  });
+  KavitaApiReview._({required super.context});
 }
 
 /// All Scrobbling related APIs
 final class KavitaApiScrobbling extends KavitaApiV1 {
   /// All Scrobbling related APIs
-  KavitaApiScrobbling._({
-    required super.api,
-  });
+  KavitaApiScrobbling._({required super.context});
 }
 
 /// All Series related APIs
 final class KavitaApiSeries extends KavitaApiV1 {
   /// All Series related APIs
-  KavitaApiSeries._({
-    required super.api,
-  });
+  KavitaApiSeries._({required super.context});
 }
 
 /// All Server related APIs
 final class KavitaApiServer extends KavitaApiV1 {
   /// All Server related APIs
-  KavitaApiServer._({
-    required super.api,
-  });
+  KavitaApiServer._({required super.context});
 
   Future<KavitaResponse<ServerInfo>> getServerInfo() async {
     return _mappr.convert<Response<client.ServerInfoDto>,
-        KavitaResponse<ServerInfo>>(await api.apiServerServerInfoGet());
+        KavitaResponse<ServerInfo>>(await context.api.apiServerServerInfoGet());
   }
 }
 
 /// All Settings related APIs
 final class KavitaApiSettings extends KavitaApiV1 {
   /// All Settings related APIs
-  KavitaApiSettings._({
-    required super.api,
-  });
+  KavitaApiSettings._({required super.context});
 }
 
 /// All Stats related APIs
 final class KavitaApiStats extends KavitaApiV1 {
   /// All Stats related APIs
-  KavitaApiStats._({
-    required super.api,
-  });
+  KavitaApiStats._({required super.context});
 }
 
 /// All Theme related APIs
 final class KavitaApiTheme extends KavitaApiV1 {
   /// All Theme related APIs
-  KavitaApiTheme._({
-    required super.api,
-  });
+  KavitaApiTheme._({required super.context});
 }
 
 /// All Users related APIs
 final class KavitaApiUsers extends KavitaApiV1 {
   /// All Users related APIs
-  KavitaApiUsers._({
-    required super.api,
-  });
+  KavitaApiUsers._({required super.context});
 }

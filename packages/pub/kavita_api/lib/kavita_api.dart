@@ -13,4 +13,4 @@ export 'src/entities/token_request.dart';
 export 'src/entities/user.dart';
 export 'src/entities/user_preferences.dart';
 export 'src/kavita_api.dart';
-export 'src/kavita_api_authenticator.dart';
+export 'src/kavita_context.dart';
