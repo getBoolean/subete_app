@@ -1,5 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:kavita_api/src/kavita_api_authenticator.dart';
+import 'package:kavita_api/src/kavita_response.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 
@@ -275,18 +276,243 @@ final class KavitaApiAccount extends KavitaApi {
     required super.api,
   }) : super._();
 
-  Future<Response<client.UserDto>> login({
+  /// Update a user's password
+  Future<KavitaResponse<dynamic>> resetPassword({
+    required String userName,
+    required String password,
+    String? oldPassword,
+  }) async {
+    return KavitaResponse(await api.apiAccountResetPasswordPost(
+      body: client.ResetPasswordDto(
+        userName: userName,
+        password: password,
+        oldPassword: oldPassword,
+      ),
+    ));
+  }
+
+  /// Register the first user (admin) on the server. Will not do anything if an admin is already confirmed
+  Future<KavitaResponse<client.UserDto>> registerFirstUser({
     required String username,
     required String password,
-    required String apiKey,
-  }) {
-    return api.apiAccountLoginPost(
+    String? email,
+  }) async {
+    return KavitaResponse(await api.apiAccountRegisterPost(
+      body: client.RegisterDto(
+        username: username,
+        password: password,
+        email: email,
+      ),
+    ));
+  }
+
+  /// Perform a login. Will send JWT Token of the logged in user back.
+  ///
+  /// If [apiKey] is provided, [username] and [password] are ignored.
+  Future<KavitaResponse<client.UserDto>> login({
+    String? username,
+    String? password,
+    String? apiKey,
+  }) async {
+    return KavitaResponse(await api.apiAccountLoginPost(
       body: client.LoginDto(
         username: username,
         password: password,
         apiKey: apiKey,
       ),
-    );
+    ));
+  }
+
+  /// Returns an up-to-date user account
+  Future<KavitaResponse<client.UserDto>> refreshAccount() async {
+    return KavitaResponse(await api.apiAccountRefreshAccountGet());
+  }
+
+  /// Refreshes the user's JWT token
+  Future<KavitaResponse<client.TokenRequestDto>> refreshToken({
+    String? token,
+    String? refreshToken,
+  }) async {
+    return KavitaResponse(await api.apiAccountRefreshTokenPost(
+      body: client.TokenRequestDto(token: token, refreshToken: refreshToken),
+    ));
+  }
+
+  /// Get All Roles back. See API.Constants.PolicyConstants
+  Future<KavitaResponse<List<String>>> getRoles() async {
+    return KavitaResponse(await api.apiAccountRolesGet());
+  }
+
+  /// Resets the API Key assigned with a user
+  Future<KavitaResponse<String>> resetApiKey() async {
+    return KavitaResponse(await api.apiAccountResetApiKeyPost());
+  }
+
+  /// Initiates the flow to update a user's email address. If email is not setup,
+  /// then the email address is not changed in this API. A confirmation link is
+  /// sent/dumped which will validate the email. It must be confirmed for the
+  /// email to update.
+  Future<KavitaResponse<dynamic>> updateEmail({
+    String? email,
+    String? password,
+  }) async {
+    return KavitaResponse(await api.apiAccountUpdateEmailPost(
+      body: client.UpdateEmailDto(
+        email: email,
+        password: password,
+      ),
+    ));
+  }
+
+  /// Update age restriction settings
+  Future<KavitaResponse<dynamic>> updateAgeRestriction({
+    required int ageRating,
+    required bool includeUnknowns,
+  }) async {
+    return KavitaResponse(await api.apiAccountUpdateAgeRestrictionPost(
+      body: client.UpdateAgeRestrictionDto(
+        ageRating: ageRating,
+        includeUnknowns: includeUnknowns,
+      ),
+    ));
+  }
+
+  // Update the user account. This can only affect Username, Email (will require confirming), Roles, and Library access.
+  Future<KavitaResponse<dynamic>> updateUser({
+    int? userId,
+    String? username,
+    List<String>? roles,
+    List<int>? libraries,
+    int? ageRating,
+    bool? includeUnknowns,
+  }) async {
+    return KavitaResponse(await api.apiAccountUpdatePost(
+      body: client.UpdateUserDto(
+        userId: userId,
+        username: username,
+        roles: roles,
+        libraries: libraries,
+        ageRestriction: ageRating == null && includeUnknowns == null
+            ? null
+            : client.AgeRestrictionDto(
+                ageRating: ageRating,
+                includeUnknowns: includeUnknowns,
+              ),
+      ),
+    ));
+  }
+
+  /// Requests the Invite Url for the UserId. Will return error if user is already validated.
+  Future<KavitaResponse<String>> getInviteUrl({
+    int? userId,
+    bool? withBaseUrl,
+  }) async {
+    return KavitaResponse(await api.apiAccountInviteUrlGet(
+      userId: userId,
+      withBaseUrl: withBaseUrl,
+    ));
+  }
+
+  /// Invites a user to the server. Will generate a setup link for continuing setup.
+  /// If email is not setup, a link will be presented to user to continue setup.
+  Future<KavitaResponse<String>> inviteUser({
+    required String email,
+    List<String>? roles,
+    List<int>? libraries,
+    int? ageRating,
+    bool? includeUnknowns,
+  }) async {
+    return KavitaResponse(await api.apiAccountInvitePost(
+      body: client.InviteUserDto(
+        email: email,
+        roles: roles,
+        libraries: libraries,
+        ageRestriction: ageRating == null && includeUnknowns == null
+            ? null
+            : client.AgeRestrictionDto(
+                ageRating: ageRating,
+                includeUnknowns: includeUnknowns,
+              ),
+      ),
+    ));
+  }
+
+  /// Last step in authentication flow, confirms the email token for email
+  Future<KavitaResponse<client.UserDto>> confirmEmail({
+    required String email,
+    required String token,
+    required String password,
+    required String username,
+  }) async {
+    return KavitaResponse(await api.apiAccountConfirmEmailPost(
+      body: client.ConfirmEmailDto(
+        email: email,
+        token: token,
+        password: password,
+        username: username,
+      ),
+    ));
+  }
+
+  /// Confirm password reset
+  Future<KavitaResponse<String>> confirmPasswordReset({
+    required String email,
+    required String token,
+    required String password,
+  }) async {
+    return KavitaResponse(await api.apiAccountConfirmPasswordResetPost(
+      body: client.ConfirmPasswordResetDto(
+        email: email,
+        token: token,
+        password: password,
+      ),
+    ));
+  }
+
+  /// Will send user a link to update their password to their email or prompt them if not accessible
+  Future<KavitaResponse<String>> forgotPassword({
+    String? email,
+  }) async {
+    return KavitaResponse(await api.apiAccountForgotPasswordPost(
+      email: email,
+    ));
+  }
+
+  /// Email is confirmed
+  Future<KavitaResponse<bool>> isEmailConfirmed() async {
+    return KavitaResponse(await api.apiAccountEmailConfirmedGet());
+  }
+
+  // confirm migration email
+  Future<KavitaResponse<client.UserDto>> confirmMigrationEmail({
+    required String email,
+    required String token,
+  }) async {
+    return KavitaResponse(await api.apiAccountConfirmMigrationEmailPost(
+      body: client.ConfirmMigrationEmailDto(
+        email: email,
+        token: token,
+      ),
+    ));
+  }
+
+  /// Resend an invite to a user already invited
+  Future<KavitaResponse<client.InviteUserResponse>> resendConfirmationEmail({
+    int? userId,
+  }) async {
+    return KavitaResponse(await api.apiAccountResendConfirmationEmailPost(
+      userId: userId,
+    ));
+  }
+
+  /// Returns the OPDS url for this user
+  Future<KavitaResponse<String>> getOpdsUrl() async {
+    return KavitaResponse(await api.apiAccountOpdsUrlGet());
+  }
+
+  /// Is the user's current email valid or not
+  Future<KavitaResponse<bool>> isEmailValid() async {
+    return KavitaResponse(await api.apiAccountIsEmailValidGet());
   }
 }
 
