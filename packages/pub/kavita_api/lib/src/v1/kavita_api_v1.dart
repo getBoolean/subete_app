@@ -468,9 +468,48 @@ final class KavitaApiCbl extends KavitaApiV1 {
     required super.api,
   });
 
-  // validate
+  /// The first step in a cbl import. This validates the cbl
+  /// file that if an import occured, would it be successful.
+  ///
+  /// If this returns errors, the cbl will always be rejected by Kavita.
+  Future<KavitaResponse<client.CblImportSummaryDto>> validateCbl({
+    String? contentType,
+    String? contentDisposition,
+    Object? headers,
+    int? length,
+    String? name,
+    String? fileName,
+  }) async {
+    return KavitaResponse(await api.apiCblValidatePost(
+      contentType: contentType,
+      contentDisposition: contentDisposition,
+      headers: headers,
+      length: length,
+      name: name,
+      fileName: fileName,
+    ));
+  }
 
-  // import
+  /// Performs the actual import (assuming [dryRun] = false)
+  Future<KavitaResponse<client.CblImportSummaryDto>> importCbl({
+    String? contentType,
+    String? contentDisposition,
+    Object? headers,
+    int? length,
+    String? name,
+    String? fileName,
+    bool? dryRun,
+  }) async {
+    return KavitaResponse(await api.apiCblImportPost(
+      contentType: contentType,
+      contentDisposition: contentDisposition,
+      headers: headers,
+      length: length,
+      name: name,
+      fileName: fileName,
+      dryRun: dryRun,
+    ));
+  }
 }
 
 final class KavitaApiCollection extends KavitaApiV1 {
