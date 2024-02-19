@@ -15,17 +15,14 @@ void main() {
 
     final baseUrl =
         Uri.parse(env.getOrElse('BASE_URL', () => 'http://127.0.0.1:5000'));
-    final accountAuthenticator = KavitaApiAuthenticator(
+    final userResponse = await KavitaApi.login(
       username: env['USERNAME'],
       password: env['PASSWORD'],
       baseUrl: baseUrl,
     );
-    final userResponse = await accountAuthenticator.login();
     if (userResponse.body == null || userResponse.body!.token == null) {
       throw Exception('Could not log in');
     }
-
-    print('Logged in as: ${userResponse.body!.username}');
 
     client = KavitaApi(
       baseUrl: baseUrl,

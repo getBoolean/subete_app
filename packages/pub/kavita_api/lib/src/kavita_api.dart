@@ -41,6 +41,28 @@ final class KavitaApi {
   final String bearerToken;
   final client.KavitaApi api;
 
+  static Future<Response<client.UserDto>> login({
+    required Uri baseUrl,
+    String? username,
+    String? password,
+  }) {
+    return KavitaApiAuthenticator(
+      baseUrl: baseUrl,
+      username: username,
+      password: password,
+    ).login();
+  }
+
+  static Future<Response<client.UserDto>> loginWithApiKey({
+    required Uri baseUrl,
+    required String apiKey,
+  }) {
+    return KavitaApiAuthenticator.apiKey(
+      apiKey,
+      baseUrl: baseUrl,
+    ).login();
+  }
+
   KavitaApi({
     required this.baseUrl,
     required this.bearerToken,

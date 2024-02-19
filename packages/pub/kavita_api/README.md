@@ -18,11 +18,11 @@ An unofficial Dart package for Kavita API generated using [swagger_dart_code_gen
 ## Usage
 
 ```dart
-final userResponse = await KavitaApiAuthenticator(
+final userResponse = await KavitaApi.login(
     username: 'Username',
     password: 'Password',
     baseUrl: 'http://localhost:5000',
-).login();
+);
 if (userResponse.body == null || userResponse.body!.token == null) {
     throw Exception('Could not log in');
 }
