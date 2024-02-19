@@ -2,6 +2,7 @@ import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';
 import 'package:kavita_api/src/entities/age_restriction.dart';
 import 'package:kavita_api/src/entities/cbl_import_summary.dart';
 import 'package:kavita_api/src/entities/collection_tag.dart';
+import 'package:kavita_api/src/entities/device.dart';
 import 'package:kavita_api/src/entities/file_format.dart';
 import 'package:kavita_api/src/entities/invite_user_response.dart';
 import 'package:kavita_api/src/entities/server_info.dart';
@@ -27,6 +28,7 @@ import 'user.dart';
   MapType<client.CblBookResult, CblBookResult>(),
   MapType<client.ServerInfoDto, ServerInfo>(),
   MapType<client.FileFormatDto, FileFormat>(),
+  MapType<client.DeviceDto, Device>(),
 ])
 class Mappr extends $Mappr {
   const Mappr();

@@ -6,6 +6,7 @@ import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
 
 import '../entities/cbl_import_summary.dart';
 import '../entities/collection_tag.dart';
+import '../entities/device.dart';
 import '../entities/invite_user_response.dart';
 import '../entities/mappr.dart';
 import '../entities/server_info.dart';
@@ -654,6 +655,78 @@ final class KavitaApiDevice extends KavitaApiV1 {
   KavitaApiDevice._({
     required super.api,
   });
+
+  /// Create a device
+  Future<KavitaResponse<void>> createDevice({
+    required String name,
+    required int platform,
+    required String emailAddress,
+  }) async {
+    return KavitaResponse(await api.apiDeviceCreatePost(
+      body: client.CreateDeviceDto(
+        name: name,
+        platform: platform,
+        emailAddress: emailAddress,
+      ),
+    ));
+  }
+
+  /// Update a device
+  Future<KavitaResponse<void>> updateDevice({
+    required int id,
+    required String name,
+    required int platform,
+    required String emailAddress,
+  }) async {
+    return KavitaResponse(await api.apiDeviceUpdatePost(
+      body: client.UpdateDeviceDto(
+        id: id,
+        name: name,
+        platform: platform,
+        emailAddress: emailAddress,
+      ),
+    ));
+  }
+
+  /// Deletes the device from the user
+  Future<KavitaResponse<void>> deleteDevice({
+    required int deviceId,
+  }) async {
+    return KavitaResponse(await api.apiDeviceDelete(
+      deviceId: deviceId,
+    ));
+  }
+
+  /// Returns a list of all devices for the user
+  Future<KavitaResponse<List<Device>>> getDevices() async {
+    return KavitaResponse(_mappr.convert(await api.apiDeviceGet()));
+  }
+
+  /// Sends a collection of chapters to the user's device
+  Future<KavitaResponse<void>> sendToDevice({
+    required int deviceId,
+    List<int>? chapterIds,
+  }) async {
+    return KavitaResponse(await api.apiDeviceSendToPost(
+      body: client.SendToDeviceDto(
+        deviceId: deviceId,
+        chapterIds: chapterIds,
+      ),
+    ));
+  }
+
+  /// Sends a series to the user's device
+  Future<KavitaResponse<void>> sendSeriesToDevice({
+    required int deviceId,
+    required int seriesId,
+  }) async {
+    return KavitaResponse(await api.apiDeviceSendSeriesToPost(
+      body: client.SendSeriesToDeviceDto(
+        deviceId: deviceId,
+        seriesId: seriesId,
+      ),
+    ));
+  }
 }
 
 /// All APIs related to downloading entities from the system.

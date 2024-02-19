@@ -14,6 +14,7 @@ import 'age_restriction.dart' as _i4;
 import 'cbl_book_result.dart' as _i11;
 import 'cbl_import_summary.dart' as _i10;
 import 'collection_tag.dart' as _i9;
+import 'device.dart' as _i14;
 import 'file_format.dart' as _i13;
 import 'invite_user_response.dart' as _i8;
 import 'server_info.dart' as _i12;
@@ -35,6 +36,7 @@ import 'user_preferences.dart' as _i5;
 /// - `CblBookResult` → `CblBookResult`.
 /// - `ServerInfoDto` → `ServerInfo`.
 /// - `FileFormatDto` → `FileFormat`.
+/// - `DeviceDto` → `Device`.
 /// {@endtemplate}
 class $Mappr implements _i1.AutoMapprInterface {
   const $Mappr();
@@ -113,6 +115,12 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i2.FileFormatDto?>()) &&
         (targetTypeOf == _typeOf<_i13.FileFormat>() ||
             targetTypeOf == _typeOf<_i13.FileFormat?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.DeviceDto>() ||
+            sourceTypeOf == _typeOf<_i2.DeviceDto?>()) &&
+        (targetTypeOf == _typeOf<_i14.Device>() ||
+            targetTypeOf == _typeOf<_i14.Device?>())) {
       return true;
     }
     if (recursive) {
@@ -381,6 +389,16 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$FileFormatDto_To__i13$FileFormat(
           (model as _i2.FileFormatDto?)) as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i2.DeviceDto>() ||
+            sourceTypeOf == _typeOf<_i2.DeviceDto?>()) &&
+        (targetTypeOf == _typeOf<_i14.Device>() ||
+            targetTypeOf == _typeOf<_i14.Device?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$DeviceDto_To__i14$Device((model as _i2.DeviceDto?))
+          as TARGET);
+    }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
   }
 
@@ -636,6 +654,21 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i13.FileFormat(
       extension: model.extension,
       format: model.format,
+    );
+  }
+
+  _i14.Device _map__i2$DeviceDto_To__i14$Device(_i2.DeviceDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping DeviceDto → Device failed because DeviceDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<DeviceDto, Device> to handle null values during mapping.');
+    }
+    return _i14.Device(
+      id: model.id,
+      name: model.name,
+      emailAddress: model.emailAddress,
+      platform: model.platform,
     );
   }
 
