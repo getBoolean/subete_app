@@ -2,20 +2,54 @@ import 'package:chopper/chopper.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 
+/// Authenticates with Kavita API
+final class KavitaApiAuthenticator {
+  final Uri baseUrl;
+  final String? username;
+  final String? password;
+  final String? apiKey;
+  final client.KavitaApi _api;
+
+  /// Authenticates with Kavita API
+  KavitaApiAuthenticator({
+    required this.baseUrl,
+    this.username,
+    this.password,
+  })  : _api = client.KavitaApi.create(baseUrl: baseUrl),
+        apiKey = null;
+
+  KavitaApiAuthenticator.apiKey(
+    this.apiKey, {
+    required this.baseUrl,
+  })  : _api = client.KavitaApi.create(baseUrl: baseUrl),
+        username = null,
+        password = null;
+
+  Future<Response<client.UserDto>> login() async {
+    return await _api.apiAccountLoginPost(
+      body: client.LoginDto(
+        username: username,
+        password: password,
+        apiKey: apiKey,
+      ),
+    );
+  }
+}
+
 final class KavitaApi {
   final Uri baseUrl;
-  final String apiToken;
+  final String bearerToken;
   final client.KavitaApi api;
 
   KavitaApi({
     required this.baseUrl,
-    required this.apiToken,
+    required this.bearerToken,
   }) : api = client.KavitaApi.create(
           baseUrl: baseUrl,
           interceptors: [
             (Request request) async => request.copyWith(
                   headers: {
-                    'Authorization': apiToken,
+                    'Authorization': 'Bearer $bearerToken',
                     'Accept': 'application/json',
                   }..addAll(request.headers),
                 ),
@@ -25,238 +59,238 @@ final class KavitaApi {
   KavitaApiAccount get account {
     return KavitaApiAccount(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiCbl get cbl {
     return KavitaApiCbl(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiCollection get collection {
     return KavitaApiCollection(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiDevice get device {
     return KavitaApiDevice(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiDownload get download {
     return KavitaApiDownload(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiFilter get filter {
     return KavitaApiFilter(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiImage get image {
     return KavitaApiImage(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiPanels get panels {
     return KavitaApiPanels(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiRating get rating {
     return KavitaApiRating(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiReader get reader {
     return KavitaApiReader(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiSearch get search {
     return KavitaApiSearch(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiStream get stream {
     return KavitaApiStream(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiTachiyomi get tachiyomi {
     return KavitaApiTachiyomi(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiUpload get upload {
     return KavitaApiUpload(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiWantToRead get wantToRead {
     return KavitaApiWantToRead(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiAdmin get admin {
     return KavitaApiAdmin(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiBook get book {
     return KavitaApiBook(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiHealth get health {
     return KavitaApiHealth(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiLibrary get library {
     return KavitaApiLibrary(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiLicense get license {
     return KavitaApiLicense(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiLocale get locale {
     return KavitaApiLocale(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiMetadata get metadata {
     return KavitaApiMetadata(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiOpds get opds {
     return KavitaApiOpds(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiPlugin get plugin {
     return KavitaApiPlugin(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiReadingList get readingList {
     return KavitaApiReadingList(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiRecommended get recommended {
     return KavitaApiRecommended(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiReview get review {
     return KavitaApiReview(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiScrobbling get scrobbling {
     return KavitaApiScrobbling(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiSeries get series {
     return KavitaApiSeries(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiServer get server {
     return KavitaApiServer(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiSettings get settings {
     return KavitaApiSettings(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiStats get stats {
     return KavitaApiStats(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiTheme get theme {
     return KavitaApiTheme(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 
   KavitaApiUsers get users {
     return KavitaApiUsers(
       baseUrl: baseUrl,
-      apiToken: apiToken,
+      bearerToken: bearerToken,
     );
   }
 }
@@ -264,18 +298,19 @@ final class KavitaApi {
 final class KavitaApiAccount extends KavitaApi {
   KavitaApiAccount({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 
   Future<Response<client.UserDto>> login({
     required String username,
     required String password,
+    required String apiKey,
   }) {
     return api.apiAccountLoginPost(
       body: client.LoginDto(
         username: username,
         password: password,
-        apiKey: apiToken,
+        apiKey: apiKey,
       ),
     );
   }
@@ -284,203 +319,203 @@ final class KavitaApiAccount extends KavitaApi {
 final class KavitaApiCbl extends KavitaApi {
   KavitaApiCbl({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiCollection extends KavitaApi {
   KavitaApiCollection({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiDevice extends KavitaApi {
   KavitaApiDevice({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiDownload extends KavitaApi {
   KavitaApiDownload({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiFilter extends KavitaApi {
   KavitaApiFilter({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiImage extends KavitaApi {
   KavitaApiImage({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiPanels extends KavitaApi {
   KavitaApiPanels({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiRating extends KavitaApi {
   KavitaApiRating({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiReader extends KavitaApi {
   KavitaApiReader({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiSearch extends KavitaApi {
   KavitaApiSearch({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiStream extends KavitaApi {
   KavitaApiStream({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiTachiyomi extends KavitaApi {
   KavitaApiTachiyomi({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiUpload extends KavitaApi {
   KavitaApiUpload({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiWantToRead extends KavitaApi {
   KavitaApiWantToRead({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiAdmin extends KavitaApi {
   KavitaApiAdmin({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiBook extends KavitaApi {
   KavitaApiBook({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiHealth extends KavitaApi {
   KavitaApiHealth({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiLibrary extends KavitaApi {
   KavitaApiLibrary({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiLicense extends KavitaApi {
   KavitaApiLicense({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiLocale extends KavitaApi {
   KavitaApiLocale({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiMetadata extends KavitaApi {
   KavitaApiMetadata({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiOpds extends KavitaApi {
   KavitaApiOpds({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiPlugin extends KavitaApi {
   KavitaApiPlugin({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiReadingList extends KavitaApi {
   KavitaApiReadingList({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiRecommended extends KavitaApi {
   KavitaApiRecommended({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiReview extends KavitaApi {
   KavitaApiReview({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiScrobbling extends KavitaApi {
   KavitaApiScrobbling({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiSeries extends KavitaApi {
   KavitaApiSeries({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiServer extends KavitaApi {
   KavitaApiServer({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 
   Future<Response<client.ServerInfoDto>> getServerInfo() {
@@ -491,27 +526,27 @@ final class KavitaApiServer extends KavitaApi {
 final class KavitaApiSettings extends KavitaApi {
   KavitaApiSettings({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiStats extends KavitaApi {
   KavitaApiStats({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiTheme extends KavitaApi {
   KavitaApiTheme({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }
 
 final class KavitaApiUsers extends KavitaApi {
   KavitaApiUsers({
     required super.baseUrl,
-    required super.apiToken,
+    required super.bearerToken,
   });
 }

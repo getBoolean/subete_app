@@ -18,5 +18,17 @@ An unofficial Dart package for Kavita API generated using [swagger_dart_code_gen
 ## Usage
 
 ```dart
-final api = KavitaApi.create(baseUrl: Uri.parse('https://<url>'));
+final userResponse = await KavitaApiAuthenticator(
+    username: 'Username',
+    password: 'Password',
+    baseUrl: 'http://localhost:5000',
+).login();
+if (userResponse.body == null || userResponse.body!.token == null) {
+    throw Exception('Could not log in');
+}
+
+final client = KavitaApi(
+    baseUrl: baseUrl,
+    bearerToken: userResponse.body!.token!,
+);
 ```
