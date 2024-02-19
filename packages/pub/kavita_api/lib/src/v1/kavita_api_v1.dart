@@ -4,8 +4,11 @@ import 'package:kavita_api/src/kavita_response.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 
+import '../entities/cbl_import_summary.dart';
+import '../entities/collection_tag.dart';
 import '../entities/invite_user_response.dart';
 import '../entities/mappr.dart';
+import '../entities/server_info.dart';
 import '../entities/token_request.dart';
 
 class KavitaApiV1 {
@@ -511,7 +514,7 @@ final class KavitaApiCbl extends KavitaApiV1 {
   /// file that if an import occured, would it be successful.
   ///
   /// If this returns errors, the cbl will always be rejected by Kavita.
-  Future<KavitaResponse<client.CblImportSummaryDto>> validateCbl({
+  Future<KavitaResponse<CblImportSummary>> validateCbl({
     String? contentType,
     String? contentDisposition,
     Object? headers,
@@ -519,18 +522,18 @@ final class KavitaApiCbl extends KavitaApiV1 {
     String? name,
     String? fileName,
   }) async {
-    return KavitaResponse(await api.apiCblValidatePost(
+    return KavitaResponse(_mappr.convert(await api.apiCblValidatePost(
       contentType: contentType,
       contentDisposition: contentDisposition,
       headers: headers,
       length: length,
       name: name,
       fileName: fileName,
-    ));
+    )));
   }
 
   /// Performs the actual import (assuming [dryRun] = false)
-  Future<KavitaResponse<client.CblImportSummaryDto>> importCbl({
+  Future<KavitaResponse<CblImportSummary>> importCbl({
     String? contentType,
     String? contentDisposition,
     Object? headers,
@@ -539,7 +542,7 @@ final class KavitaApiCbl extends KavitaApiV1 {
     String? fileName,
     bool? dryRun,
   }) async {
-    return KavitaResponse(await api.apiCblImportPost(
+    return KavitaResponse(_mappr.convert(await api.apiCblImportPost(
       contentType: contentType,
       contentDisposition: contentDisposition,
       headers: headers,
@@ -547,7 +550,7 @@ final class KavitaApiCbl extends KavitaApiV1 {
       name: name,
       fileName: fileName,
       dryRun: dryRun,
-    ));
+    )));
   }
 }
 
@@ -559,8 +562,8 @@ final class KavitaApiCollection extends KavitaApiV1 {
   });
 
   /// Return a list of all collection tags on the server for the logged in user.
-  Future<KavitaResponse<List<client.CollectionTagDto>>> getCollections() async {
-    return KavitaResponse(await api.apiCollectionGet());
+  Future<KavitaResponse<List<CollectionTag>>> getCollections() async {
+    return KavitaResponse(_mappr.convert(await api.apiCollectionGet()));
   }
 
   /// Removes the collection tag from all Series it was attached to
@@ -576,12 +579,12 @@ final class KavitaApiCollection extends KavitaApiV1 {
   /// that meet the search criteria.
   ///
   /// Search strings will be cleaned of certain fields, like %
-  Future<KavitaResponse<List<client.CollectionTagDto>>> searchCollections(
+  Future<KavitaResponse<List<CollectionTag>>> searchCollections(
     String queryString,
   ) async {
-    return KavitaResponse(await api.apiCollectionSearchGet(
+    return KavitaResponse(_mappr.convert(await api.apiCollectionSearchGet(
       queryString: queryString,
-    ));
+    )));
   }
 
   /// Checks if a collection exists with the [name]
@@ -633,12 +636,12 @@ final class KavitaApiCollection extends KavitaApiV1 {
   /// For a given tag, update the summary if summary has changed
   /// and remove a set of series from the tag.
   Future<KavitaResponse<void>> updateSeriesCollection({
-    required client.CollectionTagDto tag,
+    required CollectionTag tag,
     required List<int> seriesIdsToRemove,
   }) async {
     return KavitaResponse(await api.apiCollectionUpdateSeriesPost(
       body: client.UpdateSeriesForTagDto(
-        tag: tag,
+        tag: _mappr.convert(tag),
         seriesIdsToRemove: seriesIdsToRemove,
       ),
     ));
@@ -806,8 +809,8 @@ final class KavitaApiServer extends KavitaApiV1 {
     required super.api,
   });
 
-  Future<Response<client.ServerInfoDto>> getServerInfo() {
-    return api.apiServerServerInfoGet();
+  Future<Response<ServerInfo>> getServerInfo() {
+    return _mappr.convert(api.apiServerServerInfoGet());
   }
 }
 

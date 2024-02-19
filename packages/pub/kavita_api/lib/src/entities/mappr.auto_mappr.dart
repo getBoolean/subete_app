@@ -11,7 +11,12 @@ import 'package:auto_mappr_annotation/auto_mappr_annotation.dart' as _i1;
 
 import '../openapi_generated_code/kavita_api.swagger.dart' as _i2;
 import 'age_restriction.dart' as _i4;
+import 'cbl_book_result.dart' as _i11;
+import 'cbl_import_summary.dart' as _i10;
+import 'collection_tag.dart' as _i9;
+import 'file_format.dart' as _i13;
 import 'invite_user_response.dart' as _i8;
+import 'server_info.dart' as _i12;
 import 'site_theme.dart' as _i6;
 import 'token_request.dart' as _i7;
 import 'user.dart' as _i3;
@@ -25,6 +30,11 @@ import 'user_preferences.dart' as _i5;
 /// - `SiteTheme` → `SiteTheme`.
 /// - `TokenRequestDto` → `TokenRequest`.
 /// - `InviteUserResponse` → `InviteUserResponse`.
+/// - `CollectionTagDto` → `CollectionTag`.
+/// - `CblImportSummaryDto` → `CblImportSummary`.
+/// - `CblBookResult` → `CblBookResult`.
+/// - `ServerInfoDto` → `ServerInfo`.
+/// - `FileFormatDto` → `FileFormat`.
 /// {@endtemplate}
 class $Mappr implements _i1.AutoMapprInterface {
   const $Mappr();
@@ -73,6 +83,36 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i2.InviteUserResponse?>()) &&
         (targetTypeOf == _typeOf<_i8.InviteUserResponse>() ||
             targetTypeOf == _typeOf<_i8.InviteUserResponse?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.CollectionTagDto>() ||
+            sourceTypeOf == _typeOf<_i2.CollectionTagDto?>()) &&
+        (targetTypeOf == _typeOf<_i9.CollectionTag>() ||
+            targetTypeOf == _typeOf<_i9.CollectionTag?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.CblImportSummaryDto>() ||
+            sourceTypeOf == _typeOf<_i2.CblImportSummaryDto?>()) &&
+        (targetTypeOf == _typeOf<_i10.CblImportSummary>() ||
+            targetTypeOf == _typeOf<_i10.CblImportSummary?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.CblBookResult>() ||
+            sourceTypeOf == _typeOf<_i2.CblBookResult?>()) &&
+        (targetTypeOf == _typeOf<_i11.CblBookResult>() ||
+            targetTypeOf == _typeOf<_i11.CblBookResult?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.ServerInfoDto>() ||
+            sourceTypeOf == _typeOf<_i2.ServerInfoDto?>()) &&
+        (targetTypeOf == _typeOf<_i12.ServerInfo>() ||
+            targetTypeOf == _typeOf<_i12.ServerInfo?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.FileFormatDto>() ||
+            sourceTypeOf == _typeOf<_i2.FileFormatDto?>()) &&
+        (targetTypeOf == _typeOf<_i13.FileFormat>() ||
+            targetTypeOf == _typeOf<_i13.FileFormat?>())) {
       return true;
     }
     if (recursive) {
@@ -291,6 +331,56 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$InviteUserResponse_To__i8$InviteUserResponse(
           (model as _i2.InviteUserResponse?)) as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i2.CollectionTagDto>() ||
+            sourceTypeOf == _typeOf<_i2.CollectionTagDto?>()) &&
+        (targetTypeOf == _typeOf<_i9.CollectionTag>() ||
+            targetTypeOf == _typeOf<_i9.CollectionTag?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$CollectionTagDto_To__i9$CollectionTag(
+          (model as _i2.CollectionTagDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.CblImportSummaryDto>() ||
+            sourceTypeOf == _typeOf<_i2.CblImportSummaryDto?>()) &&
+        (targetTypeOf == _typeOf<_i10.CblImportSummary>() ||
+            targetTypeOf == _typeOf<_i10.CblImportSummary?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$CblImportSummaryDto_To__i10$CblImportSummary(
+          (model as _i2.CblImportSummaryDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.CblBookResult>() ||
+            sourceTypeOf == _typeOf<_i2.CblBookResult?>()) &&
+        (targetTypeOf == _typeOf<_i11.CblBookResult>() ||
+            targetTypeOf == _typeOf<_i11.CblBookResult?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$CblBookResult_To__i11$CblBookResult(
+          (model as _i2.CblBookResult?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.ServerInfoDto>() ||
+            sourceTypeOf == _typeOf<_i2.ServerInfoDto?>()) &&
+        (targetTypeOf == _typeOf<_i12.ServerInfo>() ||
+            targetTypeOf == _typeOf<_i12.ServerInfo?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$ServerInfoDto_To__i12$ServerInfo(
+          (model as _i2.ServerInfoDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.FileFormatDto>() ||
+            sourceTypeOf == _typeOf<_i2.FileFormatDto?>()) &&
+        (targetTypeOf == _typeOf<_i13.FileFormat>() ||
+            targetTypeOf == _typeOf<_i13.FileFormat?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$FileFormatDto_To__i13$FileFormat(
+          (model as _i2.FileFormatDto?)) as TARGET);
+    }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
   }
 
@@ -416,6 +506,136 @@ class $Mappr implements _i1.AutoMapprInterface {
       emailLink: model.emailLink,
       emailSent: model.emailSent,
       invalidEmail: model.invalidEmail,
+    );
+  }
+
+  _i9.CollectionTag _map__i2$CollectionTagDto_To__i9$CollectionTag(
+      _i2.CollectionTagDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping CollectionTagDto → CollectionTag failed because CollectionTagDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<CollectionTagDto, CollectionTag> to handle null values during mapping.');
+    }
+    return _i9.CollectionTag(
+      id: model.id,
+      title: model.title,
+      summary: model.summary,
+      promoted: model.promoted,
+      coverImage: model.coverImage,
+      coverImageLocked: model.coverImageLocked,
+    );
+  }
+
+  _i10.CblImportSummary _map__i2$CblImportSummaryDto_To__i10$CblImportSummary(
+      _i2.CblImportSummaryDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping CblImportSummaryDto → CblImportSummary failed because CblImportSummaryDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<CblImportSummaryDto, CblImportSummary> to handle null values during mapping.');
+    }
+    return _i10.CblImportSummary(
+      cblName: model.cblName,
+      fileName: model.fileName,
+      results: model.results
+          ?.map<_i11.CblBookResult>(
+              (value) => _map__i2$CblBookResult_To__i11$CblBookResult(value))
+          .toList(),
+      success: model.success,
+      successfulInserts: model.successfulInserts
+          ?.map<_i11.CblBookResult>(
+              (value) => _map__i2$CblBookResult_To__i11$CblBookResult(value))
+          .toList(),
+    );
+  }
+
+  _i11.CblBookResult _map__i2$CblBookResult_To__i11$CblBookResult(
+      _i2.CblBookResult? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping CblBookResult → CblBookResult failed because CblBookResult was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<CblBookResult, CblBookResult> to handle null values during mapping.');
+    }
+    return _i11.CblBookResult(
+      order: model.order,
+      series: model.series,
+      volume: model.volume,
+      number: model.number,
+      libraryId: model.libraryId,
+      seriesId: model.seriesId,
+      readingListName: model.readingListName,
+      reason: model.reason,
+    );
+  }
+
+  _i12.ServerInfo _map__i2$ServerInfoDto_To__i12$ServerInfo(
+      _i2.ServerInfoDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping ServerInfoDto → ServerInfo failed because ServerInfoDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<ServerInfoDto, ServerInfo> to handle null values during mapping.');
+    }
+    return _i12.ServerInfo(
+      installId: model.installId,
+      os: model.os,
+      isDocker: model.isDocker,
+      dotnetVersion: model.dotnetVersion,
+      kavitaVersion: model.kavitaVersion,
+      numOfCores: model.numOfCores,
+      numberOfLibraries: model.numberOfLibraries,
+      hasBookmarks: model.hasBookmarks,
+      activeSiteTheme: model.activeSiteTheme,
+      mangaReaderMode: model.mangaReaderMode,
+      numberOfUsers: model.numberOfUsers,
+      numberOfCollections: model.numberOfCollections,
+      numberOfReadingLists: model.numberOfReadingLists,
+      opdsEnabled: model.opdsEnabled,
+      totalFiles: model.totalFiles,
+      totalGenres: model.totalGenres,
+      totalPeople: model.totalPeople,
+      usersOnCardLayout: model.usersOnCardLayout,
+      usersOnListLayout: model.usersOnListLayout,
+      maxSeriesInALibrary: model.maxSeriesInALibrary,
+      maxVolumesInASeries: model.maxVolumesInASeries,
+      maxChaptersInASeries: model.maxChaptersInASeries,
+      usingSeriesRelationships: model.usingSeriesRelationships,
+      mangaReaderBackgroundColors: model.mangaReaderBackgroundColors,
+      mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes,
+      mangaReaderLayoutModes: model.mangaReaderLayoutModes,
+      fileFormats: model.fileFormats
+          ?.map<_i13.FileFormat>(
+              (value) => _map__i2$FileFormatDto_To__i13$FileFormat(value))
+          .toList(),
+      usingRestrictedProfiles: model.usingRestrictedProfiles,
+      usersWithEmulateComicBook: model.usersWithEmulateComicBook,
+      percentOfLibrariesWithFolderWatchingEnabled:
+          model.percentOfLibrariesWithFolderWatchingEnabled,
+      percentOfLibrariesIncludedInSearch:
+          model.percentOfLibrariesIncludedInSearch,
+      percentOfLibrariesIncludedInRecommended:
+          model.percentOfLibrariesIncludedInRecommended,
+      percentOfLibrariesIncludedInDashboard:
+          model.percentOfLibrariesIncludedInDashboard,
+      totalReadingHours: model.totalReadingHours,
+      encodeMediaAs: model.encodeMediaAs,
+      lastReadTime: model.lastReadTime,
+    );
+  }
+
+  _i13.FileFormat _map__i2$FileFormatDto_To__i13$FileFormat(
+      _i2.FileFormatDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping FileFormatDto → FileFormat failed because FileFormatDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<FileFormatDto, FileFormat> to handle null values during mapping.');
+    }
+    return _i13.FileFormat(
+      extension: model.extension,
+      format: model.format,
     );
   }
 

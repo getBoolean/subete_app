@@ -4,7 +4,9 @@ analyzer:
   plugins:
     - custom_lint
   language:
+    strict-casts: true
     strict-inference: true
+    strict-raw-types: true
 
   errors:
     # Required for Freezed
