@@ -5,7 +5,7 @@ import 'site_theme.dart';
 part 'user_preferences.mapper.dart';
 
 @MappableClass()
-class UserPreferences {
+class UserPreferences with UserPreferencesMappable {
   const UserPreferences({
     required this.readingDirection,
     required this.scalingOption,
@@ -65,4 +65,7 @@ class UserPreferences {
   final bool collapseSeriesRelationships;
   final bool shareReviews;
   final String locale;
+
+  static final fromMap = UserPreferencesMapper.fromMap;
+  static final fromJson = UserPreferencesMapper.fromJson;
 }

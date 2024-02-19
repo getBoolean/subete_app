@@ -4,7 +4,9 @@ import 'package:kavita_api/src/kavita_response.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 
+import '../entities/invite_user_response.dart';
 import '../entities/mappr.dart';
+import '../entities/token_request.dart';
 
 class KavitaApiV1 {
   final client.KavitaApi api;
@@ -317,13 +319,13 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   /// Refreshes the user's JWT token
-  Future<KavitaResponse<client.TokenRequestDto>> refreshToken({
+  Future<KavitaResponse<TokenRequest>> refreshToken({
     required String token,
     required String refreshToken,
   }) async {
-    return KavitaResponse(await api.apiAccountRefreshTokenPost(
+    return KavitaResponse(_mappr.convert(await api.apiAccountRefreshTokenPost(
       body: client.TokenRequestDto(token: token, refreshToken: refreshToken),
-    ));
+    )));
   }
 
   /// Get All Roles back. See API.Constants.PolicyConstants
@@ -478,12 +480,13 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   /// Resend an invite to a user already invited
-  Future<KavitaResponse<client.InviteUserResponse>> resendConfirmationEmail({
+  Future<KavitaResponse<InviteUserResponse>> resendConfirmationEmail({
     int? userId,
   }) async {
-    return KavitaResponse(await api.apiAccountResendConfirmationEmailPost(
+    return KavitaResponse(
+        _mappr.convert(await api.apiAccountResendConfirmationEmailPost(
       userId: userId,
-    ));
+    )));
   }
 
   /// Returns the OPDS url for this user

@@ -11,7 +11,9 @@ import 'package:auto_mappr_annotation/auto_mappr_annotation.dart' as _i1;
 
 import '../openapi_generated_code/kavita_api.swagger.dart' as _i2;
 import 'age_restriction.dart' as _i4;
+import 'invite_user_response.dart' as _i8;
 import 'site_theme.dart' as _i6;
+import 'token_request.dart' as _i7;
 import 'user.dart' as _i3;
 import 'user_preferences.dart' as _i5;
 
@@ -21,6 +23,8 @@ import 'user_preferences.dart' as _i5;
 /// - `AgeRestrictionDto` → `AgeRestriction`.
 /// - `UserPreferencesDto` → `UserPreferences`.
 /// - `SiteTheme` → `SiteTheme`.
+/// - `TokenRequestDto` → `TokenRequest`.
+/// - `InviteUserResponse` → `InviteUserResponse`.
 /// {@endtemplate}
 class $Mappr implements _i1.AutoMapprInterface {
   const $Mappr();
@@ -57,6 +61,18 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i2.SiteTheme?>()) &&
         (targetTypeOf == _typeOf<_i6.SiteTheme>() ||
             targetTypeOf == _typeOf<_i6.SiteTheme?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.TokenRequestDto>() ||
+            sourceTypeOf == _typeOf<_i2.TokenRequestDto?>()) &&
+        (targetTypeOf == _typeOf<_i7.TokenRequest>() ||
+            targetTypeOf == _typeOf<_i7.TokenRequest?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.InviteUserResponse>() ||
+            sourceTypeOf == _typeOf<_i2.InviteUserResponse?>()) &&
+        (targetTypeOf == _typeOf<_i8.InviteUserResponse>() ||
+            targetTypeOf == _typeOf<_i8.InviteUserResponse?>())) {
       return true;
     }
     if (recursive) {
@@ -255,6 +271,26 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$SiteTheme_To__i6$SiteTheme((model as _i2.SiteTheme?))
           as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i2.TokenRequestDto>() ||
+            sourceTypeOf == _typeOf<_i2.TokenRequestDto?>()) &&
+        (targetTypeOf == _typeOf<_i7.TokenRequest>() ||
+            targetTypeOf == _typeOf<_i7.TokenRequest?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$TokenRequestDto_To__i7$TokenRequest(
+          (model as _i2.TokenRequestDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.InviteUserResponse>() ||
+            sourceTypeOf == _typeOf<_i2.InviteUserResponse?>()) &&
+        (targetTypeOf == _typeOf<_i8.InviteUserResponse>() ||
+            targetTypeOf == _typeOf<_i8.InviteUserResponse?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$InviteUserResponse_To__i8$InviteUserResponse(
+          (model as _i2.InviteUserResponse?)) as TARGET);
+    }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
   }
 
@@ -351,6 +387,35 @@ class $Mappr implements _i1.AutoMapprInterface {
       lastModified: model.lastModified,
       createdUtc: model.createdUtc,
       lastModifiedUtc: model.lastModifiedUtc,
+    );
+  }
+
+  _i7.TokenRequest _map__i2$TokenRequestDto_To__i7$TokenRequest(
+      _i2.TokenRequestDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping TokenRequestDto → TokenRequest failed because TokenRequestDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<TokenRequestDto, TokenRequest> to handle null values during mapping.');
+    }
+    return _i7.TokenRequest(
+      token: model.token,
+      refreshToken: model.refreshToken,
+    );
+  }
+
+  _i8.InviteUserResponse _map__i2$InviteUserResponse_To__i8$InviteUserResponse(
+      _i2.InviteUserResponse? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping InviteUserResponse → InviteUserResponse failed because InviteUserResponse was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<InviteUserResponse, InviteUserResponse> to handle null values during mapping.');
+    }
+    return _i8.InviteUserResponse(
+      emailLink: model.emailLink,
+      emailSent: model.emailSent,
+      invalidEmail: model.invalidEmail,
     );
   }
 

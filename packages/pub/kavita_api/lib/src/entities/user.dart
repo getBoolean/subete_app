@@ -6,7 +6,7 @@ import 'user_preferences.dart';
 part 'user.mapper.dart';
 
 @MappableClass()
-class User {
+class User with UserMappable {
   const User({
     this.username,
     this.email,
@@ -26,4 +26,7 @@ class User {
   final UserPreferences? preferences;
   final AgeRestriction? ageRestriction;
   final String? kavitaVersion;
+
+  static final fromMap = UserMapper.fromMap;
+  static final fromJson = UserMapper.fromJson;
 }

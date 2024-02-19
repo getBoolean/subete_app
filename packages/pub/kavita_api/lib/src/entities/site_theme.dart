@@ -3,7 +3,7 @@ import 'package:dart_mappable/dart_mappable.dart';
 part 'site_theme.mapper.dart';
 
 @MappableClass()
-class SiteTheme {
+class SiteTheme with SiteThemeMappable {
   const SiteTheme({
     this.id,
     this.name,
@@ -27,4 +27,7 @@ class SiteTheme {
   final DateTime? lastModified;
   final DateTime? createdUtc;
   final DateTime? lastModifiedUtc;
+
+  static final fromMap = SiteThemeMapper.fromMap;
+  static final fromJson = SiteThemeMapper.fromJson;
 }
