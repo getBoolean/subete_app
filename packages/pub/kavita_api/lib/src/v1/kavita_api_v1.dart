@@ -106,126 +106,147 @@ class KavitaApiV1 {
     );
   }
 
+  /// All APIs related to uploading entities to the system.
   KavitaApiUpload get upload {
     return KavitaApiUpload._(
       api: api,
     );
   }
 
+  /// Responsible for all things Want To Read
   KavitaApiWantToRead get wantToRead {
     return KavitaApiWantToRead._(
       api: api,
     );
   }
 
+  /// All Admin APIs
   KavitaApiAdmin get admin {
     return KavitaApiAdmin._(
       api: api,
     );
   }
 
+  /// All Book related APIs
   KavitaApiBook get book {
     return KavitaApiBook._(
       api: api,
     );
   }
 
+  /// All Health related APIs
   KavitaApiHealth get health {
     return KavitaApiHealth._(
       api: api,
     );
   }
 
+  /// All Library related APIs
   KavitaApiLibrary get library {
     return KavitaApiLibrary._(
       api: api,
     );
   }
 
+  /// All License related APIs
   KavitaApiLicense get license {
     return KavitaApiLicense._(
       api: api,
     );
   }
 
+  /// All Locale related APIs
   KavitaApiLocale get locale {
     return KavitaApiLocale._(
       api: api,
     );
   }
 
+  /// All Metadata related APIs
   KavitaApiMetadata get metadata {
     return KavitaApiMetadata._(
       api: api,
     );
   }
 
+  /// All OPDS related APIs
   KavitaApiOpds get opds {
     return KavitaApiOpds._(
       api: api,
     );
   }
 
+  /// All Plugin related APIs
   KavitaApiPlugin get plugin {
     return KavitaApiPlugin._(
       api: api,
     );
   }
 
+  /// All ReadingList related APIs
   KavitaApiReadingList get readingList {
     return KavitaApiReadingList._(
       api: api,
     );
   }
 
+  /// All Recommended related APIs
   KavitaApiRecommended get recommended {
     return KavitaApiRecommended._(
       api: api,
     );
   }
 
+  /// All Review related APIs
   KavitaApiReview get review {
     return KavitaApiReview._(
       api: api,
     );
   }
 
+  /// All Scrobbling related APIs
   KavitaApiScrobbling get scrobbling {
     return KavitaApiScrobbling._(
       api: api,
     );
   }
 
+  /// All Series related APIs
   KavitaApiSeries get series {
     return KavitaApiSeries._(
       api: api,
     );
   }
 
+  /// All Server related APIs
   KavitaApiServer get server {
     return KavitaApiServer._(
       api: api,
     );
   }
 
+  /// All Settings related APIs
   KavitaApiSettings get settings {
     return KavitaApiSettings._(
       api: api,
     );
   }
 
+  /// All Stats related APIs
   KavitaApiStats get stats {
     return KavitaApiStats._(
       api: api,
     );
   }
 
+  /// All Theme related APIs
   KavitaApiTheme get theme {
     return KavitaApiTheme._(
       api: api,
     );
   }
 
+  /// All Users related APIs
   KavitaApiUsers get users {
     return KavitaApiUsers._(
       api: api,
@@ -241,7 +262,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   });
 
   /// Update a user's password
-  Future<KavitaResponse<dynamic>> resetPassword({
+  Future<KavitaResponse<void>> resetPassword({
     required String userName,
     required String password,
     String? oldPassword,
@@ -292,8 +313,8 @@ final class KavitaApiAccount extends KavitaApiV1 {
 
   /// Refreshes the user's JWT token
   Future<KavitaResponse<client.TokenRequestDto>> refreshToken({
-    String? token,
-    String? refreshToken,
+    required String token,
+    required String refreshToken,
   }) async {
     return KavitaResponse(await api.apiAccountRefreshTokenPost(
       body: client.TokenRequestDto(token: token, refreshToken: refreshToken),
@@ -314,9 +335,9 @@ final class KavitaApiAccount extends KavitaApiV1 {
   /// then the email address is not changed in this API. A confirmation link is
   /// sent/dumped which will validate the email. It must be confirmed for the
   /// email to update.
-  Future<KavitaResponse<dynamic>> updateEmail({
-    String? email,
-    String? password,
+  Future<KavitaResponse<void>> updateEmail({
+    required String email,
+    required String password,
   }) async {
     return KavitaResponse(await api.apiAccountUpdateEmailPost(
       body: client.UpdateEmailDto(
@@ -327,7 +348,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   /// Update age restriction settings
-  Future<KavitaResponse<dynamic>> updateAgeRestriction({
+  Future<KavitaResponse<void>> updateAgeRestriction({
     required int ageRating,
     required bool includeUnknowns,
   }) async {
@@ -340,13 +361,11 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   // Update the user account. This can only affect Username, Email (will require confirming), Roles, and Library access.
-  Future<KavitaResponse<dynamic>> updateUser({
-    int? userId,
+  Future<KavitaResponse<void>> updateUser({
+    required int userId,
     String? username,
     List<String>? roles,
     List<int>? libraries,
-    int? ageRating,
-    bool? includeUnknowns,
   }) async {
     return KavitaResponse(await api.apiAccountUpdatePost(
       body: client.UpdateUserDto(
@@ -354,12 +373,6 @@ final class KavitaApiAccount extends KavitaApiV1 {
         username: username,
         roles: roles,
         libraries: libraries,
-        ageRestriction: ageRating == null && includeUnknowns == null
-            ? null
-            : client.AgeRestrictionDto(
-                ageRating: ageRating,
-                includeUnknowns: includeUnknowns,
-              ),
       ),
     ));
   }
@@ -433,7 +446,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
 
   /// Will send user a link to update their password to their email or prompt them if not accessible
   Future<KavitaResponse<String>> forgotPassword({
-    String? email,
+    required String email,
   }) async {
     return KavitaResponse(await api.apiAccountForgotPasswordPost(
       email: email,
@@ -535,6 +548,92 @@ final class KavitaApiCollection extends KavitaApiV1 {
   KavitaApiCollection._({
     required super.api,
   });
+
+  /// Return a list of all collection tags on the server for the logged in user.
+  Future<KavitaResponse<List<client.CollectionTagDto>>> getCollections() async {
+    return KavitaResponse(await api.apiCollectionGet());
+  }
+
+  /// Removes the collection tag from all Series it was attached to
+  Future<KavitaResponse<void>> deleteCollection({
+    required int tagId,
+  }) async {
+    return KavitaResponse(await api.apiCollectionDelete(
+      tagId: tagId,
+    ));
+  }
+
+  /// Searches against the collection tags on the DB and returns matches
+  /// that meet the search criteria.
+  ///
+  /// Search strings will be cleaned of certain fields, like %
+  Future<KavitaResponse<List<client.CollectionTagDto>>> searchCollections(
+    String queryString,
+  ) async {
+    return KavitaResponse(await api.apiCollectionSearchGet(
+      queryString: queryString,
+    ));
+  }
+
+  /// Checks if a collection exists with the [name]
+  ///
+  /// If empty or null, will return true as that is invalid
+  Future<KavitaResponse<bool>> collectionExists({
+    required String name,
+  }) async {
+    return KavitaResponse(await api.apiCollectionNameExistsGet(
+      name: name,
+    ));
+  }
+
+  /// Updates an existing tag with a new title, promotion status,
+  /// and summary. UI does not contain controls to update title
+  Future<KavitaResponse<void>> updateCollection({
+    required int id,
+    String? title,
+    String? summary,
+    bool? promoted,
+  }) async {
+    return KavitaResponse(await api.apiCollectionUpdatePost(
+      body: client.CollectionTagDto(
+        id: id,
+        title: title,
+        summary: summary,
+        promoted: promoted,
+      ),
+    ));
+  }
+
+  /// Adds a collection tag onto multiple Series.
+  ///
+  /// If tag id is 0, this will create a new tag.
+  Future<KavitaResponse<void>> updateCollectionForSeries({
+    required int collectionTagId,
+    required String collectionTagTitle,
+    required List<int> seriesIds,
+  }) async {
+    return KavitaResponse(await api.apiCollectionUpdateForSeriesPost(
+      body: client.CollectionTagBulkAddDto(
+        collectionTagId: collectionTagId,
+        collectionTagTitle: collectionTagTitle,
+        seriesIds: seriesIds,
+      ),
+    ));
+  }
+
+  /// For a given tag, update the summary if summary has changed
+  /// and remove a set of series from the tag.
+  Future<KavitaResponse<void>> updateSeriesCollection({
+    required client.CollectionTagDto tag,
+    required List<int> seriesIdsToRemove,
+  }) async {
+    return KavitaResponse(await api.apiCollectionUpdateSeriesPost(
+      body: client.UpdateSeriesForTagDto(
+        tag: tag,
+        seriesIdsToRemove: seriesIdsToRemove,
+      ),
+    ));
+  }
 }
 
 final class KavitaApiDevice extends KavitaApiV1 {
