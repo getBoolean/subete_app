@@ -1,4 +1,4 @@
-include: package:solid_lints/analysis_options.yaml
+include: package:lints/recommended.yaml
 
 analyzer:
   plugins:
