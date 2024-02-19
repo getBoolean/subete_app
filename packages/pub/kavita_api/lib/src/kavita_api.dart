@@ -40,213 +40,217 @@ final class KavitaApi {
     );
   }
 
+  /// All Account matters
   KavitaApiAccount get account {
-    return KavitaApiAccount(
+    return KavitaApiAccount._(
       api: api,
     );
   }
 
+  /// Responsible for the CBL import flow
   KavitaApiCbl get cbl {
-    return KavitaApiCbl(
+    return KavitaApiCbl._(
       api: api,
     );
   }
 
   KavitaApiCollection get collection {
-    return KavitaApiCollection(
+    return KavitaApiCollection._(
       api: api,
     );
   }
 
   KavitaApiDevice get device {
-    return KavitaApiDevice(
+    return KavitaApiDevice._(
       api: api,
     );
   }
 
   KavitaApiDownload get download {
-    return KavitaApiDownload(
+    return KavitaApiDownload._(
       api: api,
     );
   }
 
   KavitaApiFilter get filter {
-    return KavitaApiFilter(
+    return KavitaApiFilter._(
       api: api,
     );
   }
 
   KavitaApiImage get image {
-    return KavitaApiImage(
+    return KavitaApiImage._(
       api: api,
     );
   }
 
   KavitaApiPanels get panels {
-    return KavitaApiPanels(
+    return KavitaApiPanels._(
       api: api,
     );
   }
 
   KavitaApiRating get rating {
-    return KavitaApiRating(
+    return KavitaApiRating._(
       api: api,
     );
   }
 
   KavitaApiReader get reader {
-    return KavitaApiReader(
+    return KavitaApiReader._(
       api: api,
     );
   }
 
   KavitaApiSearch get search {
-    return KavitaApiSearch(
+    return KavitaApiSearch._(
       api: api,
     );
   }
 
   KavitaApiStream get stream {
-    return KavitaApiStream(
+    return KavitaApiStream._(
       api: api,
     );
   }
 
   KavitaApiTachiyomi get tachiyomi {
-    return KavitaApiTachiyomi(
+    return KavitaApiTachiyomi._(
       api: api,
     );
   }
 
   KavitaApiUpload get upload {
-    return KavitaApiUpload(
+    return KavitaApiUpload._(
       api: api,
     );
   }
 
   KavitaApiWantToRead get wantToRead {
-    return KavitaApiWantToRead(
+    return KavitaApiWantToRead._(
       api: api,
     );
   }
 
   KavitaApiAdmin get admin {
-    return KavitaApiAdmin(
+    return KavitaApiAdmin._(
       api: api,
     );
   }
 
   KavitaApiBook get book {
-    return KavitaApiBook(
+    return KavitaApiBook._(
       api: api,
     );
   }
 
   KavitaApiHealth get health {
-    return KavitaApiHealth(
+    return KavitaApiHealth._(
       api: api,
     );
   }
 
   KavitaApiLibrary get library {
-    return KavitaApiLibrary(
+    return KavitaApiLibrary._(
       api: api,
     );
   }
 
   KavitaApiLicense get license {
-    return KavitaApiLicense(
+    return KavitaApiLicense._(
       api: api,
     );
   }
 
   KavitaApiLocale get locale {
-    return KavitaApiLocale(
+    return KavitaApiLocale._(
       api: api,
     );
   }
 
   KavitaApiMetadata get metadata {
-    return KavitaApiMetadata(
+    return KavitaApiMetadata._(
       api: api,
     );
   }
 
   KavitaApiOpds get opds {
-    return KavitaApiOpds(
+    return KavitaApiOpds._(
       api: api,
     );
   }
 
   KavitaApiPlugin get plugin {
-    return KavitaApiPlugin(
+    return KavitaApiPlugin._(
       api: api,
     );
   }
 
   KavitaApiReadingList get readingList {
-    return KavitaApiReadingList(
+    return KavitaApiReadingList._(
       api: api,
     );
   }
 
   KavitaApiRecommended get recommended {
-    return KavitaApiRecommended(
+    return KavitaApiRecommended._(
       api: api,
     );
   }
 
   KavitaApiReview get review {
-    return KavitaApiReview(
+    return KavitaApiReview._(
       api: api,
     );
   }
 
   KavitaApiScrobbling get scrobbling {
-    return KavitaApiScrobbling(
+    return KavitaApiScrobbling._(
       api: api,
     );
   }
 
   KavitaApiSeries get series {
-    return KavitaApiSeries(
+    return KavitaApiSeries._(
       api: api,
     );
   }
 
   KavitaApiServer get server {
-    return KavitaApiServer(
+    return KavitaApiServer._(
       api: api,
     );
   }
 
   KavitaApiSettings get settings {
-    return KavitaApiSettings(
+    return KavitaApiSettings._(
       api: api,
     );
   }
 
   KavitaApiStats get stats {
-    return KavitaApiStats(
+    return KavitaApiStats._(
       api: api,
     );
   }
 
   KavitaApiTheme get theme {
-    return KavitaApiTheme(
+    return KavitaApiTheme._(
       api: api,
     );
   }
 
   KavitaApiUsers get users {
-    return KavitaApiUsers(
+    return KavitaApiUsers._(
       api: api,
     );
   }
 }
 
+/// All Account matters
 final class KavitaApiAccount extends KavitaApi {
-  KavitaApiAccount({
+  /// All Account matters
+  KavitaApiAccount._({
     required super.api,
   }) : super._();
 
@@ -488,176 +492,181 @@ final class KavitaApiAccount extends KavitaApi {
   }
 }
 
+/// Responsible for the CBL import flow
 final class KavitaApiCbl extends KavitaApi {
-  KavitaApiCbl({
+  KavitaApiCbl._({
     required super.api,
   }) : super._();
+
+  // validate
+
+  // import
 }
 
 final class KavitaApiCollection extends KavitaApi {
-  KavitaApiCollection({
+  KavitaApiCollection._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiDevice extends KavitaApi {
-  KavitaApiDevice({
+  KavitaApiDevice._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiDownload extends KavitaApi {
-  KavitaApiDownload({
+  KavitaApiDownload._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiFilter extends KavitaApi {
-  KavitaApiFilter({
+  KavitaApiFilter._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiImage extends KavitaApi {
-  KavitaApiImage({
+  KavitaApiImage._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiPanels extends KavitaApi {
-  KavitaApiPanels({
+  KavitaApiPanels._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiRating extends KavitaApi {
-  KavitaApiRating({
+  KavitaApiRating._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiReader extends KavitaApi {
-  KavitaApiReader({
+  KavitaApiReader._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiSearch extends KavitaApi {
-  KavitaApiSearch({
+  KavitaApiSearch._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiStream extends KavitaApi {
-  KavitaApiStream({
+  KavitaApiStream._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiTachiyomi extends KavitaApi {
-  KavitaApiTachiyomi({
+  KavitaApiTachiyomi._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiUpload extends KavitaApi {
-  KavitaApiUpload({
+  KavitaApiUpload._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiWantToRead extends KavitaApi {
-  KavitaApiWantToRead({
+  KavitaApiWantToRead._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiAdmin extends KavitaApi {
-  KavitaApiAdmin({
+  KavitaApiAdmin._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiBook extends KavitaApi {
-  KavitaApiBook({
+  KavitaApiBook._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiHealth extends KavitaApi {
-  KavitaApiHealth({
+  KavitaApiHealth._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiLibrary extends KavitaApi {
-  KavitaApiLibrary({
+  KavitaApiLibrary._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiLicense extends KavitaApi {
-  KavitaApiLicense({
+  KavitaApiLicense._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiLocale extends KavitaApi {
-  KavitaApiLocale({
+  KavitaApiLocale._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiMetadata extends KavitaApi {
-  KavitaApiMetadata({
+  KavitaApiMetadata._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiOpds extends KavitaApi {
-  KavitaApiOpds({
+  KavitaApiOpds._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiPlugin extends KavitaApi {
-  KavitaApiPlugin({
+  KavitaApiPlugin._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiReadingList extends KavitaApi {
-  KavitaApiReadingList({
+  KavitaApiReadingList._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiRecommended extends KavitaApi {
-  KavitaApiRecommended({
+  KavitaApiRecommended._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiReview extends KavitaApi {
-  KavitaApiReview({
+  KavitaApiReview._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiScrobbling extends KavitaApi {
-  KavitaApiScrobbling({
+  KavitaApiScrobbling._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiSeries extends KavitaApi {
-  KavitaApiSeries({
+  KavitaApiSeries._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiServer extends KavitaApi {
-  KavitaApiServer({
+  KavitaApiServer._({
     required super.api,
   }) : super._();
 
@@ -667,25 +676,25 @@ final class KavitaApiServer extends KavitaApi {
 }
 
 final class KavitaApiSettings extends KavitaApi {
-  KavitaApiSettings({
+  KavitaApiSettings._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiStats extends KavitaApi {
-  KavitaApiStats({
+  KavitaApiStats._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiTheme extends KavitaApi {
-  KavitaApiTheme({
+  KavitaApiTheme._({
     required super.api,
   }) : super._();
 }
 
 final class KavitaApiUsers extends KavitaApi {
-  KavitaApiUsers({
+  KavitaApiUsers._({
     required super.api,
   }) : super._();
 }
