@@ -13,17 +13,10 @@ final class KavitaApiAuthenticator {
   /// Authenticates with Kavita API
   KavitaApiAuthenticator({
     required this.baseUrl,
-    this.username,
-    this.password,
-  })  : _api = client.KavitaApi.create(baseUrl: baseUrl),
-        apiKey = null;
-
-  KavitaApiAuthenticator.apiKey(
-    this.apiKey, {
-    required this.baseUrl,
-  })  : _api = client.KavitaApi.create(baseUrl: baseUrl),
-        username = null,
-        password = null;
+    required this.username,
+    required this.password,
+    this.apiKey,
+  }) : _api = client.KavitaApi.create(baseUrl: baseUrl);
 
   Future<Response<client.UserDto>> login() async {
     return await _api.apiAccountLoginPost(

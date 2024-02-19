@@ -19,16 +19,6 @@ final class KavitaApi {
     ).login();
   }
 
-  static Future<Response<client.UserDto>> loginWithApiKey({
-    required Uri baseUrl,
-    required String apiKey,
-  }) async {
-    return await KavitaApiAuthenticator.apiKey(
-      apiKey,
-      baseUrl: baseUrl,
-    ).login();
-  }
-
   const KavitaApi._({
     required this.api,
   });
@@ -307,11 +297,9 @@ final class KavitaApiAccount extends KavitaApi {
   }
 
   /// Perform a login. Will send JWT Token of the logged in user back.
-  ///
-  /// If [apiKey] is provided, [username] and [password] are ignored.
   Future<KavitaResponse<client.UserDto>> login({
-    String? username,
-    String? password,
+    required String username,
+    required String password,
     String? apiKey,
   }) async {
     return KavitaResponse(await api.apiAccountLoginPost(
