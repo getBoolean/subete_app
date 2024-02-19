@@ -53,7 +53,7 @@ final class KavitaApi {
     String bearerToken, {
     required Uri baseUrl,
   }) {
-    final api = client.KavitaApi.create(interceptors: [
+    final api = client.KavitaApi.create(baseUrl: baseUrl, interceptors: [
       (Request request) async => request.copyWith(
             headers: {
               'Authorization': 'Bearer $bearerToken',
