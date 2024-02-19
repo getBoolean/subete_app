@@ -1,3 +1,4 @@
+import 'package:kavita_api/src/entities/user.dart';
 import 'package:kavita_api/src/kavita_context.dart';
 import 'package:kavita_api/src/v1/kavita_api_v1.dart';
 
@@ -13,6 +14,15 @@ final class KavitaApi {
   }) {
     return KavitaApi._(
       context: KavitaContext(baseUrl: baseUrl),
+    );
+  }
+
+  factory KavitaApi.fromUser(
+    User user, {
+    required Uri baseUrl,
+  }) {
+    return KavitaApi._(
+      context: KavitaContext(baseUrl: baseUrl, currentUser: user),
     );
   }
 
