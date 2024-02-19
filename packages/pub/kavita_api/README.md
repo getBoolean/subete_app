@@ -24,11 +24,11 @@ final userResponse = await KavitaApi.login(
     baseUrl: 'http://localhost:5000',
 );
 final userDto = userResponse.body;
-if (userDto == null) {
+if (userDto == null || userDto.token == null) {
     throw Exception('Could not log in');
 }
 
-client = KavitaApi.user(
+final client = KavitaApi.user(
     userDto,
     baseUrl: baseUrl,
 );
