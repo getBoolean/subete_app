@@ -1,4 +1,5 @@
 import 'package:chopper/chopper.dart';
+import 'package:kavita_api/src/kavita_response.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 
@@ -21,13 +22,15 @@ final class KavitaApiAuthenticator {
     this.apiKey,
   }) : _api = client.KavitaApi.create(baseUrl: baseUrl);
 
-  Future<Response<User>> login() async {
-    return Mappr().convert(await _api.apiAccountLoginPost(
+  Future<KavitaResponse<User>> login() async {
+    final userDto = await _api.apiAccountLoginPost(
       body: client.LoginDto(
         username: username,
         password: password,
         apiKey: apiKey,
       ),
-    ));
+    );
+    return Mappr()
+        .convert<Response<client.UserDto>, KavitaResponse<User>>(userDto);
   }
 }

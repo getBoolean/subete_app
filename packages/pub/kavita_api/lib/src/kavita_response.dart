@@ -1,46 +1,74 @@
 import 'dart:typed_data';
 
-import 'package:chopper/chopper.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart' as http;
 
-final class KavitaResponse<T> {
-  final Response<T> _response;
+part 'kavita_response.mapper.dart';
 
-  KavitaResponse(this._response);
+@MappableClass()
+final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
+  /// The [http.BaseResponse] from `package:http` that this [KavitaResponse] wraps.
+  final http.BaseResponse base;
 
-  T? get body => _response.body;
+  /// The body of the response after conversion by Chopper
+  /// See [Converter] for more on body conversion.
+  ///
+  /// Can be null if [isSuccessful] is not true.
+  /// Use [error] to get error body.
+  final BodyType? body;
 
-  Object? get error => _response.error;
+  /// The body of the response if [isSuccessful] is false.
+  final Object? error;
 
-  http.BaseResponse get base => _response.base;
+  /// {@macro response}
+  const KavitaResponse(this.base, this.body, {this.error});
 
-  Uint8List get bodyBytes => _response.bodyBytes;
+  /// The HTTP status code of the response.
+  int get statusCode => base.statusCode;
 
-  T get bodyOrThrow => _response.bodyOrThrow;
+  /// Whether the network call was successful or not.
+  ///
+  /// `true` if the result code of the network call is >= 200 && <300
+  /// If false, [error] will contain the converted error response body.
+  bool get isSuccessful => statusCode >= 200 && statusCode < 300;
 
-  String get bodyString => _response.bodyString;
+  /// HTTP headers of the response.
+  Map<String, String> get headers => base.headers;
 
-  KavitaResponse<NewBodyType> copyWith<NewBodyType>({
-    http.BaseResponse? base,
-    NewBodyType? body,
-    Object? bodyError,
-  }) =>
-      KavitaResponse(_response.copyWith<NewBodyType>(
-        base: base,
-        body: body,
-        bodyError: bodyError,
-      ));
+  /// Returns the response body as bytes ([Uint8List]) provided the network
+  /// call was successful, else this will be `null`.
+  Uint8List get bodyBytes =>
+      base is http.Response ? (base as http.Response).bodyBytes : Uint8List(0);
 
-  ErrorType? errorWhereType<ErrorType>() =>
-      _response.errorWhereType<ErrorType>();
+  /// Returns the response body as a String provided the network
+  /// call was successful, else this will be `null`.
+  String get bodyString =>
+      base is http.Response ? (base as http.Response).body : '';
 
-  Map<String, String> get headers => _response.headers;
+  /// Returns the response body if [Response] [isSuccessful] and [body] is not null.
+  /// Otherwise it throws an [HttpException] with the response status code and error object.
+  /// If the error object is an [Exception], it will be thrown instead.
+  BodyType get bodyOrThrow {
+    if (isSuccessful && body != null) {
+      return body!;
+    } else {
+      if (error is Exception) {
+        // ignore: only_throw_errors
+        throw error!;
+      }
+      throw Exception(this);
+    }
+  }
 
-  bool get isSuccessful => _response.isSuccessful;
+  /// Check if the response is an error and if the error is of type [ErrorType] and casts the error to [ErrorType]. Otherwise it returns null.
+  ErrorType? errorWhereType<ErrorType>() {
+    if (error != null && error is ErrorType) {
+      return error as ErrorType;
+    } else {
+      return null;
+    }
+  }
 
-  List<Object?> get props => _response.props;
-
-  int get statusCode => _response.statusCode;
-
-  bool? get stringify => _response.stringify;
+  static final fromMap = KavitaResponseMapper.fromMap;
+  static final fromJson = KavitaResponseMapper.fromJson;
 }
