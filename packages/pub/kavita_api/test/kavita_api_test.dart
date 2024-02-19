@@ -7,19 +7,27 @@ void main() {
 
   setUpAll(() async {
     final env = DotEnv()..load();
-    if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
+    if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME']) &&
+        !env.isDefined('KAVITA_API_KEY')) {
       throw Exception(
-        'Please define the environment variables `PASSWORD` and `USERNAME` in an .env file.',
+        'Please define the environment variables `KAVITA_PASSWORD` and `KAVITA_USERNAME` OR `KAVITA_API_KEY` in an .env file.',
       );
     }
 
+    final useApiKey = env.isDefined('KAVITA_API_KEY');
+
     final baseUrl = Uri.parse(
         env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'));
-    final userResponse = await KavitaApi.login(
-      username: env['USERNAME'],
-      password: env['PASSWORD'],
-      baseUrl: baseUrl,
-    );
+    final userResponse = useApiKey
+        ? await KavitaApi.loginWithApiKey(
+            baseUrl: baseUrl,
+            apiKey: env['KAVITA_API_KEY']!,
+          )
+        : await KavitaApi.login(
+            username: env['KAVITA_USERNAME'],
+            password: env['KAVITA_PASSWORD'],
+            baseUrl: baseUrl,
+          );
     final userDto = userResponse.body;
     if (userDto == null) {
       throw Exception('Could not log in');
