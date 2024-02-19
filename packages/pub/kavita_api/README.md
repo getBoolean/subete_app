@@ -28,8 +28,8 @@ if (userDto == null || userDto.token == null) {
     throw Exception('Could not log in');
 }
 
-final client = KavitaApi.user(
-    userDto,
+final client = KavitaApi(
+    userDto.token!,
     baseUrl: baseUrl,
 );
 ```

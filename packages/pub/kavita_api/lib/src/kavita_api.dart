@@ -23,22 +23,6 @@ final class KavitaApi {
     required this.api,
   });
 
-  /// Assumes that the [user] has a valid non null token.
-  factory KavitaApi.user(
-    client.UserDto user, {
-    required Uri baseUrl,
-  }) {
-    final token = user.token;
-    if (token == null) {
-      throw ArgumentError.value(
-        user,
-        'user',
-        'The user must have a non null token',
-      );
-    }
-    return KavitaApi(token, baseUrl: baseUrl);
-  }
-
   factory KavitaApi(
     String bearerToken, {
     required Uri baseUrl,

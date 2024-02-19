@@ -21,12 +21,12 @@ void main() {
       baseUrl: baseUrl,
     );
     final userDto = userResponse.body;
-    if (userDto == null) {
+    if (userDto == null || userDto.token == null) {
       throw Exception('Could not log in');
     }
 
-    client = KavitaApi.user(
-      userDto,
+    client = KavitaApi(
+      userDto.token!,
       baseUrl: baseUrl,
     );
   });
