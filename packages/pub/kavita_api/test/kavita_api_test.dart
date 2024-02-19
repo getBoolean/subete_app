@@ -7,14 +7,14 @@ void main() {
 
   setUpAll(() async {
     final env = DotEnv()..load();
-    if (!env.isEveryDefined(['PASSWORD', 'USERNAME'])) {
+    if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
       throw Exception(
         'Please define the environment variables `PASSWORD` and `USERNAME` in an .env file.',
       );
     }
 
-    final baseUrl =
-        Uri.parse(env.getOrElse('BASE_URL', () => 'http://127.0.0.1:5000'));
+    final baseUrl = Uri.parse(
+        env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'));
     final userResponse = await KavitaApi.login(
       username: env['USERNAME'],
       password: env['PASSWORD'],
