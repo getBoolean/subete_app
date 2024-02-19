@@ -24,66 +24,82 @@ class KavitaApiV1 {
     );
   }
 
+  /// APIs for Collections
   KavitaApiCollection get collection {
     return KavitaApiCollection._(
       api: api,
     );
   }
 
+  /// Responsible for interacting with and creating Devices
   KavitaApiDevice get device {
     return KavitaApiDevice._(
       api: api,
     );
   }
 
+  /// All APIs related to downloading entities from the system.
+  ///
+  /// Requires Download Role or Admin Role.
   KavitaApiDownload get download {
     return KavitaApiDownload._(
       api: api,
     );
   }
 
+  /// This is reponsible for Filter caching
   KavitaApiFilter get filter {
     return KavitaApiFilter._(
       api: api,
     );
   }
 
+  /// Responsible for servicing up images stored in Kavita for entities
   KavitaApiImage get image {
     return KavitaApiImage._(
       api: api,
     );
   }
 
+  /// For the Panels app explicitly
   KavitaApiPanels get panels {
     return KavitaApiPanels._(
       api: api,
     );
   }
 
+  /// Responsible for providing external ratings for Series
   KavitaApiRating get rating {
     return KavitaApiRating._(
       api: api,
     );
   }
 
+  /// For all things regarding reading, mainly focusing on non-Book
+  /// related entities
   KavitaApiReader get reader {
     return KavitaApiReader._(
       api: api,
     );
   }
 
+  /// Responsible for hte Search interface from the UI
   KavitaApiSearch get search {
     return KavitaApiSearch._(
       api: api,
     );
   }
 
+  /// Responsible for anything that deals with Streams (SmartFilters,
+  /// ExternalSource, DashboardStream, SideNavStream)
   KavitaApiStream get stream {
     return KavitaApiStream._(
       api: api,
     );
   }
 
+  /// All APIs are for Tachiyomi extension and app. They have hacks for
+  /// our implementation and should not be used for any other purposes.
   KavitaApiTachiyomi get tachiyomi {
     return KavitaApiTachiyomi._(
       api: api,
@@ -464,6 +480,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
 
 /// Responsible for the CBL import flow
 final class KavitaApiCbl extends KavitaApiV1 {
+  /// Responsible for the CBL import flow
   KavitaApiCbl._({
     required super.api,
   });
@@ -512,7 +529,9 @@ final class KavitaApiCbl extends KavitaApiV1 {
   }
 }
 
+/// APIs for Collections
 final class KavitaApiCollection extends KavitaApiV1 {
+  /// APIs for Collections
   KavitaApiCollection._({
     required super.api,
   });
