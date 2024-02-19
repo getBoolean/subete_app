@@ -12,8 +12,8 @@ final class KavitaApi {
     required Uri baseUrl,
     String? username,
     String? password,
-  }) {
-    return KavitaApiAuthenticator(
+  }) async {
+    return await KavitaApiAuthenticator(
       baseUrl: baseUrl,
       username: username,
       password: password,
@@ -23,8 +23,8 @@ final class KavitaApi {
   static Future<Response<client.UserDto>> loginWithApiKey({
     required Uri baseUrl,
     required String apiKey,
-  }) {
-    return KavitaApiAuthenticator.apiKey(
+  }) async {
+    return await KavitaApiAuthenticator.apiKey(
       apiKey,
       baseUrl: baseUrl,
     ).login();
