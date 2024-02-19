@@ -664,7 +664,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await api.apiCollectionUpdateSeriesPost(
       body: client.UpdateSeriesForTagDto(
-        tag: _mappr.convert(tag),
+        tag: _mappr.convert<CollectionTag, client.CollectionTagDto>(tag),
         seriesIdsToRemove: seriesIdsToRemove,
       ),
     ));
