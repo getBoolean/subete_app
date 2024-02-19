@@ -76,3 +76,4 @@ linter:
     # while important, it is not a priority for an app
     public_member_api_docs: false
     lines_longer_than_80_chars: false
+    avoid_print: false
