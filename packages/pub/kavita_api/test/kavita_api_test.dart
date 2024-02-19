@@ -20,13 +20,14 @@ void main() {
       password: env['PASSWORD'],
       baseUrl: baseUrl,
     );
-    if (userResponse.body == null || userResponse.body!.token == null) {
+    final userDto = userResponse.body;
+    if (userDto == null) {
       throw Exception('Could not log in');
     }
 
-    client = KavitaApi(
+    client = KavitaApi.user(
+      userDto,
       baseUrl: baseUrl,
-      bearerToken: userResponse.body!.token!,
     );
   });
 

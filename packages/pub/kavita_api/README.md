@@ -23,12 +23,13 @@ final userResponse = await KavitaApi.login(
     password: 'Password',
     baseUrl: 'http://localhost:5000',
 );
-if (userResponse.body == null || userResponse.body!.token == null) {
+final userDto = userResponse.body;
+if (userDto == null) {
     throw Exception('Could not log in');
 }
 
-final client = KavitaApi(
+client = KavitaApi.user(
+    userDto,
     baseUrl: baseUrl,
-    bearerToken: userResponse.body!.token!,
 );
 ```
