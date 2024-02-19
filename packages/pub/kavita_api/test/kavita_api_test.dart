@@ -6,7 +6,7 @@ void main() {
   late final KavitaApi client;
 
   setUpAll(() async {
-    final env = DotEnv()..load();
+    final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
     if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
       throw Exception(
         'Please define the environment variables `KAVITA_PASSWORD` and `KAVITA_USERNAME` in an .env file.',
