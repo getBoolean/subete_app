@@ -648,163 +648,227 @@ final class KavitaApiCollection extends KavitaApiV1 {
   }
 }
 
+/// Responsible for interacting with and creating Devices
 final class KavitaApiDevice extends KavitaApiV1 {
+  /// Responsible for interacting with and creating Devices
   KavitaApiDevice._({
     required super.api,
   });
 }
 
+/// All APIs related to downloading entities from the system.
+///
+/// Requires Download Role or Admin Role.
 final class KavitaApiDownload extends KavitaApiV1 {
+  /// All APIs related to downloading entities from the system.
+  ///
+  /// Requires Download Role or Admin Role.
   KavitaApiDownload._({
     required super.api,
   });
 }
 
+/// This is reponsible for Filter caching
 final class KavitaApiFilter extends KavitaApiV1 {
+  /// This is reponsible for Filter caching
   KavitaApiFilter._({
     required super.api,
   });
 }
 
+/// Responsible for servicing up images stored in Kavita for entities
 final class KavitaApiImage extends KavitaApiV1 {
+  /// Responsible for servicing up images stored in Kavita for entities
   KavitaApiImage._({
     required super.api,
   });
 }
 
+/// For the Panels app explicitly
 final class KavitaApiPanels extends KavitaApiV1 {
+  /// For the Panels app explicitly
   KavitaApiPanels._({
     required super.api,
   });
 }
 
+/// Responsible for providing external ratings for Series
 final class KavitaApiRating extends KavitaApiV1 {
+  /// Responsible for providing external ratings for Series
   KavitaApiRating._({
     required super.api,
   });
 }
 
+/// For all things regarding reading, mainly focusing on non-Book
+/// related entities
 final class KavitaApiReader extends KavitaApiV1 {
+  /// For all things regarding reading, mainly focusing on non-Book
+  /// related entities
   KavitaApiReader._({
     required super.api,
   });
 }
 
+/// Responsible for hte Search interface from the UI
 final class KavitaApiSearch extends KavitaApiV1 {
+  /// Responsible for hte Search interface from the UI
   KavitaApiSearch._({
     required super.api,
   });
 }
 
+/// Responsible for anything that deals with Streams (SmartFilters,
+/// ExternalSource, DashboardStream, SideNavStream)
 final class KavitaApiStream extends KavitaApiV1 {
+  /// Responsible for anything that deals with Streams (SmartFilters,
+  /// ExternalSource, DashboardStream, SideNavStream)
   KavitaApiStream._({
     required super.api,
   });
 }
 
+/// All APIs are for Tachiyomi extension and app. They have hacks for
+/// our implementation and should not be used for any other purposes.
 final class KavitaApiTachiyomi extends KavitaApiV1 {
+  /// All APIs are for Tachiyomi extension and app. They have hacks for
+  /// our implementation and should not be used for any other purposes.
   KavitaApiTachiyomi._({
     required super.api,
   });
 }
 
+/// All APIs related to uploading entities to the system.
 final class KavitaApiUpload extends KavitaApiV1 {
+  /// All APIs related to uploading entities to the system.
   KavitaApiUpload._({
     required super.api,
   });
 }
 
+/// Responsible for all things Want To Read
 final class KavitaApiWantToRead extends KavitaApiV1 {
+  /// Responsible for all things Want To Read
   KavitaApiWantToRead._({
     required super.api,
   });
 }
 
+/// All Admin APIs
 final class KavitaApiAdmin extends KavitaApiV1 {
+  /// All Admin APIs
   KavitaApiAdmin._({
     required super.api,
   });
 }
 
+/// All Book related APIs
 final class KavitaApiBook extends KavitaApiV1 {
+  /// All Book related APIs
   KavitaApiBook._({
     required super.api,
   });
 }
 
+/// All Health related APIs
 final class KavitaApiHealth extends KavitaApiV1 {
+  /// All Health related APIs
   KavitaApiHealth._({
     required super.api,
   });
 }
 
+/// All Library related APIs
 final class KavitaApiLibrary extends KavitaApiV1 {
+  /// All Library related APIs
   KavitaApiLibrary._({
     required super.api,
   });
 }
 
+/// All License related APIs
 final class KavitaApiLicense extends KavitaApiV1 {
+  /// All License related APIs
   KavitaApiLicense._({
     required super.api,
   });
 }
 
+/// All Locale related APIs
 final class KavitaApiLocale extends KavitaApiV1 {
+  /// All Locale related APIs
   KavitaApiLocale._({
     required super.api,
   });
 }
 
+/// All Metadata related APIs
 final class KavitaApiMetadata extends KavitaApiV1 {
+  /// All Metadata related APIs
   KavitaApiMetadata._({
     required super.api,
   });
 }
 
+/// All OPDS related APIs
 final class KavitaApiOpds extends KavitaApiV1 {
+  /// All OPDS related APIs
   KavitaApiOpds._({
     required super.api,
   });
 }
 
+/// All Plugin related APIs
 final class KavitaApiPlugin extends KavitaApiV1 {
+  /// All Plugin related APIs
   KavitaApiPlugin._({
     required super.api,
   });
 }
 
+/// All ReadingList related APIs
 final class KavitaApiReadingList extends KavitaApiV1 {
+  /// All ReadingList related APIs
   KavitaApiReadingList._({
     required super.api,
   });
 }
 
+/// All Recommended related APIs
 final class KavitaApiRecommended extends KavitaApiV1 {
+  /// All Recommended related APIs
   KavitaApiRecommended._({
     required super.api,
   });
 }
 
+/// All Review related APIs
 final class KavitaApiReview extends KavitaApiV1 {
+  /// All Review related APIs
   KavitaApiReview._({
     required super.api,
   });
 }
 
+/// All Scrobbling related APIs
 final class KavitaApiScrobbling extends KavitaApiV1 {
+  /// All Scrobbling related APIs
   KavitaApiScrobbling._({
     required super.api,
   });
 }
 
+/// All Series related APIs
 final class KavitaApiSeries extends KavitaApiV1 {
+  /// All Series related APIs
   KavitaApiSeries._({
     required super.api,
   });
 }
 
+/// All Server related APIs
 final class KavitaApiServer extends KavitaApiV1 {
+  /// All Server related APIs
   KavitaApiServer._({
     required super.api,
   });
@@ -814,25 +878,33 @@ final class KavitaApiServer extends KavitaApiV1 {
   }
 }
 
+/// All Settings related APIs
 final class KavitaApiSettings extends KavitaApiV1 {
+  /// All Settings related APIs
   KavitaApiSettings._({
     required super.api,
   });
 }
 
+/// All Stats related APIs
 final class KavitaApiStats extends KavitaApiV1 {
+  /// All Stats related APIs
   KavitaApiStats._({
     required super.api,
   });
 }
 
+/// All Theme related APIs
 final class KavitaApiTheme extends KavitaApiV1 {
+  /// All Theme related APIs
   KavitaApiTheme._({
     required super.api,
   });
 }
 
+/// All Users related APIs
 final class KavitaApiUsers extends KavitaApiV1 {
+  /// All Users related APIs
   KavitaApiUsers._({
     required super.api,
   });
