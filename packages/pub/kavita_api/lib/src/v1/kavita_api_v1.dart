@@ -491,7 +491,7 @@ final class KavitaApiCbl extends KavitaApiV1 {
     int? length,
     String? name,
     String? fileName,
-    bool? dryRun,
+    bool dryRun = false,
   }) async {
     return _mappr.convert<Response<client.CblImportSummaryDto>,
         KavitaResponse<CblImportSummary>>(await context.api.apiCblImportPost(
