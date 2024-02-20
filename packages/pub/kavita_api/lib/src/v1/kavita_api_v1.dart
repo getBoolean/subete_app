@@ -650,11 +650,11 @@ final class KavitaApiDevice extends KavitaApiV1 {
 
   /// Deletes the device from the user
   Future<KavitaResponse<void>> deleteDevice({
-    required int deviceId,
+    required int id,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await context.api.apiDeviceDelete(
-      deviceId: deviceId,
+      deviceId: id,
     ));
   }
 

@@ -12,7 +12,6 @@ void main() {
     test('Test Get Devices', () async {
       final res = await client.v1.device.getDevices();
       expect(res.body, isNotNull, reason: 'No data received');
-      print('res.body: ${res.body}');
     });
 
     test('Test Create Device', skip: true, () async {
@@ -27,11 +26,24 @@ void main() {
     test('Test Update Device', skip: true, () async {
       final res = await client.v1.device.updateDevice(
         id: 7,
-        name: 'Test Device 0',
-        platform: DevicePlatform.custom,
-        emailAddress: 'test@email.com',
+        name: 'Test Device 1',
+        platform: DevicePlatform.kindle,
+        emailAddress: 'test2@email.com',
       );
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+    });
+
+    test('Test Delete Device', skip: true, () async {
+      final res = await client.v1.device.deleteDevice(id: 7);
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+    });
+
+    test('Test Send to Device', () async {
+      // TEST_TODO: Add test for send to device
+    });
+
+    test('Test Series to Device', () async {
+      // TEST_TODO: Add test for series to device
     });
   });
 }
