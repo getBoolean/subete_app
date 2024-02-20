@@ -9,11 +9,6 @@ class MockRawKavitaApiV1 extends Mock implements raw.KavitaApiV1 {}
 
 Future<KavitaApi> setUpKavita({bool mock = true}) async {
   final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
-  if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
-    throw Exception(
-      'Please define the environment variables `KAVITA_PASSWORD` and `KAVITA_USERNAME` in an .env file.',
-    );
-  }
 
   final baseUrl = Uri.parse(
       env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'));
@@ -31,6 +26,11 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
         .thenResponse(null);
 
     return KavitaApi.fromContext(KavitaContext.fromApi(api));
+  }
+  if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
+    throw Exception(
+      'Please define the environment variables `KAVITA_PASSWORD` and `KAVITA_USERNAME` in an .env file.',
+    );
   }
 
   final api = KavitaApi(baseUrl: baseUrl);
