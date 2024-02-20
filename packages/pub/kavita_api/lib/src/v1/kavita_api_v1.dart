@@ -2,6 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
+import 'package:meta/meta.dart';
 
 import '../entities/mappr.dart';
 
@@ -9,6 +10,7 @@ class KavitaApiV1 {
   final KavitaContext context;
   final Mappr _mappr = const Mappr();
 
+  @internal
   const KavitaApiV1({
     required this.context,
   });
