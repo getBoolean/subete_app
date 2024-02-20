@@ -17,185 +17,185 @@ class KavitaApiV1 {
   });
 
   /// All Account matters
-  KavitaApiAccount get account {
-    return KavitaApiAccount._(context: context);
+  KavitaApiV1Account get account {
+    return KavitaApiV1Account._(context: context);
   }
 
   /// Responsible for the CBL import flow
-  KavitaApiCbl get cbl {
-    return KavitaApiCbl._(context: context);
+  KavitaApiV1Cbl get cbl {
+    return KavitaApiV1Cbl._(context: context);
   }
 
   /// APIs for Collections
-  KavitaApiCollection get collection {
-    return KavitaApiCollection._(context: context);
+  KavitaApiV1Collection get collection {
+    return KavitaApiV1Collection._(context: context);
   }
 
   /// Responsible for interacting with and creating Devices
-  KavitaApiDevice get device {
-    return KavitaApiDevice._(context: context);
+  KavitaApiV1Device get device {
+    return KavitaApiV1Device._(context: context);
   }
 
   /// All APIs related to downloading entities from the system.
   ///
   /// Requires Download Role or Admin Role.
-  KavitaApiDownload get download {
-    return KavitaApiDownload._(context: context);
+  KavitaApiV1Download get download {
+    return KavitaApiV1Download._(context: context);
   }
 
   /// This is reponsible for Filter caching
-  KavitaApiFilter get filter {
-    return KavitaApiFilter._(context: context);
+  KavitaApiV1Filter get filter {
+    return KavitaApiV1Filter._(context: context);
   }
 
   /// Responsible for servicing up images stored in Kavita for entities
-  KavitaApiImage get image {
-    return KavitaApiImage._(context: context);
+  KavitaApiV1Image get image {
+    return KavitaApiV1Image._(context: context);
   }
 
   /// For the Panels app explicitly
-  KavitaApiPanels get panels {
-    return KavitaApiPanels._(context: context);
+  KavitaApiV1Panels get panels {
+    return KavitaApiV1Panels._(context: context);
   }
 
   /// Responsible for providing external ratings for Series
-  KavitaApiRating get rating {
-    return KavitaApiRating._(context: context);
+  KavitaApiV1Rating get rating {
+    return KavitaApiV1Rating._(context: context);
   }
 
   /// For all things regarding reading, mainly focusing on non-Book
   /// related entities
-  KavitaApiReader get reader {
-    return KavitaApiReader._(context: context);
+  KavitaApiV1Reader get reader {
+    return KavitaApiV1Reader._(context: context);
   }
 
   /// Responsible for hte Search interface from the UI
-  KavitaApiSearch get search {
-    return KavitaApiSearch._(context: context);
+  KavitaApiV1Search get search {
+    return KavitaApiV1Search._(context: context);
   }
 
   /// Responsible for anything that deals with Streams (SmartFilters,
   /// ExternalSource, DashboardStream, SideNavStream)
-  KavitaApiStream get stream {
-    return KavitaApiStream._(context: context);
+  KavitaApiV1Stream get stream {
+    return KavitaApiV1Stream._(context: context);
   }
 
   /// All APIs are for Tachiyomi extension and app. They have hacks for
   /// our implementation and should not be used for any other purposes.
-  KavitaApiTachiyomi get tachiyomi {
-    return KavitaApiTachiyomi._(context: context);
+  KavitaApiV1Tachiyomi get tachiyomi {
+    return KavitaApiV1Tachiyomi._(context: context);
   }
 
   /// All APIs related to uploading entities to the system.
-  KavitaApiUpload get upload {
-    return KavitaApiUpload._(context: context);
+  KavitaApiV1Upload get upload {
+    return KavitaApiV1Upload._(context: context);
   }
 
   /// Responsible for all things Want To Read
-  KavitaApiWantToRead get wantToRead {
-    return KavitaApiWantToRead._(context: context);
+  KavitaApiV1WantToRead get wantToRead {
+    return KavitaApiV1WantToRead._(context: context);
   }
 
   /// All Admin APIs
-  KavitaApiAdmin get admin {
-    return KavitaApiAdmin._(context: context);
+  KavitaApiV1Admin get admin {
+    return KavitaApiV1Admin._(context: context);
   }
 
   /// All Book related APIs
-  KavitaApiBook get book {
-    return KavitaApiBook._(context: context);
+  KavitaApiV1Book get book {
+    return KavitaApiV1Book._(context: context);
   }
 
   /// All Health related APIs
-  KavitaApiHealth get health {
-    return KavitaApiHealth._(context: context);
+  KavitaApiV1Health get health {
+    return KavitaApiV1Health._(context: context);
   }
 
   /// All Library related APIs
-  KavitaApiLibrary get library {
-    return KavitaApiLibrary._(context: context);
+  KavitaApiV1Library get library {
+    return KavitaApiV1Library._(context: context);
   }
 
   /// All License related APIs
-  KavitaApiLicense get license {
-    return KavitaApiLicense._(context: context);
+  KavitaApiV1License get license {
+    return KavitaApiV1License._(context: context);
   }
 
   /// All Locale related APIs
-  KavitaApiLocale get locale {
-    return KavitaApiLocale._(context: context);
+  KavitaApiV1Locale get locale {
+    return KavitaApiV1Locale._(context: context);
   }
 
   /// All Metadata related APIs
-  KavitaApiMetadata get metadata {
-    return KavitaApiMetadata._(context: context);
+  KavitaApiV1Metadata get metadata {
+    return KavitaApiV1Metadata._(context: context);
   }
 
   /// All OPDS related APIs
-  KavitaApiOpds get opds {
-    return KavitaApiOpds._(context: context);
+  KavitaApiV1Opds get opds {
+    return KavitaApiV1Opds._(context: context);
   }
 
   /// All Plugin related APIs
-  KavitaApiPlugin get plugin {
-    return KavitaApiPlugin._(context: context);
+  KavitaApiV1Plugin get plugin {
+    return KavitaApiV1Plugin._(context: context);
   }
 
   /// All ReadingList related APIs
-  KavitaApiReadingList get readingList {
-    return KavitaApiReadingList._(context: context);
+  KavitaApiV1ReadingList get readingList {
+    return KavitaApiV1ReadingList._(context: context);
   }
 
   /// All Recommended related APIs
-  KavitaApiRecommended get recommended {
-    return KavitaApiRecommended._(context: context);
+  KavitaApiV1Recommended get recommended {
+    return KavitaApiV1Recommended._(context: context);
   }
 
   /// All Review related APIs
-  KavitaApiReview get review {
-    return KavitaApiReview._(context: context);
+  KavitaApiV1Review get review {
+    return KavitaApiV1Review._(context: context);
   }
 
   /// All Scrobbling related APIs
-  KavitaApiScrobbling get scrobbling {
-    return KavitaApiScrobbling._(context: context);
+  KavitaApiV1Scrobbling get scrobbling {
+    return KavitaApiV1Scrobbling._(context: context);
   }
 
   /// All Series related APIs
-  KavitaApiSeries get series {
-    return KavitaApiSeries._(context: context);
+  KavitaApiV1Series get series {
+    return KavitaApiV1Series._(context: context);
   }
 
   /// All Server related APIs
-  KavitaApiServer get server {
-    return KavitaApiServer._(context: context);
+  KavitaApiV1Server get server {
+    return KavitaApiV1Server._(context: context);
   }
 
   /// All Settings related APIs
-  KavitaApiSettings get settings {
-    return KavitaApiSettings._(context: context);
+  KavitaApiV1Settings get settings {
+    return KavitaApiV1Settings._(context: context);
   }
 
   /// All Stats related APIs
-  KavitaApiStats get stats {
-    return KavitaApiStats._(context: context);
+  KavitaApiV1Stats get stats {
+    return KavitaApiV1Stats._(context: context);
   }
 
   /// All Theme related APIs
-  KavitaApiTheme get theme {
-    return KavitaApiTheme._(context: context);
+  KavitaApiV1Theme get theme {
+    return KavitaApiV1Theme._(context: context);
   }
 
   /// All Users related APIs
-  KavitaApiUsers get users {
-    return KavitaApiUsers._(context: context);
+  KavitaApiV1Users get users {
+    return KavitaApiV1Users._(context: context);
   }
 }
 
 /// All Account matters
-class KavitaApiAccount extends KavitaApiV1 {
+class KavitaApiV1Account extends KavitaApiV1 {
   /// All Account matters
-  KavitaApiAccount._({required super.context});
+  KavitaApiV1Account._({required super.context});
 
   /// Update a user's password
   Future<KavitaResponse<void>> resetPassword({
@@ -545,9 +545,9 @@ class KavitaApiAccount extends KavitaApiV1 {
 }
 
 /// Responsible for the CBL import flow
-class KavitaApiCbl extends KavitaApiV1 {
+class KavitaApiV1Cbl extends KavitaApiV1 {
   /// Responsible for the CBL import flow
-  KavitaApiCbl._({required super.context});
+  KavitaApiV1Cbl._({required super.context});
 
   /// The first step in a cbl import. This validates the cbl
   /// file that if an import occured, would it be successful.
@@ -604,9 +604,9 @@ class KavitaApiCbl extends KavitaApiV1 {
 }
 
 /// APIs for Collections
-class KavitaApiCollection extends KavitaApiV1 {
+class KavitaApiV1Collection extends KavitaApiV1 {
   /// APIs for Collections
-  KavitaApiCollection._({required super.context});
+  KavitaApiV1Collection._({required super.context});
 
   /// Return a list of all collection tags on the server for the logged in user.
   Future<KavitaResponse<List<CollectionTag>>> getCollections() async {
@@ -736,9 +736,9 @@ class KavitaApiCollection extends KavitaApiV1 {
 }
 
 /// Responsible for interacting with and creating Devices
-class KavitaApiDevice extends KavitaApiV1 {
+class KavitaApiV1Device extends KavitaApiV1 {
   /// Responsible for interacting with and creating Devices
-  KavitaApiDevice._({required super.context});
+  KavitaApiV1Device._({required super.context});
 
   /// Create a device
   ///
@@ -843,11 +843,11 @@ class KavitaApiDevice extends KavitaApiV1 {
 /// All APIs related to downloading entities from the system.
 ///
 /// Requires Download Role or Admin Role.
-class KavitaApiDownload extends KavitaApiV1 {
+class KavitaApiV1Download extends KavitaApiV1 {
   /// All APIs related to downloading entities from the system.
   ///
   /// Requires Download Role or Admin Role.
-  KavitaApiDownload._({required super.context});
+  KavitaApiV1Download._({required super.context});
 
   /// For a given volume, return the size in bytes
   Future<KavitaResponse<int>> getVolumeSize({
@@ -952,159 +952,159 @@ class KavitaApiDownload extends KavitaApiV1 {
 }
 
 /// This is reponsible for Filter caching
-class KavitaApiFilter extends KavitaApiV1 {
+class KavitaApiV1Filter extends KavitaApiV1 {
   /// This is reponsible for Filter caching
-  KavitaApiFilter._({required super.context});
+  KavitaApiV1Filter._({required super.context});
 }
 
 /// Responsible for servicing up images stored in Kavita for entities
-class KavitaApiImage extends KavitaApiV1 {
+class KavitaApiV1Image extends KavitaApiV1 {
   /// Responsible for servicing up images stored in Kavita for entities
-  KavitaApiImage._({required super.context});
+  KavitaApiV1Image._({required super.context});
 }
 
 /// For the Panels app explicitly
-class KavitaApiPanels extends KavitaApiV1 {
+class KavitaApiV1Panels extends KavitaApiV1 {
   /// For the Panels app explicitly
-  KavitaApiPanels._({required super.context});
+  KavitaApiV1Panels._({required super.context});
 }
 
 /// Responsible for providing external ratings for Series
-class KavitaApiRating extends KavitaApiV1 {
+class KavitaApiV1Rating extends KavitaApiV1 {
   /// Responsible for providing external ratings for Series
-  KavitaApiRating._({required super.context});
+  KavitaApiV1Rating._({required super.context});
 }
 
 /// For all things regarding reading, mainly focusing on non-Book
 /// related entities
-class KavitaApiReader extends KavitaApiV1 {
+class KavitaApiV1Reader extends KavitaApiV1 {
   /// For all things regarding reading, mainly focusing on non-Book
   /// related entities
-  KavitaApiReader._({required super.context});
+  KavitaApiV1Reader._({required super.context});
 }
 
 /// Responsible for hte Search interface from the UI
-class KavitaApiSearch extends KavitaApiV1 {
+class KavitaApiV1Search extends KavitaApiV1 {
   /// Responsible for hte Search interface from the UI
-  KavitaApiSearch._({required super.context});
+  KavitaApiV1Search._({required super.context});
 }
 
 /// Responsible for anything that deals with Streams (SmartFilters,
 /// ExternalSource, DashboardStream, SideNavStream)
-class KavitaApiStream extends KavitaApiV1 {
+class KavitaApiV1Stream extends KavitaApiV1 {
   /// Responsible for anything that deals with Streams (SmartFilters,
   /// ExternalSource, DashboardStream, SideNavStream)
-  KavitaApiStream._({required super.context});
+  KavitaApiV1Stream._({required super.context});
 }
 
 /// All APIs are for Tachiyomi extension and app. They have hacks for
 /// our implementation and should not be used for any other purposes.
-class KavitaApiTachiyomi extends KavitaApiV1 {
+class KavitaApiV1Tachiyomi extends KavitaApiV1 {
   /// All APIs are for Tachiyomi extension and app. They have hacks for
   /// our implementation and should not be used for any other purposes.
-  KavitaApiTachiyomi._({required super.context});
+  KavitaApiV1Tachiyomi._({required super.context});
 }
 
 /// All APIs related to uploading entities to the system.
-class KavitaApiUpload extends KavitaApiV1 {
+class KavitaApiV1Upload extends KavitaApiV1 {
   /// All APIs related to uploading entities to the system.
-  KavitaApiUpload._({required super.context});
+  KavitaApiV1Upload._({required super.context});
 }
 
 /// Responsible for all things Want To Read
-class KavitaApiWantToRead extends KavitaApiV1 {
+class KavitaApiV1WantToRead extends KavitaApiV1 {
   /// Responsible for all things Want To Read
-  KavitaApiWantToRead._({required super.context});
+  KavitaApiV1WantToRead._({required super.context});
 }
 
 /// All Admin APIs
-class KavitaApiAdmin extends KavitaApiV1 {
+class KavitaApiV1Admin extends KavitaApiV1 {
   /// All Admin APIs
-  KavitaApiAdmin._({required super.context});
+  KavitaApiV1Admin._({required super.context});
 }
 
 /// All Book related APIs
-class KavitaApiBook extends KavitaApiV1 {
+class KavitaApiV1Book extends KavitaApiV1 {
   /// All Book related APIs
-  KavitaApiBook._({required super.context});
+  KavitaApiV1Book._({required super.context});
 }
 
 /// All Health related APIs
-class KavitaApiHealth extends KavitaApiV1 {
+class KavitaApiV1Health extends KavitaApiV1 {
   /// All Health related APIs
-  KavitaApiHealth._({required super.context});
+  KavitaApiV1Health._({required super.context});
 }
 
 /// All Library related APIs
-class KavitaApiLibrary extends KavitaApiV1 {
+class KavitaApiV1Library extends KavitaApiV1 {
   /// All Library related APIs
-  KavitaApiLibrary._({required super.context});
+  KavitaApiV1Library._({required super.context});
 }
 
 /// All License related APIs
-class KavitaApiLicense extends KavitaApiV1 {
+class KavitaApiV1License extends KavitaApiV1 {
   /// All License related APIs
-  KavitaApiLicense._({required super.context});
+  KavitaApiV1License._({required super.context});
 }
 
 /// All Locale related APIs
-class KavitaApiLocale extends KavitaApiV1 {
+class KavitaApiV1Locale extends KavitaApiV1 {
   /// All Locale related APIs
-  KavitaApiLocale._({required super.context});
+  KavitaApiV1Locale._({required super.context});
 }
 
 /// All Metadata related APIs
-class KavitaApiMetadata extends KavitaApiV1 {
+class KavitaApiV1Metadata extends KavitaApiV1 {
   /// All Metadata related APIs
-  KavitaApiMetadata._({required super.context});
+  KavitaApiV1Metadata._({required super.context});
 }
 
 /// All OPDS related APIs
-class KavitaApiOpds extends KavitaApiV1 {
+class KavitaApiV1Opds extends KavitaApiV1 {
   /// All OPDS related APIs
-  KavitaApiOpds._({required super.context});
+  KavitaApiV1Opds._({required super.context});
 }
 
 /// All Plugin related APIs
-class KavitaApiPlugin extends KavitaApiV1 {
+class KavitaApiV1Plugin extends KavitaApiV1 {
   /// All Plugin related APIs
-  KavitaApiPlugin._({required super.context});
+  KavitaApiV1Plugin._({required super.context});
 }
 
 /// All ReadingList related APIs
-class KavitaApiReadingList extends KavitaApiV1 {
+class KavitaApiV1ReadingList extends KavitaApiV1 {
   /// All ReadingList related APIs
-  KavitaApiReadingList._({required super.context});
+  KavitaApiV1ReadingList._({required super.context});
 }
 
 /// All Recommended related APIs
-class KavitaApiRecommended extends KavitaApiV1 {
+class KavitaApiV1Recommended extends KavitaApiV1 {
   /// All Recommended related APIs
-  KavitaApiRecommended._({required super.context});
+  KavitaApiV1Recommended._({required super.context});
 }
 
 /// All Review related APIs
-class KavitaApiReview extends KavitaApiV1 {
+class KavitaApiV1Review extends KavitaApiV1 {
   /// All Review related APIs
-  KavitaApiReview._({required super.context});
+  KavitaApiV1Review._({required super.context});
 }
 
 /// All Scrobbling related APIs
-class KavitaApiScrobbling extends KavitaApiV1 {
+class KavitaApiV1Scrobbling extends KavitaApiV1 {
   /// All Scrobbling related APIs
-  KavitaApiScrobbling._({required super.context});
+  KavitaApiV1Scrobbling._({required super.context});
 }
 
 /// All Series related APIs
-class KavitaApiSeries extends KavitaApiV1 {
+class KavitaApiV1Series extends KavitaApiV1 {
   /// All Series related APIs
-  KavitaApiSeries._({required super.context});
+  KavitaApiV1Series._({required super.context});
 }
 
 /// All Server related APIs
-class KavitaApiServer extends KavitaApiV1 {
+class KavitaApiV1Server extends KavitaApiV1 {
   /// All Server related APIs
-  KavitaApiServer._({required super.context});
+  KavitaApiV1Server._({required super.context});
 
   Future<KavitaResponse<ServerInfo>> getServerInfo() async {
     return _mappr.convert<Response<client.ServerInfoDto>,
@@ -1113,25 +1113,25 @@ class KavitaApiServer extends KavitaApiV1 {
 }
 
 /// All Settings related APIs
-class KavitaApiSettings extends KavitaApiV1 {
+class KavitaApiV1Settings extends KavitaApiV1 {
   /// All Settings related APIs
-  KavitaApiSettings._({required super.context});
+  KavitaApiV1Settings._({required super.context});
 }
 
 /// All Stats related APIs
-class KavitaApiStats extends KavitaApiV1 {
+class KavitaApiV1Stats extends KavitaApiV1 {
   /// All Stats related APIs
-  KavitaApiStats._({required super.context});
+  KavitaApiV1Stats._({required super.context});
 }
 
 /// All Theme related APIs
-class KavitaApiTheme extends KavitaApiV1 {
+class KavitaApiV1Theme extends KavitaApiV1 {
   /// All Theme related APIs
-  KavitaApiTheme._({required super.context});
+  KavitaApiV1Theme._({required super.context});
 }
 
 /// All Users related APIs
-class KavitaApiUsers extends KavitaApiV1 {
+class KavitaApiV1Users extends KavitaApiV1 {
   /// All Users related APIs
-  KavitaApiUsers._({required super.context});
+  KavitaApiV1Users._({required super.context});
 }
