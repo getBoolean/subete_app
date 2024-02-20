@@ -177,7 +177,7 @@ packages:
     source: hosted
     version: "1.18.0"
   constants:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       path: "../constants"
       relative: true
