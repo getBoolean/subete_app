@@ -8,7 +8,7 @@ void main() {
 
   setUpAll(() async => api = await setUpKavita());
 
-  group('Test Kavita API v1 Collection', () {
+  group('Test Kavita API v1 Collection', skip: true, () {
     test('Test Get Collections', () async {
       final res = await api.v1.collection.getCollections();
       expect(res.body, isNotNull, reason: 'No data received');

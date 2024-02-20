@@ -7,18 +7,6 @@ import 'package:mocktail/mocktail.dart';
 
 class MockRawKavitaApiV1 extends Mock implements raw.KavitaApiV1 {}
 
-extension ReponseExtension<T> on When<Future<Response<T>>> {
-  void thenResponse(T? body, {Object? error}) {
-    return thenAnswer(
-      (_) async => Response(
-        http.Response(body.toString(), 200),
-        body,
-        error: error,
-      ),
-    );
-  }
-}
-
 Future<KavitaApi> setUpKavita({bool mock = true}) async {
   final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
   if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
@@ -35,6 +23,13 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     when(() => api.client).thenReturn(ChopperClient(baseUrl: baseUrl));
     when(() => api.apiServerServerInfoGet()).thenResponse(raw.ServerInfoDto());
 
+    final resetPasswordDto = raw.ResetPasswordDto(
+      userName: '',
+      password: '',
+    );
+    when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
+        .thenResponse(null);
+
     return KavitaApi.fromContext(KavitaContext.fromApi(api));
   }
 
@@ -45,4 +40,16 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
   );
 
   return api;
+}
+
+extension _ReponseExtension<T> on When<Future<Response<T>>> {
+  void thenResponse(T? body, {Object? error}) {
+    return thenAnswer(
+      (_) async => Response(
+        http.Response(body.toString(), 200),
+        body,
+        error: error,
+      ),
+    );
+  }
 }

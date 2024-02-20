@@ -8,9 +8,13 @@ void main() {
 
   setUpAll(() async => api = await setUpKavita());
 
-  group('Test Kavita API v1 Account', skip: true, () {
-    test('Test Reset Password', skip: true, () async {
-      // TEST_TODO: Add test for reset password\
+  group('Test Kavita API v1 Account', () {
+    test('Test Reset Password', () async {
+      final res = await api.v1.account.resetPassword(
+        userName: '',
+        password: '',
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to reset password');
     });
 
     // confirm password reset

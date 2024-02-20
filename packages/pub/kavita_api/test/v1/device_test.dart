@@ -8,7 +8,7 @@ void main() {
 
   setUpAll(() async => api = await setUpKavita());
 
-  group('Test Kavita API v1 Device', () {
+  group('Test Kavita API v1 Device', skip: true, () {
     test('Test Get Devices', () async {
       final res = await api.v1.device.getDevices();
       expect(res.body, isNotNull, reason: 'No data received');

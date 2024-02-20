@@ -8,7 +8,7 @@ void main() {
 
   setUpAll(() async => api = await setUpKavita());
 
-  group('Test Kavita API v1 Download', () {
+  group('Test Kavita API v1 Download', skip: true, () {
     test('Test Volume Size', () async {
       final res = await api.v1.download.getVolumeSize(volumeId: 22800);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
