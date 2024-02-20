@@ -227,7 +227,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
     String? email,
   }) async {
-    return UserMappr().convert<Response<client.UserDto>, KavitaResponse<User>>(
+    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountRegisterPost(
       body: client.RegisterDto(
         username: username,
@@ -243,9 +243,8 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
     String? apiKey,
   }) async {
-    final user = UserMappr()
-        .convert<Response<client.UserDto>, KavitaResponse<User>>(
-            await context.api.apiAccountLoginPost(
+    final user = _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
+        await context.api.apiAccountLoginPost(
       body: client.LoginDto(
         username: username,
         password: password,
@@ -265,7 +264,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
 
   /// Returns an up-to-date user account
   Future<KavitaResponse<User>> refreshAccount() async {
-    return UserMappr().convert<Response<client.UserDto>, KavitaResponse<User>>(
+    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountRefreshAccountGet());
   }
 
@@ -386,7 +385,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
     required String username,
   }) async {
-    return UserMappr().convert<Response<client.UserDto>, KavitaResponse<User>>(
+    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountConfirmEmailPost(
       body: client.ConfirmEmailDto(
         email: email,
@@ -434,7 +433,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String email,
     required String token,
   }) async {
-    return UserMappr().convert<Response<client.UserDto>, KavitaResponse<User>>(
+    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountConfirmMigrationEmailPost(
       body: client.ConfirmMigrationEmailDto(
         email: email,
@@ -748,10 +747,9 @@ final class KavitaApiDownload extends KavitaApiV1 {
   Future<KavitaResponse<Uint8List>> downloadVolume({
     required int volumeId,
   }) async {
-    return _mappr.convert<Response<dynamic>, KavitaResponse<Uint8List>>(
-        await context.api.apiDownloadVolumeGet(
-      volumeId: volumeId,
-    ));
+    final res = await context.api.apiDownloadVolumeGet(volumeId: volumeId);
+    final data = res.body;
+    return _mappr.convert<Response<dynamic>, KavitaResponse<Uint8List>>(res);
   }
 
   /// Returns the zip for a single chapter.
