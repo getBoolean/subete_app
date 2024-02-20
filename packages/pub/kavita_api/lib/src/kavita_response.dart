@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart' as http;
-import 'package:meta/meta.dart';
 
 part 'kavita_response.mapper.dart';
 
