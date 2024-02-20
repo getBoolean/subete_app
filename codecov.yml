@@ -2,6 +2,7 @@ ignore:
   - "**/example/"
   - "**/*.g.dart"
   - "**/*.gen.dart"
+  - "**/*.auto_mappr.dart"
   - "lib/generated_plugin_registrant.dart"
   - "**/*.freezed.dart"
   - "**/*.mapper.dart"
