@@ -1,17 +1,8 @@
 import 'package:chopper/chopper.dart';
-import 'package:kavita_api/src/entities/bookmark.dart';
-import 'package:kavita_api/src/entities/cbl_import_summary.dart';
-import 'package:kavita_api/src/entities/collection_tag.dart';
-import 'package:kavita_api/src/entities/invite_user_response.dart';
-import 'package:kavita_api/src/entities/server_info.dart';
-import 'package:kavita_api/src/entities/token_request.dart';
-import 'package:kavita_api/src/entities/user.dart';
-import 'package:kavita_api/src/kavita_context.dart';
-import 'package:kavita_api/src/kavita_response.dart';
+import 'package:kavita_api/kavita_api.dart';
 import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
     as client;
 
-import '../entities/device.dart';
 import '../entities/mappr.dart';
 
 class KavitaApiV1 {
@@ -204,7 +195,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   KavitaApiAccount._({required super.context});
 
   /// Update a user's password
-  Future<KavitaResponse<dynamic>> resetPassword({
+  Future<KavitaResponse<void>> resetPassword({
     required String userName,
     required String password,
     String? oldPassword,
@@ -294,7 +285,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   /// then the email address is not changed in this API. A confirmation link is
   /// sent/dumped which will validate the email. It must be confirmed for the
   /// email to update.
-  Future<KavitaResponse<dynamic>> updateEmail({
+  Future<KavitaResponse<void>> updateEmail({
     required String email,
     required String password,
   }) async {
@@ -308,7 +299,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   /// Update age restriction settings
-  Future<KavitaResponse<dynamic>> updateAgeRestriction({
+  Future<KavitaResponse<void>> updateAgeRestriction({
     required int ageRating,
     required bool includeUnknowns,
   }) async {
@@ -322,7 +313,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
   }
 
   // Update the user account. This can only affect Username, Email (will require confirming), Roles, and Library access.
-  Future<KavitaResponse<dynamic>> updateUser({
+  Future<KavitaResponse<void>> updateUser({
     required int userId,
     String? username,
     List<String>? roles,
@@ -528,7 +519,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
   }
 
   /// Removes the collection tag from all Series it was attached to
-  Future<KavitaResponse<dynamic>> deleteCollection({
+  Future<KavitaResponse<void>> deleteCollection({
     required int tagId,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -565,7 +556,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
 
   /// Updates an existing tag with a new title, promotion status,
   /// and summary. UI does not contain controls to update title
-  Future<KavitaResponse<dynamic>> updateCollection({
+  Future<KavitaResponse<void>> updateCollection({
     required int id,
     String? title,
     String? summary,
@@ -585,7 +576,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
   /// Adds a collection tag onto multiple Series.
   ///
   /// If tag id is 0, this will create a new tag.
-  Future<KavitaResponse<dynamic>> updateCollectionForSeries({
+  Future<KavitaResponse<void>> updateCollectionForSeries({
     required int collectionTagId,
     required String collectionTagTitle,
     required List<int> seriesIds,
@@ -602,7 +593,7 @@ final class KavitaApiCollection extends KavitaApiV1 {
 
   /// For a given tag, update the summary if summary has changed
   /// and remove a set of series from the tag.
-  Future<KavitaResponse<dynamic>> updateSeriesCollection({
+  Future<KavitaResponse<void>> updateSeriesCollection({
     required CollectionTag tag,
     required List<int> seriesIdsToRemove,
   }) async {
@@ -622,26 +613,28 @@ final class KavitaApiDevice extends KavitaApiV1 {
   KavitaApiDevice._({required super.context});
 
   /// Create a device
-  Future<KavitaResponse<dynamic>> createDevice({
+  ///
+  /// The name must be unique for the user
+  Future<KavitaResponse<void>> createDevice({
     required String name,
-    required int platform,
+    required DevicePlatform platform,
     required String emailAddress,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await context.api.apiDeviceCreatePost(
       body: client.CreateDeviceDto(
         name: name,
-        platform: platform,
+        platform: platform.value,
         emailAddress: emailAddress,
       ),
     ));
   }
 
   /// Update a device
-  Future<KavitaResponse<dynamic>> updateDevice({
+  Future<KavitaResponse<void>> updateDevice({
     required int id,
     required String name,
-    required int platform,
+    required DevicePlatform platform,
     required String emailAddress,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -649,14 +642,14 @@ final class KavitaApiDevice extends KavitaApiV1 {
       body: client.UpdateDeviceDto(
         id: id,
         name: name,
-        platform: platform,
+        platform: platform.value,
         emailAddress: emailAddress,
       ),
     ));
   }
 
   /// Deletes the device from the user
-  Future<KavitaResponse<dynamic>> deleteDevice({
+  Future<KavitaResponse<void>> deleteDevice({
     required int deviceId,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -672,7 +665,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
   }
 
   /// Sends a collection of chapters to the user's device
-  Future<KavitaResponse<dynamic>> sendToDevice({
+  Future<KavitaResponse<void>> sendToDevice({
     required int deviceId,
     List<int>? chapterIds,
   }) async {
@@ -686,7 +679,7 @@ final class KavitaApiDevice extends KavitaApiV1 {
   }
 
   /// Sends a series to the user's device
-  Future<KavitaResponse<dynamic>> sendSeriesToDevice({
+  Future<KavitaResponse<void>> sendSeriesToDevice({
     required int deviceId,
     required int seriesId,
   }) async {

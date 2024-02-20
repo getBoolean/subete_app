@@ -13,6 +13,7 @@ class DeviceMapper extends ClassMapperBase<Device> {
   static DeviceMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = DeviceMapper._());
+      DevicePlatformMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -27,8 +28,8 @@ class DeviceMapper extends ClassMapperBase<Device> {
   static String? _$emailAddress(Device v) => v.emailAddress;
   static const Field<Device, String> _f$emailAddress =
       Field('emailAddress', _$emailAddress, opt: true);
-  static int? _$platform(Device v) => v.platform;
-  static const Field<Device, int> _f$platform =
+  static DevicePlatform? _$platform(Device v) => v.platform;
+  static const Field<Device, DevicePlatform> _f$platform =
       Field('platform', _$platform, opt: true);
 
   @override
@@ -96,7 +97,8 @@ extension DeviceValueCopy<$R, $Out> on ObjectCopyWith<$R, Device, $Out> {
 
 abstract class DeviceCopyWith<$R, $In extends Device, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? id, String? name, String? emailAddress, int? platform});
+  $R call(
+      {int? id, String? name, String? emailAddress, DevicePlatform? platform});
   DeviceCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 

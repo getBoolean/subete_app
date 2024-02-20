@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/entities/device_platform.dart';
 
 part 'device.mapper.dart';
 
@@ -14,7 +15,7 @@ class Device with DeviceMappable {
   final int? id;
   final String? name;
   final String? emailAddress;
-  final int? platform;
+  final DevicePlatform? platform;
 
   static final fromMap = DeviceMapper.fromMap;
   static final fromJson = DeviceMapper.fromJson;

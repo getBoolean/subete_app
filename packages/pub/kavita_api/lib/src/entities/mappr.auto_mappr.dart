@@ -20,8 +20,10 @@ import 'cbl_book_result.dart' as _i14;
 import 'cbl_import_summary.dart' as _i12;
 import 'collection_tag.dart' as _i11;
 import 'device.dart' as _i17;
+import 'device_platform.dart' as _i21;
 import 'file_format.dart' as _i16;
 import 'invite_user_response.dart' as _i10;
+import 'mappr.dart' as _i20;
 import 'series.dart' as _i18;
 import 'server_info.dart' as _i15;
 import 'site_theme.dart' as _i8;
@@ -46,6 +48,7 @@ import 'user_preferences.dart' as _i7;
 /// - `Response<ServerInfoDto>` → `KavitaResponse<ServerInfo>`.
 /// - `Response<FileFormatDto>` → `KavitaResponse<FileFormat>`.
 /// - `Response<DeviceDto>` → `KavitaResponse<Device>`.
+/// - `Response<List<DeviceDto>>` → `KavitaResponse<List<Device>>`.
 /// - `UserDto` → `User`.
 /// - `User` → `UserDto`.
 /// - `AgeRestrictionDto` → `AgeRestriction`.
@@ -184,6 +187,13 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i2.Response<_i4.DeviceDto>?>()) &&
         (targetTypeOf == _typeOf<_i3.KavitaResponse<_i17.Device>>() ||
             targetTypeOf == _typeOf<_i3.KavitaResponse<_i17.Device>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.DeviceDto>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<_i4.DeviceDto>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<_i17.Device>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i17.Device>>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
@@ -668,6 +678,17 @@ class $Mappr implements _i1.AutoMapprInterface {
       }
       return (_map__i2$Response$_i4$DeviceDto$_To__i3$KavitaResponse$_i17$Device$(
           (model as _i2.Response<_i4.DeviceDto>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.DeviceDto>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<_i4.DeviceDto>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<_i17.Device>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i17.Device>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$DeviceDto$$_To__i3$KavitaResponse$List$_i17$Device$$(
+          (model as _i2.Response<List<_i4.DeviceDto>>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
@@ -1187,6 +1208,25 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i3.KavitaResponse(
       model.base,
       _map__i4$DeviceDto_To__i17$Device_Nullable(model.body),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<List<_i17.Device>>
+      _map__i2$Response$List$_i4$DeviceDto$$_To__i3$KavitaResponse$List$_i17$Device$$(
+          _i2.Response<List<_i4.DeviceDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<DeviceDto>> → KavitaResponse<List<Device>> failed because Response<List<DeviceDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<DeviceDto>>, KavitaResponse<List<Device>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i17.Device>(
+              (value) => _map__i4$DeviceDto_To__i17$Device(value))
+          .toList(),
       error: model.error,
     );
   }
@@ -1713,7 +1753,10 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: model.platform,
+      platform: model.platform == null
+          ? null
+          : (_i20.Mappr.convertIntToDevicePlatform(model.platform!)
+              as _i21.DevicePlatform?),
     );
   }
 
@@ -1728,7 +1771,9 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: model.platform,
+      platform: model.platform == null
+          ? null
+          : (_i20.Mappr.convertDevicePlatformToInt(model.platform!) as int?),
     );
   }
 
@@ -2137,7 +2182,10 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: model.platform,
+      platform: model.platform == null
+          ? null
+          : (_i20.Mappr.convertIntToDevicePlatform(model.platform!)
+              as _i21.DevicePlatform?),
     );
   }
 
