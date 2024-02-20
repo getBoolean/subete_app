@@ -87,7 +87,7 @@ To build the project locally, follow the instructions in the
 ### Flavors
 
 Flavors are used to provide different environment variables based on the current flavor. By default,
-the app uses the "local" flavor. Run/build the app with `--dart-define FLAVOR=<flavorname>`
+the app uses the "local" flavor. Run/build the app with `--dart-define FLUTTER_APP_FLAVOR=<flavorname>`
 to change the flavor. The following flavors are supported:
 
 - `local` - Local development. The text banner changes to "Debug" when in debug mode, "Local" in profile mode, and hidden in release mode.
