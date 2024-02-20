@@ -99,7 +99,7 @@ jobs:
 
       - name: Activate Melos
         if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
@@ -196,7 +196,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -383,7 +383,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -513,7 +513,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -599,7 +599,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -686,7 +686,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -774,7 +774,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -824,6 +824,27 @@ jobs:
         id: branch-name
         if: github.actor != 'dependabot[bot]'
         uses: tj-actions/branch-names@v8
+
+      - name: Check Flutter Version
+        if: github.actor != 'dependabot[bot]'
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        if: github.actor != 'dependabot[bot]'
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        if: github.actor != 'dependabot[bot]'
+        run: dart pub global activate melos ^4.1.0
+
+      - name: Bootstrap Melos
+        if: github.actor != 'dependabot[bot]'
+        run: melos bootstrap
 
       - name: Build Web
         if: github.actor != 'dependabot[bot]'
