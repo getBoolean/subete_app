@@ -1,5 +1,5 @@
-import 'package:kavita_api/src/kavita_exception.dart';
-import 'package:kavita_api/src/kavita_response.dart';
+import 'package:kavita_api/src/core/kavita_exception.dart';
+import 'package:kavita_api/src/core/kavita_response.dart';
 import 'package:meta/meta.dart';
 
 @internal

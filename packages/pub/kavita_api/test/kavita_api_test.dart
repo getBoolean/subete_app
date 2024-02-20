@@ -11,7 +11,7 @@ void main() {
   group('Test Kavita API v1 Server', () {
     test('Test Server Info', () async {
       final res = await client.v1.server.getServerInfo();
-      expect(res.statusCode, 200, reason: 'Could not connect to server');
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
     });
   });
 }

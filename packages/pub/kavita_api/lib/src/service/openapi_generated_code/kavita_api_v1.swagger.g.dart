@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'kavita_api.swagger.dart';
+part of 'kavita_api_v1.swagger.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,7 +8,7 @@ part of 'kavita_api.swagger.dart';
 
 AgeRatingDto _$AgeRatingDtoFromJson(Map<String, dynamic> json) => AgeRatingDto(
       $value: json['value'] as int?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
     );
 
 Map<String, dynamic> _$AgeRatingDtoToJson(AgeRatingDto instance) {
@@ -47,7 +47,7 @@ Map<String, dynamic> _$AgeRestrictionDtoToJson(AgeRestrictionDto instance) {
 
 AniListUpdateDto _$AniListUpdateDtoFromJson(Map<String, dynamic> json) =>
     AniListUpdateDto(
-      token: json['token'] as String? ?? '',
+      token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$AniListUpdateDtoToJson(AniListUpdateDto instance) {
@@ -65,9 +65,9 @@ Map<String, dynamic> _$AniListUpdateDtoToJson(AniListUpdateDto instance) {
 
 AppRole _$AppRoleFromJson(Map<String, dynamic> json) => AppRole(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      normalizedName: json['normalizedName'] as String? ?? '',
-      concurrencyStamp: json['concurrencyStamp'] as String? ?? '',
+      name: json['name'] as String?,
+      normalizedName: json['normalizedName'] as String?,
+      concurrencyStamp: json['concurrencyStamp'] as String?,
       userRoles: (json['userRoles'] as List<dynamic>?)
               ?.map((e) => AppUserRole.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -94,15 +94,15 @@ Map<String, dynamic> _$AppRoleToJson(AppRole instance) {
 
 AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       id: json['id'] as int?,
-      userName: json['userName'] as String? ?? '',
-      normalizedUserName: json['normalizedUserName'] as String? ?? '',
-      email: json['email'] as String? ?? '',
-      normalizedEmail: json['normalizedEmail'] as String? ?? '',
+      userName: json['userName'] as String?,
+      normalizedUserName: json['normalizedUserName'] as String?,
+      email: json['email'] as String?,
+      normalizedEmail: json['normalizedEmail'] as String?,
       emailConfirmed: json['emailConfirmed'] as bool?,
-      passwordHash: json['passwordHash'] as String? ?? '',
-      securityStamp: json['securityStamp'] as String? ?? '',
-      concurrencyStamp: json['concurrencyStamp'] as String? ?? '',
-      phoneNumber: json['phoneNumber'] as String? ?? '',
+      passwordHash: json['passwordHash'] as String?,
+      securityStamp: json['securityStamp'] as String?,
+      concurrencyStamp: json['concurrencyStamp'] as String?,
+      phoneNumber: json['phoneNumber'] as String?,
       phoneNumberConfirmed: json['phoneNumberConfirmed'] as bool?,
       twoFactorEnabled: json['twoFactorEnabled'] as bool?,
       lockoutEnd: json['lockoutEnd'] == null
@@ -164,12 +164,12 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
                   AppUserTableOfContent.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      apiKey: json['apiKey'] as String? ?? '',
-      confirmationToken: json['confirmationToken'] as String? ?? '',
+      apiKey: json['apiKey'] as String?,
+      confirmationToken: json['confirmationToken'] as String?,
       ageRestriction: json['ageRestriction'] as int?,
       ageRestrictionIncludeUnknowns:
           json['ageRestrictionIncludeUnknowns'] as bool?,
-      aniListAccessToken: json['aniListAccessToken'] as String? ?? '',
+      aniListAccessToken: json['aniListAccessToken'] as String?,
       scrobbleHolds: (json['scrobbleHolds'] as List<dynamic>?)
               ?.map((e) => ScrobbleHold.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -269,7 +269,7 @@ AppUserBookmark _$AppUserBookmarkFromJson(Map<String, dynamic> json) =>
       seriesId: json['seriesId'] as int?,
       volumeId: json['volumeId'] as int?,
       chapterId: json['chapterId'] as int?,
-      fileName: json['fileName'] as String? ?? '',
+      fileName: json['fileName'] as String?,
       appUserId: json['appUserId'] as int?,
       created: json['created'] == null
           ? null
@@ -312,7 +312,7 @@ AppUserDashboardStream _$AppUserDashboardStreamFromJson(
         Map<String, dynamic> json) =>
     AppUserDashboardStream(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       isProvided: json['isProvided'] as bool?,
       order: json['order'] as int?,
       streamType: json['streamType'] as int?,
@@ -353,9 +353,9 @@ AppUserExternalSource _$AppUserExternalSourceFromJson(
         Map<String, dynamic> json) =>
     AppUserExternalSource(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      host: json['host'] as String? ?? '',
-      apiKey: json['apiKey'] as String? ?? '',
+      name: json['name'] as String?,
+      host: json['host'] as String?,
+      apiKey: json['apiKey'] as String?,
       appUserId: json['appUserId'] as int?,
       appUser: json['appUser'] == null
           ? null
@@ -392,19 +392,19 @@ AppUserPreferences _$AppUserPreferencesFromJson(Map<String, dynamic> json) =>
       showScreenHints: json['showScreenHints'] as bool?,
       emulateBook: json['emulateBook'] as bool?,
       layoutMode: json['layoutMode'] as int?,
-      backgroundColor: json['backgroundColor'] as String? ?? '',
+      backgroundColor: json['backgroundColor'] as String?,
       swipeToPaginate: json['swipeToPaginate'] as bool?,
       bookReaderMargin: json['bookReaderMargin'] as int?,
       bookReaderLineSpacing: json['bookReaderLineSpacing'] as int?,
       bookReaderFontSize: json['bookReaderFontSize'] as int?,
-      bookReaderFontFamily: json['bookReaderFontFamily'] as String? ?? '',
+      bookReaderFontFamily: json['bookReaderFontFamily'] as String?,
       bookReaderTapToPaginate: json['bookReaderTapToPaginate'] as bool?,
       bookReaderReadingDirection: json['bookReaderReadingDirection'] as int?,
       bookReaderWritingStyle: json['bookReaderWritingStyle'] as int?,
       theme: json['theme'] == null
           ? null
           : SiteTheme.fromJson(json['theme'] as Map<String, dynamic>),
-      bookThemeName: json['bookThemeName'] as String? ?? '',
+      bookThemeName: json['bookThemeName'] as String?,
       bookReaderLayoutMode: json['bookReaderLayoutMode'] as int?,
       bookReaderImmersiveMode: json['bookReaderImmersiveMode'] as bool?,
       globalPageLayoutMode: json['globalPageLayoutMode'] as int?,
@@ -413,7 +413,7 @@ AppUserPreferences _$AppUserPreferencesFromJson(Map<String, dynamic> json) =>
       noTransitions: json['noTransitions'] as bool?,
       collapseSeriesRelationships: json['collapseSeriesRelationships'] as bool?,
       shareReviews: json['shareReviews'] as bool?,
-      locale: json['locale'] as String? ?? '',
+      locale: json['locale'] as String?,
       appUser: json['appUser'] == null
           ? null
           : AppUser.fromJson(json['appUser'] as Map<String, dynamic>),
@@ -473,7 +473,7 @@ AppUserProgress _$AppUserProgressFromJson(Map<String, dynamic> json) =>
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
       chapterId: json['chapterId'] as int?,
-      bookScrollId: json['bookScrollId'] as String? ?? '',
+      bookScrollId: json['bookScrollId'] as String?,
       created: json['created'] == null
           ? null
           : DateTime.parse(json['created'] as String),
@@ -522,8 +522,8 @@ AppUserRating _$AppUserRatingFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
       rating: (json['rating'] as num?)?.toDouble(),
       hasBeenRated: json['hasBeenRated'] as bool?,
-      review: json['review'] as String? ?? '',
-      tagline: json['tagline'] as String? ?? '',
+      review: json['review'] as String?,
+      tagline: json['tagline'] as String?,
       seriesId: json['seriesId'] as int?,
       series: json['series'] == null
           ? null
@@ -586,7 +586,7 @@ AppUserSideNavStream _$AppUserSideNavStreamFromJson(
         Map<String, dynamic> json) =>
     AppUserSideNavStream(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       isProvided: json['isProvided'] as bool?,
       order: json['order'] as int?,
       libraryId: json['libraryId'] as int?,
@@ -630,8 +630,8 @@ Map<String, dynamic> _$AppUserSideNavStreamToJson(
 AppUserSmartFilter _$AppUserSmartFilterFromJson(Map<String, dynamic> json) =>
     AppUserSmartFilter(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      filter: json['filter'] as String? ?? '',
+      name: json['name'] as String?,
+      filter: json['filter'] as String?,
       appUserId: json['appUserId'] as int?,
       appUser: json['appUser'] == null
           ? null
@@ -660,7 +660,7 @@ AppUserTableOfContent _$AppUserTableOfContentFromJson(
     AppUserTableOfContent(
       id: json['id'] as int?,
       pageNumber: json['pageNumber'] as int?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
       seriesId: json['seriesId'] as int?,
       series: json['series'] == null
           ? null
@@ -671,7 +671,7 @@ AppUserTableOfContent _$AppUserTableOfContentFromJson(
           : Chapter.fromJson(json['chapter'] as Map<String, dynamic>),
       volumeId: json['volumeId'] as int?,
       libraryId: json['libraryId'] as int?,
-      bookScrollId: json['bookScrollId'] as String? ?? '',
+      bookScrollId: json['bookScrollId'] as String?,
       created: json['created'] == null
           ? null
           : DateTime.parse(json['created'] as String),
@@ -751,8 +751,8 @@ Map<String, dynamic> _$AppUserWantToReadToJson(AppUserWantToRead instance) {
 
 BookChapterItem _$BookChapterItemFromJson(Map<String, dynamic> json) =>
     BookChapterItem(
-      title: json['title'] as String? ?? '',
-      $part: json['part'] as String? ?? '',
+      title: json['title'] as String?,
+      $part: json['part'] as String?,
       page: json['page'] as int?,
       children: (json['children'] as List<dynamic>?)
               ?.map((e) => BookChapterItem.fromJson(e as Map<String, dynamic>))
@@ -777,17 +777,17 @@ Map<String, dynamic> _$BookChapterItemToJson(BookChapterItem instance) {
 }
 
 BookInfoDto _$BookInfoDtoFromJson(Map<String, dynamic> json) => BookInfoDto(
-      bookTitle: json['bookTitle'] as String? ?? '',
+      bookTitle: json['bookTitle'] as String?,
       seriesId: json['seriesId'] as int?,
       volumeId: json['volumeId'] as int?,
       seriesFormat: json['seriesFormat'] as int?,
-      seriesName: json['seriesName'] as String? ?? '',
-      chapterNumber: json['chapterNumber'] as String? ?? '',
-      volumeNumber: json['volumeNumber'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
+      chapterNumber: json['chapterNumber'] as String?,
+      volumeNumber: json['volumeNumber'] as String?,
       libraryId: json['libraryId'] as int?,
       pages: json['pages'] as int?,
       isSpecial: json['isSpecial'] as bool?,
-      chapterTitle: json['chapterTitle'] as String? ?? '',
+      chapterTitle: json['chapterTitle'] as String?,
     );
 
 Map<String, dynamic> _$BookInfoDtoToJson(BookInfoDto instance) {
@@ -844,7 +844,7 @@ Map<String, dynamic> _$BookmarkDtoToJson(BookmarkDto instance) {
 
 BookmarkInfoDto _$BookmarkInfoDtoFromJson(Map<String, dynamic> json) =>
     BookmarkInfoDto(
-      seriesName: json['seriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
       seriesFormat: json['seriesFormat'] as int?,
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
@@ -885,8 +885,8 @@ BookmarkSearchResultDto _$BookmarkSearchResultDtoFromJson(
       volumeId: json['volumeId'] as int?,
       seriesId: json['seriesId'] as int?,
       chapterId: json['chapterId'] as int?,
-      seriesName: json['seriesName'] as String? ?? '',
-      localizedSeriesName: json['localizedSeriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
+      localizedSeriesName: json['localizedSeriesName'] as String?,
     );
 
 Map<String, dynamic> _$BookmarkSearchResultDtoToJson(
@@ -957,12 +957,12 @@ Map<String, dynamic> _$BulkUpdateSideNavStreamVisibilityDtoToJson(
 CblBookResult _$CblBookResultFromJson(Map<String, dynamic> json) =>
     CblBookResult(
       order: json['order'] as int?,
-      series: json['series'] as String? ?? '',
-      volume: json['volume'] as String? ?? '',
-      number: json['number'] as String? ?? '',
+      series: json['series'] as String?,
+      volume: json['volume'] as String?,
+      number: json['number'] as String?,
       libraryId: json['libraryId'] as int?,
       seriesId: json['seriesId'] as int?,
-      readingListName: json['readingListName'] as String? ?? '',
+      readingListName: json['readingListName'] as String?,
       reason: json['reason'] as int?,
     );
 
@@ -988,8 +988,8 @@ Map<String, dynamic> _$CblBookResultToJson(CblBookResult instance) {
 
 CblImportSummaryDto _$CblImportSummaryDtoFromJson(Map<String, dynamic> json) =>
     CblImportSummaryDto(
-      cblName: json['cblName'] as String? ?? '',
-      fileName: json['fileName'] as String? ?? '',
+      cblName: json['cblName'] as String?,
+      fileName: json['fileName'] as String?,
       results: (json['results'] as List<dynamic>?)
               ?.map((e) => CblBookResult.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -1021,8 +1021,8 @@ Map<String, dynamic> _$CblImportSummaryDtoToJson(CblImportSummaryDto instance) {
 
 Chapter _$ChapterFromJson(Map<String, dynamic> json) => Chapter(
       id: json['id'] as int?,
-      range: json['range'] as String? ?? '',
-      number: json['number'] as String? ?? '',
+      range: json['range'] as String?,
+      number: json['number'] as String?,
       files: (json['files'] as List<dynamic>?)
               ?.map((e) => MangaFile.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -1039,32 +1039,32 @@ Chapter _$ChapterFromJson(Map<String, dynamic> json) => Chapter(
       lastModifiedUtc: json['lastModifiedUtc'] == null
           ? null
           : DateTime.parse(json['lastModifiedUtc'] as String),
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImage'] as String?,
       coverImageLocked: json['coverImageLocked'] as bool?,
       pages: json['pages'] as int?,
       isSpecial: json['isSpecial'] as bool?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
       ageRating: json['ageRating'] as int?,
-      titleName: json['titleName'] as String? ?? '',
+      titleName: json['titleName'] as String?,
       releaseDate: json['releaseDate'] == null
           ? null
           : DateTime.parse(json['releaseDate'] as String),
-      summary: json['summary'] as String? ?? '',
-      language: json['language'] as String? ?? '',
+      summary: json['summary'] as String?,
+      language: json['language'] as String?,
       totalCount: json['totalCount'] as int?,
       count: json['count'] as int?,
-      seriesGroup: json['seriesGroup'] as String? ?? '',
-      storyArc: json['storyArc'] as String? ?? '',
-      storyArcNumber: json['storyArcNumber'] as String? ?? '',
-      alternateNumber: json['alternateNumber'] as String? ?? '',
-      alternateSeries: json['alternateSeries'] as String? ?? '',
+      seriesGroup: json['seriesGroup'] as String?,
+      storyArc: json['storyArc'] as String?,
+      storyArcNumber: json['storyArcNumber'] as String?,
+      alternateNumber: json['alternateNumber'] as String?,
+      alternateSeries: json['alternateSeries'] as String?,
       alternateCount: json['alternateCount'] as int?,
       wordCount: json['wordCount'] as int?,
       minHoursToRead: json['minHoursToRead'] as int?,
       maxHoursToRead: json['maxHoursToRead'] as int?,
       avgHoursToRead: json['avgHoursToRead'] as int?,
-      webLinks: json['webLinks'] as String? ?? '',
-      isbn: json['isbn'] as String? ?? '',
+      webLinks: json['webLinks'] as String?,
+      isbn: json['isbn'] as String?,
       people: (json['people'] as List<dynamic>?)
               ?.map((e) => Person.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -1140,11 +1140,11 @@ Map<String, dynamic> _$ChapterToJson(Chapter instance) {
 
 ChapterDto _$ChapterDtoFromJson(Map<String, dynamic> json) => ChapterDto(
       id: json['id'] as int?,
-      range: json['range'] as String? ?? '',
-      number: json['number'] as String? ?? '',
+      range: json['range'] as String?,
+      number: json['number'] as String?,
       pages: json['pages'] as int?,
       isSpecial: json['isSpecial'] as bool?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
       files: (json['files'] as List<dynamic>?)
               ?.map((e) => MangaFileDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -1170,16 +1170,16 @@ ChapterDto _$ChapterDtoFromJson(Map<String, dynamic> json) => ChapterDto(
       releaseDate: json['releaseDate'] == null
           ? null
           : DateTime.parse(json['releaseDate'] as String),
-      titleName: json['titleName'] as String? ?? '',
-      summary: json['summary'] as String? ?? '',
+      titleName: json['titleName'] as String?,
+      summary: json['summary'] as String?,
       ageRating: json['ageRating'] as int?,
       wordCount: json['wordCount'] as int?,
-      volumeTitle: json['volumeTitle'] as String? ?? '',
+      volumeTitle: json['volumeTitle'] as String?,
       minHoursToRead: json['minHoursToRead'] as int?,
       maxHoursToRead: json['maxHoursToRead'] as int?,
       avgHoursToRead: json['avgHoursToRead'] as int?,
-      webLinks: json['webLinks'] as String? ?? '',
-      isbn: json['isbn'] as String? ?? '',
+      webLinks: json['webLinks'] as String?,
+      isbn: json['isbn'] as String?,
     );
 
 Map<String, dynamic> _$ChapterDtoToJson(ChapterDto instance) {
@@ -1224,20 +1224,20 @@ Map<String, dynamic> _$ChapterDtoToJson(ChapterDto instance) {
 
 ChapterInfoDto _$ChapterInfoDtoFromJson(Map<String, dynamic> json) =>
     ChapterInfoDto(
-      chapterNumber: json['chapterNumber'] as String? ?? '',
-      volumeNumber: json['volumeNumber'] as String? ?? '',
+      chapterNumber: json['chapterNumber'] as String?,
+      volumeNumber: json['volumeNumber'] as String?,
       volumeId: json['volumeId'] as int?,
-      seriesName: json['seriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
       seriesFormat: json['seriesFormat'] as int?,
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
       libraryType: json['libraryType'] as int?,
-      chapterTitle: json['chapterTitle'] as String? ?? '',
+      chapterTitle: json['chapterTitle'] as String?,
       pages: json['pages'] as int?,
-      fileName: json['fileName'] as String? ?? '',
+      fileName: json['fileName'] as String?,
       isSpecial: json['isSpecial'] as bool?,
-      subtitle: json['subtitle'] as String? ?? '',
-      title: json['title'] as String? ?? '',
+      subtitle: json['subtitle'] as String?,
+      title: json['title'] as String?,
       seriesTotalPages: json['seriesTotalPages'] as int?,
       seriesTotalPagesRead: json['seriesTotalPagesRead'] as int?,
       pageDimensions: (json['pageDimensions'] as List<dynamic>?)
@@ -1282,7 +1282,7 @@ ChapterMetadataDto _$ChapterMetadataDtoFromJson(Map<String, dynamic> json) =>
     ChapterMetadataDto(
       id: json['id'] as int?,
       chapterId: json['chapterId'] as int?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
       writers: (json['writers'] as List<dynamic>?)
               ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -1332,10 +1332,10 @@ ChapterMetadataDto _$ChapterMetadataDtoFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       ageRating: json['ageRating'] as int?,
-      releaseDate: json['releaseDate'] as String? ?? '',
+      releaseDate: json['releaseDate'] as String?,
       publicationStatus: json['publicationStatus'] as int?,
-      summary: json['summary'] as String? ?? '',
-      language: json['language'] as String? ?? '',
+      summary: json['summary'] as String?,
+      language: json['language'] as String?,
       count: json['count'] as int?,
       totalCount: json['totalCount'] as int?,
       wordCount: json['wordCount'] as int?,
@@ -1386,11 +1386,11 @@ Map<String, dynamic> _$ChapterMetadataDtoToJson(ChapterMetadataDto instance) {
 CollectionTag _$CollectionTagFromJson(Map<String, dynamic> json) =>
     CollectionTag(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
-      coverImage: json['coverImage'] as String? ?? '',
+      title: json['title'] as String?,
+      coverImage: json['coverImage'] as String?,
       coverImageLocked: json['coverImageLocked'] as bool?,
-      summary: json['summary'] as String? ?? '',
-      normalizedTitle: json['normalizedTitle'] as String? ?? '',
+      summary: json['summary'] as String?,
+      normalizedTitle: json['normalizedTitle'] as String?,
       promoted: json['promoted'] as bool?,
       seriesMetadatas: (json['seriesMetadatas'] as List<dynamic>?)
               ?.map((e) => SeriesMetadata.fromJson(e as Map<String, dynamic>))
@@ -1425,7 +1425,7 @@ CollectionTagBulkAddDto _$CollectionTagBulkAddDtoFromJson(
         Map<String, dynamic> json) =>
     CollectionTagBulkAddDto(
       collectionTagId: json['collectionTagId'] as int?,
-      collectionTagTitle: json['collectionTagTitle'] as String? ?? '',
+      collectionTagTitle: json['collectionTagTitle'] as String?,
       seriesIds: (json['seriesIds'] as List<dynamic>?)
               ?.map((e) => e as int)
               .toList() ??
@@ -1451,10 +1451,10 @@ Map<String, dynamic> _$CollectionTagBulkAddDtoToJson(
 CollectionTagDto _$CollectionTagDtoFromJson(Map<String, dynamic> json) =>
     CollectionTagDto(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
-      summary: json['summary'] as String? ?? '',
+      title: json['title'] as String?,
+      summary: json['summary'] as String?,
       promoted: json['promoted'] as bool?,
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImage'] as String?,
       coverImageLocked: json['coverImageLocked'] as bool?,
     );
 
@@ -1478,10 +1478,10 @@ Map<String, dynamic> _$CollectionTagDtoToJson(CollectionTagDto instance) {
 
 ConfirmEmailDto _$ConfirmEmailDtoFromJson(Map<String, dynamic> json) =>
     ConfirmEmailDto(
-      email: json['email'] as String? ?? '',
-      token: json['token'] as String? ?? '',
-      password: json['password'] as String? ?? '',
-      username: json['username'] as String? ?? '',
+      email: json['email'] as String,
+      token: json['token'] as String,
+      password: json['password'] as String,
+      username: json['username'] as String,
     );
 
 Map<String, dynamic> _$ConfirmEmailDtoToJson(ConfirmEmailDto instance) =>
@@ -1495,8 +1495,8 @@ Map<String, dynamic> _$ConfirmEmailDtoToJson(ConfirmEmailDto instance) =>
 ConfirmEmailUpdateDto _$ConfirmEmailUpdateDtoFromJson(
         Map<String, dynamic> json) =>
     ConfirmEmailUpdateDto(
-      email: json['email'] as String? ?? '',
-      token: json['token'] as String? ?? '',
+      email: json['email'] as String,
+      token: json['token'] as String,
     );
 
 Map<String, dynamic> _$ConfirmEmailUpdateDtoToJson(
@@ -1509,8 +1509,8 @@ Map<String, dynamic> _$ConfirmEmailUpdateDtoToJson(
 ConfirmMigrationEmailDto _$ConfirmMigrationEmailDtoFromJson(
         Map<String, dynamic> json) =>
     ConfirmMigrationEmailDto(
-      email: json['email'] as String? ?? '',
-      token: json['token'] as String? ?? '',
+      email: json['email'] as String?,
+      token: json['token'] as String?,
     );
 
 Map<String, dynamic> _$ConfirmMigrationEmailDtoToJson(
@@ -1531,9 +1531,9 @@ Map<String, dynamic> _$ConfirmMigrationEmailDtoToJson(
 ConfirmPasswordResetDto _$ConfirmPasswordResetDtoFromJson(
         Map<String, dynamic> json) =>
     ConfirmPasswordResetDto(
-      email: json['email'] as String? ?? '',
-      token: json['token'] as String? ?? '',
-      password: json['password'] as String? ?? '',
+      email: json['email'] as String,
+      token: json['token'] as String,
+      password: json['password'] as String,
     );
 
 Map<String, dynamic> _$ConfirmPasswordResetDtoToJson(
@@ -1546,9 +1546,9 @@ Map<String, dynamic> _$ConfirmPasswordResetDtoToJson(
 
 CreateDeviceDto _$CreateDeviceDtoFromJson(Map<String, dynamic> json) =>
     CreateDeviceDto(
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String,
       platform: json['platform'] as int,
-      emailAddress: json['emailAddress'] as String? ?? '',
+      emailAddress: json['emailAddress'] as String,
     );
 
 Map<String, dynamic> _$CreateDeviceDtoToJson(CreateDeviceDto instance) =>
@@ -1566,8 +1566,8 @@ CreatePersonalToCDto _$CreatePersonalToCDtoFromJson(
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
       pageNumber: json['pageNumber'] as int?,
-      title: json['title'] as String? ?? '',
-      bookScrollId: json['bookScrollId'] as String? ?? '',
+      title: json['title'] as String?,
+      bookScrollId: json['bookScrollId'] as String?,
     );
 
 Map<String, dynamic> _$CreatePersonalToCDtoToJson(
@@ -1593,7 +1593,7 @@ Map<String, dynamic> _$CreatePersonalToCDtoToJson(
 CreateReadingListDto _$CreateReadingListDtoFromJson(
         Map<String, dynamic> json) =>
     CreateReadingListDto(
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
     );
 
 Map<String, dynamic> _$CreateReadingListDtoToJson(
@@ -1613,10 +1613,10 @@ Map<String, dynamic> _$CreateReadingListDtoToJson(
 DashboardStreamDto _$DashboardStreamDtoFromJson(Map<String, dynamic> json) =>
     DashboardStreamDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       isProvided: json['isProvided'] as bool?,
       order: json['order'] as int?,
-      smartFilterEncoded: json['smartFilterEncoded'] as String? ?? '',
+      smartFilterEncoded: json['smartFilterEncoded'] as String?,
       smartFilterId: json['smartFilterId'] as int?,
       streamType: json['streamType'] as int?,
       visible: json['visible'] as bool?,
@@ -1690,7 +1690,7 @@ Map<String, dynamic> _$DayOfWeekStatCountToJson(DayOfWeekStatCount instance) {
 
 DecodeFilterDto _$DecodeFilterDtoFromJson(Map<String, dynamic> json) =>
     DecodeFilterDto(
-      encodedFilter: json['encodedFilter'] as String? ?? '',
+      encodedFilter: json['encodedFilter'] as String?,
     );
 
 Map<String, dynamic> _$DecodeFilterDtoToJson(DecodeFilterDto instance) {
@@ -1729,9 +1729,9 @@ Map<String, dynamic> _$DeleteSeriesDtoToJson(DeleteSeriesDto instance) {
 
 Device _$DeviceFromJson(Map<String, dynamic> json) => Device(
       id: json['id'] as int?,
-      ipAddress: json['ipAddress'] as String? ?? '',
-      name: json['name'] as String? ?? '',
-      emailAddress: json['emailAddress'] as String? ?? '',
+      ipAddress: json['ipAddress'] as String?,
+      name: json['name'] as String?,
+      emailAddress: json['emailAddress'] as String?,
       platform: json['platform'] as int?,
       appUserId: json['appUserId'] as int?,
       appUser: json['appUser'] == null
@@ -1784,8 +1784,8 @@ Map<String, dynamic> _$DeviceToJson(Device instance) {
 
 DeviceDto _$DeviceDtoFromJson(Map<String, dynamic> json) => DeviceDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      emailAddress: json['emailAddress'] as String? ?? '',
+      name: json['name'] as String?,
+      emailAddress: json['emailAddress'] as String?,
       platform: json['platform'] as int?,
     );
 
@@ -1806,8 +1806,8 @@ Map<String, dynamic> _$DeviceDtoToJson(DeviceDto instance) {
 }
 
 DirectoryDto _$DirectoryDtoFromJson(Map<String, dynamic> json) => DirectoryDto(
-      name: json['name'] as String? ?? '',
-      fullPath: json['fullPath'] as String? ?? '',
+      name: json['name'] as String?,
+      fullPath: json['fullPath'] as String?,
     );
 
 Map<String, dynamic> _$DirectoryDtoToJson(DirectoryDto instance) {
@@ -1841,8 +1841,8 @@ Map<String, dynamic> _$DownloadBookmarkDtoToJson(
 EmailTestResultDto _$EmailTestResultDtoFromJson(Map<String, dynamic> json) =>
     EmailTestResultDto(
       successful: json['successful'] as bool?,
-      errorMessage: json['errorMessage'] as String? ?? '',
-      emailAddress: json['emailAddress'] as String? ?? '',
+      errorMessage: json['errorMessage'] as String?,
+      emailAddress: json['emailAddress'] as String?,
     );
 
 Map<String, dynamic> _$EmailTestResultDtoToJson(EmailTestResultDto instance) {
@@ -1866,7 +1866,7 @@ ExternalRating _$ExternalRatingFromJson(Map<String, dynamic> json) =>
       averageScore: json['averageScore'] as int?,
       favoriteCount: json['favoriteCount'] as int?,
       provider: json['provider'] as int?,
-      providerUrl: json['providerUrl'] as String? ?? '',
+      providerUrl: json['providerUrl'] as String?,
       seriesId: json['seriesId'] as int?,
       externalSeriesMetadatas: (json['externalSeriesMetadatas']
                   as List<dynamic>?)
@@ -1900,10 +1900,10 @@ ExternalRecommendation _$ExternalRecommendationFromJson(
         Map<String, dynamic> json) =>
     ExternalRecommendation(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      coverUrl: json['coverUrl'] as String? ?? '',
-      url: json['url'] as String? ?? '',
-      summary: json['summary'] as String? ?? '',
+      name: json['name'] as String?,
+      coverUrl: json['coverUrl'] as String?,
+      url: json['url'] as String?,
+      summary: json['summary'] as String?,
       aniListId: json['aniListId'] as int?,
       malId: json['malId'] as int?,
       provider: json['provider'] as int?,
@@ -1943,13 +1943,13 @@ Map<String, dynamic> _$ExternalRecommendationToJson(
 ExternalReview _$ExternalReviewFromJson(Map<String, dynamic> json) =>
     ExternalReview(
       id: json['id'] as int?,
-      tagline: json['tagline'] as String? ?? '',
-      body: json['body'] as String? ?? '',
-      bodyJustText: json['bodyJustText'] as String? ?? '',
-      rawBody: json['rawBody'] as String? ?? '',
+      tagline: json['tagline'] as String?,
+      body: json['body'] as String?,
+      bodyJustText: json['bodyJustText'] as String?,
+      rawBody: json['rawBody'] as String?,
       provider: json['provider'] as int?,
-      siteUrl: json['siteUrl'] as String? ?? '',
-      username: json['username'] as String? ?? '',
+      siteUrl: json['siteUrl'] as String?,
+      username: json['username'] as String?,
       rating: json['rating'] as int?,
       score: json['score'] as int?,
       totalVotes: json['totalVotes'] as int?,
@@ -1990,10 +1990,10 @@ Map<String, dynamic> _$ExternalReviewToJson(ExternalReview instance) {
 
 ExternalSeriesDto _$ExternalSeriesDtoFromJson(Map<String, dynamic> json) =>
     ExternalSeriesDto(
-      name: json['name'] as String? ?? '',
-      coverUrl: json['coverUrl'] as String? ?? '',
-      url: json['url'] as String? ?? '',
-      summary: json['summary'] as String? ?? '',
+      name: json['name'] as String?,
+      coverUrl: json['coverUrl'] as String?,
+      url: json['url'] as String?,
+      summary: json['summary'] as String?,
       aniListId: json['aniListId'] as int?,
       malId: json['malId'] as int?,
       provider: json['provider'] as int?,
@@ -2039,7 +2039,7 @@ ExternalSeriesMetadata _$ExternalSeriesMetadataFromJson(
       averageExternalRating: json['averageExternalRating'] as int?,
       aniListId: json['aniListId'] as int?,
       malId: json['malId'] as int?,
-      googleBooksId: json['googleBooksId'] as String? ?? '',
+      googleBooksId: json['googleBooksId'] as String?,
       validUntilUtc: json['validUntilUtc'] == null
           ? null
           : DateTime.parse(json['validUntilUtc'] as String),
@@ -2079,9 +2079,9 @@ Map<String, dynamic> _$ExternalSeriesMetadataToJson(
 ExternalSourceDto _$ExternalSourceDtoFromJson(Map<String, dynamic> json) =>
     ExternalSourceDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      host: json['host'] as String? ?? '',
-      apiKey: json['apiKey'] as String? ?? '',
+      name: json['name'] as String?,
+      host: json['host'] as String?,
+      apiKey: json['apiKey'] as String?,
     );
 
 Map<String, dynamic> _$ExternalSourceDtoToJson(ExternalSourceDto instance) {
@@ -2105,7 +2105,7 @@ FileDimensionDto _$FileDimensionDtoFromJson(Map<String, dynamic> json) =>
       width: json['width'] as int?,
       height: json['height'] as int?,
       pageNumber: json['pageNumber'] as int?,
-      fileName: json['fileName'] as String? ?? '',
+      fileName: json['fileName'] as String?,
       isWide: json['isWide'] as bool?,
     );
 
@@ -2154,7 +2154,7 @@ Map<String, dynamic> _$FileExtensionBreakdownDtoToJson(
 
 FileExtensionDto _$FileExtensionDtoFromJson(Map<String, dynamic> json) =>
     FileExtensionDto(
-      extension: json['extension'] as String? ?? '',
+      extension: json['extension'] as String?,
       format: json['format'] as int?,
       totalSize: json['totalSize'] as int?,
       totalFiles: json['totalFiles'] as int?,
@@ -2178,7 +2178,7 @@ Map<String, dynamic> _$FileExtensionDtoToJson(FileExtensionDto instance) {
 
 FileFormatDto _$FileFormatDtoFromJson(Map<String, dynamic> json) =>
     FileFormatDto(
-      extension: json['extension'] as String? ?? '',
+      extension: json['extension'] as String?,
       format: json['format'] as int?,
     );
 
@@ -2266,7 +2266,7 @@ FilterDto _$FilterDtoFromJson(Map<String, dynamic> json) => FilterDto(
               ?.map((e) => e as int)
               .toList() ??
           [],
-      seriesNameQuery: json['seriesNameQuery'] as String? ?? '',
+      seriesNameQuery: json['seriesNameQuery'] as String?,
       releaseYearRange: json['releaseYearRange'] == null
           ? null
           : Int32Range.fromJson(
@@ -2312,7 +2312,7 @@ FilterStatementDto _$FilterStatementDtoFromJson(Map<String, dynamic> json) =>
     FilterStatementDto(
       comparison: json['comparison'] as int?,
       field: json['field'] as int?,
-      $value: json['value'] as String? ?? '',
+      $value: json['value'] as String?,
     );
 
 Map<String, dynamic> _$FilterStatementDtoToJson(FilterStatementDto instance) {
@@ -2332,7 +2332,7 @@ Map<String, dynamic> _$FilterStatementDtoToJson(FilterStatementDto instance) {
 
 FilterV2Dto _$FilterV2DtoFromJson(Map<String, dynamic> json) => FilterV2Dto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       statements: (json['statements'] as List<dynamic>?)
               ?.map(
                   (e) => FilterStatementDto.fromJson(e as Map<String, dynamic>))
@@ -2366,7 +2366,7 @@ Map<String, dynamic> _$FilterV2DtoToJson(FilterV2Dto instance) {
 
 FolderPath _$FolderPathFromJson(Map<String, dynamic> json) => FolderPath(
       id: json['id'] as int?,
-      path: json['path'] as String? ?? '',
+      path: json['path'] as String?,
       lastScanned: json['lastScanned'] == null
           ? null
           : DateTime.parse(json['lastScanned'] as String),
@@ -2395,8 +2395,8 @@ Map<String, dynamic> _$FolderPathToJson(FolderPath instance) {
 
 Genre _$GenreFromJson(Map<String, dynamic> json) => Genre(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
-      normalizedTitle: json['normalizedTitle'] as String? ?? '',
+      title: json['title'] as String?,
+      normalizedTitle: json['normalizedTitle'] as String?,
       seriesMetadatas: (json['seriesMetadatas'] as List<dynamic>?)
               ?.map((e) => SeriesMetadata.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -2427,7 +2427,7 @@ Map<String, dynamic> _$GenreToJson(Genre instance) {
 
 GenreTagDto _$GenreTagDtoFromJson(Map<String, dynamic> json) => GenreTagDto(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
     );
 
 Map<String, dynamic> _$GenreTagDtoToJson(GenreTagDto instance) {
@@ -2509,7 +2509,7 @@ Map<String, dynamic> _$Int32StatCountToJson(Int32StatCount instance) {
 
 InviteUserDto _$InviteUserDtoFromJson(Map<String, dynamic> json) =>
     InviteUserDto(
-      email: json['email'] as String? ?? '',
+      email: json['email'] as String,
       roles:
           (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               [],
@@ -2542,7 +2542,7 @@ Map<String, dynamic> _$InviteUserDtoToJson(InviteUserDto instance) {
 
 InviteUserResponse _$InviteUserResponseFromJson(Map<String, dynamic> json) =>
     InviteUserResponse(
-      emailLink: json['emailLink'] as String? ?? '',
+      emailLink: json['emailLink'] as String?,
       emailSent: json['emailSent'] as bool?,
       invalidEmail: json['invalidEmail'] as bool?,
     );
@@ -2563,15 +2563,15 @@ Map<String, dynamic> _$InviteUserResponseToJson(InviteUserResponse instance) {
 }
 
 JobDto _$JobDtoFromJson(Map<String, dynamic> json) => JobDto(
-      id: json['id'] as String? ?? '',
-      title: json['title'] as String? ?? '',
+      id: json['id'] as String?,
+      title: json['title'] as String?,
       createdAtUtc: json['createdAtUtc'] == null
           ? null
           : DateTime.parse(json['createdAtUtc'] as String),
       lastExecutionUtc: json['lastExecutionUtc'] == null
           ? null
           : DateTime.parse(json['lastExecutionUtc'] as String),
-      cron: json['cron'] as String? ?? '',
+      cron: json['cron'] as String?,
     );
 
 Map<String, dynamic> _$JobDtoToJson(JobDto instance) {
@@ -2594,8 +2594,8 @@ Map<String, dynamic> _$JobDtoToJson(JobDto instance) {
 
 JumpKeyDto _$JumpKeyDtoFromJson(Map<String, dynamic> json) => JumpKeyDto(
       size: json['size'] as int?,
-      key: json['key'] as String? ?? '',
-      title: json['title'] as String? ?? '',
+      key: json['key'] as String?,
+      title: json['title'] as String?,
     );
 
 Map<String, dynamic> _$JumpKeyDtoToJson(JumpKeyDto instance) {
@@ -2614,8 +2614,8 @@ Map<String, dynamic> _$JumpKeyDtoToJson(JumpKeyDto instance) {
 }
 
 LanguageDto _$LanguageDtoFromJson(Map<String, dynamic> json) => LanguageDto(
-      isoCode: json['isoCode'] as String? ?? '',
-      title: json['title'] as String? ?? '',
+      isoCode: json['isoCode'] as String?,
+      title: json['title'] as String?,
     );
 
 Map<String, dynamic> _$LanguageDtoToJson(LanguageDto instance) {
@@ -2634,8 +2634,8 @@ Map<String, dynamic> _$LanguageDtoToJson(LanguageDto instance) {
 
 Library _$LibraryFromJson(Map<String, dynamic> json) => Library(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      coverImage: json['coverImage'] as String? ?? '',
+      name: json['name'] as String?,
+      coverImage: json['coverImage'] as String?,
       type: json['type'] as int?,
       folderWatching: json['folderWatching'] as bool?,
       includeInDashboard: json['includeInDashboard'] as bool?,
@@ -2720,12 +2720,12 @@ Map<String, dynamic> _$LibraryToJson(Library instance) {
 
 LibraryDto _$LibraryDtoFromJson(Map<String, dynamic> json) => LibraryDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       lastScanned: json['lastScanned'] == null
           ? null
           : DateTime.parse(json['lastScanned'] as String),
       type: json['type'] as int?,
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImage'] as String?,
       folderWatching: json['folderWatching'] as bool?,
       includeInDashboard: json['includeInDashboard'] as bool?,
       includeInRecommended: json['includeInRecommended'] as bool?,
@@ -2803,7 +2803,7 @@ LibraryExcludePattern _$LibraryExcludePatternFromJson(
         Map<String, dynamic> json) =>
     LibraryExcludePattern(
       id: json['id'] as int?,
-      pattern: json['pattern'] as String? ?? '',
+      pattern: json['pattern'] as String?,
       libraryId: json['libraryId'] as int?,
       $library: json['library'] == null
           ? null
@@ -2856,9 +2856,9 @@ Map<String, dynamic> _$LibraryFileTypeGroupToJson(
 }
 
 LoginDto _$LoginDtoFromJson(Map<String, dynamic> json) => LoginDto(
-      username: json['username'] as String? ?? '',
-      password: json['password'] as String? ?? '',
-      apiKey: json['apiKey'] as String? ?? '',
+      username: json['username'] as String?,
+      password: json['password'] as String?,
+      apiKey: json['apiKey'] as String?,
     );
 
 Map<String, dynamic> _$LoginDtoToJson(LoginDto instance) {
@@ -2878,11 +2878,11 @@ Map<String, dynamic> _$LoginDtoToJson(LoginDto instance) {
 
 MangaFile _$MangaFileFromJson(Map<String, dynamic> json) => MangaFile(
       id: json['id'] as int?,
-      filePath: json['filePath'] as String? ?? '',
+      filePath: json['filePath'] as String?,
       pages: json['pages'] as int?,
       format: json['format'] as int?,
       bytes: json['bytes'] as int?,
-      extension: json['extension'] as String? ?? '',
+      extension: json['extension'] as String?,
       created: json['created'] == null
           ? null
           : DateTime.parse(json['created'] as String),
@@ -2937,7 +2937,7 @@ Map<String, dynamic> _$MangaFileToJson(MangaFile instance) {
 
 MangaFileDto _$MangaFileDtoFromJson(Map<String, dynamic> json) => MangaFileDto(
       id: json['id'] as int?,
-      filePath: json['filePath'] as String? ?? '',
+      filePath: json['filePath'] as String?,
       pages: json['pages'] as int?,
       bytes: json['bytes'] as int?,
       format: json['format'] as int?,
@@ -3076,10 +3076,10 @@ Map<String, dynamic> _$MarkVolumesReadDtoToJson(MarkVolumesReadDto instance) {
 
 MediaErrorDto _$MediaErrorDtoFromJson(Map<String, dynamic> json) =>
     MediaErrorDto(
-      extension: json['extension'] as String? ?? '',
-      filePath: json['filePath'] as String? ?? '',
-      comment: json['comment'] as String? ?? '',
-      details: json['details'] as String? ?? '',
+      extension: json['extension'] as String?,
+      filePath: json['filePath'] as String?,
+      comment: json['comment'] as String?,
+      details: json['details'] as String?,
     );
 
 Map<String, dynamic> _$MediaErrorDtoToJson(MediaErrorDto instance) {
@@ -3100,8 +3100,8 @@ Map<String, dynamic> _$MediaErrorDtoToJson(MediaErrorDto instance) {
 
 MemberDto _$MemberDtoFromJson(Map<String, dynamic> json) => MemberDto(
       id: json['id'] as int?,
-      username: json['username'] as String? ?? '',
-      email: json['email'] as String? ?? '',
+      username: json['username'] as String?,
+      email: json['email'] as String?,
       isPending: json['isPending'] as bool?,
       ageRestriction: json['ageRestriction'] == null
           ? null
@@ -3160,7 +3160,7 @@ NextExpectedChapterDto _$NextExpectedChapterDtoFromJson(
       expectedDate: json['expectedDate'] == null
           ? null
           : DateTime.parse(json['expectedDate'] as String),
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
     );
 
 Map<String, dynamic> _$NextExpectedChapterDtoToJson(
@@ -3182,8 +3182,8 @@ Map<String, dynamic> _$NextExpectedChapterDtoToJson(
 
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      normalizedName: json['normalizedName'] as String? ?? '',
+      name: json['name'] as String?,
+      normalizedName: json['normalizedName'] as String?,
       role: json['role'] as int?,
       seriesMetadatas: (json['seriesMetadatas'] as List<dynamic>?)
               ?.map((e) => SeriesMetadata.fromJson(e as Map<String, dynamic>))
@@ -3217,7 +3217,7 @@ Map<String, dynamic> _$PersonToJson(Person instance) {
 
 PersonDto _$PersonDtoFromJson(Map<String, dynamic> json) => PersonDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       role: json['role'] as int?,
     );
 
@@ -3240,8 +3240,8 @@ PersonalToCDto _$PersonalToCDtoFromJson(Map<String, dynamic> json) =>
     PersonalToCDto(
       chapterId: json['chapterId'] as int?,
       pageNumber: json['pageNumber'] as int?,
-      title: json['title'] as String? ?? '',
-      bookScrollId: json['bookScrollId'] as String? ?? '',
+      title: json['title'] as String?,
+      bookScrollId: json['bookScrollId'] as String?,
     );
 
 Map<String, dynamic> _$PersonalToCDtoToJson(PersonalToCDto instance) {
@@ -3266,7 +3266,7 @@ ProgressDto _$ProgressDtoFromJson(Map<String, dynamic> json) => ProgressDto(
       pageNum: json['pageNum'] as int,
       seriesId: json['seriesId'] as int,
       libraryId: json['libraryId'] as int,
-      bookScrollId: json['bookScrollId'] as String? ?? '',
+      bookScrollId: json['bookScrollId'] as String?,
       lastModifiedUtc: json['lastModifiedUtc'] == null
           ? null
           : DateTime.parse(json['lastModifiedUtc'] as String),
@@ -3318,7 +3318,7 @@ RatingDto _$RatingDtoFromJson(Map<String, dynamic> json) => RatingDto(
       averageScore: json['averageScore'] as int?,
       favoriteCount: json['favoriteCount'] as int?,
       provider: json['provider'] as int?,
-      providerUrl: json['providerUrl'] as String? ?? '',
+      providerUrl: json['providerUrl'] as String?,
     );
 
 Map<String, dynamic> _$RatingDtoToJson(RatingDto instance) {
@@ -3340,15 +3340,15 @@ Map<String, dynamic> _$RatingDtoToJson(RatingDto instance) {
 ReadHistoryEvent _$ReadHistoryEventFromJson(Map<String, dynamic> json) =>
     ReadHistoryEvent(
       userId: json['userId'] as int?,
-      userName: json['userName'] as String? ?? '',
+      userName: json['userName'] as String?,
       libraryId: json['libraryId'] as int?,
       seriesId: json['seriesId'] as int?,
-      seriesName: json['seriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
       readDate: json['readDate'] == null
           ? null
           : DateTime.parse(json['readDate'] as String),
       chapterId: json['chapterId'] as int?,
-      chapterNumber: json['chapterNumber'] as String? ?? '',
+      chapterNumber: json['chapterNumber'] as String?,
     );
 
 Map<String, dynamic> _$ReadHistoryEventToJson(ReadHistoryEvent instance) {
@@ -3394,11 +3394,11 @@ Map<String, dynamic> _$ReadStatusToJson(ReadStatus instance) {
 
 ReadingList _$ReadingListFromJson(Map<String, dynamic> json) => ReadingList(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
-      normalizedTitle: json['normalizedTitle'] as String? ?? '',
-      summary: json['summary'] as String? ?? '',
+      title: json['title'] as String?,
+      normalizedTitle: json['normalizedTitle'] as String?,
+      summary: json['summary'] as String?,
       promoted: json['promoted'] as bool?,
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImage'] as String?,
       coverImageLocked: json['coverImageLocked'] as bool?,
       ageRating: json['ageRating'] as int?,
       items: (json['items'] as List<dynamic>?)
@@ -3461,11 +3461,11 @@ Map<String, dynamic> _$ReadingListToJson(ReadingList instance) {
 ReadingListDto _$ReadingListDtoFromJson(Map<String, dynamic> json) =>
     ReadingListDto(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
-      summary: json['summary'] as String? ?? '',
+      title: json['title'] as String?,
+      summary: json['summary'] as String?,
       promoted: json['promoted'] as bool?,
       coverImageLocked: json['coverImageLocked'] as bool?,
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImage'] as String?,
       startingYear: json['startingYear'] as int?,
       startingMonth: json['startingMonth'] as int?,
       endingYear: json['endingYear'] as int?,
@@ -3544,18 +3544,18 @@ ReadingListItemDto _$ReadingListItemDtoFromJson(Map<String, dynamic> json) =>
       order: json['order'] as int?,
       chapterId: json['chapterId'] as int?,
       seriesId: json['seriesId'] as int?,
-      seriesName: json['seriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
       seriesFormat: json['seriesFormat'] as int?,
       pagesRead: json['pagesRead'] as int?,
       pagesTotal: json['pagesTotal'] as int?,
-      chapterNumber: json['chapterNumber'] as String? ?? '',
-      volumeNumber: json['volumeNumber'] as String? ?? '',
-      chapterTitleName: json['chapterTitleName'] as String? ?? '',
+      chapterNumber: json['chapterNumber'] as String?,
+      volumeNumber: json['volumeNumber'] as String?,
+      chapterTitleName: json['chapterTitleName'] as String?,
       volumeId: json['volumeId'] as int?,
       libraryId: json['libraryId'] as int?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
       libraryType: json['libraryType'] as int?,
-      libraryName: json['libraryName'] as String? ?? '',
+      libraryName: json['libraryName'] as String?,
       releaseDate: json['releaseDate'] == null
           ? null
           : DateTime.parse(json['releaseDate'] as String),
@@ -3602,11 +3602,11 @@ Map<String, dynamic> _$ReadingListItemDtoToJson(ReadingListItemDto instance) {
 RecentlyAddedItemDto _$RecentlyAddedItemDtoFromJson(
         Map<String, dynamic> json) =>
     RecentlyAddedItemDto(
-      seriesName: json['seriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
       libraryType: json['libraryType'] as int?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
       created: json['created'] == null
           ? null
           : DateTime.parse(json['created'] as String),
@@ -3691,9 +3691,9 @@ Map<String, dynamic> _$RefreshSeriesDtoToJson(RefreshSeriesDto instance) {
 }
 
 RegisterDto _$RegisterDtoFromJson(Map<String, dynamic> json) => RegisterDto(
-      username: json['username'] as String? ?? '',
-      email: json['email'] as String? ?? '',
-      password: json['password'] as String? ?? '',
+      username: json['username'] as String,
+      email: json['email'] as String?,
+      password: json['password'] as String,
     );
 
 Map<String, dynamic> _$RegisterDtoToJson(RegisterDto instance) {
@@ -3823,9 +3823,9 @@ Map<String, dynamic> _$RemoveBookmarkForSeriesDtoToJson(
 
 ResetPasswordDto _$ResetPasswordDtoFromJson(Map<String, dynamic> json) =>
     ResetPasswordDto(
-      userName: json['userName'] as String? ?? '',
-      password: json['password'] as String? ?? '',
-      oldPassword: json['oldPassword'] as String? ?? '',
+      userName: json['userName'] as String,
+      password: json['password'] as String,
+      oldPassword: json['oldPassword'] as String?,
     );
 
 Map<String, dynamic> _$ResetPasswordDtoToJson(ResetPasswordDto instance) {
@@ -3846,8 +3846,8 @@ Map<String, dynamic> _$ResetPasswordDtoToJson(ResetPasswordDto instance) {
 
 ScanFolderDto _$ScanFolderDtoFromJson(Map<String, dynamic> json) =>
     ScanFolderDto(
-      apiKey: json['apiKey'] as String? ?? '',
-      folderPath: json['folderPath'] as String? ?? '',
+      apiKey: json['apiKey'] as String?,
+      folderPath: json['folderPath'] as String?,
     );
 
 Map<String, dynamic> _$ScanFolderDtoToJson(ScanFolderDto instance) {
@@ -3866,8 +3866,8 @@ Map<String, dynamic> _$ScanFolderDtoToJson(ScanFolderDto instance) {
 
 ScrobbleErrorDto _$ScrobbleErrorDtoFromJson(Map<String, dynamic> json) =>
     ScrobbleErrorDto(
-      comment: json['comment'] as String? ?? '',
-      details: json['details'] as String? ?? '',
+      comment: json['comment'] as String?,
+      details: json['details'] as String?,
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
       created: json['created'] == null
@@ -3894,7 +3894,7 @@ Map<String, dynamic> _$ScrobbleErrorDtoToJson(ScrobbleErrorDto instance) {
 
 ScrobbleEventDto _$ScrobbleEventDtoFromJson(Map<String, dynamic> json) =>
     ScrobbleEventDto(
-      seriesName: json['seriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
       isProcessed: json['isProcessed'] as bool?,
@@ -3909,7 +3909,7 @@ ScrobbleEventDto _$ScrobbleEventDtoFromJson(Map<String, dynamic> json) =>
       rating: (json['rating'] as num?)?.toDouble(),
       scrobbleEventType: json['scrobbleEventType'] as int?,
       isErrored: json['isErrored'] as bool?,
-      errorDetails: json['errorDetails'] as String? ?? '',
+      errorDetails: json['errorDetails'] as String?,
     );
 
 Map<String, dynamic> _$ScrobbleEventDtoToJson(ScrobbleEventDto instance) {
@@ -3940,7 +3940,7 @@ ScrobbleEventFilter _$ScrobbleEventFilterFromJson(Map<String, dynamic> json) =>
     ScrobbleEventFilter(
       field: json['field'] as int?,
       isDescending: json['isDescending'] as bool?,
-      query: json['query'] as String? ?? '',
+      query: json['query'] as String?,
       includeReviews: json['includeReviews'] as bool?,
     );
 
@@ -4007,7 +4007,7 @@ Map<String, dynamic> _$ScrobbleHoldToJson(ScrobbleHold instance) {
 
 ScrobbleHoldDto _$ScrobbleHoldDtoFromJson(Map<String, dynamic> json) =>
     ScrobbleHoldDto(
-      seriesName: json['seriesName'] as String? ?? '',
+      seriesName: json['seriesName'] as String?,
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
       created: json['created'] == null
@@ -4038,12 +4038,12 @@ Map<String, dynamic> _$ScrobbleHoldDtoToJson(ScrobbleHoldDto instance) {
 SearchResultDto _$SearchResultDtoFromJson(Map<String, dynamic> json) =>
     SearchResultDto(
       seriesId: json['seriesId'] as int?,
-      name: json['name'] as String? ?? '',
-      originalName: json['originalName'] as String? ?? '',
-      sortName: json['sortName'] as String? ?? '',
-      localizedName: json['localizedName'] as String? ?? '',
+      name: json['name'] as String?,
+      originalName: json['originalName'] as String?,
+      sortName: json['sortName'] as String?,
+      localizedName: json['localizedName'] as String?,
       format: json['format'] as int?,
-      libraryName: json['libraryName'] as String? ?? '',
+      libraryName: json['libraryName'] as String?,
       libraryId: json['libraryId'] as int?,
     );
 
@@ -4187,12 +4187,12 @@ Map<String, dynamic> _$SendToDeviceDtoToJson(SendToDeviceDto instance) {
 
 Series _$SeriesFromJson(Map<String, dynamic> json) => Series(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      normalizedName: json['normalizedName'] as String? ?? '',
-      normalizedLocalizedName: json['normalizedLocalizedName'] as String? ?? '',
-      sortName: json['sortName'] as String? ?? '',
-      localizedName: json['localizedName'] as String? ?? '',
-      originalName: json['originalName'] as String? ?? '',
+      name: json['name'] as String?,
+      normalizedName: json['normalizedName'] as String?,
+      normalizedLocalizedName: json['normalizedLocalizedName'] as String?,
+      sortName: json['sortName'] as String?,
+      localizedName: json['localizedName'] as String?,
+      originalName: json['originalName'] as String?,
       created: json['created'] == null
           ? null
           : DateTime.parse(json['created'] as String),
@@ -4205,10 +4205,10 @@ Series _$SeriesFromJson(Map<String, dynamic> json) => Series(
       lastModifiedUtc: json['lastModifiedUtc'] == null
           ? null
           : DateTime.parse(json['lastModifiedUtc'] as String),
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImage'] as String?,
       coverImageLocked: json['coverImageLocked'] as bool?,
       pages: json['pages'] as int?,
-      folderPath: json['folderPath'] as String? ?? '',
+      folderPath: json['folderPath'] as String?,
       lastFolderScanned: json['lastFolderScanned'] == null
           ? null
           : DateTime.parse(json['lastFolderScanned'] as String),
@@ -4410,10 +4410,10 @@ Map<String, dynamic> _$SeriesDetailPlusDtoToJson(SeriesDetailPlusDto instance) {
 
 SeriesDto _$SeriesDtoFromJson(Map<String, dynamic> json) => SeriesDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      originalName: json['originalName'] as String? ?? '',
-      localizedName: json['localizedName'] as String? ?? '',
-      sortName: json['sortName'] as String? ?? '',
+      name: json['name'] as String?,
+      originalName: json['originalName'] as String?,
+      localizedName: json['localizedName'] as String?,
+      sortName: json['sortName'] as String?,
       pages: json['pages'] as int?,
       coverImageLocked: json['coverImageLocked'] as bool?,
       pagesRead: json['pagesRead'] as int?,
@@ -4434,11 +4434,11 @@ SeriesDto _$SeriesDtoFromJson(Map<String, dynamic> json) => SeriesDto(
       localizedNameLocked: json['localizedNameLocked'] as bool?,
       wordCount: json['wordCount'] as int?,
       libraryId: json['libraryId'] as int?,
-      libraryName: json['libraryName'] as String? ?? '',
+      libraryName: json['libraryName'] as String?,
       minHoursToRead: json['minHoursToRead'] as int?,
       maxHoursToRead: json['maxHoursToRead'] as int?,
       avgHoursToRead: json['avgHoursToRead'] as int?,
-      folderPath: json['folderPath'] as String? ?? '',
+      folderPath: json['folderPath'] as String?,
       lastFolderScanned: json['lastFolderScanned'] == null
           ? null
           : DateTime.parse(json['lastFolderScanned'] as String),
@@ -4508,7 +4508,7 @@ Map<String, dynamic> _$SeriesDtoICountToJson(SeriesDtoICount instance) {
 SeriesMetadata _$SeriesMetadataFromJson(Map<String, dynamic> json) =>
     SeriesMetadata(
       id: json['id'] as int?,
-      summary: json['summary'] as String? ?? '',
+      summary: json['summary'] as String?,
       collectionTags: (json['collectionTags'] as List<dynamic>?)
               ?.map((e) => CollectionTag.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -4527,11 +4527,11 @@ SeriesMetadata _$SeriesMetadataFromJson(Map<String, dynamic> json) =>
           [],
       ageRating: json['ageRating'] as int?,
       releaseYear: json['releaseYear'] as int?,
-      language: json['language'] as String? ?? '',
+      language: json['language'] as String?,
       totalCount: json['totalCount'] as int?,
       maxCount: json['maxCount'] as int?,
       publicationStatus: json['publicationStatus'] as int?,
-      webLinks: json['webLinks'] as String? ?? '',
+      webLinks: json['webLinks'] as String?,
       languageLocked: json['languageLocked'] as bool?,
       summaryLocked: json['summaryLocked'] as bool?,
       ageRatingLocked: json['ageRatingLocked'] as bool?,
@@ -4605,7 +4605,7 @@ Map<String, dynamic> _$SeriesMetadataToJson(SeriesMetadata instance) {
 SeriesMetadataDto _$SeriesMetadataDtoFromJson(Map<String, dynamic> json) =>
     SeriesMetadataDto(
       id: json['id'] as int?,
-      summary: json['summary'] as String? ?? '',
+      summary: json['summary'] as String?,
       collectionTags: (json['collectionTags'] as List<dynamic>?)
               ?.map((e) => CollectionTagDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -4660,11 +4660,11 @@ SeriesMetadataDto _$SeriesMetadataDtoFromJson(Map<String, dynamic> json) =>
           [],
       ageRating: json['ageRating'] as int?,
       releaseYear: json['releaseYear'] as int?,
-      language: json['language'] as String? ?? '',
+      language: json['language'] as String?,
       maxCount: json['maxCount'] as int?,
       totalCount: json['totalCount'] as int?,
       publicationStatus: json['publicationStatus'] as int?,
-      webLinks: json['webLinks'] as String? ?? '',
+      webLinks: json['webLinks'] as String?,
       languageLocked: json['languageLocked'] as bool?,
       summaryLocked: json['summaryLocked'] as bool?,
       ageRatingLocked: json['ageRatingLocked'] as bool?,
@@ -4779,15 +4779,15 @@ Map<String, dynamic> _$SeriesRelationToJson(SeriesRelation instance) {
 
 ServerInfoDto _$ServerInfoDtoFromJson(Map<String, dynamic> json) =>
     ServerInfoDto(
-      installId: json['installId'] as String? ?? '',
-      os: json['os'] as String? ?? '',
+      installId: json['installId'] as String?,
+      os: json['os'] as String?,
       isDocker: json['isDocker'] as bool?,
-      dotnetVersion: json['dotnetVersion'] as String? ?? '',
-      kavitaVersion: json['kavitaVersion'] as String? ?? '',
+      dotnetVersion: json['dotnetVersion'] as String?,
+      kavitaVersion: json['kavitaVersion'] as String?,
       numOfCores: json['numOfCores'] as int?,
       numberOfLibraries: json['numberOfLibraries'] as int?,
       hasBookmarks: json['hasBookmarks'] as bool?,
-      activeSiteTheme: json['activeSiteTheme'] as String? ?? '',
+      activeSiteTheme: json['activeSiteTheme'] as String?,
       mangaReaderMode: json['mangaReaderMode'] as int?,
       numberOfUsers: json['numberOfUsers'] as int?,
       numberOfCollections: json['numberOfCollections'] as int?,
@@ -4895,24 +4895,24 @@ Map<String, dynamic> _$ServerInfoDtoToJson(ServerInfoDto instance) {
 
 ServerSettingDto _$ServerSettingDtoFromJson(Map<String, dynamic> json) =>
     ServerSettingDto(
-      cacheDirectory: json['cacheDirectory'] as String? ?? '',
-      taskScan: json['taskScan'] as String? ?? '',
-      taskBackup: json['taskBackup'] as String? ?? '',
-      taskCleanup: json['taskCleanup'] as String? ?? '',
-      loggingLevel: json['loggingLevel'] as String? ?? '',
+      cacheDirectory: json['cacheDirectory'] as String?,
+      taskScan: json['taskScan'] as String?,
+      taskBackup: json['taskBackup'] as String?,
+      taskCleanup: json['taskCleanup'] as String?,
+      loggingLevel: json['loggingLevel'] as String?,
       port: json['port'] as int?,
-      ipAddresses: json['ipAddresses'] as String? ?? '',
+      ipAddresses: json['ipAddresses'] as String?,
       allowStatCollection: json['allowStatCollection'] as bool?,
       enableOpds: json['enableOpds'] as bool?,
-      baseUrl: json['baseUrl'] as String? ?? '',
-      bookmarksDirectory: json['bookmarksDirectory'] as String? ?? '',
-      installVersion: json['installVersion'] as String? ?? '',
-      installId: json['installId'] as String? ?? '',
+      baseUrl: json['baseUrl'] as String?,
+      bookmarksDirectory: json['bookmarksDirectory'] as String?,
+      installVersion: json['installVersion'] as String?,
+      installId: json['installId'] as String?,
       encodeMediaAs: json['encodeMediaAs'] as int?,
       totalBackups: json['totalBackups'] as int?,
       enableFolderWatching: json['enableFolderWatching'] as bool?,
       totalLogs: json['totalLogs'] as int?,
-      hostName: json['hostName'] as String? ?? '',
+      hostName: json['hostName'] as String?,
       cacheSize: json['cacheSize'] as int?,
       onDeckProgressDays: json['onDeckProgressDays'] as int?,
       onDeckUpdateDays: json['onDeckUpdateDays'] as int?,
@@ -5024,10 +5024,10 @@ Map<String, dynamic> _$ServerStatisticsDtoToJson(ServerStatisticsDto instance) {
 SideNavStreamDto _$SideNavStreamDtoFromJson(Map<String, dynamic> json) =>
     SideNavStreamDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       isProvided: json['isProvided'] as bool?,
       order: json['order'] as int?,
-      smartFilterEncoded: json['smartFilterEncoded'] as String? ?? '',
+      smartFilterEncoded: json['smartFilterEncoded'] as String?,
       smartFilterId: json['smartFilterId'] as int?,
       externalSourceId: json['externalSourceId'] as int?,
       externalSource: json['externalSource'] == null
@@ -5088,9 +5088,9 @@ Map<String, dynamic> _$SingleStatCountToJson(SingleStatCount instance) {
 
 SiteTheme _$SiteThemeFromJson(Map<String, dynamic> json) => SiteTheme(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      normalizedName: json['normalizedName'] as String? ?? '',
-      fileName: json['fileName'] as String? ?? '',
+      name: json['name'] as String?,
+      normalizedName: json['normalizedName'] as String?,
+      fileName: json['fileName'] as String?,
       isDefault: json['isDefault'] as bool?,
       provider: json['provider'] as int?,
       created: json['created'] == null
@@ -5131,12 +5131,12 @@ Map<String, dynamic> _$SiteThemeToJson(SiteTheme instance) {
 
 SiteThemeDto _$SiteThemeDtoFromJson(Map<String, dynamic> json) => SiteThemeDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      normalizedName: json['normalizedName'] as String? ?? '',
-      fileName: json['fileName'] as String? ?? '',
+      name: json['name'] as String?,
+      normalizedName: json['normalizedName'] as String?,
+      fileName: json['fileName'] as String?,
       isDefault: json['isDefault'] as bool?,
       provider: json['provider'] as int?,
-      selector: json['selector'] as String? ?? '',
+      selector: json['selector'] as String?,
     );
 
 Map<String, dynamic> _$SiteThemeDtoToJson(SiteThemeDto instance) {
@@ -5161,8 +5161,8 @@ Map<String, dynamic> _$SiteThemeDtoToJson(SiteThemeDto instance) {
 SmartFilterDto _$SmartFilterDtoFromJson(Map<String, dynamic> json) =>
     SmartFilterDto(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
-      filter: json['filter'] as String? ?? '',
+      name: json['name'] as String?,
+      filter: json['filter'] as String?,
     );
 
 Map<String, dynamic> _$SmartFilterDtoToJson(SmartFilterDto instance) {
@@ -5182,11 +5182,11 @@ Map<String, dynamic> _$SmartFilterDtoToJson(SmartFilterDto instance) {
 
 SmtpConfigDto _$SmtpConfigDtoFromJson(Map<String, dynamic> json) =>
     SmtpConfigDto(
-      senderAddress: json['senderAddress'] as String? ?? '',
-      senderDisplayName: json['senderDisplayName'] as String? ?? '',
-      userName: json['userName'] as String? ?? '',
-      password: json['password'] as String? ?? '',
-      host: json['host'] as String? ?? '',
+      senderAddress: json['senderAddress'] as String?,
+      senderDisplayName: json['senderDisplayName'] as String?,
+      userName: json['userName'] as String?,
+      password: json['password'] as String?,
+      host: json['host'] as String?,
       port: json['port'] as int?,
       enableSsl: json['enableSsl'] as bool?,
       sizeLimit: json['sizeLimit'] as int?,
@@ -5235,8 +5235,8 @@ Map<String, dynamic> _$SortOptionsToJson(SortOptions instance) {
 
 Tag _$TagFromJson(Map<String, dynamic> json) => Tag(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
-      normalizedTitle: json['normalizedTitle'] as String? ?? '',
+      title: json['title'] as String?,
+      normalizedTitle: json['normalizedTitle'] as String?,
       seriesMetadatas: (json['seriesMetadatas'] as List<dynamic>?)
               ?.map((e) => SeriesMetadata.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -5267,7 +5267,7 @@ Map<String, dynamic> _$TagToJson(Tag instance) {
 
 TagDto _$TagDtoFromJson(Map<String, dynamic> json) => TagDto(
       id: json['id'] as int?,
-      title: json['title'] as String? ?? '',
+      title: json['title'] as String?,
     );
 
 Map<String, dynamic> _$TagDtoToJson(TagDto instance) {
@@ -5286,8 +5286,8 @@ Map<String, dynamic> _$TagDtoToJson(TagDto instance) {
 
 TokenRequestDto _$TokenRequestDtoFromJson(Map<String, dynamic> json) =>
     TokenRequestDto(
-      token: json['token'] as String? ?? '',
-      refreshToken: json['refreshToken'] as String? ?? '',
+      token: json['token'] as String?,
+      refreshToken: json['refreshToken'] as String?,
     );
 
 Map<String, dynamic> _$TokenRequestDtoToJson(TokenRequestDto instance) {
@@ -5306,7 +5306,7 @@ Map<String, dynamic> _$TokenRequestDtoToJson(TokenRequestDto instance) {
 
 TopReadDto _$TopReadDtoFromJson(Map<String, dynamic> json) => TopReadDto(
       userId: json['userId'] as int?,
-      username: json['username'] as String? ?? '',
+      username: json['username'] as String?,
       comicsTime: json['comicsTime'] as int?,
       booksTime: json['booksTime'] as int?,
       mangaTime: json['mangaTime'] as int?,
@@ -5366,9 +5366,9 @@ Map<String, dynamic> _$UpdateDefaultThemeDtoToJson(
 UpdateDeviceDto _$UpdateDeviceDtoFromJson(Map<String, dynamic> json) =>
     UpdateDeviceDto(
       id: json['id'] as int,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String,
       platform: json['platform'] as int,
-      emailAddress: json['emailAddress'] as String? ?? '',
+      emailAddress: json['emailAddress'] as String,
     );
 
 Map<String, dynamic> _$UpdateDeviceDtoToJson(UpdateDeviceDto instance) =>
@@ -5381,8 +5381,8 @@ Map<String, dynamic> _$UpdateDeviceDtoToJson(UpdateDeviceDto instance) =>
 
 UpdateEmailDto _$UpdateEmailDtoFromJson(Map<String, dynamic> json) =>
     UpdateEmailDto(
-      email: json['email'] as String? ?? '',
-      password: json['password'] as String? ?? '',
+      email: json['email'] as String?,
+      password: json['password'] as String?,
     );
 
 Map<String, dynamic> _$UpdateEmailDtoToJson(UpdateEmailDto instance) {
@@ -5402,7 +5402,7 @@ Map<String, dynamic> _$UpdateEmailDtoToJson(UpdateEmailDto instance) {
 UpdateLibraryDto _$UpdateLibraryDtoFromJson(Map<String, dynamic> json) =>
     UpdateLibraryDto(
       id: json['id'] as int,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String,
       type: json['type'] as int,
       folders: (json['folders'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -5454,7 +5454,7 @@ Map<String, dynamic> _$UpdateLibraryDtoToJson(UpdateLibraryDto instance) {
 UpdateLibraryForUserDto _$UpdateLibraryForUserDtoFromJson(
         Map<String, dynamic> json) =>
     UpdateLibraryForUserDto(
-      username: json['username'] as String? ?? '',
+      username: json['username'] as String?,
       selectedLibraries: (json['selectedLibraries'] as List<dynamic>?)
               ?.map((e) => LibraryDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -5479,9 +5479,9 @@ Map<String, dynamic> _$UpdateLibraryForUserDtoToJson(
 
 UpdateLicenseDto _$UpdateLicenseDtoFromJson(Map<String, dynamic> json) =>
     UpdateLicenseDto(
-      license: json['license'] as String? ?? '',
-      email: json['email'] as String? ?? '',
-      discordId: json['discordId'] as String? ?? '',
+      license: json['license'] as String?,
+      email: json['email'] as String?,
+      discordId: json['discordId'] as String?,
     );
 
 Map<String, dynamic> _$UpdateLicenseDtoToJson(UpdateLicenseDto instance) {
@@ -5502,14 +5502,14 @@ Map<String, dynamic> _$UpdateLicenseDtoToJson(UpdateLicenseDto instance) {
 UpdateNotificationDto _$UpdateNotificationDtoFromJson(
         Map<String, dynamic> json) =>
     UpdateNotificationDto(
-      currentVersion: json['currentVersion'] as String? ?? '',
-      updateVersion: json['updateVersion'] as String? ?? '',
-      updateBody: json['updateBody'] as String? ?? '',
-      updateTitle: json['updateTitle'] as String? ?? '',
-      updateUrl: json['updateUrl'] as String? ?? '',
+      currentVersion: json['currentVersion'] as String?,
+      updateVersion: json['updateVersion'] as String?,
+      updateBody: json['updateBody'] as String?,
+      updateTitle: json['updateTitle'] as String?,
+      updateUrl: json['updateUrl'] as String?,
       isDocker: json['isDocker'] as bool?,
       isPrerelease: json['isPrerelease'] as bool?,
-      publishDate: json['publishDate'] as String? ?? '',
+      publishDate: json['publishDate'] as String?,
       isOnNightlyInRelease: json['isOnNightlyInRelease'] as bool?,
       isReleaseNewer: json['isReleaseNewer'] as bool?,
       isReleaseEqual: json['isReleaseEqual'] as bool?,
@@ -5670,8 +5670,8 @@ UpdateReadingListDto _$UpdateReadingListDtoFromJson(
         Map<String, dynamic> json) =>
     UpdateReadingListDto(
       readingListId: json['readingListId'] as int,
-      title: json['title'] as String? ?? '',
-      summary: json['summary'] as String? ?? '',
+      title: json['title'] as String?,
+      summary: json['summary'] as String?,
       promoted: json['promoted'] as bool?,
       coverImageLocked: json['coverImageLocked'] as bool?,
       startingMonth: json['startingMonth'] as int?,
@@ -5807,8 +5807,8 @@ Map<String, dynamic> _$UpdateRelatedSeriesDtoToJson(
 UpdateSeriesDto _$UpdateSeriesDtoFromJson(Map<String, dynamic> json) =>
     UpdateSeriesDto(
       id: json['id'] as int?,
-      localizedName: json['localizedName'] as String? ?? '',
-      sortName: json['sortName'] as String? ?? '',
+      localizedName: json['localizedName'] as String?,
+      sortName: json['sortName'] as String?,
       coverImageLocked: json['coverImageLocked'] as bool?,
       sortNameLocked: json['sortNameLocked'] as bool?,
       localizedNameLocked: json['localizedNameLocked'] as bool?,
@@ -5916,7 +5916,7 @@ UpdateStreamPositionDto _$UpdateStreamPositionDtoFromJson(
       fromPosition: json['fromPosition'] as int?,
       toPosition: json['toPosition'] as int?,
       id: json['id'] as int?,
-      streamName: json['streamName'] as String? ?? '',
+      streamName: json['streamName'] as String?,
     );
 
 Map<String, dynamic> _$UpdateStreamPositionDtoToJson(
@@ -5939,7 +5939,7 @@ Map<String, dynamic> _$UpdateStreamPositionDtoToJson(
 UpdateUserDto _$UpdateUserDtoFromJson(Map<String, dynamic> json) =>
     UpdateUserDto(
       userId: json['userId'] as int?,
-      username: json['username'] as String? ?? '',
+      username: json['username'] as String?,
       roles:
           (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               [],
@@ -5973,7 +5973,7 @@ Map<String, dynamic> _$UpdateUserDtoToJson(UpdateUserDto instance) {
 UpdateUserReviewDto _$UpdateUserReviewDtoFromJson(Map<String, dynamic> json) =>
     UpdateUserReviewDto(
       seriesId: json['seriesId'] as int?,
-      body: json['body'] as String? ?? '',
+      body: json['body'] as String?,
     );
 
 Map<String, dynamic> _$UpdateUserReviewDtoToJson(UpdateUserReviewDto instance) {
@@ -6014,7 +6014,7 @@ Map<String, dynamic> _$UpdateWantToReadDtoToJson(UpdateWantToReadDto instance) {
 UploadFileDto _$UploadFileDtoFromJson(Map<String, dynamic> json) =>
     UploadFileDto(
       id: json['id'] as int?,
-      url: json['url'] as String? ?? '',
+      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$UploadFileDtoToJson(UploadFileDto instance) {
@@ -6032,7 +6032,7 @@ Map<String, dynamic> _$UploadFileDtoToJson(UploadFileDto instance) {
 }
 
 UploadUrlDto _$UploadUrlDtoFromJson(Map<String, dynamic> json) => UploadUrlDto(
-      url: json['url'] as String? ?? '',
+      url: json['url'] as String,
     );
 
 Map<String, dynamic> _$UploadUrlDtoToJson(UploadUrlDto instance) =>
@@ -6041,11 +6041,11 @@ Map<String, dynamic> _$UploadUrlDtoToJson(UploadUrlDto instance) =>
     };
 
 UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
-      username: json['username'] as String? ?? '',
-      email: json['email'] as String? ?? '',
-      token: json['token'] as String? ?? '',
-      refreshToken: json['refreshToken'] as String? ?? '',
-      apiKey: json['apiKey'] as String? ?? '',
+      username: json['username'] as String?,
+      email: json['email'] as String?,
+      token: json['token'] as String?,
+      refreshToken: json['refreshToken'] as String?,
+      apiKey: json['apiKey'] as String?,
       preferences: json['preferences'] == null
           ? null
           : UserPreferencesDto.fromJson(
@@ -6054,7 +6054,7 @@ UserDto _$UserDtoFromJson(Map<String, dynamic> json) => UserDto(
           ? null
           : AgeRestrictionDto.fromJson(
               json['ageRestriction'] as Map<String, dynamic>),
-      kavitaVersion: json['kavitaVersion'] as String? ?? '',
+      kavitaVersion: json['kavitaVersion'] as String?,
     );
 
 Map<String, dynamic> _$UserDtoToJson(UserDto instance) {
@@ -6107,19 +6107,19 @@ UserPreferencesDto _$UserPreferencesDtoFromJson(Map<String, dynamic> json) =>
       readerMode: json['readerMode'] as int,
       layoutMode: json['layoutMode'] as int,
       emulateBook: json['emulateBook'] as bool,
-      backgroundColor: json['backgroundColor'] as String? ?? '',
+      backgroundColor: json['backgroundColor'] as String,
       swipeToPaginate: json['swipeToPaginate'] as bool,
       autoCloseMenu: json['autoCloseMenu'] as bool,
       showScreenHints: json['showScreenHints'] as bool,
       bookReaderMargin: json['bookReaderMargin'] as int,
       bookReaderLineSpacing: json['bookReaderLineSpacing'] as int,
       bookReaderFontSize: json['bookReaderFontSize'] as int,
-      bookReaderFontFamily: json['bookReaderFontFamily'] as String? ?? '',
+      bookReaderFontFamily: json['bookReaderFontFamily'] as String,
       bookReaderTapToPaginate: json['bookReaderTapToPaginate'] as bool,
       bookReaderReadingDirection: json['bookReaderReadingDirection'] as int,
       bookReaderWritingStyle: json['bookReaderWritingStyle'] as int,
       theme: SiteTheme.fromJson(json['theme'] as Map<String, dynamic>),
-      bookReaderThemeName: json['bookReaderThemeName'] as String? ?? '',
+      bookReaderThemeName: json['bookReaderThemeName'] as String,
       bookReaderLayoutMode: json['bookReaderLayoutMode'] as int,
       bookReaderImmersiveMode: json['bookReaderImmersiveMode'] as bool,
       globalPageLayoutMode: json['globalPageLayoutMode'] as int,
@@ -6128,7 +6128,7 @@ UserPreferencesDto _$UserPreferencesDtoFromJson(Map<String, dynamic> json) =>
       noTransitions: json['noTransitions'] as bool,
       collapseSeriesRelationships: json['collapseSeriesRelationships'] as bool,
       shareReviews: json['shareReviews'] as bool,
-      locale: json['locale'] as String? ?? '',
+      locale: json['locale'] as String,
     );
 
 Map<String, dynamic> _$UserPreferencesDtoToJson(UserPreferencesDto instance) =>
@@ -6203,17 +6203,17 @@ Map<String, dynamic> _$UserReadStatisticsToJson(UserReadStatistics instance) {
 
 UserReviewDto _$UserReviewDtoFromJson(Map<String, dynamic> json) =>
     UserReviewDto(
-      tagline: json['tagline'] as String? ?? '',
-      body: json['body'] as String? ?? '',
-      bodyJustText: json['bodyJustText'] as String? ?? '',
+      tagline: json['tagline'] as String?,
+      body: json['body'] as String?,
+      bodyJustText: json['bodyJustText'] as String?,
       seriesId: json['seriesId'] as int?,
       libraryId: json['libraryId'] as int?,
-      username: json['username'] as String? ?? '',
+      username: json['username'] as String?,
       totalVotes: json['totalVotes'] as int?,
       rating: (json['rating'] as num?)?.toDouble(),
-      rawBody: json['rawBody'] as String? ?? '',
+      rawBody: json['rawBody'] as String?,
       score: json['score'] as int?,
-      siteUrl: json['siteUrl'] as String? ?? '',
+      siteUrl: json['siteUrl'] as String?,
       isExternal: json['isExternal'] as bool?,
       provider: json['provider'] as int?,
     );
@@ -6245,7 +6245,7 @@ Map<String, dynamic> _$UserReviewDtoToJson(UserReviewDto instance) {
 
 Volume _$VolumeFromJson(Map<String, dynamic> json) => Volume(
       id: json['id'] as int?,
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       number: json['number'] as int?,
       minNumber: (json['minNumber'] as num?)?.toDouble(),
       maxNumber: (json['maxNumber'] as num?)?.toDouble(),
@@ -6265,7 +6265,7 @@ Volume _$VolumeFromJson(Map<String, dynamic> json) => Volume(
       lastModifiedUtc: json['lastModifiedUtc'] == null
           ? null
           : DateTime.parse(json['lastModifiedUtc'] as String),
-      coverImage: json['coverImage'] as String? ?? '',
+      coverImage: json['coverImage'] as String?,
       pages: json['pages'] as int?,
       wordCount: json['wordCount'] as int?,
       minHoursToRead: json['minHoursToRead'] as int?,
@@ -6311,7 +6311,7 @@ VolumeDto _$VolumeDtoFromJson(Map<String, dynamic> json) => VolumeDto(
       id: json['id'] as int?,
       minNumber: (json['minNumber'] as num?)?.toDouble(),
       maxNumber: (json['maxNumber'] as num?)?.toDouble(),
-      name: json['name'] as String? ?? '',
+      name: json['name'] as String?,
       number: (json['number'] as num?)?.toDouble(),
       pages: json['pages'] as int?,
       pagesRead: json['pagesRead'] as int?,
@@ -6368,12 +6368,12 @@ Map<String, dynamic> _$VolumeDtoToJson(VolumeDto instance) {
 ApiCblValidatePost$RequestBody _$ApiCblValidatePost$RequestBodyFromJson(
         Map<String, dynamic> json) =>
     ApiCblValidatePost$RequestBody(
-      contentType: json['ContentType'] as String? ?? '',
-      contentDisposition: json['ContentDisposition'] as String? ?? '',
+      contentType: json['ContentType'] as String?,
+      contentDisposition: json['ContentDisposition'] as String?,
       headers: json['Headers'] as Map<String, dynamic>?,
       length: json['Length'] as int?,
-      name: json['Name'] as String? ?? '',
-      fileName: json['FileName'] as String? ?? '',
+      name: json['Name'] as String?,
+      fileName: json['FileName'] as String?,
     );
 
 Map<String, dynamic> _$ApiCblValidatePost$RequestBodyToJson(
@@ -6398,12 +6398,12 @@ Map<String, dynamic> _$ApiCblValidatePost$RequestBodyToJson(
 ApiCblImportPost$RequestBody _$ApiCblImportPost$RequestBodyFromJson(
         Map<String, dynamic> json) =>
     ApiCblImportPost$RequestBody(
-      contentType: json['ContentType'] as String? ?? '',
-      contentDisposition: json['ContentDisposition'] as String? ?? '',
+      contentType: json['ContentType'] as String?,
+      contentDisposition: json['ContentDisposition'] as String?,
       headers: json['Headers'] as Map<String, dynamic>?,
       length: json['Length'] as int?,
-      name: json['Name'] as String? ?? '',
-      fileName: json['FileName'] as String? ?? '',
+      name: json['Name'] as String?,
+      fileName: json['FileName'] as String?,
       dryRun: json['dryRun'] as bool? ?? false,
     );
 

@@ -1,6 +1,6 @@
+import 'package:kavita_api/src/core/kavita_context.dart';
 import 'package:kavita_api/src/entities/user.dart';
-import 'package:kavita_api/src/kavita_context.dart';
-import 'package:kavita_api/src/v1/kavita_api_v1.dart';
+import 'package:kavita_api/src/service/v1/kavita_api_v1.dart';
 
 final class KavitaApi {
   final KavitaContext context;

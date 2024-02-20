@@ -11,19 +11,19 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart' show MultipartFile;
 import 'package:chopper/chopper.dart' as chopper;
-import 'kavita_api.enums.swagger.dart' as enums;
-export 'kavita_api.enums.swagger.dart';
+import 'kavita_api_v1.enums.swagger.dart' as enums;
+export 'kavita_api_v1.enums.swagger.dart';
 
-part 'kavita_api.swagger.chopper.dart';
-part 'kavita_api.swagger.g.dart';
+part 'kavita_api_v1.swagger.chopper.dart';
+part 'kavita_api_v1.swagger.g.dart';
 
 // **************************************************************************
 // SwaggerChopperGenerator
 // **************************************************************************
 
 @ChopperApi()
-abstract class KavitaApi extends ChopperService {
-  static KavitaApi create({
+abstract class KavitaApiV1 extends ChopperService {
+  static KavitaApiV1 create({
     ChopperClient? client,
     http.Client? httpClient,
     Authenticator? authenticator,
@@ -33,18 +33,18 @@ abstract class KavitaApi extends ChopperService {
     Iterable<dynamic>? interceptors,
   }) {
     if (client != null) {
-      return _$KavitaApi(client);
+      return _$KavitaApiV1(client);
     }
 
     final newClient = ChopperClient(
-        services: [_$KavitaApi()],
+        services: [_$KavitaApiV1()],
         converter: converter ?? $JsonSerializableConverter(),
         interceptors: interceptors ?? [],
         client: httpClient,
         authenticator: authenticator,
         errorConverter: errorConverter,
         baseUrl: baseUrl ?? Uri.parse('http://'));
-    return _$KavitaApi(newClient);
+    return _$KavitaApiV1(newClient);
   }
 
   ///Update a user's password
@@ -5141,7 +5141,7 @@ class AgeRatingDto {
 
   @JsonKey(name: 'value', includeIfNull: false)
   final int? $value;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   static const fromJsonFactory = _$AgeRatingDtoFromJson;
 
@@ -5249,7 +5249,7 @@ class AniListUpdateDto {
   static const toJsonFactory = _$AniListUpdateDtoToJson;
   Map<String, dynamic> toJson() => _$AniListUpdateDtoToJson(this);
 
-  @JsonKey(name: 'token', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'token', includeIfNull: false)
   final String? token;
   static const fromJsonFactory = _$AniListUpdateDtoFromJson;
 
@@ -5297,11 +5297,11 @@ class AppRole {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'normalizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedName', includeIfNull: false)
   final String? normalizedName;
-  @JsonKey(name: 'concurrencyStamp', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'concurrencyStamp', includeIfNull: false)
   final String? concurrencyStamp;
   @JsonKey(
       name: 'userRoles', includeIfNull: false, defaultValue: <AppUserRole>[])
@@ -5427,23 +5427,23 @@ class AppUser {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'userName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'userName', includeIfNull: false)
   final String? userName;
-  @JsonKey(name: 'normalizedUserName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedUserName', includeIfNull: false)
   final String? normalizedUserName;
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
-  @JsonKey(name: 'normalizedEmail', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedEmail', includeIfNull: false)
   final String? normalizedEmail;
   @JsonKey(name: 'emailConfirmed', includeIfNull: false)
   final bool? emailConfirmed;
-  @JsonKey(name: 'passwordHash', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'passwordHash', includeIfNull: false)
   final String? passwordHash;
-  @JsonKey(name: 'securityStamp', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'securityStamp', includeIfNull: false)
   final String? securityStamp;
-  @JsonKey(name: 'concurrencyStamp', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'concurrencyStamp', includeIfNull: false)
   final String? concurrencyStamp;
-  @JsonKey(name: 'phoneNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'phoneNumber', includeIfNull: false)
   final String? phoneNumber;
   @JsonKey(name: 'phoneNumberConfirmed', includeIfNull: false)
   final bool? phoneNumberConfirmed;
@@ -5498,15 +5498,15 @@ class AppUser {
       includeIfNull: false,
       defaultValue: <AppUserTableOfContent>[])
   final List<AppUserTableOfContent>? tableOfContents;
-  @JsonKey(name: 'apiKey', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'apiKey', includeIfNull: false)
   final String? apiKey;
-  @JsonKey(name: 'confirmationToken', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'confirmationToken', includeIfNull: false)
   final String? confirmationToken;
   @JsonKey(name: 'ageRestriction', includeIfNull: false)
   final int? ageRestriction;
   @JsonKey(name: 'ageRestrictionIncludeUnknowns', includeIfNull: false)
   final bool? ageRestrictionIncludeUnknowns;
-  @JsonKey(name: 'aniListAccessToken', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'aniListAccessToken', includeIfNull: false)
   final String? aniListAccessToken;
   @JsonKey(
       name: 'scrobbleHolds',
@@ -5918,7 +5918,7 @@ class AppUserBookmark {
   final int? volumeId;
   @JsonKey(name: 'chapterId', includeIfNull: false)
   final int? chapterId;
-  @JsonKey(name: 'fileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'fileName', includeIfNull: false)
   final String? fileName;
   @JsonKey(name: 'appUserId', includeIfNull: false)
   final int? appUserId;
@@ -6067,7 +6067,7 @@ class AppUserDashboardStream {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'isProvided', includeIfNull: false)
   final bool? isProvided;
@@ -6197,11 +6197,11 @@ class AppUserExternalSource {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'host', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'host', includeIfNull: false)
   final String? host;
-  @JsonKey(name: 'apiKey', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'apiKey', includeIfNull: false)
   final String? apiKey;
   @JsonKey(name: 'appUserId', includeIfNull: false)
   final int? appUserId;
@@ -6336,7 +6336,7 @@ class AppUserPreferences {
   final bool? emulateBook;
   @JsonKey(name: 'layoutMode', includeIfNull: false)
   final int? layoutMode;
-  @JsonKey(name: 'backgroundColor', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'backgroundColor', includeIfNull: false)
   final String? backgroundColor;
   @JsonKey(name: 'swipeToPaginate', includeIfNull: false)
   final bool? swipeToPaginate;
@@ -6346,7 +6346,7 @@ class AppUserPreferences {
   final int? bookReaderLineSpacing;
   @JsonKey(name: 'bookReaderFontSize', includeIfNull: false)
   final int? bookReaderFontSize;
-  @JsonKey(name: 'bookReaderFontFamily', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookReaderFontFamily', includeIfNull: false)
   final String? bookReaderFontFamily;
   @JsonKey(name: 'bookReaderTapToPaginate', includeIfNull: false)
   final bool? bookReaderTapToPaginate;
@@ -6356,7 +6356,7 @@ class AppUserPreferences {
   final int? bookReaderWritingStyle;
   @JsonKey(name: 'theme', includeIfNull: false)
   final SiteTheme? theme;
-  @JsonKey(name: 'bookThemeName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookThemeName', includeIfNull: false)
   final String? bookThemeName;
   @JsonKey(name: 'bookReaderLayoutMode', includeIfNull: false)
   final int? bookReaderLayoutMode;
@@ -6374,7 +6374,7 @@ class AppUserPreferences {
   final bool? collapseSeriesRelationships;
   @JsonKey(name: 'shareReviews', includeIfNull: false)
   final bool? shareReviews;
-  @JsonKey(name: 'locale', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'locale', includeIfNull: false)
   final String? locale;
   @JsonKey(name: 'appUser', includeIfNull: false)
   final AppUser? appUser;
@@ -6716,7 +6716,7 @@ class AppUserProgress {
   final int? libraryId;
   @JsonKey(name: 'chapterId', includeIfNull: false)
   final int? chapterId;
-  @JsonKey(name: 'bookScrollId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookScrollId', includeIfNull: false)
   final String? bookScrollId;
   @JsonKey(name: 'created', includeIfNull: false)
   final DateTime? created;
@@ -6889,9 +6889,9 @@ class AppUserRating {
   final double? rating;
   @JsonKey(name: 'hasBeenRated', includeIfNull: false)
   final bool? hasBeenRated;
-  @JsonKey(name: 'review', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'review', includeIfNull: false)
   final String? review;
-  @JsonKey(name: 'tagline', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'tagline', includeIfNull: false)
   final String? tagline;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -7093,7 +7093,7 @@ class AppUserSideNavStream {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'isProvided', includeIfNull: false)
   final bool? isProvided;
@@ -7244,9 +7244,9 @@ class AppUserSmartFilter {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'filter', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'filter', includeIfNull: false)
   final String? filter;
   @JsonKey(name: 'appUserId', includeIfNull: false)
   final int? appUserId;
@@ -7345,7 +7345,7 @@ class AppUserTableOfContent {
   final int? id;
   @JsonKey(name: 'pageNumber', includeIfNull: false)
   final int? pageNumber;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -7359,7 +7359,7 @@ class AppUserTableOfContent {
   final int? volumeId;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
-  @JsonKey(name: 'bookScrollId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookScrollId', includeIfNull: false)
   final String? bookScrollId;
   @JsonKey(name: 'created', includeIfNull: false)
   final DateTime? created;
@@ -7633,9 +7633,9 @@ class BookChapterItem {
   static const toJsonFactory = _$BookChapterItemToJson;
   Map<String, dynamic> toJson() => _$BookChapterItemToJson(this);
 
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'part', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'part', includeIfNull: false)
   final String? $part;
   @JsonKey(name: 'page', includeIfNull: false)
   final int? page;
@@ -7719,7 +7719,7 @@ class BookInfoDto {
   static const toJsonFactory = _$BookInfoDtoToJson;
   Map<String, dynamic> toJson() => _$BookInfoDtoToJson(this);
 
-  @JsonKey(name: 'bookTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookTitle', includeIfNull: false)
   final String? bookTitle;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -7727,11 +7727,11 @@ class BookInfoDto {
   final int? volumeId;
   @JsonKey(name: 'seriesFormat', includeIfNull: false)
   final int? seriesFormat;
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
-  @JsonKey(name: 'chapterNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'chapterNumber', includeIfNull: false)
   final String? chapterNumber;
-  @JsonKey(name: 'volumeNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'volumeNumber', includeIfNull: false)
   final String? volumeNumber;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
@@ -7739,7 +7739,7 @@ class BookInfoDto {
   final int? pages;
   @JsonKey(name: 'isSpecial', includeIfNull: false)
   final bool? isSpecial;
-  @JsonKey(name: 'chapterTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'chapterTitle', includeIfNull: false)
   final String? chapterTitle;
   static const fromJsonFactory = _$BookInfoDtoFromJson;
 
@@ -7977,7 +7977,7 @@ class BookmarkInfoDto {
   static const toJsonFactory = _$BookmarkInfoDtoToJson;
   Map<String, dynamic> toJson() => _$BookmarkInfoDtoToJson(this);
 
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
   @JsonKey(name: 'seriesFormat', includeIfNull: false)
   final int? seriesFormat;
@@ -8115,9 +8115,9 @@ class BookmarkSearchResultDto {
   final int? seriesId;
   @JsonKey(name: 'chapterId', includeIfNull: false)
   final int? chapterId;
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
-  @JsonKey(name: 'localizedSeriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'localizedSeriesName', includeIfNull: false)
   final String? localizedSeriesName;
   static const fromJsonFactory = _$BookmarkSearchResultDtoFromJson;
 
@@ -8321,17 +8321,17 @@ class CblBookResult {
 
   @JsonKey(name: 'order', includeIfNull: false)
   final int? order;
-  @JsonKey(name: 'series', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'series', includeIfNull: false)
   final String? series;
-  @JsonKey(name: 'volume', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'volume', includeIfNull: false)
   final String? volume;
-  @JsonKey(name: 'number', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'number', includeIfNull: false)
   final String? number;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
-  @JsonKey(name: 'readingListName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'readingListName', includeIfNull: false)
   final String? readingListName;
   @JsonKey(name: 'reason', includeIfNull: false)
   final int? reason;
@@ -8438,9 +8438,9 @@ class CblImportSummaryDto {
   static const toJsonFactory = _$CblImportSummaryDtoToJson;
   Map<String, dynamic> toJson() => _$CblImportSummaryDtoToJson(this);
 
-  @JsonKey(name: 'cblName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'cblName', includeIfNull: false)
   final String? cblName;
-  @JsonKey(name: 'fileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'fileName', includeIfNull: false)
   final String? fileName;
   @JsonKey(
       name: 'results', includeIfNull: false, defaultValue: <CblBookResult>[])
@@ -8571,9 +8571,9 @@ class Chapter {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'range', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'range', includeIfNull: false)
   final String? range;
-  @JsonKey(name: 'number', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'number', includeIfNull: false)
   final String? number;
   @JsonKey(name: 'files', includeIfNull: false, defaultValue: <MangaFile>[])
   final List<MangaFile>? files;
@@ -8585,7 +8585,7 @@ class Chapter {
   final DateTime? createdUtc;
   @JsonKey(name: 'lastModifiedUtc', includeIfNull: false)
   final DateTime? lastModifiedUtc;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'coverImageLocked', includeIfNull: false)
   final bool? coverImageLocked;
@@ -8593,31 +8593,31 @@ class Chapter {
   final int? pages;
   @JsonKey(name: 'isSpecial', includeIfNull: false)
   final bool? isSpecial;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'ageRating', includeIfNull: false)
   final int? ageRating;
-  @JsonKey(name: 'titleName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'titleName', includeIfNull: false)
   final String? titleName;
   @JsonKey(name: 'releaseDate', includeIfNull: false)
   final DateTime? releaseDate;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
-  @JsonKey(name: 'language', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'language', includeIfNull: false)
   final String? language;
   @JsonKey(name: 'totalCount', includeIfNull: false)
   final int? totalCount;
   @JsonKey(name: 'count', includeIfNull: false)
   final int? count;
-  @JsonKey(name: 'seriesGroup', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesGroup', includeIfNull: false)
   final String? seriesGroup;
-  @JsonKey(name: 'storyArc', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'storyArc', includeIfNull: false)
   final String? storyArc;
-  @JsonKey(name: 'storyArcNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'storyArcNumber', includeIfNull: false)
   final String? storyArcNumber;
-  @JsonKey(name: 'alternateNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'alternateNumber', includeIfNull: false)
   final String? alternateNumber;
-  @JsonKey(name: 'alternateSeries', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'alternateSeries', includeIfNull: false)
   final String? alternateSeries;
   @JsonKey(name: 'alternateCount', includeIfNull: false)
   final int? alternateCount;
@@ -8629,9 +8629,9 @@ class Chapter {
   final int? maxHoursToRead;
   @JsonKey(name: 'avgHoursToRead', includeIfNull: false)
   final int? avgHoursToRead;
-  @JsonKey(name: 'webLinks', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'webLinks', includeIfNull: false)
   final String? webLinks;
-  @JsonKey(name: 'isbn', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'isbn', includeIfNull: false)
   final String? isbn;
   @JsonKey(name: 'people', includeIfNull: false, defaultValue: <Person>[])
   final List<Person>? people;
@@ -9006,15 +9006,15 @@ class ChapterDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'range', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'range', includeIfNull: false)
   final String? range;
-  @JsonKey(name: 'number', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'number', includeIfNull: false)
   final String? number;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
   @JsonKey(name: 'isSpecial', includeIfNull: false)
   final bool? isSpecial;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'files', includeIfNull: false, defaultValue: <MangaFileDto>[])
   final List<MangaFileDto>? files;
@@ -9036,15 +9036,15 @@ class ChapterDto {
   final DateTime? created;
   @JsonKey(name: 'releaseDate', includeIfNull: false)
   final DateTime? releaseDate;
-  @JsonKey(name: 'titleName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'titleName', includeIfNull: false)
   final String? titleName;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(name: 'ageRating', includeIfNull: false)
   final int? ageRating;
   @JsonKey(name: 'wordCount', includeIfNull: false)
   final int? wordCount;
-  @JsonKey(name: 'volumeTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'volumeTitle', includeIfNull: false)
   final String? volumeTitle;
   @JsonKey(name: 'minHoursToRead', includeIfNull: false)
   final int? minHoursToRead;
@@ -9052,9 +9052,9 @@ class ChapterDto {
   final int? maxHoursToRead;
   @JsonKey(name: 'avgHoursToRead', includeIfNull: false)
   final int? avgHoursToRead;
-  @JsonKey(name: 'webLinks', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'webLinks', includeIfNull: false)
   final String? webLinks;
-  @JsonKey(name: 'isbn', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'isbn', includeIfNull: false)
   final String? isbn;
   static const fromJsonFactory = _$ChapterDtoFromJson;
 
@@ -9326,13 +9326,13 @@ class ChapterInfoDto {
   static const toJsonFactory = _$ChapterInfoDtoToJson;
   Map<String, dynamic> toJson() => _$ChapterInfoDtoToJson(this);
 
-  @JsonKey(name: 'chapterNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'chapterNumber', includeIfNull: false)
   final String? chapterNumber;
-  @JsonKey(name: 'volumeNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'volumeNumber', includeIfNull: false)
   final String? volumeNumber;
   @JsonKey(name: 'volumeId', includeIfNull: false)
   final int? volumeId;
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
   @JsonKey(name: 'seriesFormat', includeIfNull: false)
   final int? seriesFormat;
@@ -9342,17 +9342,17 @@ class ChapterInfoDto {
   final int? libraryId;
   @JsonKey(name: 'libraryType', includeIfNull: false)
   final int? libraryType;
-  @JsonKey(name: 'chapterTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'chapterTitle', includeIfNull: false)
   final String? chapterTitle;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
-  @JsonKey(name: 'fileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'fileName', includeIfNull: false)
   final String? fileName;
   @JsonKey(name: 'isSpecial', includeIfNull: false)
   final bool? isSpecial;
-  @JsonKey(name: 'subtitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'subtitle', includeIfNull: false)
   final String? subtitle;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'seriesTotalPages', includeIfNull: false)
   final int? seriesTotalPages;
@@ -9583,7 +9583,7 @@ class ChapterMetadataDto {
   final int? id;
   @JsonKey(name: 'chapterId', includeIfNull: false)
   final int? chapterId;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'writers', includeIfNull: false, defaultValue: <PersonDto>[])
   final List<PersonDto>? writers;
@@ -9616,13 +9616,13 @@ class ChapterMetadataDto {
   final List<TagDto>? tags;
   @JsonKey(name: 'ageRating', includeIfNull: false)
   final int? ageRating;
-  @JsonKey(name: 'releaseDate', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'releaseDate', includeIfNull: false)
   final String? releaseDate;
   @JsonKey(name: 'publicationStatus', includeIfNull: false)
   final int? publicationStatus;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
-  @JsonKey(name: 'language', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'language', includeIfNull: false)
   final String? language;
   @JsonKey(name: 'count', includeIfNull: false)
   final int? count;
@@ -9861,15 +9861,15 @@ class CollectionTag {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'coverImageLocked', includeIfNull: false)
   final bool? coverImageLocked;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
-  @JsonKey(name: 'normalizedTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedTitle', includeIfNull: false)
   final String? normalizedTitle;
   @JsonKey(name: 'promoted', includeIfNull: false)
   final bool? promoted;
@@ -9998,7 +9998,7 @@ class CollectionTagBulkAddDto {
 
   @JsonKey(name: 'collectionTagId', includeIfNull: false)
   final int? collectionTagId;
-  @JsonKey(name: 'collectionTagTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'collectionTagTitle', includeIfNull: false)
   final String? collectionTagTitle;
   @JsonKey(name: 'seriesIds', includeIfNull: false, defaultValue: <int>[])
   final List<int>? seriesIds;
@@ -10075,13 +10075,13 @@ class CollectionTagDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(name: 'promoted', includeIfNull: false)
   final bool? promoted;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'coverImageLocked', includeIfNull: false)
   final bool? coverImageLocked;
@@ -10174,13 +10174,13 @@ class ConfirmEmailDto {
   static const toJsonFactory = _$ConfirmEmailDtoToJson;
   Map<String, dynamic> toJson() => _$ConfirmEmailDtoToJson(this);
 
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String email;
-  @JsonKey(name: 'token', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'token', includeIfNull: false)
   final String token;
-  @JsonKey(name: 'password', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'password', includeIfNull: false)
   final String password;
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String username;
   static const fromJsonFactory = _$ConfirmEmailDtoFromJson;
 
@@ -10248,9 +10248,9 @@ class ConfirmEmailUpdateDto {
   static const toJsonFactory = _$ConfirmEmailUpdateDtoToJson;
   Map<String, dynamic> toJson() => _$ConfirmEmailUpdateDtoToJson(this);
 
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String email;
-  @JsonKey(name: 'token', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'token', includeIfNull: false)
   final String token;
   static const fromJsonFactory = _$ConfirmEmailUpdateDtoFromJson;
 
@@ -10301,9 +10301,9 @@ class ConfirmMigrationEmailDto {
   static const toJsonFactory = _$ConfirmMigrationEmailDtoToJson;
   Map<String, dynamic> toJson() => _$ConfirmMigrationEmailDtoToJson(this);
 
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
-  @JsonKey(name: 'token', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'token', includeIfNull: false)
   final String? token;
   static const fromJsonFactory = _$ConfirmMigrationEmailDtoFromJson;
 
@@ -10355,11 +10355,11 @@ class ConfirmPasswordResetDto {
   static const toJsonFactory = _$ConfirmPasswordResetDtoToJson;
   Map<String, dynamic> toJson() => _$ConfirmPasswordResetDtoToJson(this);
 
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String email;
-  @JsonKey(name: 'token', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'token', includeIfNull: false)
   final String token;
-  @JsonKey(name: 'password', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'password', includeIfNull: false)
   final String password;
   static const fromJsonFactory = _$ConfirmPasswordResetDtoFromJson;
 
@@ -10421,11 +10421,11 @@ class CreateDeviceDto {
   static const toJsonFactory = _$CreateDeviceDtoToJson;
   Map<String, dynamic> toJson() => _$CreateDeviceDtoToJson(this);
 
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String name;
   @JsonKey(name: 'platform', includeIfNull: false)
   final int platform;
-  @JsonKey(name: 'emailAddress', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'emailAddress', includeIfNull: false)
   final String emailAddress;
   static const fromJsonFactory = _$CreateDeviceDtoFromJson;
 
@@ -10503,9 +10503,9 @@ class CreatePersonalToCDto {
   final int? libraryId;
   @JsonKey(name: 'pageNumber', includeIfNull: false)
   final int? pageNumber;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'bookScrollId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookScrollId', includeIfNull: false)
   final String? bookScrollId;
   static const fromJsonFactory = _$CreatePersonalToCDtoFromJson;
 
@@ -10601,7 +10601,7 @@ class CreateReadingListDto {
   static const toJsonFactory = _$CreateReadingListDtoToJson;
   Map<String, dynamic> toJson() => _$CreateReadingListDtoToJson(this);
 
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   static const fromJsonFactory = _$CreateReadingListDtoFromJson;
 
@@ -10653,13 +10653,13 @@ class DashboardStreamDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'isProvided', includeIfNull: false)
   final bool? isProvided;
   @JsonKey(name: 'order', includeIfNull: false)
   final int? order;
-  @JsonKey(name: 'smartFilterEncoded', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'smartFilterEncoded', includeIfNull: false)
   final String? smartFilterEncoded;
   @JsonKey(name: 'smartFilterId', includeIfNull: false)
   final int? smartFilterId;
@@ -10887,7 +10887,7 @@ class DecodeFilterDto {
   static const toJsonFactory = _$DecodeFilterDtoToJson;
   Map<String, dynamic> toJson() => _$DecodeFilterDtoToJson(this);
 
-  @JsonKey(name: 'encodedFilter', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'encodedFilter', includeIfNull: false)
   final String? encodedFilter;
   static const fromJsonFactory = _$DecodeFilterDtoFromJson;
 
@@ -10989,11 +10989,11 @@ class Device {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'ipAddress', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'ipAddress', includeIfNull: false)
   final String? ipAddress;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'emailAddress', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'emailAddress', includeIfNull: false)
   final String? emailAddress;
   @JsonKey(name: 'platform', includeIfNull: false)
   final int? platform;
@@ -11163,9 +11163,9 @@ class DeviceDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'emailAddress', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'emailAddress', includeIfNull: false)
   final String? emailAddress;
   @JsonKey(name: 'platform', includeIfNull: false)
   final int? platform;
@@ -11236,9 +11236,9 @@ class DirectoryDto {
   static const toJsonFactory = _$DirectoryDtoToJson;
   Map<String, dynamic> toJson() => _$DirectoryDtoToJson(this);
 
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'fullPath', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'fullPath', includeIfNull: false)
   final String? fullPath;
   static const fromJsonFactory = _$DirectoryDtoFromJson;
 
@@ -11338,9 +11338,9 @@ class EmailTestResultDto {
 
   @JsonKey(name: 'successful', includeIfNull: false)
   final bool? successful;
-  @JsonKey(name: 'errorMessage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'errorMessage', includeIfNull: false)
   final String? errorMessage;
-  @JsonKey(name: 'emailAddress', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'emailAddress', includeIfNull: false)
   final String? emailAddress;
   static const fromJsonFactory = _$EmailTestResultDtoFromJson;
 
@@ -11418,7 +11418,7 @@ class ExternalRating {
   final int? favoriteCount;
   @JsonKey(name: 'provider', includeIfNull: false)
   final int? provider;
-  @JsonKey(name: 'providerUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'providerUrl', includeIfNull: false)
   final String? providerUrl;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -11538,13 +11538,13 @@ class ExternalRecommendation {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'coverUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverUrl', includeIfNull: false)
   final String? coverUrl;
-  @JsonKey(name: 'url', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'url', includeIfNull: false)
   final String? url;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(name: 'aniListId', includeIfNull: false)
   final int? aniListId;
@@ -11691,19 +11691,19 @@ class ExternalReview {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'tagline', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'tagline', includeIfNull: false)
   final String? tagline;
-  @JsonKey(name: 'body', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'body', includeIfNull: false)
   final String? body;
-  @JsonKey(name: 'bodyJustText', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bodyJustText', includeIfNull: false)
   final String? bodyJustText;
-  @JsonKey(name: 'rawBody', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'rawBody', includeIfNull: false)
   final String? rawBody;
   @JsonKey(name: 'provider', includeIfNull: false)
   final int? provider;
-  @JsonKey(name: 'siteUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'siteUrl', includeIfNull: false)
   final String? siteUrl;
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
   @JsonKey(name: 'rating', includeIfNull: false)
   final int? rating;
@@ -11867,13 +11867,13 @@ class ExternalSeriesDto {
   static const toJsonFactory = _$ExternalSeriesDtoToJson;
   Map<String, dynamic> toJson() => _$ExternalSeriesDtoToJson(this);
 
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'coverUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverUrl', includeIfNull: false)
   final String? coverUrl;
-  @JsonKey(name: 'url', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'url', includeIfNull: false)
   final String? url;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(name: 'aniListId', includeIfNull: false)
   final int? aniListId;
@@ -12005,7 +12005,7 @@ class ExternalSeriesMetadata {
   final int? aniListId;
   @JsonKey(name: 'malId', includeIfNull: false)
   final int? malId;
-  @JsonKey(name: 'googleBooksId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'googleBooksId', includeIfNull: false)
   final String? googleBooksId;
   @JsonKey(name: 'validUntilUtc', includeIfNull: false)
   final DateTime? validUntilUtc;
@@ -12154,11 +12154,11 @@ class ExternalSourceDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'host', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'host', includeIfNull: false)
   final String? host;
-  @JsonKey(name: 'apiKey', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'apiKey', includeIfNull: false)
   final String? apiKey;
   static const fromJsonFactory = _$ExternalSourceDtoFromJson;
 
@@ -12233,7 +12233,7 @@ class FileDimensionDto {
   final int? height;
   @JsonKey(name: 'pageNumber', includeIfNull: false)
   final int? pageNumber;
-  @JsonKey(name: 'fileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'fileName', includeIfNull: false)
   final String? fileName;
   @JsonKey(name: 'isWide', includeIfNull: false)
   final bool? isWide;
@@ -12378,7 +12378,7 @@ class FileExtensionDto {
   static const toJsonFactory = _$FileExtensionDtoToJson;
   Map<String, dynamic> toJson() => _$FileExtensionDtoToJson(this);
 
-  @JsonKey(name: 'extension', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'extension', includeIfNull: false)
   final String? extension;
   @JsonKey(name: 'format', includeIfNull: false)
   final int? format;
@@ -12453,7 +12453,7 @@ class FileFormatDto {
   static const toJsonFactory = _$FileFormatDtoToJson;
   Map<String, dynamic> toJson() => _$FileFormatDtoToJson(this);
 
-  @JsonKey(name: 'extension', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'extension', includeIfNull: false)
   final String? extension;
   @JsonKey(name: 'format', includeIfNull: false)
   final int? format;
@@ -12571,7 +12571,7 @@ class FilterDto {
   @JsonKey(
       name: 'publicationStatus', includeIfNull: false, defaultValue: <int>[])
   final List<int>? publicationStatus;
-  @JsonKey(name: 'seriesNameQuery', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesNameQuery', includeIfNull: false)
   final String? seriesNameQuery;
   @JsonKey(name: 'releaseYearRange', includeIfNull: false)
   final Int32Range? releaseYearRange;
@@ -12809,7 +12809,7 @@ class FilterStatementDto {
   final int? comparison;
   @JsonKey(name: 'field', includeIfNull: false)
   final int? field;
-  @JsonKey(name: 'value', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'value', includeIfNull: false)
   final String? $value;
   static const fromJsonFactory = _$FilterStatementDtoFromJson;
 
@@ -12875,7 +12875,7 @@ class FilterV2Dto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(
       name: 'statements',
@@ -12979,7 +12979,7 @@ class FolderPath {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'path', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'path', includeIfNull: false)
   final String? path;
   @JsonKey(name: 'lastScanned', includeIfNull: false)
   final DateTime? lastScanned;
@@ -13069,9 +13069,9 @@ class Genre {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'normalizedTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedTitle', includeIfNull: false)
   final String? normalizedTitle;
   @JsonKey(
       name: 'seriesMetadatas',
@@ -13163,7 +13163,7 @@ class GenreTagDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   static const fromJsonFactory = _$GenreTagDtoFromJson;
 
@@ -13385,7 +13385,7 @@ class InviteUserDto {
   static const toJsonFactory = _$InviteUserDtoToJson;
   Map<String, dynamic> toJson() => _$InviteUserDtoToJson(this);
 
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String email;
   @JsonKey(name: 'roles', includeIfNull: false, defaultValue: <String>[])
   final List<String>? roles;
@@ -13465,7 +13465,7 @@ class InviteUserResponse {
   static const toJsonFactory = _$InviteUserResponseToJson;
   Map<String, dynamic> toJson() => _$InviteUserResponseToJson(this);
 
-  @JsonKey(name: 'emailLink', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'emailLink', includeIfNull: false)
   final String? emailLink;
   @JsonKey(name: 'emailSent', includeIfNull: false)
   final bool? emailSent;
@@ -13535,15 +13535,15 @@ class JobDto {
   static const toJsonFactory = _$JobDtoToJson;
   Map<String, dynamic> toJson() => _$JobDtoToJson(this);
 
-  @JsonKey(name: 'id', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'id', includeIfNull: false)
   final String? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'createdAtUtc', includeIfNull: false)
   final DateTime? createdAtUtc;
   @JsonKey(name: 'lastExecutionUtc', includeIfNull: false)
   final DateTime? lastExecutionUtc;
-  @JsonKey(name: 'cron', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'cron', includeIfNull: false)
   final String? cron;
   static const fromJsonFactory = _$JobDtoFromJson;
 
@@ -13627,9 +13627,9 @@ class JumpKeyDto {
 
   @JsonKey(name: 'size', includeIfNull: false)
   final int? size;
-  @JsonKey(name: 'key', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'key', includeIfNull: false)
   final String? key;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   static const fromJsonFactory = _$JumpKeyDtoFromJson;
 
@@ -13686,9 +13686,9 @@ class LanguageDto {
   static const toJsonFactory = _$LanguageDtoToJson;
   Map<String, dynamic> toJson() => _$LanguageDtoToJson(this);
 
-  @JsonKey(name: 'isoCode', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'isoCode', includeIfNull: false)
   final String? isoCode;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   static const fromJsonFactory = _$LanguageDtoFromJson;
 
@@ -13761,9 +13761,9 @@ class Library {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'type', includeIfNull: false)
   final int? type;
@@ -14049,13 +14049,13 @@ class LibraryDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'lastScanned', includeIfNull: false)
   final DateTime? lastScanned;
   @JsonKey(name: 'type', includeIfNull: false)
   final int? type;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'folderWatching', includeIfNull: false)
   final bool? folderWatching;
@@ -14326,7 +14326,7 @@ class LibraryExcludePattern {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'pattern', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'pattern', includeIfNull: false)
   final String? pattern;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
@@ -14478,11 +14478,11 @@ class LoginDto {
   static const toJsonFactory = _$LoginDtoToJson;
   Map<String, dynamic> toJson() => _$LoginDtoToJson(this);
 
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
-  @JsonKey(name: 'password', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'password', includeIfNull: false)
   final String? password;
-  @JsonKey(name: 'apiKey', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'apiKey', includeIfNull: false)
   final String? apiKey;
   static const fromJsonFactory = _$LoginDtoFromJson;
 
@@ -14557,7 +14557,7 @@ class MangaFile {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'filePath', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'filePath', includeIfNull: false)
   final String? filePath;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
@@ -14565,7 +14565,7 @@ class MangaFile {
   final int? format;
   @JsonKey(name: 'bytes', includeIfNull: false)
   final int? bytes;
-  @JsonKey(name: 'extension', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'extension', includeIfNull: false)
   final String? extension;
   @JsonKey(name: 'created', includeIfNull: false)
   final DateTime? created;
@@ -14743,7 +14743,7 @@ class MangaFileDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'filePath', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'filePath', includeIfNull: false)
   final String? filePath;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
@@ -15103,13 +15103,13 @@ class MediaErrorDto {
   static const toJsonFactory = _$MediaErrorDtoToJson;
   Map<String, dynamic> toJson() => _$MediaErrorDtoToJson(this);
 
-  @JsonKey(name: 'extension', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'extension', includeIfNull: false)
   final String? extension;
-  @JsonKey(name: 'filePath', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'filePath', includeIfNull: false)
   final String? filePath;
-  @JsonKey(name: 'comment', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'comment', includeIfNull: false)
   final String? comment;
-  @JsonKey(name: 'details', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'details', includeIfNull: false)
   final String? details;
   static const fromJsonFactory = _$MediaErrorDtoFromJson;
 
@@ -15189,9 +15189,9 @@ class MemberDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
   @JsonKey(name: 'isPending', includeIfNull: false)
   final bool? isPending;
@@ -15345,7 +15345,7 @@ class NextExpectedChapterDto {
   final double? volumeNumber;
   @JsonKey(name: 'expectedDate', includeIfNull: false)
   final DateTime? expectedDate;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   static const fromJsonFactory = _$NextExpectedChapterDtoFromJson;
 
@@ -15425,9 +15425,9 @@ class Person {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'normalizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedName', includeIfNull: false)
   final String? normalizedName;
   @JsonKey(name: 'role', includeIfNull: false)
   final int? role;
@@ -15532,7 +15532,7 @@ class PersonDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'role', includeIfNull: false)
   final int? role;
@@ -15595,9 +15595,9 @@ class PersonalToCDto {
   final int? chapterId;
   @JsonKey(name: 'pageNumber', includeIfNull: false)
   final int? pageNumber;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'bookScrollId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookScrollId', includeIfNull: false)
   final String? bookScrollId;
   static const fromJsonFactory = _$PersonalToCDtoFromJson;
 
@@ -15682,7 +15682,7 @@ class ProgressDto {
   final int seriesId;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int libraryId;
-  @JsonKey(name: 'bookScrollId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookScrollId', includeIfNull: false)
   final String? bookScrollId;
   @JsonKey(name: 'lastModifiedUtc', includeIfNull: false)
   final DateTime? lastModifiedUtc;
@@ -15845,7 +15845,7 @@ class RatingDto {
   final int? favoriteCount;
   @JsonKey(name: 'provider', includeIfNull: false)
   final int? provider;
-  @JsonKey(name: 'providerUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'providerUrl', includeIfNull: false)
   final String? providerUrl;
   static const fromJsonFactory = _$RatingDtoFromJson;
 
@@ -15929,19 +15929,19 @@ class ReadHistoryEvent {
 
   @JsonKey(name: 'userId', includeIfNull: false)
   final int? userId;
-  @JsonKey(name: 'userName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'userName', includeIfNull: false)
   final String? userName;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
   @JsonKey(name: 'readDate', includeIfNull: false)
   final DateTime? readDate;
   @JsonKey(name: 'chapterId', includeIfNull: false)
   final int? chapterId;
-  @JsonKey(name: 'chapterNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'chapterNumber', includeIfNull: false)
   final String? chapterNumber;
   static const fromJsonFactory = _$ReadHistoryEventFromJson;
 
@@ -16131,15 +16131,15 @@ class ReadingList {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'normalizedTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedTitle', includeIfNull: false)
   final String? normalizedTitle;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(name: 'promoted', includeIfNull: false)
   final bool? promoted;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'coverImageLocked', includeIfNull: false)
   final bool? coverImageLocked;
@@ -16375,15 +16375,15 @@ class ReadingListDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(name: 'promoted', includeIfNull: false)
   final bool? promoted;
   @JsonKey(name: 'coverImageLocked', includeIfNull: false)
   final bool? coverImageLocked;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'startingYear', includeIfNull: false)
   final int? startingYear;
@@ -16685,7 +16685,7 @@ class ReadingListItemDto {
   final int? chapterId;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
   @JsonKey(name: 'seriesFormat', includeIfNull: false)
   final int? seriesFormat;
@@ -16693,21 +16693,21 @@ class ReadingListItemDto {
   final int? pagesRead;
   @JsonKey(name: 'pagesTotal', includeIfNull: false)
   final int? pagesTotal;
-  @JsonKey(name: 'chapterNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'chapterNumber', includeIfNull: false)
   final String? chapterNumber;
-  @JsonKey(name: 'volumeNumber', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'volumeNumber', includeIfNull: false)
   final String? volumeNumber;
-  @JsonKey(name: 'chapterTitleName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'chapterTitleName', includeIfNull: false)
   final String? chapterTitleName;
   @JsonKey(name: 'volumeId', includeIfNull: false)
   final int? volumeId;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'libraryType', includeIfNull: false)
   final int? libraryType;
-  @JsonKey(name: 'libraryName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'libraryName', includeIfNull: false)
   final String? libraryName;
   @JsonKey(name: 'releaseDate', includeIfNull: false)
   final DateTime? releaseDate;
@@ -16933,7 +16933,7 @@ class RecentlyAddedItemDto {
   static const toJsonFactory = _$RecentlyAddedItemDtoToJson;
   Map<String, dynamic> toJson() => _$RecentlyAddedItemDtoToJson(this);
 
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -16941,7 +16941,7 @@ class RecentlyAddedItemDto {
   final int? libraryId;
   @JsonKey(name: 'libraryType', includeIfNull: false)
   final int? libraryType;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   @JsonKey(name: 'created', includeIfNull: false)
   final DateTime? created;
@@ -17205,11 +17205,11 @@ class RegisterDto {
   static const toJsonFactory = _$RegisterDtoToJson;
   Map<String, dynamic> toJson() => _$RegisterDtoToJson(this);
 
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String username;
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
-  @JsonKey(name: 'password', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'password', includeIfNull: false)
   final String password;
   static const fromJsonFactory = _$RegisterDtoFromJson;
 
@@ -17522,11 +17522,11 @@ class ResetPasswordDto {
   static const toJsonFactory = _$ResetPasswordDtoToJson;
   Map<String, dynamic> toJson() => _$ResetPasswordDtoToJson(this);
 
-  @JsonKey(name: 'userName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'userName', includeIfNull: false)
   final String userName;
-  @JsonKey(name: 'password', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'password', includeIfNull: false)
   final String password;
-  @JsonKey(name: 'oldPassword', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'oldPassword', includeIfNull: false)
   final String? oldPassword;
   static const fromJsonFactory = _$ResetPasswordDtoFromJson;
 
@@ -17590,9 +17590,9 @@ class ScanFolderDto {
   static const toJsonFactory = _$ScanFolderDtoToJson;
   Map<String, dynamic> toJson() => _$ScanFolderDtoToJson(this);
 
-  @JsonKey(name: 'apiKey', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'apiKey', includeIfNull: false)
   final String? apiKey;
-  @JsonKey(name: 'folderPath', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'folderPath', includeIfNull: false)
   final String? folderPath;
   static const fromJsonFactory = _$ScanFolderDtoFromJson;
 
@@ -17648,9 +17648,9 @@ class ScrobbleErrorDto {
   static const toJsonFactory = _$ScrobbleErrorDtoToJson;
   Map<String, dynamic> toJson() => _$ScrobbleErrorDtoToJson(this);
 
-  @JsonKey(name: 'comment', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'comment', includeIfNull: false)
   final String? comment;
-  @JsonKey(name: 'details', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'details', includeIfNull: false)
   final String? details;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -17746,7 +17746,7 @@ class ScrobbleEventDto {
   static const toJsonFactory = _$ScrobbleEventDtoToJson;
   Map<String, dynamic> toJson() => _$ScrobbleEventDtoToJson(this);
 
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -17768,7 +17768,7 @@ class ScrobbleEventDto {
   final int? scrobbleEventType;
   @JsonKey(name: 'isErrored', includeIfNull: false)
   final bool? isErrored;
-  @JsonKey(name: 'errorDetails', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'errorDetails', includeIfNull: false)
   final String? errorDetails;
   static const fromJsonFactory = _$ScrobbleEventDtoFromJson;
 
@@ -17918,7 +17918,7 @@ class ScrobbleEventFilter {
   final int? field;
   @JsonKey(name: 'isDescending', includeIfNull: false)
   final bool? isDescending;
-  @JsonKey(name: 'query', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'query', includeIfNull: false)
   final String? query;
   @JsonKey(name: 'includeReviews', includeIfNull: false)
   final bool? includeReviews;
@@ -18131,7 +18131,7 @@ class ScrobbleHoldDto {
   static const toJsonFactory = _$ScrobbleHoldDtoToJson;
   Map<String, dynamic> toJson() => _$ScrobbleHoldDtoToJson(this);
 
-  @JsonKey(name: 'seriesName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'seriesName', includeIfNull: false)
   final String? seriesName;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
@@ -18228,17 +18228,17 @@ class SearchResultDto {
 
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'originalName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'originalName', includeIfNull: false)
   final String? originalName;
-  @JsonKey(name: 'sortName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'sortName', includeIfNull: false)
   final String? sortName;
-  @JsonKey(name: 'localizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'localizedName', includeIfNull: false)
   final String? localizedName;
   @JsonKey(name: 'format', includeIfNull: false)
   final int? format;
-  @JsonKey(name: 'libraryName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'libraryName', includeIfNull: false)
   final String? libraryName;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
@@ -18648,18 +18648,17 @@ class Series {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'normalizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedName', includeIfNull: false)
   final String? normalizedName;
-  @JsonKey(
-      name: 'normalizedLocalizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedLocalizedName', includeIfNull: false)
   final String? normalizedLocalizedName;
-  @JsonKey(name: 'sortName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'sortName', includeIfNull: false)
   final String? sortName;
-  @JsonKey(name: 'localizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'localizedName', includeIfNull: false)
   final String? localizedName;
-  @JsonKey(name: 'originalName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'originalName', includeIfNull: false)
   final String? originalName;
   @JsonKey(name: 'created', includeIfNull: false)
   final DateTime? created;
@@ -18669,13 +18668,13 @@ class Series {
   final DateTime? createdUtc;
   @JsonKey(name: 'lastModifiedUtc', includeIfNull: false)
   final DateTime? lastModifiedUtc;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'coverImageLocked', includeIfNull: false)
   final bool? coverImageLocked;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
-  @JsonKey(name: 'folderPath', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'folderPath', includeIfNull: false)
   final String? folderPath;
   @JsonKey(name: 'lastFolderScanned', includeIfNull: false)
   final DateTime? lastFolderScanned;
@@ -19287,13 +19286,13 @@ class SeriesDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'originalName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'originalName', includeIfNull: false)
   final String? originalName;
-  @JsonKey(name: 'localizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'localizedName', includeIfNull: false)
   final String? localizedName;
-  @JsonKey(name: 'sortName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'sortName', includeIfNull: false)
   final String? sortName;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
@@ -19323,7 +19322,7 @@ class SeriesDto {
   final int? wordCount;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
-  @JsonKey(name: 'libraryName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'libraryName', includeIfNull: false)
   final String? libraryName;
   @JsonKey(name: 'minHoursToRead', includeIfNull: false)
   final int? minHoursToRead;
@@ -19331,7 +19330,7 @@ class SeriesDto {
   final int? maxHoursToRead;
   @JsonKey(name: 'avgHoursToRead', includeIfNull: false)
   final int? avgHoursToRead;
-  @JsonKey(name: 'folderPath', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'folderPath', includeIfNull: false)
   final String? folderPath;
   @JsonKey(name: 'lastFolderScanned', includeIfNull: false)
   final DateTime? lastFolderScanned;
@@ -19675,7 +19674,7 @@ class SeriesMetadata {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(
       name: 'collectionTags',
@@ -19692,7 +19691,7 @@ class SeriesMetadata {
   final int? ageRating;
   @JsonKey(name: 'releaseYear', includeIfNull: false)
   final int? releaseYear;
-  @JsonKey(name: 'language', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'language', includeIfNull: false)
   final String? language;
   @JsonKey(name: 'totalCount', includeIfNull: false)
   final int? totalCount;
@@ -19700,7 +19699,7 @@ class SeriesMetadata {
   final int? maxCount;
   @JsonKey(name: 'publicationStatus', includeIfNull: false)
   final int? publicationStatus;
-  @JsonKey(name: 'webLinks', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'webLinks', includeIfNull: false)
   final String? webLinks;
   @JsonKey(name: 'languageLocked', includeIfNull: false)
   final bool? languageLocked;
@@ -20093,7 +20092,7 @@ class SeriesMetadataDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(
       name: 'collectionTags',
@@ -20133,7 +20132,7 @@ class SeriesMetadataDto {
   final int? ageRating;
   @JsonKey(name: 'releaseYear', includeIfNull: false)
   final int? releaseYear;
-  @JsonKey(name: 'language', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'language', includeIfNull: false)
   final String? language;
   @JsonKey(name: 'maxCount', includeIfNull: false)
   final int? maxCount;
@@ -20141,7 +20140,7 @@ class SeriesMetadataDto {
   final int? totalCount;
   @JsonKey(name: 'publicationStatus', includeIfNull: false)
   final int? publicationStatus;
-  @JsonKey(name: 'webLinks', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'webLinks', includeIfNull: false)
   final String? webLinks;
   @JsonKey(name: 'languageLocked', includeIfNull: false)
   final bool? languageLocked;
@@ -20675,15 +20674,15 @@ class ServerInfoDto {
   static const toJsonFactory = _$ServerInfoDtoToJson;
   Map<String, dynamic> toJson() => _$ServerInfoDtoToJson(this);
 
-  @JsonKey(name: 'installId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'installId', includeIfNull: false)
   final String? installId;
-  @JsonKey(name: 'os', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'os', includeIfNull: false)
   final String? os;
   @JsonKey(name: 'isDocker', includeIfNull: false)
   final bool? isDocker;
-  @JsonKey(name: 'dotnetVersion', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'dotnetVersion', includeIfNull: false)
   final String? dotnetVersion;
-  @JsonKey(name: 'kavitaVersion', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'kavitaVersion', includeIfNull: false)
   final String? kavitaVersion;
   @JsonKey(name: 'numOfCores', includeIfNull: false)
   final int? numOfCores;
@@ -20691,7 +20690,7 @@ class ServerInfoDto {
   final int? numberOfLibraries;
   @JsonKey(name: 'hasBookmarks', includeIfNull: false)
   final bool? hasBookmarks;
-  @JsonKey(name: 'activeSiteTheme', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'activeSiteTheme', includeIfNull: false)
   final String? activeSiteTheme;
   @JsonKey(name: 'mangaReaderMode', includeIfNull: false)
   final int? mangaReaderMode;
@@ -21153,31 +21152,31 @@ class ServerSettingDto {
   static const toJsonFactory = _$ServerSettingDtoToJson;
   Map<String, dynamic> toJson() => _$ServerSettingDtoToJson(this);
 
-  @JsonKey(name: 'cacheDirectory', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'cacheDirectory', includeIfNull: false)
   final String? cacheDirectory;
-  @JsonKey(name: 'taskScan', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'taskScan', includeIfNull: false)
   final String? taskScan;
-  @JsonKey(name: 'taskBackup', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'taskBackup', includeIfNull: false)
   final String? taskBackup;
-  @JsonKey(name: 'taskCleanup', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'taskCleanup', includeIfNull: false)
   final String? taskCleanup;
-  @JsonKey(name: 'loggingLevel', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'loggingLevel', includeIfNull: false)
   final String? loggingLevel;
   @JsonKey(name: 'port', includeIfNull: false)
   final int? port;
-  @JsonKey(name: 'ipAddresses', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'ipAddresses', includeIfNull: false)
   final String? ipAddresses;
   @JsonKey(name: 'allowStatCollection', includeIfNull: false)
   final bool? allowStatCollection;
   @JsonKey(name: 'enableOpds', includeIfNull: false)
   final bool? enableOpds;
-  @JsonKey(name: 'baseUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'baseUrl', includeIfNull: false)
   final String? baseUrl;
-  @JsonKey(name: 'bookmarksDirectory', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookmarksDirectory', includeIfNull: false)
   final String? bookmarksDirectory;
-  @JsonKey(name: 'installVersion', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'installVersion', includeIfNull: false)
   final String? installVersion;
-  @JsonKey(name: 'installId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'installId', includeIfNull: false)
   final String? installId;
   @JsonKey(name: 'encodeMediaAs', includeIfNull: false)
   final int? encodeMediaAs;
@@ -21187,7 +21186,7 @@ class ServerSettingDto {
   final bool? enableFolderWatching;
   @JsonKey(name: 'totalLogs', includeIfNull: false)
   final int? totalLogs;
-  @JsonKey(name: 'hostName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'hostName', includeIfNull: false)
   final String? hostName;
   @JsonKey(name: 'cacheSize', includeIfNull: false)
   final int? cacheSize;
@@ -21672,13 +21671,13 @@ class SideNavStreamDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'isProvided', includeIfNull: false)
   final bool? isProvided;
   @JsonKey(name: 'order', includeIfNull: false)
   final int? order;
-  @JsonKey(name: 'smartFilterEncoded', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'smartFilterEncoded', includeIfNull: false)
   final String? smartFilterEncoded;
   @JsonKey(name: 'smartFilterId', includeIfNull: false)
   final int? smartFilterId;
@@ -21896,11 +21895,11 @@ class SiteTheme {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'normalizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedName', includeIfNull: false)
   final String? normalizedName;
-  @JsonKey(name: 'fileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'fileName', includeIfNull: false)
   final String? fileName;
   @JsonKey(name: 'isDefault', includeIfNull: false)
   final bool? isDefault;
@@ -22043,17 +22042,17 @@ class SiteThemeDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'normalizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedName', includeIfNull: false)
   final String? normalizedName;
-  @JsonKey(name: 'fileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'fileName', includeIfNull: false)
   final String? fileName;
   @JsonKey(name: 'isDefault', includeIfNull: false)
   final bool? isDefault;
   @JsonKey(name: 'provider', includeIfNull: false)
   final int? provider;
-  @JsonKey(name: 'selector', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'selector', includeIfNull: false)
   final String? selector;
   static const fromJsonFactory = _$SiteThemeDtoFromJson;
 
@@ -22153,9 +22152,9 @@ class SmartFilterDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'filter', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'filter', includeIfNull: false)
   final String? filter;
   static const fromJsonFactory = _$SmartFilterDtoFromJson;
 
@@ -22219,15 +22218,15 @@ class SmtpConfigDto {
   static const toJsonFactory = _$SmtpConfigDtoToJson;
   Map<String, dynamic> toJson() => _$SmtpConfigDtoToJson(this);
 
-  @JsonKey(name: 'senderAddress', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'senderAddress', includeIfNull: false)
   final String? senderAddress;
-  @JsonKey(name: 'senderDisplayName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'senderDisplayName', includeIfNull: false)
   final String? senderDisplayName;
-  @JsonKey(name: 'userName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'userName', includeIfNull: false)
   final String? userName;
-  @JsonKey(name: 'password', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'password', includeIfNull: false)
   final String? password;
-  @JsonKey(name: 'host', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'host', includeIfNull: false)
   final String? host;
   @JsonKey(name: 'port', includeIfNull: false)
   final int? port;
@@ -22412,9 +22411,9 @@ class Tag {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'normalizedTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'normalizedTitle', includeIfNull: false)
   final String? normalizedTitle;
   @JsonKey(
       name: 'seriesMetadatas',
@@ -22505,7 +22504,7 @@ class TagDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
   static const fromJsonFactory = _$TagDtoFromJson;
 
@@ -22554,9 +22553,9 @@ class TokenRequestDto {
   static const toJsonFactory = _$TokenRequestDtoToJson;
   Map<String, dynamic> toJson() => _$TokenRequestDtoToJson(this);
 
-  @JsonKey(name: 'token', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'token', includeIfNull: false)
   final String? token;
-  @JsonKey(name: 'refreshToken', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'refreshToken', includeIfNull: false)
   final String? refreshToken;
   static const fromJsonFactory = _$TokenRequestDtoFromJson;
 
@@ -22615,7 +22614,7 @@ class TopReadDto {
 
   @JsonKey(name: 'userId', includeIfNull: false)
   final int? userId;
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
   @JsonKey(name: 'comicsTime', includeIfNull: false)
   final int? comicsTime;
@@ -22806,11 +22805,11 @@ class UpdateDeviceDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String name;
   @JsonKey(name: 'platform', includeIfNull: false)
   final int platform;
-  @JsonKey(name: 'emailAddress', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'emailAddress', includeIfNull: false)
   final String emailAddress;
   static const fromJsonFactory = _$UpdateDeviceDtoFromJson;
 
@@ -22879,9 +22878,9 @@ class UpdateEmailDto {
   static const toJsonFactory = _$UpdateEmailDtoToJson;
   Map<String, dynamic> toJson() => _$UpdateEmailDtoToJson(this);
 
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
-  @JsonKey(name: 'password', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'password', includeIfNull: false)
   final String? password;
   static const fromJsonFactory = _$UpdateEmailDtoFromJson;
 
@@ -22946,7 +22945,7 @@ class UpdateLibraryDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String name;
   @JsonKey(name: 'type', includeIfNull: false)
   final int type;
@@ -23129,7 +23128,7 @@ class UpdateLibraryForUserDto {
   static const toJsonFactory = _$UpdateLibraryForUserDtoToJson;
   Map<String, dynamic> toJson() => _$UpdateLibraryForUserDtoToJson(this);
 
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
   @JsonKey(
       name: 'selectedLibraries',
@@ -23193,11 +23192,11 @@ class UpdateLicenseDto {
   static const toJsonFactory = _$UpdateLicenseDtoToJson;
   Map<String, dynamic> toJson() => _$UpdateLicenseDtoToJson(this);
 
-  @JsonKey(name: 'license', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'license', includeIfNull: false)
   final String? license;
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
-  @JsonKey(name: 'discordId', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'discordId', includeIfNull: false)
   final String? discordId;
   static const fromJsonFactory = _$UpdateLicenseDtoFromJson;
 
@@ -23268,21 +23267,21 @@ class UpdateNotificationDto {
   static const toJsonFactory = _$UpdateNotificationDtoToJson;
   Map<String, dynamic> toJson() => _$UpdateNotificationDtoToJson(this);
 
-  @JsonKey(name: 'currentVersion', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'currentVersion', includeIfNull: false)
   final String? currentVersion;
-  @JsonKey(name: 'updateVersion', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'updateVersion', includeIfNull: false)
   final String? updateVersion;
-  @JsonKey(name: 'updateBody', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'updateBody', includeIfNull: false)
   final String? updateBody;
-  @JsonKey(name: 'updateTitle', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'updateTitle', includeIfNull: false)
   final String? updateTitle;
-  @JsonKey(name: 'updateUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'updateUrl', includeIfNull: false)
   final String? updateUrl;
   @JsonKey(name: 'isDocker', includeIfNull: false)
   final bool? isDocker;
   @JsonKey(name: 'isPrerelease', includeIfNull: false)
   final bool? isPrerelease;
-  @JsonKey(name: 'publishDate', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'publishDate', includeIfNull: false)
   final String? publishDate;
   @JsonKey(name: 'isOnNightlyInRelease', includeIfNull: false)
   final bool? isOnNightlyInRelease;
@@ -23780,9 +23779,9 @@ class UpdateReadingListDto {
 
   @JsonKey(name: 'readingListId', includeIfNull: false)
   final int readingListId;
-  @JsonKey(name: 'title', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'title', includeIfNull: false)
   final String? title;
-  @JsonKey(name: 'summary', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
   @JsonKey(name: 'promoted', includeIfNull: false)
   final bool? promoted;
@@ -24190,9 +24189,9 @@ class UpdateSeriesDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'localizedName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'localizedName', includeIfNull: false)
   final String? localizedName;
-  @JsonKey(name: 'sortName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'sortName', includeIfNull: false)
   final String? sortName;
   @JsonKey(name: 'coverImageLocked', includeIfNull: false)
   final bool? coverImageLocked;
@@ -24483,7 +24482,7 @@ class UpdateStreamPositionDto {
   final int? toPosition;
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'streamName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'streamName', includeIfNull: false)
   final String? streamName;
   static const fromJsonFactory = _$UpdateStreamPositionDtoFromJson;
 
@@ -24558,7 +24557,7 @@ class UpdateUserDto {
 
   @JsonKey(name: 'userId', includeIfNull: false)
   final int? userId;
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
   @JsonKey(name: 'roles', includeIfNull: false, defaultValue: <String>[])
   final List<String>? roles;
@@ -24647,7 +24646,7 @@ class UpdateUserReviewDto {
 
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
-  @JsonKey(name: 'body', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'body', includeIfNull: false)
   final String? body;
   static const fromJsonFactory = _$UpdateUserReviewDtoFromJson;
 
@@ -24745,7 +24744,7 @@ class UploadFileDto {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'url', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'url', includeIfNull: false)
   final String? url;
   static const fromJsonFactory = _$UploadFileDtoFromJson;
 
@@ -24793,7 +24792,7 @@ class UploadUrlDto {
   static const toJsonFactory = _$UploadUrlDtoToJson;
   Map<String, dynamic> toJson() => _$UploadUrlDtoToJson(this);
 
-  @JsonKey(name: 'url', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'url', includeIfNull: false)
   final String url;
   static const fromJsonFactory = _$UploadUrlDtoFromJson;
 
@@ -24842,21 +24841,21 @@ class UserDto {
   static const toJsonFactory = _$UserDtoToJson;
   Map<String, dynamic> toJson() => _$UserDtoToJson(this);
 
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
-  @JsonKey(name: 'email', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'email', includeIfNull: false)
   final String? email;
-  @JsonKey(name: 'token', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'token', includeIfNull: false)
   final String? token;
-  @JsonKey(name: 'refreshToken', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'refreshToken', includeIfNull: false)
   final String? refreshToken;
-  @JsonKey(name: 'apiKey', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'apiKey', includeIfNull: false)
   final String? apiKey;
   @JsonKey(name: 'preferences', includeIfNull: false)
   final UserPreferencesDto? preferences;
   @JsonKey(name: 'ageRestriction', includeIfNull: false)
   final AgeRestrictionDto? ageRestriction;
-  @JsonKey(name: 'kavitaVersion', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'kavitaVersion', includeIfNull: false)
   final String? kavitaVersion;
   static const fromJsonFactory = _$UserDtoFromJson;
 
@@ -25054,7 +25053,7 @@ class UserPreferencesDto {
   final int layoutMode;
   @JsonKey(name: 'emulateBook', includeIfNull: false)
   final bool emulateBook;
-  @JsonKey(name: 'backgroundColor', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'backgroundColor', includeIfNull: false)
   final String backgroundColor;
   @JsonKey(name: 'swipeToPaginate', includeIfNull: false)
   final bool swipeToPaginate;
@@ -25068,7 +25067,7 @@ class UserPreferencesDto {
   final int bookReaderLineSpacing;
   @JsonKey(name: 'bookReaderFontSize', includeIfNull: false)
   final int bookReaderFontSize;
-  @JsonKey(name: 'bookReaderFontFamily', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookReaderFontFamily', includeIfNull: false)
   final String bookReaderFontFamily;
   @JsonKey(name: 'bookReaderTapToPaginate', includeIfNull: false)
   final bool bookReaderTapToPaginate;
@@ -25078,7 +25077,7 @@ class UserPreferencesDto {
   final int bookReaderWritingStyle;
   @JsonKey(name: 'theme', includeIfNull: false)
   final SiteTheme theme;
-  @JsonKey(name: 'bookReaderThemeName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bookReaderThemeName', includeIfNull: false)
   final String bookReaderThemeName;
   @JsonKey(name: 'bookReaderLayoutMode', includeIfNull: false)
   final int bookReaderLayoutMode;
@@ -25096,7 +25095,7 @@ class UserPreferencesDto {
   final bool collapseSeriesRelationships;
   @JsonKey(name: 'shareReviews', includeIfNull: false)
   final bool shareReviews;
-  @JsonKey(name: 'locale', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'locale', includeIfNull: false)
   final String locale;
   static const fromJsonFactory = _$UserPreferencesDtoFromJson;
 
@@ -25537,27 +25536,27 @@ class UserReviewDto {
   static const toJsonFactory = _$UserReviewDtoToJson;
   Map<String, dynamic> toJson() => _$UserReviewDtoToJson(this);
 
-  @JsonKey(name: 'tagline', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'tagline', includeIfNull: false)
   final String? tagline;
-  @JsonKey(name: 'body', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'body', includeIfNull: false)
   final String? body;
-  @JsonKey(name: 'bodyJustText', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'bodyJustText', includeIfNull: false)
   final String? bodyJustText;
   @JsonKey(name: 'seriesId', includeIfNull: false)
   final int? seriesId;
   @JsonKey(name: 'libraryId', includeIfNull: false)
   final int? libraryId;
-  @JsonKey(name: 'username', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'username', includeIfNull: false)
   final String? username;
   @JsonKey(name: 'totalVotes', includeIfNull: false)
   final int? totalVotes;
   @JsonKey(name: 'rating', includeIfNull: false)
   final double? rating;
-  @JsonKey(name: 'rawBody', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'rawBody', includeIfNull: false)
   final String? rawBody;
   @JsonKey(name: 'score', includeIfNull: false)
   final int? score;
-  @JsonKey(name: 'siteUrl', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'siteUrl', includeIfNull: false)
   final String? siteUrl;
   @JsonKey(name: 'isExternal', includeIfNull: false)
   final bool? isExternal;
@@ -25721,7 +25720,7 @@ class Volume {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'number', includeIfNull: false)
   @deprecated
@@ -25740,7 +25739,7 @@ class Volume {
   final DateTime? createdUtc;
   @JsonKey(name: 'lastModifiedUtc', includeIfNull: false)
   final DateTime? lastModifiedUtc;
-  @JsonKey(name: 'coverImage', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'coverImage', includeIfNull: false)
   final String? coverImage;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
@@ -25963,7 +25962,7 @@ class VolumeDto {
   final double? minNumber;
   @JsonKey(name: 'maxNumber', includeIfNull: false)
   final double? maxNumber;
-  @JsonKey(name: 'name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
   @JsonKey(name: 'number', includeIfNull: false)
   @deprecated
@@ -26166,17 +26165,17 @@ class ApiCblValidatePost$RequestBody {
   static const toJsonFactory = _$ApiCblValidatePost$RequestBodyToJson;
   Map<String, dynamic> toJson() => _$ApiCblValidatePost$RequestBodyToJson(this);
 
-  @JsonKey(name: 'ContentType', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'ContentType', includeIfNull: false)
   final String? contentType;
-  @JsonKey(name: 'ContentDisposition', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'ContentDisposition', includeIfNull: false)
   final String? contentDisposition;
   @JsonKey(name: 'Headers', includeIfNull: false)
   final Map<String, dynamic>? headers;
   @JsonKey(name: 'Length', includeIfNull: false)
   final int? length;
-  @JsonKey(name: 'Name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'Name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'FileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'FileName', includeIfNull: false)
   final String? fileName;
   static const fromJsonFactory = _$ApiCblValidatePost$RequestBodyFromJson;
 
@@ -26272,17 +26271,17 @@ class ApiCblImportPost$RequestBody {
   static const toJsonFactory = _$ApiCblImportPost$RequestBodyToJson;
   Map<String, dynamic> toJson() => _$ApiCblImportPost$RequestBodyToJson(this);
 
-  @JsonKey(name: 'ContentType', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'ContentType', includeIfNull: false)
   final String? contentType;
-  @JsonKey(name: 'ContentDisposition', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'ContentDisposition', includeIfNull: false)
   final String? contentDisposition;
   @JsonKey(name: 'Headers', includeIfNull: false)
   final Map<String, dynamic>? headers;
   @JsonKey(name: 'Length', includeIfNull: false)
   final int? length;
-  @JsonKey(name: 'Name', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'Name', includeIfNull: false)
   final String? name;
-  @JsonKey(name: 'FileName', includeIfNull: false, defaultValue: '')
+  @JsonKey(name: 'FileName', includeIfNull: false)
   final String? fileName;
   @JsonKey(name: 'dryRun', includeIfNull: false, defaultValue: false)
   final bool? dryRun;

@@ -11,13 +11,10 @@ targets:
       swagger_dart_code_generator:
         options:
           input_folder: "openapi_specs/"
-          output_folder: "lib/src/openapi_generated_code/"
+          output_folder: "lib/src/service/openapi_generated_code/"
           input_urls:
             - url: https://raw.githubusercontent.com/Kareadita/Kavita/develop/openapi.json
-              file_name: kavita_api.json
+              file_name: kavita_api_v1.json
           include_if_null: false
-          default_values_map:
-            - type_name: String
-              default_value: ""
           override_equals_and_hashcode: true
           override_to_string: true

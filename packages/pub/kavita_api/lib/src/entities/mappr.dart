@@ -2,8 +2,23 @@ import 'dart:typed_data';
 
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';
 import 'package:chopper/chopper.dart' as ch;
-import 'package:kavita_api/kavita_api.dart';
-import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
+import 'package:kavita_api/src/core/kavita_response.dart';
+import 'package:kavita_api/src/entities/age_restriction.dart';
+import 'package:kavita_api/src/entities/bookmark.dart';
+import 'package:kavita_api/src/entities/cbl_book_result.dart';
+import 'package:kavita_api/src/entities/cbl_import_summary.dart';
+import 'package:kavita_api/src/entities/collection_tag.dart';
+import 'package:kavita_api/src/entities/device.dart';
+import 'package:kavita_api/src/entities/device_platform.dart';
+import 'package:kavita_api/src/entities/file_format.dart';
+import 'package:kavita_api/src/entities/invite_user_response.dart';
+import 'package:kavita_api/src/entities/series.dart';
+import 'package:kavita_api/src/entities/server_info.dart';
+import 'package:kavita_api/src/entities/site_theme.dart';
+import 'package:kavita_api/src/entities/token_request.dart';
+import 'package:kavita_api/src/entities/user.dart';
+import 'package:kavita_api/src/entities/user_preferences.dart';
+import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as client;
 
 import 'mappr.auto_mappr.dart';

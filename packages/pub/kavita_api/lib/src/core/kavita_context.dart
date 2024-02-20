@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:chopper/chopper.dart' as ch show Request;
 import 'package:kavita_api/src/entities/user.dart';
-import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
-    as client show KavitaApi;
+import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
+    as client show KavitaApiV1;
 import 'package:meta/meta.dart';
 
 class KavitaContext {
-  client.KavitaApi _api;
-  client.KavitaApi get api => _api;
+  client.KavitaApiV1 _api;
+  client.KavitaApiV1 get api => _api;
 
   User? _currentUser;
   User? get currentUser => _currentUser;
@@ -20,7 +20,7 @@ class KavitaContext {
     User? currentUser,
   })  : _baseUrl = baseUrl,
         _currentUser = currentUser,
-        _api = client.KavitaApi.create(
+        _api = client.KavitaApiV1.create(
             baseUrl: baseUrl,
             interceptors: currentUser == null
                 ? null
@@ -38,7 +38,7 @@ class KavitaContext {
   void setCurrentUser(User user) {
     _currentUser = user;
 
-    _api = _api = client.KavitaApi.create(baseUrl: _baseUrl, interceptors: [
+    _api = _api = client.KavitaApiV1.create(baseUrl: _baseUrl, interceptors: [
       (ch.Request request) async => request.copyWith(
             headers: {
               if (user.token != null) 'Authorization': 'Bearer ${user.token}',
@@ -51,7 +51,7 @@ class KavitaContext {
 
   void clearCurrentUser() {
     _currentUser = null;
-    _api = client.KavitaApi.create(baseUrl: _baseUrl);
+    _api = client.KavitaApiV1.create(baseUrl: _baseUrl);
     _userChangeController.add(null);
   }
 

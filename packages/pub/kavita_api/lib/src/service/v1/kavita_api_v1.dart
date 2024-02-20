@@ -1,11 +1,11 @@
 import 'package:chopper/chopper.dart';
 import 'package:kavita_api/kavita_api.dart';
-import 'package:kavita_api/src/openapi_generated_code/kavita_api.swagger.dart'
+import 'package:kavita_api/src/core/utils.dart';
+import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as client;
-import 'package:kavita_api/src/utils.dart';
 import 'package:meta/meta.dart';
 
-import '../entities/mappr.dart';
+import '../../entities/mappr.dart';
 
 class KavitaApiV1 {
   final KavitaContext context;

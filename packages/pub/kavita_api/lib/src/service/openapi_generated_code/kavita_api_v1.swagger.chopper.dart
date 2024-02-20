@@ -1,6 +1,6 @@
 // Generated code
 
-part of 'kavita_api.swagger.dart';
+part of 'kavita_api_v1.swagger.dart';
 
 // **************************************************************************
 // ChopperGenerator
@@ -8,14 +8,14 @@ part of 'kavita_api.swagger.dart';
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
-final class _$KavitaApi extends KavitaApi {
-  _$KavitaApi([ChopperClient? client]) {
+final class _$KavitaApiV1 extends KavitaApiV1 {
+  _$KavitaApiV1([ChopperClient? client]) {
     if (client == null) return;
     this.client = client;
   }
 
   @override
-  final Type definitionType = KavitaApi;
+  final Type definitionType = KavitaApiV1;
 
   @override
   Future<Response<dynamic>> _apiAccountResetPasswordPost(

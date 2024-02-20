@@ -12,8 +12,8 @@ import 'dart:typed_data' as _i13;
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart' as _i1;
 import 'package:chopper/src/response.dart' as _i2;
 
-import '../kavita_response.dart' as _i3;
-import '../openapi_generated_code/kavita_api.swagger.dart' as _i4;
+import '../core/kavita_response.dart' as _i3;
+import '../service/openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 import 'age_restriction.dart' as _i6;
 import 'bookmark.dart' as _i19;
 import 'cbl_book_result.dart' as _i14;
