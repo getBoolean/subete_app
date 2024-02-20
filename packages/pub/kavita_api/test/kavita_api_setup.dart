@@ -19,6 +19,8 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     when(() => api.apiServerServerInfoGet()).thenResponse(raw.ServerInfoDto());
 
     mockAccountApi(api);
+    mockCblApi(api);
+    mockDownloadApi(api);
     mockCollectionApi(api);
     mockDeviceApi(api);
 
@@ -47,6 +49,10 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
   when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
       .thenResponse(null);
 }
+
+void mockCblApi(MockRawKavitaApiV1 api) {}
+
+void mockDownloadApi(MockRawKavitaApiV1 api) {}
 
 void mockCollectionApi(MockRawKavitaApiV1 api) {
   when(() => api.apiCollectionGet()).thenResponse([
