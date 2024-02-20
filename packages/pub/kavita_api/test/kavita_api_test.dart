@@ -30,10 +30,10 @@ void main() {
   });
 
   group('Test Kavita API v1 Download', () {
-    test('Test Server Info', () async {
+    test('Test Download Volume', () async {
       final res = await client.v1.download.downloadVolume(volumeId: 22800);
-      print(res.body.runtimeType);
       expect(res.statusCode, 200, reason: 'Could not connect to server');
+      expect(res.body, isNotEmpty, reason: 'No data received');
     });
   });
 }

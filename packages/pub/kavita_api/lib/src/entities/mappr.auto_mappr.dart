@@ -7,21 +7,23 @@
 // ignore_for_file: type=lint, unnecessary_cast, unused_local_variable
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:typed_data' as _i13;
+
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart' as _i1;
 import 'package:chopper/src/response.dart' as _i2;
 
 import '../kavita_response.dart' as _i3;
 import '../openapi_generated_code/kavita_api.swagger.dart' as _i4;
 import 'age_restriction.dart' as _i6;
-import 'bookmark.dart' as _i18;
-import 'cbl_book_result.dart' as _i13;
+import 'bookmark.dart' as _i19;
+import 'cbl_book_result.dart' as _i14;
 import 'cbl_import_summary.dart' as _i12;
 import 'collection_tag.dart' as _i11;
-import 'device.dart' as _i16;
-import 'file_format.dart' as _i15;
+import 'device.dart' as _i17;
+import 'file_format.dart' as _i16;
 import 'invite_user_response.dart' as _i10;
-import 'series.dart' as _i17;
-import 'server_info.dart' as _i14;
+import 'series.dart' as _i18;
+import 'server_info.dart' as _i15;
 import 'site_theme.dart' as _i8;
 import 'token_request.dart' as _i9;
 import 'user.dart' as _i5;
@@ -39,6 +41,7 @@ import 'user_preferences.dart' as _i7;
 /// - `Response<InviteUserResponse>` → `KavitaResponse<InviteUserResponse>`.
 /// - `Response<CollectionTagDto>` → `KavitaResponse<CollectionTag>`.
 /// - `Response<CblImportSummaryDto>` → `KavitaResponse<CblImportSummary>`.
+/// - `Response<dynamic>` → `KavitaResponse<Uint8List>`.
 /// - `Response<CblBookResult>` → `KavitaResponse<CblBookResult>`.
 /// - `Response<ServerInfoDto>` → `KavitaResponse<ServerInfo>`.
 /// - `Response<FileFormatDto>` → `KavitaResponse<FileFormat>`.
@@ -152,29 +155,35 @@ class $Mappr implements _i1.AutoMapprInterface {
                 _typeOf<_i3.KavitaResponse<_i12.CblImportSummary>?>())) {
       return true;
     }
+    if ((sourceTypeOf == _typeOf<_i2.Response<dynamic>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<dynamic>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i13.Uint8List>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i13.Uint8List>?>())) {
+      return true;
+    }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.CblBookResult>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.CblBookResult>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i13.CblBookResult>>() ||
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i14.CblBookResult>>() ||
             targetTypeOf ==
-                _typeOf<_i3.KavitaResponse<_i13.CblBookResult>?>())) {
+                _typeOf<_i3.KavitaResponse<_i14.CblBookResult>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ServerInfoDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.ServerInfoDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i14.ServerInfo>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i14.ServerInfo>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.ServerInfo>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.ServerInfo>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.FileFormatDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.FileFormatDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.FileFormat>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.FileFormat>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.FileFormat>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.FileFormat>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.DeviceDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.DeviceDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.Device>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.Device>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i17.Device>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i17.Device>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
@@ -275,72 +284,72 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.CblBookResult>() ||
             sourceTypeOf == _typeOf<_i4.CblBookResult?>()) &&
-        (targetTypeOf == _typeOf<_i13.CblBookResult>() ||
-            targetTypeOf == _typeOf<_i13.CblBookResult?>())) {
+        (targetTypeOf == _typeOf<_i14.CblBookResult>() ||
+            targetTypeOf == _typeOf<_i14.CblBookResult?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i13.CblBookResult>() ||
-            sourceTypeOf == _typeOf<_i13.CblBookResult?>()) &&
+    if ((sourceTypeOf == _typeOf<_i14.CblBookResult>() ||
+            sourceTypeOf == _typeOf<_i14.CblBookResult?>()) &&
         (targetTypeOf == _typeOf<_i4.CblBookResult>() ||
             targetTypeOf == _typeOf<_i4.CblBookResult?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.ServerInfoDto>() ||
             sourceTypeOf == _typeOf<_i4.ServerInfoDto?>()) &&
-        (targetTypeOf == _typeOf<_i14.ServerInfo>() ||
-            targetTypeOf == _typeOf<_i14.ServerInfo?>())) {
+        (targetTypeOf == _typeOf<_i15.ServerInfo>() ||
+            targetTypeOf == _typeOf<_i15.ServerInfo?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i14.ServerInfo>() ||
-            sourceTypeOf == _typeOf<_i14.ServerInfo?>()) &&
+    if ((sourceTypeOf == _typeOf<_i15.ServerInfo>() ||
+            sourceTypeOf == _typeOf<_i15.ServerInfo?>()) &&
         (targetTypeOf == _typeOf<_i4.ServerInfoDto>() ||
             targetTypeOf == _typeOf<_i4.ServerInfoDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.FileFormatDto>() ||
             sourceTypeOf == _typeOf<_i4.FileFormatDto?>()) &&
-        (targetTypeOf == _typeOf<_i15.FileFormat>() ||
-            targetTypeOf == _typeOf<_i15.FileFormat?>())) {
+        (targetTypeOf == _typeOf<_i16.FileFormat>() ||
+            targetTypeOf == _typeOf<_i16.FileFormat?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i15.FileFormat>() ||
-            sourceTypeOf == _typeOf<_i15.FileFormat?>()) &&
+    if ((sourceTypeOf == _typeOf<_i16.FileFormat>() ||
+            sourceTypeOf == _typeOf<_i16.FileFormat?>()) &&
         (targetTypeOf == _typeOf<_i4.FileFormatDto>() ||
             targetTypeOf == _typeOf<_i4.FileFormatDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.DeviceDto>() ||
             sourceTypeOf == _typeOf<_i4.DeviceDto?>()) &&
-        (targetTypeOf == _typeOf<_i16.Device>() ||
-            targetTypeOf == _typeOf<_i16.Device?>())) {
+        (targetTypeOf == _typeOf<_i17.Device>() ||
+            targetTypeOf == _typeOf<_i17.Device?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i16.Device>() ||
-            sourceTypeOf == _typeOf<_i16.Device?>()) &&
+    if ((sourceTypeOf == _typeOf<_i17.Device>() ||
+            sourceTypeOf == _typeOf<_i17.Device?>()) &&
         (targetTypeOf == _typeOf<_i4.DeviceDto>() ||
             targetTypeOf == _typeOf<_i4.DeviceDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.SeriesDto>() ||
             sourceTypeOf == _typeOf<_i4.SeriesDto?>()) &&
-        (targetTypeOf == _typeOf<_i17.Series>() ||
-            targetTypeOf == _typeOf<_i17.Series?>())) {
+        (targetTypeOf == _typeOf<_i18.Series>() ||
+            targetTypeOf == _typeOf<_i18.Series?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i17.Series>() ||
-            sourceTypeOf == _typeOf<_i17.Series?>()) &&
+    if ((sourceTypeOf == _typeOf<_i18.Series>() ||
+            sourceTypeOf == _typeOf<_i18.Series?>()) &&
         (targetTypeOf == _typeOf<_i4.SeriesDto>() ||
             targetTypeOf == _typeOf<_i4.SeriesDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.BookmarkDto>() ||
             sourceTypeOf == _typeOf<_i4.BookmarkDto?>()) &&
-        (targetTypeOf == _typeOf<_i18.Bookmark>() ||
-            targetTypeOf == _typeOf<_i18.Bookmark?>())) {
+        (targetTypeOf == _typeOf<_i19.Bookmark>() ||
+            targetTypeOf == _typeOf<_i19.Bookmark?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i18.Bookmark>() ||
-            sourceTypeOf == _typeOf<_i18.Bookmark?>()) &&
+    if ((sourceTypeOf == _typeOf<_i19.Bookmark>() ||
+            sourceTypeOf == _typeOf<_i19.Bookmark?>()) &&
         (targetTypeOf == _typeOf<_i4.BookmarkDto>() ||
             targetTypeOf == _typeOf<_i4.BookmarkDto?>())) {
       return true;
@@ -609,45 +618,55 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$Response$_i4$CblImportSummaryDto$_To__i3$KavitaResponse$_i12$CblImportSummary$(
           (model as _i2.Response<_i4.CblImportSummaryDto>?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.CblBookResult>>() ||
-            sourceTypeOf == _typeOf<_i2.Response<_i4.CblBookResult>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i13.CblBookResult>>() ||
-            targetTypeOf ==
-                _typeOf<_i3.KavitaResponse<_i13.CblBookResult>?>())) {
+    if ((sourceTypeOf == _typeOf<_i2.Response<dynamic>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<dynamic>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i13.Uint8List>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i13.Uint8List>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$_i4$CblBookResult$_To__i3$KavitaResponse$_i13$CblBookResult$(
+      return (_map__i2$Response$dynamic$_To__i3$KavitaResponse$_i13$Uint8List$(
+          (model as _i2.Response<dynamic>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.CblBookResult>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.CblBookResult>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i14.CblBookResult>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i14.CblBookResult>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$_i4$CblBookResult$_To__i3$KavitaResponse$_i14$CblBookResult$(
           (model as _i2.Response<_i4.CblBookResult>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ServerInfoDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.ServerInfoDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i14.ServerInfo>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i14.ServerInfo>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.ServerInfo>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.ServerInfo>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$_i4$ServerInfoDto$_To__i3$KavitaResponse$_i14$ServerInfo$(
+      return (_map__i2$Response$_i4$ServerInfoDto$_To__i3$KavitaResponse$_i15$ServerInfo$(
           (model as _i2.Response<_i4.ServerInfoDto>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.FileFormatDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.FileFormatDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.FileFormat>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i15.FileFormat>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.FileFormat>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.FileFormat>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$_i4$FileFormatDto$_To__i3$KavitaResponse$_i15$FileFormat$(
+      return (_map__i2$Response$_i4$FileFormatDto$_To__i3$KavitaResponse$_i16$FileFormat$(
           (model as _i2.Response<_i4.FileFormatDto>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.DeviceDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.DeviceDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.Device>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i16.Device>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i17.Device>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i17.Device>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$_i4$DeviceDto$_To__i3$KavitaResponse$_i16$Device$(
+      return (_map__i2$Response$_i4$DeviceDto$_To__i3$KavitaResponse$_i17$Device$(
           (model as _i2.Response<_i4.DeviceDto>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
@@ -810,122 +829,122 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.CblBookResult>() ||
             sourceTypeOf == _typeOf<_i4.CblBookResult?>()) &&
-        (targetTypeOf == _typeOf<_i13.CblBookResult>() ||
-            targetTypeOf == _typeOf<_i13.CblBookResult?>())) {
+        (targetTypeOf == _typeOf<_i14.CblBookResult>() ||
+            targetTypeOf == _typeOf<_i14.CblBookResult?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$CblBookResult_To__i13$CblBookResult(
+      return (_map__i4$CblBookResult_To__i14$CblBookResult(
           (model as _i4.CblBookResult?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i13.CblBookResult>() ||
-            sourceTypeOf == _typeOf<_i13.CblBookResult?>()) &&
+    if ((sourceTypeOf == _typeOf<_i14.CblBookResult>() ||
+            sourceTypeOf == _typeOf<_i14.CblBookResult?>()) &&
         (targetTypeOf == _typeOf<_i4.CblBookResult>() ||
             targetTypeOf == _typeOf<_i4.CblBookResult?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i13$CblBookResult_To__i4$CblBookResult(
-          (model as _i13.CblBookResult?)) as TARGET);
+      return (_map__i14$CblBookResult_To__i4$CblBookResult(
+          (model as _i14.CblBookResult?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.ServerInfoDto>() ||
             sourceTypeOf == _typeOf<_i4.ServerInfoDto?>()) &&
-        (targetTypeOf == _typeOf<_i14.ServerInfo>() ||
-            targetTypeOf == _typeOf<_i14.ServerInfo?>())) {
+        (targetTypeOf == _typeOf<_i15.ServerInfo>() ||
+            targetTypeOf == _typeOf<_i15.ServerInfo?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$ServerInfoDto_To__i14$ServerInfo(
+      return (_map__i4$ServerInfoDto_To__i15$ServerInfo(
           (model as _i4.ServerInfoDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i14.ServerInfo>() ||
-            sourceTypeOf == _typeOf<_i14.ServerInfo?>()) &&
+    if ((sourceTypeOf == _typeOf<_i15.ServerInfo>() ||
+            sourceTypeOf == _typeOf<_i15.ServerInfo?>()) &&
         (targetTypeOf == _typeOf<_i4.ServerInfoDto>() ||
             targetTypeOf == _typeOf<_i4.ServerInfoDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i14$ServerInfo_To__i4$ServerInfoDto(
-          (model as _i14.ServerInfo?)) as TARGET);
+      return (_map__i15$ServerInfo_To__i4$ServerInfoDto(
+          (model as _i15.ServerInfo?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.FileFormatDto>() ||
             sourceTypeOf == _typeOf<_i4.FileFormatDto?>()) &&
-        (targetTypeOf == _typeOf<_i15.FileFormat>() ||
-            targetTypeOf == _typeOf<_i15.FileFormat?>())) {
+        (targetTypeOf == _typeOf<_i16.FileFormat>() ||
+            targetTypeOf == _typeOf<_i16.FileFormat?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$FileFormatDto_To__i15$FileFormat(
+      return (_map__i4$FileFormatDto_To__i16$FileFormat(
           (model as _i4.FileFormatDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i15.FileFormat>() ||
-            sourceTypeOf == _typeOf<_i15.FileFormat?>()) &&
+    if ((sourceTypeOf == _typeOf<_i16.FileFormat>() ||
+            sourceTypeOf == _typeOf<_i16.FileFormat?>()) &&
         (targetTypeOf == _typeOf<_i4.FileFormatDto>() ||
             targetTypeOf == _typeOf<_i4.FileFormatDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i15$FileFormat_To__i4$FileFormatDto(
-          (model as _i15.FileFormat?)) as TARGET);
+      return (_map__i16$FileFormat_To__i4$FileFormatDto(
+          (model as _i16.FileFormat?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.DeviceDto>() ||
             sourceTypeOf == _typeOf<_i4.DeviceDto?>()) &&
-        (targetTypeOf == _typeOf<_i16.Device>() ||
-            targetTypeOf == _typeOf<_i16.Device?>())) {
+        (targetTypeOf == _typeOf<_i17.Device>() ||
+            targetTypeOf == _typeOf<_i17.Device?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$DeviceDto_To__i16$Device((model as _i4.DeviceDto?))
+      return (_map__i4$DeviceDto_To__i17$Device((model as _i4.DeviceDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i16.Device>() ||
-            sourceTypeOf == _typeOf<_i16.Device?>()) &&
+    if ((sourceTypeOf == _typeOf<_i17.Device>() ||
+            sourceTypeOf == _typeOf<_i17.Device?>()) &&
         (targetTypeOf == _typeOf<_i4.DeviceDto>() ||
             targetTypeOf == _typeOf<_i4.DeviceDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i16$Device_To__i4$DeviceDto((model as _i16.Device?))
+      return (_map__i17$Device_To__i4$DeviceDto((model as _i17.Device?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.SeriesDto>() ||
             sourceTypeOf == _typeOf<_i4.SeriesDto?>()) &&
-        (targetTypeOf == _typeOf<_i17.Series>() ||
-            targetTypeOf == _typeOf<_i17.Series?>())) {
+        (targetTypeOf == _typeOf<_i18.Series>() ||
+            targetTypeOf == _typeOf<_i18.Series?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$SeriesDto_To__i17$Series((model as _i4.SeriesDto?))
+      return (_map__i4$SeriesDto_To__i18$Series((model as _i4.SeriesDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i17.Series>() ||
-            sourceTypeOf == _typeOf<_i17.Series?>()) &&
+    if ((sourceTypeOf == _typeOf<_i18.Series>() ||
+            sourceTypeOf == _typeOf<_i18.Series?>()) &&
         (targetTypeOf == _typeOf<_i4.SeriesDto>() ||
             targetTypeOf == _typeOf<_i4.SeriesDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i17$Series_To__i4$SeriesDto((model as _i17.Series?))
+      return (_map__i18$Series_To__i4$SeriesDto((model as _i18.Series?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.BookmarkDto>() ||
             sourceTypeOf == _typeOf<_i4.BookmarkDto?>()) &&
-        (targetTypeOf == _typeOf<_i18.Bookmark>() ||
-            targetTypeOf == _typeOf<_i18.Bookmark?>())) {
+        (targetTypeOf == _typeOf<_i19.Bookmark>() ||
+            targetTypeOf == _typeOf<_i19.Bookmark?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$BookmarkDto_To__i18$Bookmark((model as _i4.BookmarkDto?))
+      return (_map__i4$BookmarkDto_To__i19$Bookmark((model as _i4.BookmarkDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i18.Bookmark>() ||
-            sourceTypeOf == _typeOf<_i18.Bookmark?>()) &&
+    if ((sourceTypeOf == _typeOf<_i19.Bookmark>() ||
+            sourceTypeOf == _typeOf<_i19.Bookmark?>()) &&
         (targetTypeOf == _typeOf<_i4.BookmarkDto>() ||
             targetTypeOf == _typeOf<_i4.BookmarkDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i18$Bookmark_To__i4$BookmarkDto((model as _i18.Bookmark?))
+      return (_map__i19$Bookmark_To__i4$BookmarkDto((model as _i19.Bookmark?))
           as TARGET);
     }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
@@ -1092,8 +1111,24 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i3.KavitaResponse<_i13.CblBookResult>
-      _map__i2$Response$_i4$CblBookResult$_To__i3$KavitaResponse$_i13$CblBookResult$(
+  _i3.KavitaResponse<_i13.Uint8List>
+      _map__i2$Response$dynamic$_To__i3$KavitaResponse$_i13$Uint8List$(
+          _i2.Response<dynamic>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<dynamic> → KavitaResponse<Uint8List> failed because Response<dynamic> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<dynamic>, KavitaResponse<Uint8List>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      null,
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<_i14.CblBookResult>
+      _map__i2$Response$_i4$CblBookResult$_To__i3$KavitaResponse$_i14$CblBookResult$(
           _i2.Response<_i4.CblBookResult>? input) {
     final model = input;
     if (model == null) {
@@ -1103,13 +1138,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     return _i3.KavitaResponse(
       model.base,
-      _map__i4$CblBookResult_To__i13$CblBookResult_Nullable(model.body),
+      _map__i4$CblBookResult_To__i14$CblBookResult_Nullable(model.body),
       error: model.error,
     );
   }
 
-  _i3.KavitaResponse<_i14.ServerInfo>
-      _map__i2$Response$_i4$ServerInfoDto$_To__i3$KavitaResponse$_i14$ServerInfo$(
+  _i3.KavitaResponse<_i15.ServerInfo>
+      _map__i2$Response$_i4$ServerInfoDto$_To__i3$KavitaResponse$_i15$ServerInfo$(
           _i2.Response<_i4.ServerInfoDto>? input) {
     final model = input;
     if (model == null) {
@@ -1119,13 +1154,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     return _i3.KavitaResponse(
       model.base,
-      _map__i4$ServerInfoDto_To__i14$ServerInfo_Nullable(model.body),
+      _map__i4$ServerInfoDto_To__i15$ServerInfo_Nullable(model.body),
       error: model.error,
     );
   }
 
-  _i3.KavitaResponse<_i15.FileFormat>
-      _map__i2$Response$_i4$FileFormatDto$_To__i3$KavitaResponse$_i15$FileFormat$(
+  _i3.KavitaResponse<_i16.FileFormat>
+      _map__i2$Response$_i4$FileFormatDto$_To__i3$KavitaResponse$_i16$FileFormat$(
           _i2.Response<_i4.FileFormatDto>? input) {
     final model = input;
     if (model == null) {
@@ -1135,13 +1170,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     return _i3.KavitaResponse(
       model.base,
-      _map__i4$FileFormatDto_To__i15$FileFormat_Nullable(model.body),
+      _map__i4$FileFormatDto_To__i16$FileFormat_Nullable(model.body),
       error: model.error,
     );
   }
 
-  _i3.KavitaResponse<_i16.Device>
-      _map__i2$Response$_i4$DeviceDto$_To__i3$KavitaResponse$_i16$Device$(
+  _i3.KavitaResponse<_i17.Device>
+      _map__i2$Response$_i4$DeviceDto$_To__i3$KavitaResponse$_i17$Device$(
           _i2.Response<_i4.DeviceDto>? input) {
     final model = input;
     if (model == null) {
@@ -1151,7 +1186,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     return _i3.KavitaResponse(
       model.base,
-      _map__i4$DeviceDto_To__i16$Device_Nullable(model.body),
+      _map__i4$DeviceDto_To__i17$Device_Nullable(model.body),
       error: model.error,
     );
   }
@@ -1455,13 +1490,13 @@ class $Mappr implements _i1.AutoMapprInterface {
       cblName: model.cblName,
       fileName: model.fileName,
       results: model.results
-          ?.map<_i13.CblBookResult>(
-              (value) => _map__i4$CblBookResult_To__i13$CblBookResult(value))
+          ?.map<_i14.CblBookResult>(
+              (value) => _map__i4$CblBookResult_To__i14$CblBookResult(value))
           .toList(),
       success: model.success,
       successfulInserts: model.successfulInserts
-          ?.map<_i13.CblBookResult>(
-              (value) => _map__i4$CblBookResult_To__i13$CblBookResult(value))
+          ?.map<_i14.CblBookResult>(
+              (value) => _map__i4$CblBookResult_To__i14$CblBookResult(value))
           .toList(),
     );
   }
@@ -1479,17 +1514,17 @@ class $Mappr implements _i1.AutoMapprInterface {
       fileName: model.fileName,
       results: model.results
           ?.map<_i4.CblBookResult>(
-              (value) => _map__i13$CblBookResult_To__i4$CblBookResult(value))
+              (value) => _map__i14$CblBookResult_To__i4$CblBookResult(value))
           .toList(),
       success: model.success,
       successfulInserts: model.successfulInserts
           ?.map<_i4.CblBookResult>(
-              (value) => _map__i13$CblBookResult_To__i4$CblBookResult(value))
+              (value) => _map__i14$CblBookResult_To__i4$CblBookResult(value))
           .toList(),
     );
   }
 
-  _i13.CblBookResult _map__i4$CblBookResult_To__i13$CblBookResult(
+  _i14.CblBookResult _map__i4$CblBookResult_To__i14$CblBookResult(
       _i4.CblBookResult? input) {
     final model = input;
     if (model == null) {
@@ -1497,7 +1532,7 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping CblBookResult → CblBookResult failed because CblBookResult was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<CblBookResult, CblBookResult> to handle null values during mapping.');
     }
-    return _i13.CblBookResult(
+    return _i14.CblBookResult(
       order: model.order,
       series: model.series,
       volume: model.volume,
@@ -1509,8 +1544,8 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.CblBookResult _map__i13$CblBookResult_To__i4$CblBookResult(
-      _i13.CblBookResult? input) {
+  _i4.CblBookResult _map__i14$CblBookResult_To__i4$CblBookResult(
+      _i14.CblBookResult? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -1529,7 +1564,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i14.ServerInfo _map__i4$ServerInfoDto_To__i14$ServerInfo(
+  _i15.ServerInfo _map__i4$ServerInfoDto_To__i15$ServerInfo(
       _i4.ServerInfoDto? input) {
     final model = input;
     if (model == null) {
@@ -1537,7 +1572,7 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping ServerInfoDto → ServerInfo failed because ServerInfoDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<ServerInfoDto, ServerInfo> to handle null values during mapping.');
     }
-    return _i14.ServerInfo(
+    return _i15.ServerInfo(
       installId: model.installId,
       os: model.os,
       isDocker: model.isDocker,
@@ -1565,8 +1600,8 @@ class $Mappr implements _i1.AutoMapprInterface {
       mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes,
       mangaReaderLayoutModes: model.mangaReaderLayoutModes,
       fileFormats: model.fileFormats
-          ?.map<_i15.FileFormat>(
-              (value) => _map__i4$FileFormatDto_To__i15$FileFormat(value))
+          ?.map<_i16.FileFormat>(
+              (value) => _map__i4$FileFormatDto_To__i16$FileFormat(value))
           .toList(),
       usingRestrictedProfiles: model.usingRestrictedProfiles,
       usersWithEmulateComicBook: model.usersWithEmulateComicBook,
@@ -1584,8 +1619,8 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.ServerInfoDto _map__i14$ServerInfo_To__i4$ServerInfoDto(
-      _i14.ServerInfo? input) {
+  _i4.ServerInfoDto _map__i15$ServerInfo_To__i4$ServerInfoDto(
+      _i15.ServerInfo? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -1621,7 +1656,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       mangaReaderLayoutModes: model.mangaReaderLayoutModes,
       fileFormats: model.fileFormats
           ?.map<_i4.FileFormatDto>(
-              (value) => _map__i15$FileFormat_To__i4$FileFormatDto(value))
+              (value) => _map__i16$FileFormat_To__i4$FileFormatDto(value))
           .toList(),
       usingRestrictedProfiles: model.usingRestrictedProfiles,
       usersWithEmulateComicBook: model.usersWithEmulateComicBook,
@@ -1639,7 +1674,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i15.FileFormat _map__i4$FileFormatDto_To__i15$FileFormat(
+  _i16.FileFormat _map__i4$FileFormatDto_To__i16$FileFormat(
       _i4.FileFormatDto? input) {
     final model = input;
     if (model == null) {
@@ -1647,14 +1682,14 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping FileFormatDto → FileFormat failed because FileFormatDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<FileFormatDto, FileFormat> to handle null values during mapping.');
     }
-    return _i15.FileFormat(
+    return _i16.FileFormat(
       extension: model.extension,
       format: model.format,
     );
   }
 
-  _i4.FileFormatDto _map__i15$FileFormat_To__i4$FileFormatDto(
-      _i15.FileFormat? input) {
+  _i4.FileFormatDto _map__i16$FileFormat_To__i4$FileFormatDto(
+      _i16.FileFormat? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -1667,14 +1702,14 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i16.Device _map__i4$DeviceDto_To__i16$Device(_i4.DeviceDto? input) {
+  _i17.Device _map__i4$DeviceDto_To__i17$Device(_i4.DeviceDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping DeviceDto → Device failed because DeviceDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<DeviceDto, Device> to handle null values during mapping.');
     }
-    return _i16.Device(
+    return _i17.Device(
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
@@ -1682,7 +1717,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.DeviceDto _map__i16$Device_To__i4$DeviceDto(_i16.Device? input) {
+  _i4.DeviceDto _map__i17$Device_To__i4$DeviceDto(_i17.Device? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -1697,14 +1732,14 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i17.Series _map__i4$SeriesDto_To__i17$Series(_i4.SeriesDto? input) {
+  _i18.Series _map__i4$SeriesDto_To__i18$Series(_i4.SeriesDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping SeriesDto → Series failed because SeriesDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<SeriesDto, Series> to handle null values during mapping.');
     }
-    return _i17.Series(
+    return _i18.Series(
       id: model.id,
       name: model.name,
       originalName: model.originalName,
@@ -1733,7 +1768,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.SeriesDto _map__i17$Series_To__i4$SeriesDto(_i17.Series? input) {
+  _i4.SeriesDto _map__i18$Series_To__i4$SeriesDto(_i18.Series? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -1769,24 +1804,24 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i18.Bookmark _map__i4$BookmarkDto_To__i18$Bookmark(_i4.BookmarkDto? input) {
+  _i19.Bookmark _map__i4$BookmarkDto_To__i19$Bookmark(_i4.BookmarkDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping BookmarkDto → Bookmark failed because BookmarkDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<BookmarkDto, Bookmark> to handle null values during mapping.');
     }
-    return _i18.Bookmark(
+    return _i19.Bookmark(
       id: model.id,
       page: model.page,
       volumeId: model.volumeId,
       seriesId: model.seriesId,
       chapterId: model.chapterId,
-      series: _map__i4$SeriesDto_To__i17$Series_Nullable(model.series),
+      series: _map__i4$SeriesDto_To__i18$Series_Nullable(model.series),
     );
   }
 
-  _i4.BookmarkDto _map__i18$Bookmark_To__i4$BookmarkDto(_i18.Bookmark? input) {
+  _i4.BookmarkDto _map__i19$Bookmark_To__i4$BookmarkDto(_i19.Bookmark? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -1799,7 +1834,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       volumeId: model.volumeId,
       seriesId: model.seriesId,
       chapterId: model.chapterId,
-      series: _map__i17$Series_To__i4$SeriesDto_Nullable(model.series),
+      series: _map__i18$Series_To__i4$SeriesDto_Nullable(model.series),
     );
   }
 
@@ -1998,24 +2033,24 @@ class $Mappr implements _i1.AutoMapprInterface {
       cblName: model.cblName,
       fileName: model.fileName,
       results: model.results
-          ?.map<_i13.CblBookResult>(
-              (value) => _map__i4$CblBookResult_To__i13$CblBookResult(value))
+          ?.map<_i14.CblBookResult>(
+              (value) => _map__i4$CblBookResult_To__i14$CblBookResult(value))
           .toList(),
       success: model.success,
       successfulInserts: model.successfulInserts
-          ?.map<_i13.CblBookResult>(
-              (value) => _map__i4$CblBookResult_To__i13$CblBookResult(value))
+          ?.map<_i14.CblBookResult>(
+              (value) => _map__i4$CblBookResult_To__i14$CblBookResult(value))
           .toList(),
     );
   }
 
-  _i13.CblBookResult? _map__i4$CblBookResult_To__i13$CblBookResult_Nullable(
+  _i14.CblBookResult? _map__i4$CblBookResult_To__i14$CblBookResult_Nullable(
       _i4.CblBookResult? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i13.CblBookResult(
+    return _i14.CblBookResult(
       order: model.order,
       series: model.series,
       volume: model.volume,
@@ -2027,13 +2062,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i14.ServerInfo? _map__i4$ServerInfoDto_To__i14$ServerInfo_Nullable(
+  _i15.ServerInfo? _map__i4$ServerInfoDto_To__i15$ServerInfo_Nullable(
       _i4.ServerInfoDto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i14.ServerInfo(
+    return _i15.ServerInfo(
       installId: model.installId,
       os: model.os,
       isDocker: model.isDocker,
@@ -2061,8 +2096,8 @@ class $Mappr implements _i1.AutoMapprInterface {
       mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes,
       mangaReaderLayoutModes: model.mangaReaderLayoutModes,
       fileFormats: model.fileFormats
-          ?.map<_i15.FileFormat>(
-              (value) => _map__i4$FileFormatDto_To__i15$FileFormat(value))
+          ?.map<_i16.FileFormat>(
+              (value) => _map__i4$FileFormatDto_To__i16$FileFormat(value))
           .toList(),
       usingRestrictedProfiles: model.usingRestrictedProfiles,
       usersWithEmulateComicBook: model.usersWithEmulateComicBook,
@@ -2080,25 +2115,25 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i15.FileFormat? _map__i4$FileFormatDto_To__i15$FileFormat_Nullable(
+  _i16.FileFormat? _map__i4$FileFormatDto_To__i16$FileFormat_Nullable(
       _i4.FileFormatDto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i15.FileFormat(
+    return _i16.FileFormat(
       extension: model.extension,
       format: model.format,
     );
   }
 
-  _i16.Device? _map__i4$DeviceDto_To__i16$Device_Nullable(
+  _i17.Device? _map__i4$DeviceDto_To__i17$Device_Nullable(
       _i4.DeviceDto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i16.Device(
+    return _i17.Device(
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
@@ -2106,13 +2141,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i17.Series? _map__i4$SeriesDto_To__i17$Series_Nullable(
+  _i18.Series? _map__i4$SeriesDto_To__i18$Series_Nullable(
       _i4.SeriesDto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i17.Series(
+    return _i18.Series(
       id: model.id,
       name: model.name,
       originalName: model.originalName,
@@ -2141,8 +2176,8 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.SeriesDto? _map__i17$Series_To__i4$SeriesDto_Nullable(
-      _i17.Series? input) {
+  _i4.SeriesDto? _map__i18$Series_To__i4$SeriesDto_Nullable(
+      _i18.Series? input) {
     final model = input;
     if (model == null) {
       return null;

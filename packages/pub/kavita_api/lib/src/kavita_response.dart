@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 
 part 'kavita_response.mapper.dart';
 
@@ -67,6 +68,14 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
     } else {
       return null;
     }
+  }
+
+  KavitaResponse<NewBodyType> cast<NewBodyType>() {
+    return KavitaResponse<NewBodyType>(
+      base,
+      body as NewBodyType?,
+      error: error,
+    );
   }
 
   static final fromMap = KavitaResponseMapper.fromMap;

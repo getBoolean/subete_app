@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';
 import 'package:chopper/chopper.dart' as ch;
 import 'package:kavita_api/src/entities/age_restriction.dart';
@@ -36,6 +38,7 @@ import 'user.dart';
       KavitaResponse<CollectionTag>>(),
   MapType<ch.Response<client.CblImportSummaryDto>,
       KavitaResponse<CblImportSummary>>(),
+  MapType<ch.Response<dynamic>, KavitaResponse<Uint8List>>(),
   MapType<ch.Response<client.CblBookResult>, KavitaResponse<CblBookResult>>(),
   MapType<ch.Response<client.ServerInfoDto>, KavitaResponse<ServerInfo>>(),
   MapType<ch.Response<client.FileFormatDto>, KavitaResponse<FileFormat>>(),

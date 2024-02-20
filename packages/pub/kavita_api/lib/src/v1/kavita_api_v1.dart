@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:chopper/chopper.dart';
 import 'package:kavita_api/src/entities/bookmark.dart';
 import 'package:kavita_api/src/entities/cbl_import_summary.dart';
@@ -744,48 +742,58 @@ final class KavitaApiDownload extends KavitaApiV1 {
   /// Downloads all chapters within a volume.
   ///
   /// If the chapters are multiple zips, they will all be zipped up.
-  Future<KavitaResponse<Uint8List>> downloadVolume({
+  Future<KavitaResponse<String>> downloadVolume({
     required int volumeId,
   }) async {
-    final res = await context.api.apiDownloadVolumeGet(volumeId: volumeId);
-    final data = res.body;
-    return _mappr.convert<Response<dynamic>, KavitaResponse<Uint8List>>(res);
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+            await context.api.apiDownloadVolumeGet(
+          volumeId: volumeId,
+        ))
+        .cast();
   }
 
   /// Returns the zip for a single chapter.
   ///
   /// If the chapter contains multiple files, they will be zipped.
-  Future<KavitaResponse<Uint8List>> downloadChapter({
+  Future<KavitaResponse<String>> downloadChapter({
     required int chapterId,
   }) async {
-    return _mappr.convert<Response<dynamic>, KavitaResponse<Uint8List>>(
-        await context.api.apiDownloadChapterGet(
-      chapterId: chapterId,
-    ));
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+            await context.api.apiDownloadChapterGet(
+          chapterId: chapterId,
+        ))
+        .cast();
   }
 
   /// Returns the zip for a series.
-  Future<KavitaResponse<Uint8List>> downloadSeries({
+  Future<KavitaResponse<String>> downloadSeries({
     required int seriesId,
   }) async {
-    return _mappr.convert<Response<dynamic>, KavitaResponse<Uint8List>>(
-        await context.api.apiDownloadSeriesGet(
-      seriesId: seriesId,
-    ));
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+            await context.api.apiDownloadSeriesGet(
+          seriesId: seriesId,
+        ))
+        .cast();
   }
 
   /// Downloads all bookmarks in a zip for
-  Future<KavitaResponse<Uint8List>> downloadBookmarks(
+  Future<KavitaResponse<String>> downloadBookmarks(
     List<Bookmark> bookmarks,
   ) async {
-    return _mappr.convert<Response<dynamic>, KavitaResponse<Uint8List>>(
-        await context.api.apiDownloadBookmarksPost(
-      body: client.DownloadBookmarkDto(
-        bookmarks: bookmarks
-            .map((e) => _mappr.convert<Bookmark, client.BookmarkDto>(e))
-            .toList(),
-      ),
-    ));
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiDownloadBookmarksPost(
+            body: client.DownloadBookmarkDto(
+              bookmarks: bookmarks
+                  .map((e) => _mappr.convert<Bookmark, client.BookmarkDto>(e))
+                  .toList(),
+            ),
+          ),
+        )
+        .cast();
   }
 }
 
