@@ -18,7 +18,8 @@ An unofficial Dart package for Kavita API generated using [swagger_dart_code_gen
 ## Usage
 
 ```dart
-final userResponse = await KavitaApi.login(
+final api = KavitaApi(baseUrl: baseUrl);
+final userResponse = await api.v1.account.login(
     username: 'Username',
     password: 'Password',
     baseUrl: 'http://localhost:5000',
@@ -27,9 +28,4 @@ final userDto = userResponse.body;
 if (userDto == null || userDto.token == null) {
     throw Exception('Could not log in');
 }
-
-final client = KavitaApi(
-    userDto.token!,
-    baseUrl: baseUrl,
-);
 ```

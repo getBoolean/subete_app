@@ -4,19 +4,19 @@ import 'package:test/test.dart';
 import '../kavita_api_setup.dart';
 
 void main() {
-  late final KavitaApi client;
+  late final KavitaApi api;
 
-  setUpAll(() async => client = await setUpKavita());
+  setUpAll(() async => api = await setUpKavita());
 
   group('Test Kavita API v1 Cbl', skip: true, () {
     test('Test Validate Cbl', skip: true, () async {
       // TEST_TODO: Add test for validate cbl
-      await client.v1.cbl.validateCbl();
+      await api.v1.cbl.validateCbl();
     });
 
     test('Test Import Cbl', skip: true, () async {
       // TEST_TODO: Add test for import cbl
-      await client.v1.cbl.importCbl();
+      await api.v1.cbl.importCbl();
     });
   });
 }

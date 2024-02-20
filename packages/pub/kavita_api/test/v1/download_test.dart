@@ -4,19 +4,19 @@ import 'package:test/test.dart';
 import '../kavita_api_setup.dart';
 
 void main() {
-  late final KavitaApi client;
+  late final KavitaApi api;
 
-  setUpAll(() async => client = await setUpKavita());
+  setUpAll(() async => api = await setUpKavita());
 
   group('Test Kavita API v1 Download', () {
     test('Test Volume Size', () async {
-      final res = await client.v1.download.getVolumeSize(volumeId: 22800);
+      final res = await api.v1.download.getVolumeSize(volumeId: 22800);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Chapter Size', () async {
-      final res = await client.v1.download.getChapterSize(chapterId: 114494);
+      final res = await api.v1.download.getChapterSize(chapterId: 114494);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });
@@ -26,13 +26,13 @@ void main() {
     });
 
     test('Test Download Volume', () async {
-      final res = await client.v1.download.downloadVolume(volumeId: 22800);
+      final res = await api.v1.download.downloadVolume(volumeId: 22800);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Download Chapter', () async {
-      final res = await client.v1.download.downloadChapter(chapterId: 114494);
+      final res = await api.v1.download.downloadChapter(chapterId: 114494);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });

@@ -112,6 +112,7 @@ void main() {
     test('Test Get OPDS URL', skip: true, () async {
       final res = await api.v1.account.getOpdsUrl();
       expect(res.isSuccessful, isTrue, reason: 'Failed to get OPDS URL');
+      print('OPDS URL: ${res.bodyString}');
     });
   });
 }

@@ -11,11 +11,11 @@ Future<KavitaApi> setUpKavita() async {
 
   final baseUrl = Uri.parse(
       env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'));
-  final client = KavitaApi(baseUrl: baseUrl);
-  await client.v1.account.login(
+  final api = KavitaApi(baseUrl: baseUrl);
+  await api.v1.account.login(
     username: env['KAVITA_USERNAME']!,
     password: env['KAVITA_PASSWORD']!,
   );
 
-  return client;
+  return api;
 }

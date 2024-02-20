@@ -41,7 +41,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
       base is http.Response ? (base as http.Response).bodyBytes : Uint8List(0);
 
   /// Returns the response body as a String provided the network
-  /// call was successful, else this will be `null`.
+  /// call was successful, else this will be an empty string.
   String get bodyString =>
       base is http.Response ? (base as http.Response).body : '';
 

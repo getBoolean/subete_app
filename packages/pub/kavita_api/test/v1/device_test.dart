@@ -4,18 +4,18 @@ import 'package:test/test.dart';
 import '../kavita_api_setup.dart';
 
 void main() {
-  late final KavitaApi client;
+  late final KavitaApi api;
 
-  setUpAll(() async => client = await setUpKavita());
+  setUpAll(() async => api = await setUpKavita());
 
   group('Test Kavita API v1 Device', () {
     test('Test Get Devices', () async {
-      final res = await client.v1.device.getDevices();
+      final res = await api.v1.device.getDevices();
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Create Device', skip: true, () async {
-      final res = await client.v1.device.createDevice(
+      final res = await api.v1.device.createDevice(
         name: 'Test Device 0',
         platform: DevicePlatform.custom,
         emailAddress: 'test@email.com',
@@ -24,7 +24,7 @@ void main() {
     });
 
     test('Test Update Device', skip: true, () async {
-      final res = await client.v1.device.updateDevice(
+      final res = await api.v1.device.updateDevice(
         id: 7,
         name: 'Test Device 1',
         platform: DevicePlatform.kindle,
@@ -34,7 +34,7 @@ void main() {
     });
 
     test('Test Delete Device', skip: true, () async {
-      final res = await client.v1.device.deleteDevice(id: 7);
+      final res = await api.v1.device.deleteDevice(id: 7);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
     });
 
