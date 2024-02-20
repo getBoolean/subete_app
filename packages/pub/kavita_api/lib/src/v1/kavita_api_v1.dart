@@ -216,7 +216,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
     String? email,
   }) async {
-    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
+    final user = _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountRegisterPost(
       body: client.RegisterDto(
         username: username,
@@ -224,6 +224,11 @@ final class KavitaApiAccount extends KavitaApiV1 {
         email: email,
       ),
     ));
+    if (user.isSuccessful && user.body != null) {
+      context.setCurrentUser(user.body!);
+    }
+
+    return user;
   }
 
   /// Perform a login. Will send JWT Token of the logged in user back.
@@ -253,8 +258,13 @@ final class KavitaApiAccount extends KavitaApiV1 {
 
   /// Returns an up-to-date user account
   Future<KavitaResponse<User>> refreshAccount() async {
-    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
+    final user = _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountRefreshAccountGet());
+    if (user.isSuccessful && user.body != null) {
+      context.setCurrentUser(user.body!);
+    }
+
+    return user;
   }
 
   /// Refreshes the user's JWT token
@@ -303,13 +313,16 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required int ageRating,
     required bool includeUnknowns,
   }) async {
-    return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
+    final res = _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await context.api.apiAccountUpdateAgeRestrictionPost(
       body: client.UpdateAgeRestrictionDto(
         ageRating: ageRating,
         includeUnknowns: includeUnknowns,
       ),
     ));
+
+    await refreshAccount();
+    return res;
   }
 
   // Update the user account. This can only affect Username, Email (will require confirming), Roles, and Library access.
@@ -319,7 +332,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     List<String>? roles,
     List<int>? libraries,
   }) async {
-    return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
+    final res = _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await context.api.apiAccountUpdatePost(
       body: client.UpdateUserDto(
         userId: userId,
@@ -328,6 +341,9 @@ final class KavitaApiAccount extends KavitaApiV1 {
         libraries: libraries,
       ),
     ));
+
+    await refreshAccount();
+    return res;
   }
 
   /// Requests the Invite Url for the UserId. Will return error if user is already validated.
@@ -374,7 +390,7 @@ final class KavitaApiAccount extends KavitaApiV1 {
     required String password,
     required String username,
   }) async {
-    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
+    final user = _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountConfirmEmailPost(
       body: client.ConfirmEmailDto(
         email: email,
@@ -383,6 +399,11 @@ final class KavitaApiAccount extends KavitaApiV1 {
         username: username,
       ),
     ));
+    if (user.isSuccessful && user.body != null) {
+      context.setCurrentUser(user.body!);
+    }
+
+    return user;
   }
 
   /// Confirm password reset
@@ -417,18 +438,23 @@ final class KavitaApiAccount extends KavitaApiV1 {
         await context.api.apiAccountEmailConfirmedGet());
   }
 
-  // confirm migration email
+  /// Confirm migration email
   Future<KavitaResponse<User>> confirmMigrationEmail({
     required String email,
     required String token,
   }) async {
-    return _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
+    final user = _mappr.convert<Response<client.UserDto>, KavitaResponse<User>>(
         await context.api.apiAccountConfirmMigrationEmailPost(
       body: client.ConfirmMigrationEmailDto(
         email: email,
         token: token,
       ),
     ));
+    if (user.isSuccessful && user.body != null) {
+      context.setCurrentUser(user.body!);
+    }
+
+    return user;
   }
 
   /// Resend an invite to a user already invited
