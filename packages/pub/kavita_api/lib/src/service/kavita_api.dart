@@ -2,7 +2,7 @@ import 'package:kavita_api/src/core/kavita_context.dart';
 import 'package:kavita_api/src/entities/user.dart';
 import 'package:kavita_api/src/service/v1/kavita_api_v1.dart';
 
-final class KavitaApi {
+class KavitaApi {
   final KavitaContext context;
 
   const KavitaApi._({
