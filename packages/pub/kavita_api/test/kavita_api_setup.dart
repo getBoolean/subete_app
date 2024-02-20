@@ -19,6 +19,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     when(() => api.apiServerServerInfoGet()).thenResponse(raw.ServerInfoDto());
 
     mockAccountApi(api);
+    mockCollectionApi(api);
     mockDeviceApi(api);
 
     return KavitaApi.fromContext(KavitaContext.fromApi(api));
@@ -45,6 +46,46 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
   );
   when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
       .thenResponse(null);
+}
+
+void mockCollectionApi(MockRawKavitaApiV1 api) {
+  when(() => api.apiCollectionGet()).thenResponse([
+    raw.CollectionTagDto(id: 1, title: 'Test'),
+  ]);
+  when(() => api.apiCollectionDelete(tagId: 1)).thenResponse(null);
+  when(() => api.apiCollectionSearchGet(queryString: 'Test')).thenResponse([
+    raw.CollectionTagDto(id: 1, title: 'Test'),
+  ]);
+  when(() => api.apiCollectionNameExistsGet(name: 'Test')).thenResponse(true);
+  when(() => api.apiCollectionUpdatePost(
+        body: raw.CollectionTagDto(
+          id: 1,
+          title: 'Test',
+          summary: 'test',
+        ),
+      )).thenResponse(null);
+  when(() => api.apiCollectionUpdateForSeriesPost(
+        body: raw.CollectionTagBulkAddDto(
+          collectionTagId: 1,
+          collectionTagTitle: 'Test',
+          seriesIds: [1],
+        ),
+      )).thenResponse(null);
+  when(() => api.apiCollectionUpdateForSeriesPost(
+        body: raw.CollectionTagBulkAddDto(
+          collectionTagId: 0,
+          collectionTagTitle: 'Test',
+          seriesIds: [1],
+        ),
+      )).thenResponse(null);
+  when(() => api.apiCollectionUpdateSeriesPost(
+        body: raw.UpdateSeriesForTagDto(
+          tag: raw.CollectionTagDto(
+            id: 1,
+          ),
+          seriesIdsToRemove: [1],
+        ),
+      )).thenResponse(null);
 }
 
 void mockDeviceApi(MockRawKavitaApiV1 api) {
