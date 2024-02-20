@@ -514,17 +514,18 @@ final class KavitaApiCollection extends KavitaApiV1 {
   /// Return a list of all collection tags on the server for the logged in user.
   Future<KavitaResponse<List<CollectionTag>>> getCollections() async {
     return _mappr.convert<Response<List<client.CollectionTagDto>>,
-            KavitaResponse<List<CollectionTag>>>(
-        await context.api.apiCollectionGet());
+        KavitaResponse<List<CollectionTag>>>(
+      await context.api.apiCollectionGet(),
+    );
   }
 
   /// Removes the collection tag from all Series it was attached to
   Future<KavitaResponse<void>> deleteCollection({
-    required int tagId,
+    required int id,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await context.api.apiCollectionDelete(
-      tagId: tagId,
+      tagId: id,
     ));
   }
 
@@ -542,15 +543,13 @@ final class KavitaApiCollection extends KavitaApiV1 {
     ));
   }
 
-  /// Checks if a collection exists with the [name]
+  /// Checks if a collection exists with the [title]
   ///
   /// If empty or null, will return true as that is invalid
-  Future<KavitaResponse<bool>> collectionExists({
-    required String name,
-  }) async {
+  Future<KavitaResponse<bool>> collectionExists(String title) async {
     return _mappr.convert<Response<bool>, KavitaResponse<bool>>(
         await context.api.apiCollectionNameExistsGet(
-      name: name,
+      name: title,
     ));
   }
 
@@ -558,8 +557,8 @@ final class KavitaApiCollection extends KavitaApiV1 {
   /// and summary. UI does not contain controls to update title
   Future<KavitaResponse<void>> updateCollection({
     required int id,
-    String? title,
-    String? summary,
+    required String title,
+    required String summary,
     bool? promoted,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -573,19 +572,27 @@ final class KavitaApiCollection extends KavitaApiV1 {
     ));
   }
 
+  /// Creates and adds collection tag onto multiple Series.
+  Future<KavitaResponse<void>> createCollectionForSeries({
+    required String title,
+    required List<int> seriesIds,
+  }) async {
+    return updateCollectionForSeries(seriesIds: seriesIds, title: title, id: 0);
+  }
+
   /// Adds a collection tag onto multiple Series.
   ///
-  /// If tag id is 0, this will create a new tag.
+  /// If tag [id] is `0` or does not exist, a new tag will be created.
   Future<KavitaResponse<void>> updateCollectionForSeries({
-    required int collectionTagId,
-    required String collectionTagTitle,
+    required int id,
+    required String title,
     required List<int> seriesIds,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await context.api.apiCollectionUpdateForSeriesPost(
       body: client.CollectionTagBulkAddDto(
-        collectionTagId: collectionTagId,
-        collectionTagTitle: collectionTagTitle,
+        collectionTagId: id,
+        collectionTagTitle: title,
         seriesIds: seriesIds,
       ),
     ));
@@ -593,15 +600,19 @@ final class KavitaApiCollection extends KavitaApiV1 {
 
   /// For a given tag, update the summary if summary has changed
   /// and remove a set of series from the tag.
-  Future<KavitaResponse<void>> updateSeriesCollection({
-    required CollectionTag tag,
-    required List<int> seriesIdsToRemove,
+  ///
+  /// The collection is deleted if no series are left in it.
+  Future<KavitaResponse<void>> removeSeriesFromCollection({
+    required int id,
+    required List<int> seriesIds,
   }) async {
     return _mappr.convert<Response<dynamic>, KavitaResponse<dynamic>>(
         await context.api.apiCollectionUpdateSeriesPost(
       body: client.UpdateSeriesForTagDto(
-        tag: _mappr.convert<CollectionTag, client.CollectionTagDto>(tag),
-        seriesIdsToRemove: seriesIdsToRemove,
+        tag: client.CollectionTagDto(
+          id: id,
+        ),
+        seriesIdsToRemove: seriesIds,
       ),
     ));
   }

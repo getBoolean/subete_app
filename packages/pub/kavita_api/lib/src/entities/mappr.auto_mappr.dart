@@ -42,6 +42,7 @@ import 'user_preferences.dart' as _i7;
 /// - `Response<TokenRequestDto>` → `KavitaResponse<TokenRequest>`.
 /// - `Response<InviteUserResponse>` → `KavitaResponse<InviteUserResponse>`.
 /// - `Response<CollectionTagDto>` → `KavitaResponse<CollectionTag>`.
+/// - `Response<List<CollectionTagDto>>` → `KavitaResponse<List<CollectionTag>>`.
 /// - `Response<CblImportSummaryDto>` → `KavitaResponse<CblImportSummary>`.
 /// - `Response<dynamic>` → `KavitaResponse<Uint8List>`.
 /// - `Response<CblBookResult>` → `KavitaResponse<CblBookResult>`.
@@ -49,6 +50,7 @@ import 'user_preferences.dart' as _i7;
 /// - `Response<FileFormatDto>` → `KavitaResponse<FileFormat>`.
 /// - `Response<DeviceDto>` → `KavitaResponse<Device>`.
 /// - `Response<List<DeviceDto>>` → `KavitaResponse<List<Device>>`.
+/// - `Response<bool>` → `KavitaResponse<bool>`.
 /// - `UserDto` → `User`.
 /// - `User` → `UserDto`.
 /// - `AgeRestrictionDto` → `AgeRestriction`.
@@ -150,6 +152,15 @@ class $Mappr implements _i1.AutoMapprInterface {
                 _typeOf<_i3.KavitaResponse<_i11.CollectionTag>?>())) {
       return true;
     }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.CollectionTagDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.CollectionTagDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i11.CollectionTag>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i11.CollectionTag>>?>())) {
+      return true;
+    }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.CblImportSummaryDto>>() ||
             sourceTypeOf ==
                 _typeOf<_i2.Response<_i4.CblImportSummaryDto>?>()) &&
@@ -194,6 +205,12 @@ class $Mappr implements _i1.AutoMapprInterface {
         (targetTypeOf == _typeOf<_i3.KavitaResponse<List<_i17.Device>>>() ||
             targetTypeOf ==
                 _typeOf<_i3.KavitaResponse<List<_i17.Device>>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<bool>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<bool>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<bool>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<bool>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
@@ -616,6 +633,19 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$Response$_i4$CollectionTagDto$_To__i3$KavitaResponse$_i11$CollectionTag$(
           (model as _i2.Response<_i4.CollectionTagDto>?)) as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.CollectionTagDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.CollectionTagDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i11.CollectionTag>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i11.CollectionTag>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$CollectionTagDto$$_To__i3$KavitaResponse$List$_i11$CollectionTag$$(
+          (model as _i2.Response<List<_i4.CollectionTagDto>>?)) as TARGET);
+    }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.CblImportSummaryDto>>() ||
             sourceTypeOf ==
                 _typeOf<_i2.Response<_i4.CblImportSummaryDto>?>()) &&
@@ -689,6 +719,16 @@ class $Mappr implements _i1.AutoMapprInterface {
       }
       return (_map__i2$Response$List$_i4$DeviceDto$$_To__i3$KavitaResponse$List$_i17$Device$$(
           (model as _i2.Response<List<_i4.DeviceDto>>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<bool>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<bool>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<bool>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<bool>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$bool$_To__i3$KavitaResponse$bool$(
+          (model as _i2.Response<bool>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
@@ -1115,6 +1155,25 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
+  _i3.KavitaResponse<List<_i11.CollectionTag>>
+      _map__i2$Response$List$_i4$CollectionTagDto$$_To__i3$KavitaResponse$List$_i11$CollectionTag$$(
+          _i2.Response<List<_i4.CollectionTagDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<CollectionTagDto>> → KavitaResponse<List<CollectionTag>> failed because Response<List<CollectionTagDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<CollectionTagDto>>, KavitaResponse<List<CollectionTag>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i11.CollectionTag>(
+              (value) => _map__i4$CollectionTagDto_To__i11$CollectionTag(value))
+          .toList(),
+      error: model.error,
+    );
+  }
+
   _i3.KavitaResponse<_i12.CblImportSummary>
       _map__i2$Response$_i4$CblImportSummaryDto$_To__i3$KavitaResponse$_i12$CblImportSummary$(
           _i2.Response<_i4.CblImportSummaryDto>? input) {
@@ -1227,6 +1286,21 @@ class $Mappr implements _i1.AutoMapprInterface {
           ?.map<_i17.Device>(
               (value) => _map__i4$DeviceDto_To__i17$Device(value))
           .toList(),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<bool> _map__i2$Response$bool$_To__i3$KavitaResponse$bool$(
+      _i2.Response<bool>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<bool> → KavitaResponse<bool> failed because Response<bool> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<bool>, KavitaResponse<bool>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body,
       error: model.error,
     );
   }

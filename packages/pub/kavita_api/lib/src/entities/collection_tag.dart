@@ -16,6 +16,10 @@ class CollectionTag with CollectionTagMappable {
   final int? id;
   final String? title;
   final String? summary;
+
+  /// Promoted means that the tag can be seen server-wide, not just for admin users.
+  ///
+  /// All series that have this tag will still have user-access restrictions placed on them.
   final bool? promoted;
   final String? coverImage;
   final bool? coverImageLocked;
