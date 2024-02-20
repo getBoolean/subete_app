@@ -18,5 +18,6 @@ export 'src/entities/user.dart';
 export 'src/entities/user_preferences.dart';
 export 'src/kavita_api.dart';
 export 'src/kavita_context.dart';
+export 'src/kavita_exception.dart';
 export 'src/kavita_response.dart';
 export 'src/v1/kavita_api_v1.dart';
