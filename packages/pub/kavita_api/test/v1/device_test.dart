@@ -8,42 +8,50 @@ void main() {
 
   setUpAll(() async => api = await setUpKavita());
 
-  group('Test Kavita API v1 Device', skip: true, () {
+  group('Test Kavita API v1 Device', () {
     test('Test Get Devices', () async {
       final res = await api.v1.device.getDevices();
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
-    test('Test Create Device', skip: true, () async {
+    test('Test Create Device', () async {
       final res = await api.v1.device.createDevice(
-        name: 'Test Device 0',
+        name: '',
         platform: DevicePlatform.custom,
-        emailAddress: 'test@email.com',
+        emailAddress: '',
       );
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
     });
 
-    test('Test Update Device', skip: true, () async {
+    test('Test Update Device', () async {
       final res = await api.v1.device.updateDevice(
-        id: 7,
-        name: 'Test Device 1',
-        platform: DevicePlatform.kindle,
-        emailAddress: 'test2@email.com',
+        id: 1,
+        name: '',
+        platform: DevicePlatform.custom,
+        emailAddress: '',
       );
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
     });
 
-    test('Test Delete Device', skip: true, () async {
-      final res = await api.v1.device.deleteDevice(id: 7);
+    test('Test Delete Device', () async {
+      final res = await api.v1.device.deleteDevice(id: 1);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
     });
 
     test('Test Send to Device', () async {
-      // TEST_TODO: Add test for send to device
+      final res = await api.v1.device.sendToDevice(
+        deviceId: 1,
+        chapterIds: [1],
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
     });
 
-    test('Test Series to Device', () async {
-      // TEST_TODO: Add test for series to device
+    test('Test Send Series to Device', () async {
+      final res = await api.v1.device.sendSeriesToDevice(
+        deviceId: 1,
+        seriesId: 1,
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
     });
   });
 }

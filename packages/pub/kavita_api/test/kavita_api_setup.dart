@@ -18,12 +18,8 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     when(() => api.client).thenReturn(ChopperClient(baseUrl: baseUrl));
     when(() => api.apiServerServerInfoGet()).thenResponse(raw.ServerInfoDto());
 
-    final resetPasswordDto = raw.ResetPasswordDto(
-      userName: '',
-      password: '',
-    );
-    when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
-        .thenResponse(null);
+    mockAccountApi(api);
+    mockDeviceApi(api);
 
     return KavitaApi.fromContext(KavitaContext.fromApi(api));
   }
@@ -40,6 +36,51 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
   );
 
   return api;
+}
+
+void mockAccountApi(MockRawKavitaApiV1 api) {
+  final resetPasswordDto = raw.ResetPasswordDto(
+    userName: '',
+    password: '',
+  );
+  when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
+      .thenResponse(null);
+}
+
+void mockDeviceApi(MockRawKavitaApiV1 api) {
+  when(() => api.apiDeviceGet()).thenResponse([
+    raw.DeviceDto(id: 1, platform: 0, name: '', emailAddress: ''),
+  ]);
+  when(() => api.apiDeviceCreatePost(
+        body: raw.CreateDeviceDto(
+          name: '',
+          platform: 0,
+          emailAddress: '',
+        ),
+      )).thenResponse(null);
+  when(() => api.apiDeviceUpdatePost(
+        body: raw.UpdateDeviceDto(
+          id: 1,
+          name: '',
+          platform: 0,
+          emailAddress: '',
+        ),
+      )).thenResponse(null);
+  when(() => api.apiDeviceDelete(
+        deviceId: 1,
+      )).thenResponse(null);
+  when(() => api.apiDeviceSendToPost(
+        body: raw.SendToDeviceDto(
+          deviceId: 1,
+          chapterIds: [1],
+        ),
+      )).thenResponse(null);
+  when(() => api.apiDeviceSendSeriesToPost(
+        body: raw.SendSeriesToDeviceDto(
+          deviceId: 1,
+          seriesId: 1,
+        ),
+      )).thenResponse(null);
 }
 
 extension _ReponseExtension<T> on When<Future<Response<T>>> {
