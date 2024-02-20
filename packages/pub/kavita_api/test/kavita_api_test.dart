@@ -22,13 +22,25 @@ void main() {
     );
   });
 
-  group('Test Kavita API', () {
+  group('Test Kavita API v1 Server', () {
     setUp(() {
       // Additional setup goes here.
     });
 
     test('Test Server Info', () async {
       final res = await client.v1.server.getServerInfo();
+      expect(res.statusCode, 200, reason: 'Could not connect to server');
+    });
+  });
+
+  group('Test Kavita API v1 Download', () {
+    setUp(() {
+      // Additional setup goes here.
+    });
+
+    test('Test Server Info', () async {
+      final res = await client.v1.download.downloadVolume(volumeId: 22800);
+      print(res.body.runtimeType);
       expect(res.statusCode, 200, reason: 'Could not connect to server');
     });
   });

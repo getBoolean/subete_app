@@ -18,7 +18,7 @@ dependencies:
   meta: ^1.12.0
 
 dev_dependencies:
-  auto_mappr: ^2.3.0
+  auto_mappr: 2.1.1
   build_runner: ^2.4.8
   chopper_generator: ^7.1.1
   dart_mappable_builder: ^4.2.0

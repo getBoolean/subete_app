@@ -13,12 +13,14 @@ import 'package:chopper/src/response.dart' as _i2;
 import '../kavita_response.dart' as _i3;
 import '../openapi_generated_code/kavita_api.swagger.dart' as _i4;
 import 'age_restriction.dart' as _i6;
+import 'bookmark.dart' as _i18;
 import 'cbl_book_result.dart' as _i13;
 import 'cbl_import_summary.dart' as _i12;
 import 'collection_tag.dart' as _i11;
 import 'device.dart' as _i16;
 import 'file_format.dart' as _i15;
 import 'invite_user_response.dart' as _i10;
+import 'series.dart' as _i17;
 import 'server_info.dart' as _i14;
 import 'site_theme.dart' as _i8;
 import 'token_request.dart' as _i9;
@@ -28,6 +30,7 @@ import 'user_preferences.dart' as _i7;
 /// {@template package:kavita_api/src/entities/mappr.dart}
 /// Available mappings:
 /// - `Response<dynamic>` → `KavitaResponse<dynamic>`.
+/// - `Response<int>` → `KavitaResponse<int>`.
 /// - `Response<UserDto>` → `KavitaResponse<User>`.
 /// - `Response<AgeRestrictionDto>` → `KavitaResponse<AgeRestriction>`.
 /// - `Response<UserPreferencesDto>` → `KavitaResponse<UserPreferences>`.
@@ -64,6 +67,10 @@ import 'user_preferences.dart' as _i7;
 /// - `FileFormat` → `FileFormatDto`.
 /// - `DeviceDto` → `Device`.
 /// - `Device` → `DeviceDto`.
+/// - `SeriesDto` → `Series`.
+/// - `Series` → `SeriesDto`.
+/// - `BookmarkDto` → `Bookmark`.
+/// - `Bookmark` → `BookmarkDto`.
 /// {@endtemplate}
 class $Mappr implements _i1.AutoMapprInterface {
   const $Mappr();
@@ -82,6 +89,12 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i2.Response<dynamic>?>()) &&
         (targetTypeOf == _typeOf<_i3.KavitaResponse<dynamic>>() ||
             targetTypeOf == _typeOf<_i3.KavitaResponse<dynamic>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<int>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<int>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<int>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<int>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.UserDto>>() ||
@@ -308,6 +321,30 @@ class $Mappr implements _i1.AutoMapprInterface {
             targetTypeOf == _typeOf<_i4.DeviceDto?>())) {
       return true;
     }
+    if ((sourceTypeOf == _typeOf<_i4.SeriesDto>() ||
+            sourceTypeOf == _typeOf<_i4.SeriesDto?>()) &&
+        (targetTypeOf == _typeOf<_i17.Series>() ||
+            targetTypeOf == _typeOf<_i17.Series?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i17.Series>() ||
+            sourceTypeOf == _typeOf<_i17.Series?>()) &&
+        (targetTypeOf == _typeOf<_i4.SeriesDto>() ||
+            targetTypeOf == _typeOf<_i4.SeriesDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i4.BookmarkDto>() ||
+            sourceTypeOf == _typeOf<_i4.BookmarkDto?>()) &&
+        (targetTypeOf == _typeOf<_i18.Bookmark>() ||
+            targetTypeOf == _typeOf<_i18.Bookmark?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i18.Bookmark>() ||
+            sourceTypeOf == _typeOf<_i18.Bookmark?>()) &&
+        (targetTypeOf == _typeOf<_i4.BookmarkDto>() ||
+            targetTypeOf == _typeOf<_i4.BookmarkDto?>())) {
+      return true;
+    }
     if (recursive) {
       for (final mappr in _delegates) {
         if (mappr.canConvert<SOURCE, TARGET>()) {
@@ -474,6 +511,16 @@ class $Mappr implements _i1.AutoMapprInterface {
       }
       return (_map__i2$Response$dynamic$_To__i3$KavitaResponse$dynamic$(
           (model as _i2.Response<dynamic>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<int>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<int>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<int>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<int>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$int$_To__i3$KavitaResponse$int$(
+          (model as _i2.Response<int>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.UserDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.UserDto>?>()) &&
@@ -841,6 +888,46 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i16$Device_To__i4$DeviceDto((model as _i16.Device?))
           as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i4.SeriesDto>() ||
+            sourceTypeOf == _typeOf<_i4.SeriesDto?>()) &&
+        (targetTypeOf == _typeOf<_i17.Series>() ||
+            targetTypeOf == _typeOf<_i17.Series?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$SeriesDto_To__i17$Series((model as _i4.SeriesDto?))
+          as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i17.Series>() ||
+            sourceTypeOf == _typeOf<_i17.Series?>()) &&
+        (targetTypeOf == _typeOf<_i4.SeriesDto>() ||
+            targetTypeOf == _typeOf<_i4.SeriesDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i17$Series_To__i4$SeriesDto((model as _i17.Series?))
+          as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i4.BookmarkDto>() ||
+            sourceTypeOf == _typeOf<_i4.BookmarkDto?>()) &&
+        (targetTypeOf == _typeOf<_i18.Bookmark>() ||
+            targetTypeOf == _typeOf<_i18.Bookmark?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$BookmarkDto_To__i18$Bookmark((model as _i4.BookmarkDto?))
+          as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i18.Bookmark>() ||
+            sourceTypeOf == _typeOf<_i18.Bookmark?>()) &&
+        (targetTypeOf == _typeOf<_i4.BookmarkDto>() ||
+            targetTypeOf == _typeOf<_i4.BookmarkDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i18$Bookmark_To__i4$BookmarkDto((model as _i18.Bookmark?))
+          as TARGET);
+    }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
   }
 
@@ -852,6 +939,21 @@ class $Mappr implements _i1.AutoMapprInterface {
       throw Exception(
           r'Mapping Response<dynamic> → KavitaResponse<dynamic> failed because Response<dynamic> was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<Response<dynamic>, KavitaResponse<dynamic>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body,
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<int> _map__i2$Response$int$_To__i3$KavitaResponse$int$(
+      _i2.Response<int>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<int> → KavitaResponse<int> failed because Response<int> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<int>, KavitaResponse<int>> to handle null values during mapping.');
     }
     return _i3.KavitaResponse(
       model.base,
@@ -1595,6 +1697,112 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
+  _i17.Series _map__i4$SeriesDto_To__i17$Series(_i4.SeriesDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping SeriesDto → Series failed because SeriesDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<SeriesDto, Series> to handle null values during mapping.');
+    }
+    return _i17.Series(
+      id: model.id,
+      name: model.name,
+      originalName: model.originalName,
+      localizedName: model.localizedName,
+      sortName: model.sortName,
+      pages: model.pages,
+      coverImageLocked: model.coverImageLocked,
+      pagesRead: model.pagesRead,
+      latestReadDate: model.latestReadDate,
+      lastChapterAdded: model.lastChapterAdded,
+      userRating: model.userRating,
+      hasUserRated: model.hasUserRated,
+      format: model.format,
+      created: model.created,
+      nameLocked: model.nameLocked,
+      sortNameLocked: model.sortNameLocked,
+      localizedNameLocked: model.localizedNameLocked,
+      wordCount: model.wordCount,
+      libraryId: model.libraryId,
+      libraryName: model.libraryName,
+      minHoursToRead: model.minHoursToRead,
+      maxHoursToRead: model.maxHoursToRead,
+      avgHoursToRead: model.avgHoursToRead,
+      folderPath: model.folderPath,
+      lastFolderScanned: model.lastFolderScanned,
+    );
+  }
+
+  _i4.SeriesDto _map__i17$Series_To__i4$SeriesDto(_i17.Series? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Series → SeriesDto failed because Series was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Series, SeriesDto> to handle null values during mapping.');
+    }
+    return _i4.SeriesDto(
+      id: model.id,
+      name: model.name,
+      originalName: model.originalName,
+      localizedName: model.localizedName,
+      sortName: model.sortName,
+      pages: model.pages,
+      coverImageLocked: model.coverImageLocked,
+      pagesRead: model.pagesRead,
+      latestReadDate: model.latestReadDate,
+      lastChapterAdded: model.lastChapterAdded,
+      userRating: model.userRating,
+      hasUserRated: model.hasUserRated,
+      format: model.format,
+      created: model.created,
+      nameLocked: model.nameLocked,
+      sortNameLocked: model.sortNameLocked,
+      localizedNameLocked: model.localizedNameLocked,
+      wordCount: model.wordCount,
+      libraryId: model.libraryId,
+      libraryName: model.libraryName,
+      minHoursToRead: model.minHoursToRead,
+      maxHoursToRead: model.maxHoursToRead,
+      avgHoursToRead: model.avgHoursToRead,
+      folderPath: model.folderPath,
+      lastFolderScanned: model.lastFolderScanned,
+    );
+  }
+
+  _i18.Bookmark _map__i4$BookmarkDto_To__i18$Bookmark(_i4.BookmarkDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping BookmarkDto → Bookmark failed because BookmarkDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<BookmarkDto, Bookmark> to handle null values during mapping.');
+    }
+    return _i18.Bookmark(
+      id: model.id,
+      page: model.page,
+      volumeId: model.volumeId,
+      seriesId: model.seriesId,
+      chapterId: model.chapterId,
+      series: _map__i4$SeriesDto_To__i17$Series_Nullable(model.series),
+    );
+  }
+
+  _i4.BookmarkDto _map__i18$Bookmark_To__i4$BookmarkDto(_i18.Bookmark? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Bookmark → BookmarkDto failed because Bookmark was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Bookmark, BookmarkDto> to handle null values during mapping.');
+    }
+    return _i4.BookmarkDto(
+      id: model.id,
+      page: model.page,
+      volumeId: model.volumeId,
+      seriesId: model.seriesId,
+      chapterId: model.chapterId,
+      series: _map__i17$Series_To__i4$SeriesDto_Nullable(model.series),
+    );
+  }
+
   _i5.User? _map__i4$UserDto_To__i5$User_Nullable(_i4.UserDto? input) {
     final model = input;
     if (model == null) {
@@ -1895,6 +2103,76 @@ class $Mappr implements _i1.AutoMapprInterface {
       name: model.name,
       emailAddress: model.emailAddress,
       platform: model.platform,
+    );
+  }
+
+  _i17.Series? _map__i4$SeriesDto_To__i17$Series_Nullable(
+      _i4.SeriesDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i17.Series(
+      id: model.id,
+      name: model.name,
+      originalName: model.originalName,
+      localizedName: model.localizedName,
+      sortName: model.sortName,
+      pages: model.pages,
+      coverImageLocked: model.coverImageLocked,
+      pagesRead: model.pagesRead,
+      latestReadDate: model.latestReadDate,
+      lastChapterAdded: model.lastChapterAdded,
+      userRating: model.userRating,
+      hasUserRated: model.hasUserRated,
+      format: model.format,
+      created: model.created,
+      nameLocked: model.nameLocked,
+      sortNameLocked: model.sortNameLocked,
+      localizedNameLocked: model.localizedNameLocked,
+      wordCount: model.wordCount,
+      libraryId: model.libraryId,
+      libraryName: model.libraryName,
+      minHoursToRead: model.minHoursToRead,
+      maxHoursToRead: model.maxHoursToRead,
+      avgHoursToRead: model.avgHoursToRead,
+      folderPath: model.folderPath,
+      lastFolderScanned: model.lastFolderScanned,
+    );
+  }
+
+  _i4.SeriesDto? _map__i17$Series_To__i4$SeriesDto_Nullable(
+      _i17.Series? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i4.SeriesDto(
+      id: model.id,
+      name: model.name,
+      originalName: model.originalName,
+      localizedName: model.localizedName,
+      sortName: model.sortName,
+      pages: model.pages,
+      coverImageLocked: model.coverImageLocked,
+      pagesRead: model.pagesRead,
+      latestReadDate: model.latestReadDate,
+      lastChapterAdded: model.lastChapterAdded,
+      userRating: model.userRating,
+      hasUserRated: model.hasUserRated,
+      format: model.format,
+      created: model.created,
+      nameLocked: model.nameLocked,
+      sortNameLocked: model.sortNameLocked,
+      localizedNameLocked: model.localizedNameLocked,
+      wordCount: model.wordCount,
+      libraryId: model.libraryId,
+      libraryName: model.libraryName,
+      minHoursToRead: model.minHoursToRead,
+      maxHoursToRead: model.maxHoursToRead,
+      avgHoursToRead: model.avgHoursToRead,
+      folderPath: model.folderPath,
+      lastFolderScanned: model.lastFolderScanned,
     );
   }
 }

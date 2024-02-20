@@ -1,11 +1,13 @@
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';
 import 'package:chopper/chopper.dart' as ch;
 import 'package:kavita_api/src/entities/age_restriction.dart';
+import 'package:kavita_api/src/entities/bookmark.dart';
 import 'package:kavita_api/src/entities/cbl_import_summary.dart';
 import 'package:kavita_api/src/entities/collection_tag.dart';
 import 'package:kavita_api/src/entities/device.dart';
 import 'package:kavita_api/src/entities/file_format.dart';
 import 'package:kavita_api/src/entities/invite_user_response.dart';
+import 'package:kavita_api/src/entities/series.dart';
 import 'package:kavita_api/src/entities/server_info.dart';
 import 'package:kavita_api/src/entities/user_preferences.dart';
 import 'package:kavita_api/src/kavita_response.dart';
@@ -20,6 +22,7 @@ import 'user.dart';
 
 @AutoMappr([
   MapType<ch.Response<dynamic>, KavitaResponse<dynamic>>(),
+  MapType<ch.Response<int>, KavitaResponse<int>>(),
   MapType<ch.Response<client.UserDto>, KavitaResponse<User>>(),
   MapType<ch.Response<client.AgeRestrictionDto>,
       KavitaResponse<AgeRestriction>>(),
@@ -49,6 +52,8 @@ import 'user.dart';
   MapType<client.ServerInfoDto, ServerInfo>(reverse: true),
   MapType<client.FileFormatDto, FileFormat>(reverse: true),
   MapType<client.DeviceDto, Device>(reverse: true),
+  MapType<client.SeriesDto, Series>(reverse: true),
+  MapType<client.BookmarkDto, Bookmark>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();
