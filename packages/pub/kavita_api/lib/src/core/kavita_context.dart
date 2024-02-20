@@ -15,6 +15,13 @@ class KavitaContext {
 
   final Uri _baseUrl;
 
+  KavitaContext.fromApi(
+    client.KavitaApiV1 api, {
+    User? currentUser,
+  })  : _api = api,
+        _currentUser = currentUser,
+        _baseUrl = api.client.baseUrl;
+
   KavitaContext({
     required Uri baseUrl,
     User? currentUser,

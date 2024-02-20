@@ -5,15 +5,13 @@ import 'package:kavita_api/src/service/v1/kavita_api_v1.dart';
 class KavitaApi {
   final KavitaContext context;
 
-  const KavitaApi._({
-    required this.context,
-  });
+  const KavitaApi.fromContext(this.context);
 
   factory KavitaApi({
     required Uri baseUrl,
   }) {
-    return KavitaApi._(
-      context: KavitaContext(baseUrl: baseUrl),
+    return KavitaApi.fromContext(
+      KavitaContext(baseUrl: baseUrl),
     );
   }
 
@@ -21,8 +19,8 @@ class KavitaApi {
     User user, {
     required Uri baseUrl,
   }) {
-    return KavitaApi._(
-      context: KavitaContext(baseUrl: baseUrl, currentUser: user),
+    return KavitaApi.fromContext(
+      KavitaContext(baseUrl: baseUrl, currentUser: user),
     );
   }
 
