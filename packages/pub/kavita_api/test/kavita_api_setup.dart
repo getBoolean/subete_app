@@ -29,6 +29,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     mockImageApi(rawApi, apiKey);
     mockPanelsApi(rawApi, apiKey);
     mockRatingApi(rawApi);
+    mockReaderApi(rawApi, apiKey);
 
     return KavitaApi.fromContext(
       KavitaContext.fromApi(
@@ -417,6 +418,74 @@ void mockRatingApi(MockRawKavitaApiV1 api) {
   when(() => api.apiRatingOverallGet(seriesId: 1)).thenResponse(
     raw.RatingDto(),
   );
+}
+
+void mockReaderApi(MockRawKavitaApiV1 api, String apiKey) {
+  // pdf
+
+  // image
+
+  // thumbnail
+
+  // bookmark image
+
+  // file dimensions
+
+  // chapter info
+
+  // bookmark info
+
+  // mark read
+
+  // mark unread
+
+  // mark volume unread
+
+  // mark volume read
+
+  // mark multiple read
+
+  // mark multiple unread
+
+  // mark multiple series read
+
+  // mark multiple series unread
+
+  // get progress
+
+  // save progress
+
+  // continue point
+
+  // has progress
+
+  // chapter bookmarks
+
+  // all bookmarks
+
+  // remove bookmarks
+
+  // bulk remove bookmarks
+
+  // volume bookmarks
+
+  // series bookmarks
+
+  // bookmark page
+
+  // unbookmark page
+
+  // next chapter in series
+
+  // previous chapter in series
+
+  // time left
+
+  // ptoc (personal table of contents)
+
+  // delete ptoc (personal table of contents)
+
+  // create ptoc (personal table of contents)
 }
 
 extension _ReponseExtension<T> on When<Future<Response<T>>> {
