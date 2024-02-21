@@ -20,7 +20,7 @@ void main() {
         platform: DevicePlatform.custom,
         emailAddress: '',
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Update Device', () async {
@@ -30,12 +30,12 @@ void main() {
         platform: DevicePlatform.custom,
         emailAddress: '',
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Delete Device', () async {
       final res = await api.v1.device.deleteDevice(id: 1);
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Send to Device', () async {
@@ -43,7 +43,7 @@ void main() {
         deviceId: 1,
         chapterIds: [1],
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Send Series to Device', () async {
@@ -51,7 +51,7 @@ void main() {
         deviceId: 1,
         seriesId: 1,
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
   });
 }

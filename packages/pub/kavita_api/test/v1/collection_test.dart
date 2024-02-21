@@ -32,7 +32,7 @@ void main() {
         title: 'Test',
         seriesIds: [1],
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Update Collection For Series', () async {
@@ -41,7 +41,7 @@ void main() {
         title: 'Test',
         seriesIds: [1],
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Update Collection', () async {
@@ -50,7 +50,7 @@ void main() {
         title: 'Test',
         summary: 'test',
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Remove Series From Collection', () async {
@@ -58,12 +58,12 @@ void main() {
         id: 1,
         seriesIds: [1],
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Delete Collection', () async {
       final res = await api.v1.collection.deleteCollection(id: 1);
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
   });
 }

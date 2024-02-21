@@ -302,6 +302,7 @@ void mockFilterApi(MockRawKavitaApiV1 api) {
   ]);
 
   // delete filter
+  when(() => api.apiFilterDelete(filterId: 1)).thenResponse(null);
 
   // encode filter
 

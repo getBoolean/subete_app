@@ -18,7 +18,7 @@ void main() {
         name: 'test.cbl',
         fileName: 'test.cbl',
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -32,7 +32,7 @@ void main() {
         fileName: 'test.cbl',
         dryRun: true,
       );
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'No data received');
     });
   });
