@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:chopper/chopper.dart' as ch show Request;
-import 'package:kavita_api/src/entities.dart';
+import 'package:kavita_api/src/service/entities.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as client show KavitaApiV1;
 import 'package:meta/meta.dart';

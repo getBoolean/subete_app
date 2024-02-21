@@ -1,7 +1,7 @@
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';
 import 'package:chopper/chopper.dart' as ch;
 import 'package:kavita_api/src/core/kavita_response.dart';
-import 'package:kavita_api/src/entities.dart';
+import 'package:kavita_api/src/service/entities.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
 

@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/entities.dart';
+import 'package:kavita_api/src/service/entities.dart';
 
 part 'filter_v2.mapper.dart';
 

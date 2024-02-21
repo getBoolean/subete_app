@@ -5,7 +5,7 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
     as raw;
 import 'package:meta/meta.dart';
 
-import '../../entities/mappr.dart';
+import '../entities/mappr.dart';
 
 class KavitaApiV1 {
   final KavitaContext context;

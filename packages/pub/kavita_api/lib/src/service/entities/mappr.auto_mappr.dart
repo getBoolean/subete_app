@@ -10,8 +10,8 @@
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart' as _i1;
 import 'package:chopper/src/response.dart' as _i2;
 
-import '../core/kavita_response.dart' as _i3;
-import '../service/openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
+import '../../core/kavita_response.dart' as _i3;
+import '../openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 import 'age_restriction.dart' as _i6;
 import 'bookmark.dart' as _i22;
 import 'cbl_book_result.dart' as _i13;
@@ -35,7 +35,7 @@ import 'token_request.dart' as _i9;
 import 'user.dart' as _i5;
 import 'user_preferences.dart' as _i7;
 
-/// {@template package:kavita_api/src/entities/mappr.dart}
+/// {@template package:kavita_api/src/service/entities/mappr.dart}
 /// Available mappings:
 /// - `Response<dynamic>` → `KavitaResponse<dynamic>`.
 /// - `Response<int>` → `KavitaResponse<int>`.
@@ -109,7 +109,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   List<_i1.AutoMapprInterface> get _delegates => const [];
 
   /// {@macro AutoMapprInterface:canConvert}
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   bool canConvert<SOURCE, TARGET>({bool recursive = true}) {
     final sourceTypeOf = _typeOf<SOURCE>();
@@ -518,7 +518,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convert}
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   TARGET convert<SOURCE, TARGET>(SOURCE? model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -534,7 +534,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:tryConvert}
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   TARGET? tryConvert<SOURCE, TARGET>(SOURCE? model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -553,7 +553,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convertIterable}
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   Iterable<TARGET> convertIterable<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -572,7 +572,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   ///
   /// When an item in the source iterable is null, uses `whenSourceIsNull` if defined or null
   ///
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   Iterable<TARGET?> tryConvertIterable<SOURCE, TARGET>(
       Iterable<SOURCE?> model) {
@@ -589,7 +589,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convertList}
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   List<TARGET> convertList<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -608,7 +608,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   ///
   /// When an item in the source iterable is null, uses `whenSourceIsNull` if defined or null
   ///
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   List<TARGET?> tryConvertList<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -624,7 +624,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convertSet}
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   Set<TARGET> convertSet<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -643,7 +643,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   ///
   /// When an item in the source iterable is null, uses `whenSourceIsNull` if defined or null
   ///
-  /// {@macro package:kavita_api/src/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
   @override
   Set<TARGET?> tryConvertSet<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {

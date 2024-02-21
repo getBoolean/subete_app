@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/entities/file_format.dart';
+import 'package:kavita_api/src/service/entities/file_format.dart';
 
 part 'server_info.mapper.dart';
 
