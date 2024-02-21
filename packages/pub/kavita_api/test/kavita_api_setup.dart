@@ -272,7 +272,6 @@ void mockDeviceApi(MockRawKavitaApiV1 api) {
 }
 
 void mockFilterApi(MockRawKavitaApiV1 api) {
-  // update filter
   when(() => api.apiFilterUpdatePost(
         body: raw.FilterV2Dto(
           id: 1,
@@ -292,7 +291,6 @@ void mockFilterApi(MockRawKavitaApiV1 api) {
           limitTo: 10,
         ),
       )).thenResponse(null);
-
   when(() => api.apiFilterGet()).thenResponse([
     raw.SmartFilterDto(
       id: 1,
@@ -300,13 +298,48 @@ void mockFilterApi(MockRawKavitaApiV1 api) {
       filter: 'Test',
     ),
   ]);
-
-  // delete filter
   when(() => api.apiFilterDelete(filterId: 1)).thenResponse(null);
-
-  // encode filter
-
-  // decode filter
+  when(() => api.apiFilterEncodePost(
+        body: raw.FilterV2Dto(
+          id: 1,
+          name: 'Test Filter',
+          statements: [
+            raw.FilterStatementDto(
+              comparison: 1,
+              field: 1,
+              $value: 'Test',
+            ),
+          ],
+          combination: 1,
+          sortOptions: raw.SortOptions(
+            sortField: 1,
+            isAscending: true,
+          ),
+          limitTo: 10,
+        ),
+      )).thenResponse('Test');
+  when(
+    () => api.apiFilterDecodePost(
+        body: raw.DecodeFilterDto(encodedFilter: 'Test')),
+  ).thenResponse(
+    raw.FilterV2Dto(
+      id: 1,
+      name: 'Test Filter',
+      statements: [
+        raw.FilterStatementDto(
+          comparison: 1,
+          field: 1,
+          $value: 'Test',
+        ),
+      ],
+      combination: 1,
+      sortOptions: raw.SortOptions(
+        sortField: 1,
+        isAscending: true,
+      ),
+      limitTo: 10,
+    ),
+  );
 }
 
 extension _ReponseExtension<T> on When<Future<Response<T>>> {

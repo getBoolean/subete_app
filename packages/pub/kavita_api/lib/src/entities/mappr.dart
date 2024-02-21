@@ -36,6 +36,8 @@ import 'mappr.auto_mappr.dart';
   MapType<ch.Response<List<String>>, KavitaResponse<List<String>>>(),
   MapType<ch.Response<List<raw.SmartFilterDto>>,
       KavitaResponse<List<SmartFilter>>>(),
+  MapType<ch.Response<raw.FilterV2Dto>, KavitaResponse<FilterV2>>(
+      reverse: true),
   MapType<raw.UserDto, User>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestriction>(reverse: true),
   MapType<raw.UserPreferencesDto, UserPreferences>(reverse: true),

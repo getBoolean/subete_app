@@ -986,9 +986,27 @@ class KavitaApiV1Filter extends KavitaApiV1 {
         .throwOnError;
   }
 
-  // encode filter
+  /// Encode the filter
+  Future<KavitaResponse<String>> encodeFilter(FilterV2 filter) async {
+    return _mappr
+        .convert<Response<String>, KavitaResponse<String>>(
+          await context.api.apiFilterEncodePost(
+            body: _mappr.convert<FilterV2, raw.FilterV2Dto>(filter),
+          ),
+        )
+        .throwOnError;
+  }
 
-  // decode filter
+  /// Decode the filter
+  Future<KavitaResponse<FilterV2>> decodeFilter(String filter) async {
+    return _mappr
+        .convert<Response<raw.FilterV2Dto>, KavitaResponse<FilterV2>>(
+          await context.api.apiFilterDecodePost(
+            body: raw.DecodeFilterDto(encodedFilter: filter),
+          ),
+        )
+        .throwOnError;
+  }
 }
 
 /// Responsible for servicing up images stored in Kavita for entities
