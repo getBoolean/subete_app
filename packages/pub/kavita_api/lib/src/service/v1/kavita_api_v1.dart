@@ -956,7 +956,7 @@ class KavitaApiV1Filter extends KavitaApiV1 {
   /// This is reponsible for Filter caching
   KavitaApiV1Filter._({required super.context});
 
-  /// Creates or Updates the filter
+  /// Creates or Updates the user's filter
   Future<KavitaResponse<void>> updateFilter(FilterV2 filter) async {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -967,7 +967,15 @@ class KavitaApiV1Filter extends KavitaApiV1 {
         .throwOnError;
   }
 
-  // get filter
+  /// Returns the user's filter
+  Future<KavitaResponse<List<SmartFilter>>> getFilter() async {
+    return _mappr
+        .convert<Response<List<raw.SmartFilterDto>>,
+            KavitaResponse<List<SmartFilter>>>(
+          await context.api.apiFilterGet(),
+        )
+        .throwOnError;
+  }
 
   // delete filter
 

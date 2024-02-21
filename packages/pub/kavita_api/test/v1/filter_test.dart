@@ -31,7 +31,11 @@ void main() {
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
-    // get filter
+    test('Test Get Filter', () async {
+      final res = await api.v1.filter.getFilter();
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, isNotNull, reason: 'SmartFilter is null');
+    });
 
     // delete filter
 

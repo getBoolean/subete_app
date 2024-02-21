@@ -34,6 +34,8 @@ import 'mappr.auto_mappr.dart';
   MapType<ch.Response<bool>, KavitaResponse<bool>>(),
   MapType<ch.Response<String>, KavitaResponse<String>>(),
   MapType<ch.Response<List<String>>, KavitaResponse<List<String>>>(),
+  MapType<ch.Response<List<raw.SmartFilterDto>>,
+      KavitaResponse<List<SmartFilter>>>(),
   MapType<raw.UserDto, User>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestriction>(reverse: true),
   MapType<raw.UserPreferencesDto, UserPreferences>(reverse: true),
@@ -56,6 +58,7 @@ import 'mappr.auto_mappr.dart';
   MapType<raw.FilterStatementDto, FilterStatement>(reverse: true),
   MapType<raw.SortOptions, SortOptions>(reverse: true),
   MapType<raw.FilterV2Dto, FilterV2>(reverse: true),
+  MapType<raw.SmartFilterDto, SmartFilter>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();

@@ -12,6 +12,7 @@ export 'entities/invite_user_response.dart';
 export 'entities/series.dart';
 export 'entities/server_info.dart';
 export 'entities/site_theme.dart';
+export 'entities/smart_filter.dart';
 export 'entities/sort_options.dart';
 export 'entities/token_request.dart';
 export 'entities/user.dart';

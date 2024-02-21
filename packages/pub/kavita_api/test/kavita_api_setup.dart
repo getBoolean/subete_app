@@ -292,6 +292,20 @@ void mockFilterApi(MockRawKavitaApiV1 api) {
           limitTo: 10,
         ),
       )).thenResponse(null);
+
+  when(() => api.apiFilterGet()).thenResponse([
+    raw.SmartFilterDto(
+      id: 1,
+      name: 'Test Filter',
+      filter: 'Test',
+    ),
+  ]);
+
+  // delete filter
+
+  // encode filter
+
+  // decode filter
 }
 
 extension _ReponseExtension<T> on When<Future<Response<T>>> {
