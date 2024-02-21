@@ -9,7 +9,7 @@ void main() {
   setUp(() async => api = await setUpKavita());
 
   group('Test Kavita API v1 Cbl', () {
-    test('Test Validate Cbl', skip: true, () async {
+    test('Test Validate Cbl', () async {
       final res = await api.v1.cbl.validateCbl(
         contentType: 'application/json',
         contentDisposition: 'attachment; filename=test.cbl',

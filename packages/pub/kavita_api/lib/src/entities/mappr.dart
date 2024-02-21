@@ -35,6 +35,7 @@ import 'mappr.auto_mappr.dart';
       KavitaResponse<List<SmartFilter>>>(),
   MapType<ch.Response<raw.FilterV2Dto>, KavitaResponse<FilterV2>>(),
   MapType<ch.Response<raw.ProgressDto>, KavitaResponse<Progress>>(),
+  MapType<ch.Response<raw.RatingDto>, KavitaResponse<Rating>>(),
   MapType<raw.UserDto, User>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestriction>(reverse: true),
   MapType<raw.UserPreferencesDto, UserPreferences>(reverse: true),
@@ -58,7 +59,8 @@ import 'mappr.auto_mappr.dart';
   MapType<raw.SortOptions, SortOptions>(reverse: true),
   MapType<raw.FilterV2Dto, FilterV2>(reverse: true),
   MapType<raw.SmartFilterDto, SmartFilter>(reverse: true),
-  MapType<Progress, raw.ProgressDto>(reverse: true),
+  MapType<raw.RatingDto, Rating>(reverse: true),
+  MapType<raw.ProgressDto, Progress>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();

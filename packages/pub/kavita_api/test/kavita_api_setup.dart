@@ -28,6 +28,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     mockFilterApi(rawApi);
     mockImageApi(rawApi, apiKey);
     mockPanelsApi(rawApi, apiKey);
+    mockRatingApi(rawApi);
 
     return KavitaApi.fromContext(
       KavitaContext.fromApi(
@@ -409,6 +410,13 @@ void mockPanelsApi(MockRawKavitaApiV1 api, String apiKey) {
     seriesId: 1,
     libraryId: 1,
   ));
+}
+
+void mockRatingApi(MockRawKavitaApiV1 api) {
+  // overall
+  when(() => api.apiRatingOverallGet(seriesId: 1)).thenResponse(
+    raw.RatingDto(),
+  );
 }
 
 extension _ReponseExtension<T> on When<Future<Response<T>>> {

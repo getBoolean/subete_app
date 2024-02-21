@@ -10,6 +10,7 @@ export 'entities/filter_statement.dart';
 export 'entities/filter_v2.dart';
 export 'entities/invite_user_response.dart';
 export 'entities/progress.dart';
+export 'entities/rating.dart';
 export 'entities/series.dart';
 export 'entities/server_info.dart';
 export 'entities/site_theme.dart';

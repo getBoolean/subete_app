@@ -1188,6 +1188,19 @@ class KavitaApiV1Panels extends KavitaApiV1 {
 class KavitaApiV1Rating extends KavitaApiV1 {
   /// Responsible for providing external ratings for Series
   KavitaApiV1Rating._({required super.context});
+
+  // overall rating
+  Future<KavitaResponse<Rating>> getOverallRating({
+    required int seriesId,
+  }) async {
+    return _mappr
+        .convert<Response<raw.RatingDto>, KavitaResponse<Rating>>(
+          await context.api.apiRatingOverallGet(
+            seriesId: seriesId,
+          ),
+        )
+        .throwOnError;
+  }
 }
 
 /// For all things regarding reading, mainly focusing on non-Book
