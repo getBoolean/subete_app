@@ -1156,6 +1156,32 @@ class KavitaApiV1Image extends KavitaApiV1 {
 class KavitaApiV1Panels extends KavitaApiV1 {
   /// For the Panels app explicitly
   KavitaApiV1Panels._({required super.context});
+
+  /// Saves the progress of a given chapter.
+  Future<KavitaResponse<void>> saveProgress(Progress progress) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiPanelsSaveProgressPost(
+            body: _mappr.convert<Progress, raw.ProgressDto>(progress),
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError;
+  }
+
+  /// Gets the Progress of a given chapter
+  Future<KavitaResponse<Progress>> getProgress({
+    required int chapterId,
+  }) async {
+    return _mappr
+        .convert<Response<raw.ProgressDto>, KavitaResponse<Progress>>(
+          await context.api.apiPanelsGetProgressGet(
+            chapterId: chapterId,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError;
+  }
 }
 
 /// Responsible for providing external ratings for Series

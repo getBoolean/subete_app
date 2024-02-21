@@ -19,14 +19,15 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     when(() => rawApi.apiServerServerInfoGet())
         .thenResponse(raw.ServerInfoDto());
 
+    final apiKey = 'test';
     mockAccountApi(rawApi);
     mockCblApi(rawApi);
     mockDownloadApi(rawApi);
     mockCollectionApi(rawApi);
     mockDeviceApi(rawApi);
     mockFilterApi(rawApi);
-    final apiKey = 'test';
     mockImageApi(rawApi, apiKey);
+    mockPanelsApi(rawApi, apiKey);
 
     return KavitaApi.fromContext(
       KavitaContext.fromApi(
@@ -389,11 +390,32 @@ void mockImageApi(MockRawKavitaApiV1 api, String apiKey) {
       .thenResponse('1');
 }
 
+void mockPanelsApi(MockRawKavitaApiV1 api, String apiKey) {
+  when(() => api.apiPanelsSaveProgressPost(
+        body: raw.ProgressDto(
+          volumeId: 1,
+          chapterId: 1,
+          pageNum: 1,
+          seriesId: 1,
+          libraryId: 1,
+        ),
+        apiKey: apiKey,
+      )).thenResponse(null);
+  when(() => api.apiPanelsGetProgressGet(chapterId: 1, apiKey: apiKey))
+      .thenResponse(raw.ProgressDto(
+    volumeId: 1,
+    chapterId: 1,
+    pageNum: 1,
+    seriesId: 1,
+    libraryId: 1,
+  ));
+}
+
 extension _ReponseExtension<T> on When<Future<Response<T>>> {
-  void thenResponse(T? body, {Object? error}) {
+  void thenResponse(T? body, {Object? error, int statusCode = 200}) {
     return thenAnswer(
       (_) async => Response(
-        http.Response(body.toString(), 200),
+        http.Response(body.toString(), statusCode),
         body,
         error: error,
       ),

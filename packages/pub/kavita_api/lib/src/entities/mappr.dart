@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';
 import 'package:chopper/chopper.dart' as ch;
 import 'package:kavita_api/src/core/kavita_response.dart';
@@ -25,7 +23,6 @@ import 'mappr.auto_mappr.dart';
       KavitaResponse<List<CollectionTag>>>(),
   MapType<ch.Response<raw.CblImportSummaryDto>,
       KavitaResponse<CblImportSummary>>(),
-  MapType<ch.Response<dynamic>, KavitaResponse<Uint8List>>(),
   MapType<ch.Response<raw.CblBookResult>, KavitaResponse<CblBookResult>>(),
   MapType<ch.Response<raw.ServerInfoDto>, KavitaResponse<ServerInfo>>(),
   MapType<ch.Response<raw.FileFormatDto>, KavitaResponse<FileFormat>>(),
@@ -36,8 +33,8 @@ import 'mappr.auto_mappr.dart';
   MapType<ch.Response<List<String>>, KavitaResponse<List<String>>>(),
   MapType<ch.Response<List<raw.SmartFilterDto>>,
       KavitaResponse<List<SmartFilter>>>(),
-  MapType<ch.Response<raw.FilterV2Dto>, KavitaResponse<FilterV2>>(
-      reverse: true),
+  MapType<ch.Response<raw.FilterV2Dto>, KavitaResponse<FilterV2>>(),
+  MapType<ch.Response<raw.ProgressDto>, KavitaResponse<Progress>>(),
   MapType<raw.UserDto, User>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestriction>(reverse: true),
   MapType<raw.UserPreferencesDto, UserPreferences>(reverse: true),
@@ -61,6 +58,7 @@ import 'mappr.auto_mappr.dart';
   MapType<raw.SortOptions, SortOptions>(reverse: true),
   MapType<raw.FilterV2Dto, FilterV2>(reverse: true),
   MapType<raw.SmartFilterDto, SmartFilter>(reverse: true),
+  MapType<Progress, raw.ProgressDto>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();
