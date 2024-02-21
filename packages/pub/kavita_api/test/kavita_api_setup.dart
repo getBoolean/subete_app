@@ -177,7 +177,22 @@ void mockCblApi(MockRawKavitaApiV1 api) {
   ).thenResponse(summary);
 }
 
-void mockDownloadApi(MockRawKavitaApiV1 api) {}
+void mockDownloadApi(MockRawKavitaApiV1 api) {
+  when(() => api.apiDownloadVolumeSizeGet(volumeId: 1)).thenResponse(1);
+  when(() => api.apiDownloadChapterSizeGet(chapterId: 1)).thenResponse(1);
+  when(() => api.apiDownloadSeriesSizeGet(seriesId: 1)).thenResponse(1);
+
+  when(() => api.apiDownloadVolumeGet(volumeId: 1)).thenResponse('1');
+  when(() => api.apiDownloadChapterGet(chapterId: 1)).thenResponse('1');
+  when(() => api.apiDownloadSeriesGet(seriesId: 1)).thenResponse('1');
+  when(
+    () => api.apiDownloadBookmarksPost(
+      body: raw.DownloadBookmarkDto(bookmarks: [
+        raw.BookmarkDto(chapterId: 1, seriesId: 1, volumeId: 1, page: 1),
+      ]),
+    ),
+  ).thenResponse('1');
+}
 
 void mockCollectionApi(MockRawKavitaApiV1 api) {
   when(() => api.apiCollectionGet()).thenResponse([

@@ -857,12 +857,12 @@ class KavitaApiV1Download extends KavitaApiV1 {
 
   /// For a given volume, return the size in bytes
   Future<KavitaResponse<int>> getVolumeSize({
-    required int volumeId,
+    required int id,
   }) async {
     return _mappr
         .convert<Response<int>, KavitaResponse<int>>(
           await context.api.apiDownloadVolumeSizeGet(
-            volumeId: volumeId,
+            volumeId: id,
           ),
         )
         .throwOnError;
@@ -870,12 +870,12 @@ class KavitaApiV1Download extends KavitaApiV1 {
 
   /// For a given chapter, return the size in bytes
   Future<KavitaResponse<int>> getChapterSize({
-    required int chapterId,
+    required int id,
   }) async {
     return _mappr
         .convert<Response<int>, KavitaResponse<int>>(
           await context.api.apiDownloadChapterSizeGet(
-            chapterId: chapterId,
+            chapterId: id,
           ),
         )
         .throwOnError;
@@ -883,12 +883,12 @@ class KavitaApiV1Download extends KavitaApiV1 {
 
   /// For a series, return the size in bytes
   Future<KavitaResponse<int>> getSeriesSize({
-    required int seriesId,
+    required int id,
   }) async {
     return _mappr
         .convert<Response<int>, KavitaResponse<int>>(
           await context.api.apiDownloadSeriesSizeGet(
-            seriesId: seriesId,
+            seriesId: id,
           ),
         )
         .throwOnError;
@@ -898,12 +898,12 @@ class KavitaApiV1Download extends KavitaApiV1 {
   ///
   /// If the chapters are multiple zips, they will all be zipped up.
   Future<KavitaResponse<String>> downloadVolume({
-    required int volumeId,
+    required int id,
   }) async {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDownloadVolumeGet(
-            volumeId: volumeId,
+            volumeId: id,
           ),
         )
         .throwOnError
@@ -914,24 +914,24 @@ class KavitaApiV1Download extends KavitaApiV1 {
   ///
   /// If the chapter contains multiple files, they will be zipped.
   Future<KavitaResponse<String>> downloadChapter({
-    required int chapterId,
+    required int id,
   }) async {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
             await context.api.apiDownloadChapterGet(
-          chapterId: chapterId,
+          chapterId: id,
         ))
         .cast();
   }
 
   /// Returns the zip for a series.
   Future<KavitaResponse<String>> downloadSeries({
-    required int seriesId,
+    required int id,
   }) async {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDownloadSeriesGet(
-            seriesId: seriesId,
+            seriesId: id,
           ),
         )
         .throwOnError

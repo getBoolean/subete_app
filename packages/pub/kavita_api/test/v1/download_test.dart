@@ -8,41 +8,54 @@ void main() {
 
   setUp(() async => api = await setUpKavita());
 
-  group('Test Kavita API v1 Download', skip: true, () {
+  group('Test Kavita API v1 Download', () {
     test('Test Volume Size', () async {
-      final res = await api.v1.download.getVolumeSize(volumeId: 22800);
+      final res = await api.v1.download.getVolumeSize(id: 1);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Chapter Size', () async {
-      final res = await api.v1.download.getChapterSize(chapterId: 114494);
+      final res = await api.v1.download.getChapterSize(id: 1);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Series Size', () async {
-      // TEST_TODO: Add test for series size
+      final res = await api.v1.download.getSeriesSize(id: 1);
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Download Volume', () async {
-      final res = await api.v1.download.downloadVolume(volumeId: 22800);
+      final res = await api.v1.download.downloadVolume(id: 1);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Download Chapter', () async {
-      final res = await api.v1.download.downloadChapter(chapterId: 114494);
+      final res = await api.v1.download.downloadChapter(id: 1);
       expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Download Series', () async {
-      // TEST_TODO: Add test for download series
+      final res = await api.v1.download.downloadSeries(id: 1);
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Download Bookmarks', () async {
-      // TEST_TODO: Add test for download bookmarks
+      final res = await api.v1.download.downloadBookmarks([
+        Bookmark(
+          page: 1,
+          volumeId: 1,
+          seriesId: 1,
+          chapterId: 1,
+        ),
+      ]);
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.body, isNotNull, reason: 'No data received');
     });
   });
 }
