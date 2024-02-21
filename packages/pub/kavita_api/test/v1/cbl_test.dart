@@ -8,15 +8,32 @@ void main() {
 
   setUp(() async => api = await setUpKavita());
 
-  group('Test Kavita API v1 Cbl', skip: true, () {
+  group('Test Kavita API v1 Cbl', () {
     test('Test Validate Cbl', skip: true, () async {
-      // TEST_TODO: Add test for validate cbl
-      await api.v1.cbl.validateCbl();
+      final res = await api.v1.cbl.validateCbl(
+        contentType: 'application/json',
+        contentDisposition: 'attachment; filename=test.cbl',
+        headers: {},
+        length: 0,
+        name: 'test.cbl',
+        fileName: 'test.cbl',
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.body, isNotNull, reason: 'No data received');
     });
 
-    test('Test Import Cbl', skip: true, () async {
-      // TEST_TODO: Add test for import cbl
-      await api.v1.cbl.importCbl();
+    test('Test Import Cbl', () async {
+      final res = await api.v1.cbl.importCbl(
+        contentType: 'application/json',
+        contentDisposition: 'attachment; filename=test.cbl',
+        headers: {},
+        length: 0,
+        name: 'test.cbl',
+        fileName: 'test.cbl',
+        dryRun: true,
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+      expect(res.body, isNotNull, reason: 'No data received');
     });
   });
 }

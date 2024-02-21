@@ -145,7 +145,37 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
   when(() => api.apiAccountOpdsUrlGet()).thenResponse('test');
 }
 
-void mockCblApi(MockRawKavitaApiV1 api) {}
+void mockCblApi(MockRawKavitaApiV1 api) {
+  final summary = raw.CblImportSummaryDto(
+    cblName: 'test.cbl',
+    fileName: 'test.cbl',
+    results: [],
+    success: 1,
+    successfulInserts: [],
+  );
+  // validate cbl
+  when(
+    () => api.apiCblValidatePost(
+      contentType: 'application/json',
+      contentDisposition: 'attachment; filename=test.cbl',
+      headers: {},
+      length: 0,
+      name: 'test.cbl',
+      fileName: 'test.cbl',
+    ),
+  ).thenResponse(summary);
+  when(
+    () => api.apiCblImportPost(
+      contentType: 'application/json',
+      contentDisposition: 'attachment; filename=test.cbl',
+      headers: {},
+      length: 0,
+      name: 'test.cbl',
+      fileName: 'test.cbl',
+      dryRun: true,
+    ),
+  ).thenResponse(summary);
+}
 
 void mockDownloadApi(MockRawKavitaApiV1 api) {}
 
