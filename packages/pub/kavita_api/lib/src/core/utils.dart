@@ -7,7 +7,7 @@ extension ThrowOnError<T> on KavitaResponse<T> {
   @internal
   KavitaResponse<T> get throwOnError {
     if (!isSuccessful && error != null) {
-      throw KavitaException(error.toString(), statusCode);
+      throw KavitaHttpException(error.toString(), statusCode);
     }
     return this;
   }
