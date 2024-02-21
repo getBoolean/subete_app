@@ -10,6 +10,9 @@ import 'kavita_exception.dart';
 
 class KavitaContext {
   client.KavitaApiV1 _api;
+
+  /// The raw generated Kavita API client
+  @internal
   client.KavitaApiV1 get api => _api;
 
   User? _currentUser;
