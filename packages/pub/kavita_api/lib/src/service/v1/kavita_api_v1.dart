@@ -1015,6 +1015,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   KavitaApiV1Image._({required super.context});
 
   /// Returns cover image for [Chapter]
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getChapterCover({
     required int id,
   }) async {
@@ -1030,6 +1032,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns cover image for [Library]
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getLibraryCover({
     required int id,
   }) async {
@@ -1045,6 +1049,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns cover image for [Volume]
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getVolumeCover({
     required int id,
   }) async {
@@ -1060,6 +1066,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns cover image for [Series]
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getSeriesCover({
     required int id,
   }) async {
@@ -1075,6 +1083,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns cover image for [CollectionTag]
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getCollectionCover({
     required int id,
   }) async {
@@ -1090,6 +1100,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns cover image for a [ReadingList]
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getReadingListCover({
     required int id,
   }) async {
@@ -1105,6 +1117,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns image for a given [Bookmark] page
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getBookmarkImage({
     required int chapterId,
     required int pageNum,
@@ -1122,6 +1136,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns the image associated with a web-link
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getWebLinkImage({
     required Uri url,
   }) async {
@@ -1137,6 +1153,8 @@ class KavitaApiV1Image extends KavitaApiV1 {
   }
 
   /// Returns a temp cover upload image
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getTempCoverUploadImage({
     required String filename,
   }) async {
@@ -1158,6 +1176,8 @@ class KavitaApiV1Panels extends KavitaApiV1 {
   KavitaApiV1Panels._({required super.context});
 
   /// Saves the progress of a given chapter.
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<void>> saveProgress(Progress progress) async {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -1170,6 +1190,8 @@ class KavitaApiV1Panels extends KavitaApiV1 {
   }
 
   /// Gets the Progress of a given chapter
+  ///
+  /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<Progress>> getProgress({
     required int chapterId,
   }) async {
