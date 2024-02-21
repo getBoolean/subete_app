@@ -1014,7 +1014,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
   /// Responsible for servicing up images stored in Kavita for entities
   KavitaApiV1Image._({required super.context});
 
-  /// Returns cover image for Chapter
+  /// Returns cover image for [Chapter]
   Future<KavitaResponse<String>> getChapterCover({
     required int id,
   }) async {
@@ -1029,21 +1029,127 @@ class KavitaApiV1Image extends KavitaApiV1 {
         .cast();
   }
 
-  // library cover
+  /// Returns cover image for [Library]
+  Future<KavitaResponse<String>> getLibraryCover({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageLibraryCoverGet(
+            libraryId: id,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 
-  // volume cover
+  /// Returns cover image for [Volume]
+  Future<KavitaResponse<String>> getVolumeCover({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageVolumeCoverGet(
+            volumeId: id,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 
-  // series cover
+  /// Returns cover image for [Series]
+  Future<KavitaResponse<String>> getSeriesCover({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageSeriesCoverGet(
+            seriesId: id,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 
-  // collection cover
+  /// Returns cover image for [CollectionTag]
+  Future<KavitaResponse<String>> getCollectionCover({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageCollectionCoverGet(
+            collectionTagId: id,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 
-  // readinglist cover
+  /// Returns cover image for a [ReadingList]
+  Future<KavitaResponse<String>> getReadingListCover({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageReadinglistCoverGet(
+            readingListId: id,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 
-  // bookmark image
+  /// Returns image for a given [Bookmark] page
+  Future<KavitaResponse<String>> getBookmarkImage({
+    required int chapterId,
+    required int pageNum,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageBookmarkGet(
+            chapterId: chapterId,
+            pageNum: pageNum,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 
-  // web link
+  /// Returns the image associated with a web-link
+  Future<KavitaResponse<String>> getWebLinkImage({
+    required Uri url,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageWebLinkGet(
+            url: url.toString(),
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 
-  // cover upload
+  /// Returns a temp cover upload image
+  Future<KavitaResponse<String>> getTempCoverUploadImage({
+    required String filename,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageCoverUploadGet(
+            filename: filename,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
 }
 
 /// For the Panels app explicitly

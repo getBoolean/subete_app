@@ -383,7 +383,7 @@ void mockImageApi(MockRawKavitaApiV1 api, String apiKey) {
       .thenResponse('1');
   when(() => api.apiImageBookmarkGet(chapterId: 1, pageNum: 1, apiKey: apiKey))
       .thenResponse('1');
-  when(() => api.apiImageWebLinkGet(url: 'test', apiKey: apiKey))
+  when(() => api.apiImageWebLinkGet(url: 'https://example.com', apiKey: apiKey))
       .thenResponse('1');
   when(() => api.apiImageCoverUploadGet(filename: 'test', apiKey: apiKey))
       .thenResponse('1');
