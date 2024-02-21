@@ -48,6 +48,13 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
   );
   when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
       .thenResponse(null);
+  when(() => api.apiAccountConfirmPasswordResetPost(
+        body: raw.ConfirmPasswordResetDto(
+          token: '',
+          email: '',
+          password: '',
+        ),
+      )).thenResponse('test');
 }
 
 void mockCblApi(MockRawKavitaApiV1 api) {}

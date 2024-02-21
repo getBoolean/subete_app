@@ -17,9 +17,15 @@ void main() {
       expect(res.isSuccessful, isTrue, reason: 'Failed to reset password');
     });
 
-    // confirm password reset
-    test('Test Confirm Password Reset', skip: true, () async {
-      // TEST_TODO: Add test for confirm password reset
+    test('Test Confirm Password Reset', () async {
+      final res = await api.v1.account.confirmPasswordReset(
+        token: '',
+        email: '',
+        password: '',
+      );
+      expect(res.isSuccessful, isTrue,
+          reason: 'Failed to confirm password reset');
+      expect(res.body, 'test', reason: 'Expected response to be "test"');
     });
 
     // register first user
