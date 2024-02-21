@@ -1,20 +1,41 @@
 import 'dart:async';
 
 import 'package:chopper/chopper.dart' as ch show Request;
-import 'package:kavita_api/src/entities/user.dart';
+import 'package:kavita_api/src/entities.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as client show KavitaApiV1;
 import 'package:meta/meta.dart';
+
+import 'kavita_exception.dart';
 
 class KavitaContext {
   client.KavitaApiV1 _api;
   client.KavitaApiV1 get api => _api;
 
   User? _currentUser;
+
+  /// The current user logged in to the Kavita server
   User? get currentUser => _currentUser;
 
   final Uri _baseUrl;
+
+  /// The base URL of the Kavita server
   Uri get baseUrl => _baseUrl;
+
+  /// Whether a user is currently logged in
+  bool get isLoggedIn => _currentUser != null;
+
+  /// The current user's API key
+  ///
+  /// Throws a [KavitaAuthException] if the user is not logged in
+  /// (i.e. [currentUser] is `null`)
+  String get apiKey {
+    if (_currentUser == null || _currentUser!.apiKey == null) {
+      throw KavitaAuthException('User is not logged in');
+    }
+
+    return _currentUser!.apiKey!;
+  }
 
   @internal
   KavitaContext.fromApi(
