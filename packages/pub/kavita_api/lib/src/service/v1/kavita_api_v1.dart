@@ -961,6 +961,25 @@ class KavitaApiV1Download extends KavitaApiV1 {
 class KavitaApiV1Filter extends KavitaApiV1 {
   /// This is reponsible for Filter caching
   KavitaApiV1Filter._({required super.context});
+
+  /// Creates or Updates the filter
+  Future<KavitaResponse<void>> updateFilter(FilterV2 filter) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiFilterUpdatePost(
+            body: _mappr.convert<FilterV2, raw.FilterV2Dto>(filter),
+          ),
+        )
+        .throwOnError;
+  }
+
+  // get filter
+
+  // delete filter
+
+  // encode filter
+
+  // decode filter
 }
 
 /// Responsible for servicing up images stored in Kavita for entities

@@ -23,6 +23,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     mockDownloadApi(api);
     mockCollectionApi(api);
     mockDeviceApi(api);
+    mockFilterApi(api);
 
     return KavitaApi.fromContext(KavitaContext.fromApi(api));
   }
@@ -266,6 +267,29 @@ void mockDeviceApi(MockRawKavitaApiV1 api) {
         body: raw.SendSeriesToDeviceDto(
           deviceId: 1,
           seriesId: 1,
+        ),
+      )).thenResponse(null);
+}
+
+void mockFilterApi(MockRawKavitaApiV1 api) {
+  // update filter
+  when(() => api.apiFilterUpdatePost(
+        body: raw.FilterV2Dto(
+          id: 1,
+          name: 'Test Filter',
+          statements: [
+            raw.FilterStatementDto(
+              comparison: 1,
+              field: 1,
+              $value: 'Test',
+            ),
+          ],
+          combination: 1,
+          sortOptions: raw.SortOptions(
+            sortField: 1,
+            isAscending: true,
+          ),
+          limitTo: 10,
         ),
       )).thenResponse(null);
 }
