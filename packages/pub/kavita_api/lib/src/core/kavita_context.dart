@@ -14,6 +14,7 @@ class KavitaContext {
   User? get currentUser => _currentUser;
 
   final Uri _baseUrl;
+  Uri get baseUrl => _baseUrl;
 
   @internal
   KavitaContext.fromApi(

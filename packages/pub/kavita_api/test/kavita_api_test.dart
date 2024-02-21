@@ -1,17 +1,30 @@
 import 'package:kavita_api/kavita_api.dart';
 import 'package:test/test.dart';
 
-import 'kavita_api_setup.dart';
-
 void main() {
-  late final KavitaApi client;
+  group('Test Kavita API', () {
+    test('Test KavitaApi Constructor', () async {
+      final testApi = KavitaApi(baseUrl: Uri.parse('http://localhost:3000'));
+      expect(
+        testApi.context.baseUrl,
+        equals(Uri.parse('http://localhost:3000')),
+        reason: 'Base URL is not set correctly',
+      );
+    });
 
-  setUpAll(() async => client = await setUpKavita());
-
-  group('Test Kavita API v1 Server', () {
-    test('Test Server Info', () async {
-      final res = await client.v1.server.getServerInfo();
-      expect(res.isSuccessful, isTrue, reason: 'Request was not successful');
+    test('Test KavitaApi.fromUser Constructor', () async {
+      final testApi = KavitaApi.fromUser(
+        User(
+          token: 'test',
+        ),
+        baseUrl: Uri.parse('http://localhost:3000'),
+      );
+      expect(
+        testApi.context.baseUrl,
+        equals(Uri.parse('http://localhost:3000')),
+        reason: 'Base URL is not set correctly',
+      );
+      expect(testApi.context.currentUser, isNotNull, reason: 'User is not set');
     });
   });
 }
