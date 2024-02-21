@@ -4,15 +4,16 @@ import 'package:test/test.dart';
 import '../kavita_api_setup.dart';
 
 void main() {
-  late final KavitaApi api;
+  late KavitaApi api;
 
-  setUpAll(() async => api = await setUpKavita());
+  setUp(() async => api = await setUpKavita());
 
   group('Test Kavita API v1 Account', () {
     test('Test Reset Password', () async {
       final res = await api.v1.account.resetPassword(
-        userName: '',
+        username: '',
         password: '',
+        oldPassword: '',
       );
       expect(res.isSuccessful, isTrue, reason: 'Failed to reset password');
     });
@@ -28,101 +29,170 @@ void main() {
       expect(res.body, 'test', reason: 'Expected response to be "test"');
     });
 
-    // register first user
-    test('Test Register First User', skip: true, () async {
-      // TEST_TODO: Add test for register first user
+    test('Test Register First User', () async {
+      final res = await api.v1.account.registerFirstUser(
+        username: '',
+        password: '',
+        email: '',
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to register first user');
     });
 
-    // login
-    test('Test Login', skip: true, () async {
-      // TEST_TODO: Add test for login
+    test('Test Login', () async {
+      final res = await api.v1.account.login(
+        username: '',
+        password: '',
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to login');
+      expect(res.body, isNotNull, reason: 'Expected response to be not null');
     });
 
-    // logout
-    test('Test Logout', skip: true, () async {
-      // TEST_TODO: Add test for logout
+    test('Test Logout', () async {
+      api.v1.account.logout();
+      expect(api.context.currentUser, isNull,
+          reason: 'Expected user to be null');
     });
 
-    // refresh account
-    test('Test Refresh Account', skip: true, () async {
-      // TEST_TODO: Add test for refresh account
+    test('Test Refresh Account', () async {
+      final res = await api.v1.account.refreshAccount();
+      expect(res.isSuccessful, isTrue, reason: 'Failed to refresh account');
     });
 
-    // refresh token
-    test('Test Refresh Token', skip: true, () async {
-      // TEST_TODO: Add test for refresh token
+    test('Test Refresh Token', () async {
+      final res = await api.v1.account.refreshToken(
+        token: 'token',
+        refreshToken: 'refreshToken',
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to refresh token');
+      expect(res.body, isNotNull, reason: 'Expected response to be not null');
+      expect(res.body!.token, 'token2',
+          reason: 'Expected response token to be "token2"');
+      expect(res.body!.refreshToken, 'refreshToken2',
+          reason: 'Expected response refresh token to be "refreshToken2"');
     });
 
-    // get roles
-    test('Test Get Roles', skip: true, () async {
-      // TEST_TODO: Add test for get roles
+    test('Test Get Roles', () async {
+      final res = await api.v1.account.getRoles();
+      expect(res.isSuccessful, isTrue, reason: 'Failed to get roles');
+      expect(res.body, isNotNull, reason: 'Expected response to be not null');
+      expect(res.body!.isNotEmpty, isTrue,
+          reason: 'Expected response to be not empty');
+      expect(res.body!.first, 'test',
+          reason: 'Expected first response to be "test"');
     });
 
-    // reset api key
-    test('Test Reset API Key', skip: true, () async {
-      // TEST_TODO: Add test for reset api key
+    test('Test Reset API Key', () async {
+      final res = await api.v1.account.resetApiKey();
+      expect(res.isSuccessful, isTrue, reason: 'Failed to reset API key');
+      expect(res.body, 'key', reason: 'Expected response to be "key"');
     });
 
-    // update email
-    test('Test Update Email', skip: true, () async {
-      // TEST_TODO: Add test for update email
+    test('Test Update Email', () async {
+      final res = await api.v1.account.updateEmail(
+        email: '',
+        password: '',
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to update email');
     });
 
-    // confirm email
-    test('Test Confirm Email', skip: true, () async {
-      // TEST_TODO: Add test for confirm email
+    test('Test Confirm Email', () async {
+      final res = await api.v1.account.confirmEmail(
+        token: '',
+        email: '',
+        password: '',
+        username: '',
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to confirm email');
+      expect(res.body, isNotNull, reason: 'Expected response to be not null');
     });
 
-    // confirm migration email
-    test('Test Confirm Migration Email', skip: true, () async {
-      // TEST_TODO: Add test for confirm migration email
+    test('Test Confirm Migration Email', () async {
+      final res = await api.v1.account.confirmMigrationEmail(
+        token: '',
+        email: '',
+      );
+      expect(res.isSuccessful, isTrue,
+          reason: 'Failed to confirm migration email');
+      expect(res.body, isNotNull, reason: 'Expected response to be not null');
     });
 
-    // resend confirmation email
-    test('Test Resend Confirmation Email', skip: true, () async {
-      // TEST_TODO: Add test for resend confirmation email
+    test('Test Resend Confirmation Email', () async {
+      final res = await api.v1.account.resendConfirmationEmail(userId: 1);
+      expect(res.isSuccessful, isTrue,
+          reason: 'Failed to resend confirmation email');
+      expect(res.body, isNotNull, reason: 'Expected response to be not null');
+      expect(res.body!.emailLink, 'test',
+          reason: 'Expected response email link to be "test"');
+      expect(res.body!.emailSent, isTrue,
+          reason: 'Expected response email sent to be true');
+      expect(res.body!.invalidEmail, isFalse,
+          reason: 'Expected response invalid email to be false');
     });
 
-    // is email confirmed
-    test('Test Is Email Confirmed', skip: true, () async {
-      // TEST_TODO: Add test for is email confirmed
+    test('Test Is Email Confirmed', () async {
+      final res = await api.v1.account.isEmailConfirmed();
+      expect(res.isSuccessful, isTrue,
+          reason: 'Failed to check if email is confirmed');
+      expect(res.body, isTrue, reason: 'Expected response to be true');
     });
 
-    // is email valid
-    test('Test Is Email Valid', skip: true, () async {
-      // TEST_TODO: Add test for is email valid
+    test('Test Is Email Valid', () async {
+      final res = await api.v1.account.isEmailValid();
+      expect(res.isSuccessful, isTrue,
+          reason: 'Failed to check if email is valid');
+      expect(res.body, isTrue, reason: 'Expected response to be true');
     });
 
-    // update age restriction
-    test('Test Update Age Restriction', skip: true, () async {
-      // TEST_TODO: Add test for update age restriction
+    test('Test Update Age Restriction', () async {
+      final res = await api.v1.account.updateAgeRestriction(
+        ageRating: 0,
+        includeUnknowns: false,
+      );
+      expect(res.isSuccessful, isTrue,
+          reason: 'Failed to update age restriction');
     });
 
-    // update user
-    test('Test Update User', skip: true, () async {
-      // TEST_TODO: Add test for update user
+    test('Test Update User', () async {
+      final res = await api.v1.account.updateUser(
+        userId: 1,
+        username: '',
+        roles: [],
+        libraries: [],
+        ageRating: 0,
+        includeUnknowns: false,
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to update user');
     });
 
-    // get invite url
-    test('Test Get Invite URL', skip: true, () async {
-      // TEST_TODO: Add test for get invite url
+    test('Test Get Invite URL', () async {
+      final res =
+          await api.v1.account.getInviteUrl(userId: 1, withBaseUrl: false);
+      expect(res.isSuccessful, isTrue, reason: 'Failed to get invite URL');
+      expect(res.body, 'test', reason: 'Expected response to be "test"');
     });
 
-    // invite user
-    test('Test Invite User', skip: true, () async {
-      // TEST_TODO: Add test for invite user
+    test('Test Invite User', () async {
+      final res = await api.v1.account.inviteUser(
+        email: '',
+        roles: [],
+        libraries: [],
+        ageRating: 0,
+        includeUnknowns: false,
+      );
+      expect(res.isSuccessful, isTrue, reason: 'Failed to invite user');
+      expect(res.body, 'test', reason: 'Expected response to be "test"');
     });
 
-    // forgot password
-    test('Test Forgot Password', skip: true, () async {
-      // TEST_TODO: Add test for forgot password
+    test('Test Forgot Password', () async {
+      final res = await api.v1.account.forgotPassword(email: '');
+      expect(res.isSuccessful, isTrue, reason: 'Failed to forgot password');
+      expect(res.body, 'link', reason: 'Expected response to be "link"');
     });
 
-    // get opds url
-    test('Test Get OPDS URL', skip: true, () async {
+    test('Test Get OPDS URL', () async {
       final res = await api.v1.account.getOpdsUrl();
       expect(res.isSuccessful, isTrue, reason: 'Failed to get OPDS URL');
-      print('OPDS URL: ${res.bodyString}');
+      expect(res.body, 'test', reason: 'Expected response to be "test"');
     });
   });
 }

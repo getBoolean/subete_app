@@ -45,6 +45,7 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
   final resetPasswordDto = raw.ResetPasswordDto(
     userName: '',
     password: '',
+    oldPassword: '',
   );
   when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
       .thenResponse(null);
@@ -55,6 +56,93 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
           password: '',
         ),
       )).thenResponse('test');
+  when(() => api.apiAccountRegisterPost(
+        body: raw.RegisterDto(
+          username: '',
+          password: '',
+          email: '',
+        ),
+      )).thenResponse(raw.UserDto());
+  when(() => api.apiAccountLoginPost(
+        body: raw.LoginDto(
+          username: '',
+          password: '',
+        ),
+      )).thenResponse(raw.UserDto());
+  when(() => api.apiAccountRefreshAccountGet()).thenResponse(raw.UserDto());
+  when(() => api.apiAccountRefreshTokenPost(
+        body: raw.TokenRequestDto(
+          token: 'token',
+          refreshToken: 'refreshToken',
+        ),
+      )).thenResponse(raw.TokenRequestDto(
+    token: 'token2',
+    refreshToken: 'refreshToken2',
+  ));
+  when(() => api.apiAccountRolesGet()).thenResponse(['test']);
+  when(() => api.apiAccountResetApiKeyPost()).thenResponse('key');
+  when(() => api.apiAccountUpdateEmailPost(
+        body: raw.UpdateEmailDto(
+          email: '',
+          password: '',
+        ),
+      )).thenResponse(null);
+  when(() => api.apiAccountConfirmEmailPost(
+        body: raw.ConfirmEmailDto(
+          token: '',
+          email: '',
+          password: '',
+          username: '',
+        ),
+      )).thenResponse(raw.UserDto());
+  when(() => api.apiAccountConfirmMigrationEmailPost(
+        body: raw.ConfirmMigrationEmailDto(
+          token: '',
+          email: '',
+        ),
+      )).thenResponse(raw.UserDto());
+  when(() => api.apiAccountResendConfirmationEmailPost(userId: 1))
+      .thenResponse(raw.InviteUserResponse(
+    invalidEmail: false,
+    emailSent: true,
+    emailLink: 'test',
+  ));
+  when(() => api.apiAccountEmailConfirmedGet()).thenResponse(true);
+  when(() => api.apiAccountIsEmailValidGet()).thenResponse(true);
+  when(() => api.apiAccountUpdateAgeRestrictionPost(
+        body: raw.UpdateAgeRestrictionDto(
+          ageRating: 0,
+          includeUnknowns: false,
+        ),
+      )).thenResponse(null);
+  when(() => api.apiAccountUpdatePost(
+        body: raw.UpdateUserDto(
+          userId: 1,
+          username: '',
+          roles: [],
+          libraries: [],
+          ageRestriction: raw.AgeRestrictionDto(
+            ageRating: 0,
+            includeUnknowns: false,
+          ),
+        ),
+      )).thenResponse(null);
+  when(() => api.apiAccountInviteUrlGet(userId: 1, withBaseUrl: false))
+      .thenResponse('test');
+  when(() => api.apiAccountInvitePost(
+        body: raw.InviteUserDto(
+            email: '',
+            roles: [],
+            libraries: [],
+            ageRestriction: raw.AgeRestrictionDto(
+              ageRating: 0,
+              includeUnknowns: false,
+            )),
+      )).thenResponse('test');
+  when(() => api.apiAccountForgotPasswordPost(
+        email: '',
+      )).thenResponse('link');
+  when(() => api.apiAccountOpdsUrlGet()).thenResponse('test');
 }
 
 void mockCblApi(MockRawKavitaApiV1 api) {}

@@ -52,6 +52,7 @@ import 'user_preferences.dart' as _i7;
 /// - `Response<List<DeviceDto>>` → `KavitaResponse<List<Device>>`.
 /// - `Response<bool>` → `KavitaResponse<bool>`.
 /// - `Response<String>` → `KavitaResponse<String>`.
+/// - `Response<List<String>>` → `KavitaResponse<List<String>>`.
 /// - `UserDto` → `User`.
 /// - `User` → `UserDto`.
 /// - `AgeRestrictionDto` → `AgeRestriction`.
@@ -218,6 +219,12 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i2.Response<String>?>()) &&
         (targetTypeOf == _typeOf<_i3.KavitaResponse<String>>() ||
             targetTypeOf == _typeOf<_i3.KavitaResponse<String>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<String>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<String>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<String>>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<List<String>>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
@@ -746,6 +753,16 @@ class $Mappr implements _i1.AutoMapprInterface {
       }
       return (_map__i2$Response$String$_To__i3$KavitaResponse$String$(
           (model as _i2.Response<String>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<String>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<String>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<String>>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<List<String>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$String$$_To__i3$KavitaResponse$List$String$$(
+          (model as _i2.Response<List<String>>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
@@ -1330,6 +1347,22 @@ class $Mappr implements _i1.AutoMapprInterface {
       throw Exception(
           r'Mapping Response<String> → KavitaResponse<String> failed because Response<String> was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<Response<String>, KavitaResponse<String>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body,
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<List<String>>
+      _map__i2$Response$List$String$$_To__i3$KavitaResponse$List$String$$(
+          _i2.Response<List<String>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<String>> → KavitaResponse<List<String>> failed because Response<List<String>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<String>>, KavitaResponse<List<String>>> to handle null values during mapping.');
     }
     return _i3.KavitaResponse(
       model.base,

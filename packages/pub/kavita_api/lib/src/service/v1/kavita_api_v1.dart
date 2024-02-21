@@ -199,15 +199,15 @@ class KavitaApiV1Account extends KavitaApiV1 {
 
   /// Update a user's password
   Future<KavitaResponse<void>> resetPassword({
-    required String userName,
+    required String username,
     required String password,
-    String? oldPassword,
+    required String oldPassword,
   }) async {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiAccountResetPasswordPost(
             body: raw.ResetPasswordDto(
-              userName: userName,
+              userName: username,
               password: password,
               oldPassword: oldPassword,
             ),
@@ -360,6 +360,8 @@ class KavitaApiV1Account extends KavitaApiV1 {
     String? username,
     List<String>? roles,
     List<int>? libraries,
+    int? ageRating,
+    bool? includeUnknowns,
   }) async {
     final res = _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -369,6 +371,12 @@ class KavitaApiV1Account extends KavitaApiV1 {
               username: username,
               roles: roles,
               libraries: libraries,
+              ageRestriction: ageRating == null && includeUnknowns == null
+                  ? null
+                  : raw.AgeRestrictionDto(
+                      ageRating: ageRating,
+                      includeUnknowns: includeUnknowns,
+                    ),
             ),
           ),
         )
@@ -380,7 +388,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
 
   /// Requests the Invite Url for the UserId. Will return error if user is already validated.
   Future<KavitaResponse<String>> getInviteUrl({
-    int? userId,
+    required int userId,
     bool? withBaseUrl,
   }) async {
     return _mappr
@@ -512,7 +520,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
 
   /// Resend an invite to a user already invited
   Future<KavitaResponse<InviteUserResponse>> resendConfirmationEmail({
-    int? userId,
+    required int userId,
   }) async {
     return _mappr
         .convert<Response<raw.InviteUserResponse>,

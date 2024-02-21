@@ -4,9 +4,9 @@ import 'package:test/test.dart';
 import '../kavita_api_setup.dart';
 
 void main() {
-  late final KavitaApi api;
+  late KavitaApi api;
 
-  setUpAll(() async => api = await setUpKavita());
+  setUp(() async => api = await setUpKavita());
 
   group('Test Kavita API v1 Download', skip: true, () {
     test('Test Volume Size', () async {

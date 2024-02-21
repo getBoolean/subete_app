@@ -49,6 +49,7 @@ import 'mappr.auto_mappr.dart';
   MapType<ch.Response<List<client.DeviceDto>>, KavitaResponse<List<Device>>>(),
   MapType<ch.Response<bool>, KavitaResponse<bool>>(),
   MapType<ch.Response<String>, KavitaResponse<String>>(),
+  MapType<ch.Response<List<String>>, KavitaResponse<List<String>>>(),
   MapType<client.UserDto, User>(reverse: true),
   MapType<client.AgeRestrictionDto, AgeRestriction>(reverse: true),
   MapType<client.UserPreferencesDto, UserPreferences>(reverse: true),
