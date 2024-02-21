@@ -14,35 +14,61 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
       env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'));
 
   if (mock) {
-    final api = MockRawKavitaApiV1();
-    when(() => api.client).thenReturn(ChopperClient(baseUrl: baseUrl));
-    when(() => api.apiServerServerInfoGet()).thenResponse(raw.ServerInfoDto());
+    final rawApi = MockRawKavitaApiV1();
+    when(() => rawApi.client).thenReturn(ChopperClient(baseUrl: baseUrl));
+    when(() => rawApi.apiServerServerInfoGet())
+        .thenResponse(raw.ServerInfoDto());
 
-    mockAccountApi(api);
-    mockCblApi(api);
-    mockDownloadApi(api);
-    mockCollectionApi(api);
-    mockDeviceApi(api);
-    mockFilterApi(api);
+    mockAccountApi(rawApi);
+    mockCblApi(rawApi);
+    mockDownloadApi(rawApi);
+    mockCollectionApi(rawApi);
+    mockDeviceApi(rawApi);
+    mockFilterApi(rawApi);
+    final apiKey = 'test';
+    mockImageApi(rawApi, apiKey);
 
-    return KavitaApi.fromContext(KavitaContext.fromApi(api));
+    return KavitaApi.fromContext(
+      KavitaContext.fromApi(
+        rawApi,
+        currentUser: User(
+          username: 'test',
+          email: 'test',
+          apiKey: apiKey,
+          token: 'test',
+          refreshToken: 'test',
+        ),
+      ),
+    );
   }
+
   if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
     throw Exception(
       'Please define the environment variables `KAVITA_PASSWORD` and `KAVITA_USERNAME` in an .env file.',
     );
   }
-
-  final api = KavitaApi(baseUrl: baseUrl);
-  await api.v1.account.login(
+  final kavitaApi = KavitaApi(baseUrl: baseUrl);
+  await kavitaApi.v1.account.login(
     username: env['KAVITA_USERNAME']!,
     password: env['KAVITA_PASSWORD']!,
   );
 
-  return api;
+  return kavitaApi;
 }
 
 void mockAccountApi(MockRawKavitaApiV1 api) {
+  final userDto = raw.UserDto(
+    username: 'test',
+    email: 'test',
+    apiKey: 'test',
+    token: 'test',
+    refreshToken: 'test',
+    kavitaVersion: '1.0.0',
+    ageRestriction: raw.AgeRestrictionDto(
+      ageRating: 0,
+      includeUnknowns: false,
+    ),
+  );
   final resetPasswordDto = raw.ResetPasswordDto(
     userName: '',
     password: '',
@@ -63,14 +89,14 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
           password: '',
           email: '',
         ),
-      )).thenResponse(raw.UserDto());
+      )).thenResponse(userDto);
   when(() => api.apiAccountLoginPost(
         body: raw.LoginDto(
           username: '',
           password: '',
         ),
-      )).thenResponse(raw.UserDto());
-  when(() => api.apiAccountRefreshAccountGet()).thenResponse(raw.UserDto());
+      )).thenResponse(userDto);
+  when(() => api.apiAccountRefreshAccountGet()).thenResponse(userDto);
   when(() => api.apiAccountRefreshTokenPost(
         body: raw.TokenRequestDto(
           token: 'token',
@@ -95,13 +121,13 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
           password: '',
           username: '',
         ),
-      )).thenResponse(raw.UserDto());
+      )).thenResponse(userDto);
   when(() => api.apiAccountConfirmMigrationEmailPost(
         body: raw.ConfirmMigrationEmailDto(
           token: '',
           email: '',
         ),
-      )).thenResponse(raw.UserDto());
+      )).thenResponse(userDto);
   when(() => api.apiAccountResendConfirmationEmailPost(userId: 1))
       .thenResponse(raw.InviteUserResponse(
     invalidEmail: false,
@@ -340,6 +366,27 @@ void mockFilterApi(MockRawKavitaApiV1 api) {
       limitTo: 10,
     ),
   );
+}
+
+void mockImageApi(MockRawKavitaApiV1 api, String apiKey) {
+  when(() => api.apiImageChapterCoverGet(chapterId: 1, apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageLibraryCoverGet(libraryId: 1, apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageVolumeCoverGet(volumeId: 1, apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageSeriesCoverGet(seriesId: 1, apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageCollectionCoverGet(collectionTagId: 1, apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageReadinglistCoverGet(readingListId: 1, apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageBookmarkGet(chapterId: 1, pageNum: 1, apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageWebLinkGet(url: 'test', apiKey: apiKey))
+      .thenResponse('1');
+  when(() => api.apiImageCoverUploadGet(filename: 'test', apiKey: apiKey))
+      .thenResponse('1');
 }
 
 extension _ReponseExtension<T> on When<Future<Response<T>>> {

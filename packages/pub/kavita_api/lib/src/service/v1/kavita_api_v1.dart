@@ -1013,6 +1013,37 @@ class KavitaApiV1Filter extends KavitaApiV1 {
 class KavitaApiV1Image extends KavitaApiV1 {
   /// Responsible for servicing up images stored in Kavita for entities
   KavitaApiV1Image._({required super.context});
+
+  /// Returns cover image for Chapter
+  Future<KavitaResponse<String>> getChapterCover({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiImageChapterCoverGet(
+            chapterId: id,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnError
+        .cast();
+  }
+
+  // library cover
+
+  // volume cover
+
+  // series cover
+
+  // collection cover
+
+  // readinglist cover
+
+  // bookmark image
+
+  // web link
+
+  // cover upload
 }
 
 /// For the Panels app explicitly
