@@ -2,7 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:kavita_api/src/core/utils.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
-    as client;
+    as raw;
 import 'package:meta/meta.dart';
 
 import '../../entities/mappr.dart';
@@ -206,7 +206,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiAccountResetPasswordPost(
-            body: client.ResetPasswordDto(
+            body: raw.ResetPasswordDto(
               userName: userName,
               password: password,
               oldPassword: oldPassword,
@@ -223,9 +223,9 @@ class KavitaApiV1Account extends KavitaApiV1 {
     String? email,
   }) async {
     final user = _mappr
-        .convert<Response<client.UserDto>, KavitaResponse<User>>(
+        .convert<Response<raw.UserDto>, KavitaResponse<User>>(
           await context.api.apiAccountRegisterPost(
-            body: client.RegisterDto(
+            body: raw.RegisterDto(
               username: username,
               password: password,
               email: email,
@@ -247,9 +247,9 @@ class KavitaApiV1Account extends KavitaApiV1 {
     String? apiKey,
   }) async {
     final user = _mappr
-        .convert<Response<client.UserDto>, KavitaResponse<User>>(
+        .convert<Response<raw.UserDto>, KavitaResponse<User>>(
           await context.api.apiAccountLoginPost(
-            body: client.LoginDto(
+            body: raw.LoginDto(
               username: username,
               password: password,
               apiKey: apiKey,
@@ -271,7 +271,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
   /// Returns an up-to-date user account
   Future<KavitaResponse<User>> refreshAccount() async {
     final user = _mappr
-        .convert<Response<client.UserDto>, KavitaResponse<User>>(
+        .convert<Response<raw.UserDto>, KavitaResponse<User>>(
             await context.api.apiAccountRefreshAccountGet())
         .throwOnError;
     if (user.isSuccessful && user.body != null) {
@@ -287,10 +287,9 @@ class KavitaApiV1Account extends KavitaApiV1 {
     required String refreshToken,
   }) async {
     return _mappr
-        .convert<Response<client.TokenRequestDto>,
-            KavitaResponse<TokenRequest>>(
+        .convert<Response<raw.TokenRequestDto>, KavitaResponse<TokenRequest>>(
           await context.api.apiAccountRefreshTokenPost(
-            body: client.TokenRequestDto(
+            body: raw.TokenRequestDto(
               token: token,
               refreshToken: refreshToken,
             ),
@@ -326,7 +325,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiAccountUpdateEmailPost(
-            body: client.UpdateEmailDto(
+            body: raw.UpdateEmailDto(
               email: email,
               password: password,
             ),
@@ -343,7 +342,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     final res = _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiAccountUpdateAgeRestrictionPost(
-            body: client.UpdateAgeRestrictionDto(
+            body: raw.UpdateAgeRestrictionDto(
               ageRating: ageRating,
               includeUnknowns: includeUnknowns,
             ),
@@ -365,7 +364,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     final res = _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiAccountUpdatePost(
-            body: client.UpdateUserDto(
+            body: raw.UpdateUserDto(
               userId: userId,
               username: username,
               roles: roles,
@@ -406,13 +405,13 @@ class KavitaApiV1Account extends KavitaApiV1 {
     return _mappr
         .convert<Response<String>, KavitaResponse<String>>(
           await context.api.apiAccountInvitePost(
-            body: client.InviteUserDto(
+            body: raw.InviteUserDto(
               email: email,
               roles: roles,
               libraries: libraries,
               ageRestriction: ageRating == null && includeUnknowns == null
                   ? null
-                  : client.AgeRestrictionDto(
+                  : raw.AgeRestrictionDto(
                       ageRating: ageRating,
                       includeUnknowns: includeUnknowns,
                     ),
@@ -430,9 +429,9 @@ class KavitaApiV1Account extends KavitaApiV1 {
     required String username,
   }) async {
     final user = _mappr
-        .convert<Response<client.UserDto>, KavitaResponse<User>>(
+        .convert<Response<raw.UserDto>, KavitaResponse<User>>(
           await context.api.apiAccountConfirmEmailPost(
-            body: client.ConfirmEmailDto(
+            body: raw.ConfirmEmailDto(
               email: email,
               token: token,
               password: password,
@@ -457,7 +456,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     return _mappr
         .convert<Response<String>, KavitaResponse<String>>(
           await context.api.apiAccountConfirmPasswordResetPost(
-            body: client.ConfirmPasswordResetDto(
+            body: raw.ConfirmPasswordResetDto(
               email: email,
               token: token,
               password: password,
@@ -495,9 +494,9 @@ class KavitaApiV1Account extends KavitaApiV1 {
     required String token,
   }) async {
     final user = _mappr
-        .convert<Response<client.UserDto>, KavitaResponse<User>>(
+        .convert<Response<raw.UserDto>, KavitaResponse<User>>(
           await context.api.apiAccountConfirmMigrationEmailPost(
-            body: client.ConfirmMigrationEmailDto(
+            body: raw.ConfirmMigrationEmailDto(
               email: email,
               token: token,
             ),
@@ -516,7 +515,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     int? userId,
   }) async {
     return _mappr
-        .convert<Response<client.InviteUserResponse>,
+        .convert<Response<raw.InviteUserResponse>,
             KavitaResponse<InviteUserResponse>>(
           await context.api.apiAccountResendConfirmationEmailPost(
             userId: userId,
@@ -562,7 +561,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
     String? fileName,
   }) async {
     return _mappr
-        .convert<Response<client.CblImportSummaryDto>,
+        .convert<Response<raw.CblImportSummaryDto>,
             KavitaResponse<CblImportSummary>>(
           await context.api.apiCblValidatePost(
             contentType: contentType,
@@ -587,7 +586,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
     bool dryRun = false,
   }) async {
     return _mappr
-        .convert<Response<client.CblImportSummaryDto>,
+        .convert<Response<raw.CblImportSummaryDto>,
             KavitaResponse<CblImportSummary>>(
           await context.api.apiCblImportPost(
             contentType: contentType,
@@ -611,7 +610,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
   /// Return a list of all collection tags on the server for the logged in user.
   Future<KavitaResponse<List<CollectionTag>>> getCollections() async {
     return _mappr
-        .convert<Response<List<client.CollectionTagDto>>,
+        .convert<Response<List<raw.CollectionTagDto>>,
             KavitaResponse<List<CollectionTag>>>(
           await context.api.apiCollectionGet(),
         )
@@ -639,7 +638,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
     String queryString,
   ) async {
     return _mappr
-        .convert<Response<List<client.CollectionTagDto>>,
+        .convert<Response<List<raw.CollectionTagDto>>,
             KavitaResponse<List<CollectionTag>>>(
           await context.api.apiCollectionSearchGet(
             queryString: queryString,
@@ -672,7 +671,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiCollectionUpdatePost(
-            body: client.CollectionTagDto(
+            body: raw.CollectionTagDto(
               id: id,
               title: title,
               summary: summary,
@@ -702,7 +701,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiCollectionUpdateForSeriesPost(
-            body: client.CollectionTagBulkAddDto(
+            body: raw.CollectionTagBulkAddDto(
               collectionTagId: id,
               collectionTagTitle: title,
               seriesIds: seriesIds,
@@ -723,8 +722,8 @@ class KavitaApiV1Collection extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiCollectionUpdateSeriesPost(
-            body: client.UpdateSeriesForTagDto(
-              tag: client.CollectionTagDto(
+            body: raw.UpdateSeriesForTagDto(
+              tag: raw.CollectionTagDto(
                 id: id,
               ),
               seriesIdsToRemove: seriesIds,
@@ -751,7 +750,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDeviceCreatePost(
-            body: client.CreateDeviceDto(
+            body: raw.CreateDeviceDto(
               name: name,
               platform: platform.value,
               emailAddress: emailAddress,
@@ -771,7 +770,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDeviceUpdatePost(
-            body: client.UpdateDeviceDto(
+            body: raw.UpdateDeviceDto(
               id: id,
               name: name,
               platform: platform.value,
@@ -798,8 +797,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
   /// Returns a list of all devices for the user
   Future<KavitaResponse<List<Device>>> getDevices() async {
     return _mappr
-        .convert<Response<List<client.DeviceDto>>,
-            KavitaResponse<List<Device>>>(
+        .convert<Response<List<raw.DeviceDto>>, KavitaResponse<List<Device>>>(
           await context.api.apiDeviceGet(),
         )
         .throwOnError;
@@ -813,7 +811,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDeviceSendToPost(
-            body: client.SendToDeviceDto(
+            body: raw.SendToDeviceDto(
               deviceId: deviceId,
               chapterIds: chapterIds,
             ),
@@ -830,7 +828,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDeviceSendSeriesToPost(
-            body: client.SendSeriesToDeviceDto(
+            body: raw.SendSeriesToDeviceDto(
               deviceId: deviceId,
               seriesId: seriesId,
             ),
@@ -939,9 +937,9 @@ class KavitaApiV1Download extends KavitaApiV1 {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDownloadBookmarksPost(
-            body: client.DownloadBookmarkDto(
+            body: raw.DownloadBookmarkDto(
               bookmarks: bookmarks
-                  .map((e) => _mappr.convert<Bookmark, client.BookmarkDto>(e))
+                  .map((e) => _mappr.convert<Bookmark, raw.BookmarkDto>(e))
                   .toList(),
             ),
           ),
@@ -1107,7 +1105,7 @@ class KavitaApiV1Server extends KavitaApiV1 {
   KavitaApiV1Server._({required super.context});
 
   Future<KavitaResponse<ServerInfo>> getServerInfo() async {
-    return _mappr.convert<Response<client.ServerInfoDto>,
+    return _mappr.convert<Response<raw.ServerInfoDto>,
         KavitaResponse<ServerInfo>>(await context.api.apiServerServerInfoGet());
   }
 }
