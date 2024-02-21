@@ -360,8 +360,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     String? username,
     List<String>? roles,
     List<int>? libraries,
-    int? ageRating,
-    bool? includeUnknowns,
+    AgeRestriction? ageRestriction,
   }) async {
     final res = _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
@@ -371,12 +370,10 @@ class KavitaApiV1Account extends KavitaApiV1 {
               username: username,
               roles: roles,
               libraries: libraries,
-              ageRestriction: ageRating == null && includeUnknowns == null
-                  ? null
-                  : raw.AgeRestrictionDto(
-                      ageRating: ageRating,
-                      includeUnknowns: includeUnknowns,
-                    ),
+              ageRestriction:
+                  _mappr.convert<AgeRestriction, raw.AgeRestrictionDto>(
+                ageRestriction,
+              ),
             ),
           ),
         )
@@ -407,8 +404,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     required String email,
     List<String>? roles,
     List<int>? libraries,
-    int? ageRating,
-    bool? includeUnknowns,
+    AgeRestriction? ageRestriction,
   }) async {
     return _mappr
         .convert<Response<String>, KavitaResponse<String>>(
@@ -417,12 +413,10 @@ class KavitaApiV1Account extends KavitaApiV1 {
               email: email,
               roles: roles,
               libraries: libraries,
-              ageRestriction: ageRating == null && includeUnknowns == null
-                  ? null
-                  : raw.AgeRestrictionDto(
-                      ageRating: ageRating,
-                      includeUnknowns: includeUnknowns,
-                    ),
+              ageRestriction:
+                  _mappr.convert<AgeRestriction, raw.AgeRestrictionDto>(
+                ageRestriction,
+              ),
             ),
           ),
         )

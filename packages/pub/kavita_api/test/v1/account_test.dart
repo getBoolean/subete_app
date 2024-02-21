@@ -158,8 +158,10 @@ void main() {
         username: '',
         roles: [],
         libraries: [],
-        ageRating: 0,
-        includeUnknowns: false,
+        ageRestriction: AgeRestriction(
+          ageRating: 0,
+          includeUnknowns: false,
+        ),
       );
       expect(res.isSuccessful, isTrue, reason: 'Failed to update user');
     });
@@ -176,8 +178,10 @@ void main() {
         email: '',
         roles: [],
         libraries: [],
-        ageRating: 0,
-        includeUnknowns: false,
+        ageRestriction: AgeRestriction(
+          ageRating: 0,
+          includeUnknowns: false,
+        ),
       );
       expect(res.isSuccessful, isTrue, reason: 'Failed to invite user');
       expect(res.body, 'test', reason: 'Expected response to be "test"');
