@@ -2,8 +2,10 @@ import 'package:dart_mappable/dart_mappable.dart';
 
 part 'collection_tag.mapper.dart';
 
+/// Represents a user entered field that is used as a tagging and grouping mechanism
 @MappableClass()
 class CollectionTag with CollectionTagMappable {
+  /// Represents a user entered field that is used as a tagging and grouping mechanism
   const CollectionTag({
     this.id,
     this.title,
@@ -14,6 +16,8 @@ class CollectionTag with CollectionTagMappable {
   });
 
   final int? id;
+
+  /// Visible title of the Tag
   final String? title;
   final String? summary;
 
@@ -21,7 +25,11 @@ class CollectionTag with CollectionTagMappable {
   ///
   /// All series that have this tag will still have user-access restrictions placed on them.
   final bool? promoted;
+
+  /// Absolute path to the (managed) image file
   final String? coverImage;
+
+  /// Denotes if the [coverImage] has been overridden by the user. If so, it will not be updated during normal scan operations.
   final bool? coverImageLocked;
 
   static final fromMap = CollectionTagMapper.fromMap;
