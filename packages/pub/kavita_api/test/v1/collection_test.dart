@@ -12,19 +12,16 @@ void main() {
     test('Test Get Collections', () async {
       final res = await api.v1.collection.getCollections();
       expect(res.body, isNotNull, reason: 'No data received');
-      print('Collections: ${res.body}');
     });
 
     test('Test Search Collections', () async {
       final res = await api.v1.collection.searchCollections('Test');
       expect(res.body, isNotNull, reason: 'No data received');
-      print('Found collections: ${res.body}');
     });
 
     test('Test Collection Exists', () async {
       final res = await api.v1.collection.collectionExists('Test');
       expect(res.body, isTrue, reason: 'Collection does not exist');
-      print('Collection exists: ${res.body}');
     });
 
     test('Test Create Collection For Series', () async {
