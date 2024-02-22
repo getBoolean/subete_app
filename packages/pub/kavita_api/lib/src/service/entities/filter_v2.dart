@@ -20,6 +20,6 @@ class FilterV2 with FilterV2Mappable {
   final SortOptions? sortOptions;
   final int? limitTo;
 
-  static final fromMap = FilterV2Mapper.fromMap;
-  static final fromJson = FilterV2Mapper.fromJson;
+  static const fromMap = FilterV2Mapper.fromMap;
+  static const fromJson = FilterV2Mapper.fromJson;
 }

@@ -14,6 +14,6 @@ class SmartFilter with SmartFilterMappable {
   final String? name;
   final String? filter;
 
-  static final fromMap = SmartFilterMapper.fromMap;
-  static final fromJson = SmartFilterMapper.fromJson;
+  static const fromMap = SmartFilterMapper.fromMap;
+  static const fromJson = SmartFilterMapper.fromJson;
 }

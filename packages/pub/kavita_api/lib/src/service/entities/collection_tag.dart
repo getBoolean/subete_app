@@ -32,6 +32,6 @@ class CollectionTag with CollectionTagMappable {
   /// Denotes if the [coverImage] has been overridden by the user. If so, it will not be updated during normal scan operations.
   final bool? coverImageLocked;
 
-  static final fromMap = CollectionTagMapper.fromMap;
-  static final fromJson = CollectionTagMapper.fromJson;
+  static const fromMap = CollectionTagMapper.fromMap;
+  static const fromJson = CollectionTagMapper.fromJson;
 }

@@ -10,7 +10,7 @@ void main() {
 
   group('Test Kavita API v1 Filter', () {
     test('Test update filter', () async {
-      final filter = FilterV2(
+      const filter = FilterV2(
         id: 1,
         name: 'Test Filter',
         statements: [
@@ -43,7 +43,7 @@ void main() {
     });
 
     test('Test Encode Filter', () async {
-      final filter = FilterV2(
+      const filter = FilterV2(
         id: 1,
         name: 'Test Filter',
         statements: [

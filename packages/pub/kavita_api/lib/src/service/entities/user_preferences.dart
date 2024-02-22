@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-import 'site_theme.dart';
+import 'package:kavita_api/src/service/entities/site_theme.dart';
 
 part 'user_preferences.mapper.dart';
 
@@ -66,6 +66,6 @@ class UserPreferences with UserPreferencesMappable {
   final bool shareReviews;
   final String locale;
 
-  static final fromMap = UserPreferencesMapper.fromMap;
-  static final fromJson = UserPreferencesMapper.fromJson;
+  static const fromMap = UserPreferencesMapper.fromMap;
+  static const fromJson = UserPreferencesMapper.fromJson;
 }

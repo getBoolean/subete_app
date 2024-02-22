@@ -14,7 +14,7 @@ void main() {
 
     test('Test KavitaApi.fromUser Constructor', () async {
       final testApi = KavitaApi.fromUser(
-        User(
+        const User(
           token: 'test',
         ),
         baseUrl: Uri.parse('http://localhost:3000'),

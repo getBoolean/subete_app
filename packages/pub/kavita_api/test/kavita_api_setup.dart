@@ -11,15 +11,15 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
   final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
 
   final baseUrl = Uri.parse(
-      env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'));
+    env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'),
+  );
 
   if (mock) {
     final rawApi = MockRawKavitaApiV1();
     when(() => rawApi.client).thenReturn(ChopperClient(baseUrl: baseUrl));
-    when(() => rawApi.apiServerServerInfoGet())
-        .thenResponse(raw.ServerInfoDto());
+    when(rawApi.apiServerServerInfoGet).thenResponse(const raw.ServerInfoDto());
 
-    final apiKey = 'test';
+    const apiKey = 'test';
     mockAccountApi(rawApi);
     mockCblApi(rawApi);
     mockDownloadApi(rawApi);
@@ -34,7 +34,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     return KavitaApi.fromContext(
       KavitaContext.fromApi(
         rawApi,
-        currentUser: User(
+        currentUser: const User(
           username: 'test',
           email: 'test',
           apiKey: apiKey,
@@ -60,7 +60,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
 }
 
 void mockAccountApi(MockRawKavitaApiV1 api) {
-  final userDto = raw.UserDto(
+  const userDto = raw.UserDto(
     username: 'test',
     email: 'test',
     apiKey: 'test',
@@ -72,111 +72,137 @@ void mockAccountApi(MockRawKavitaApiV1 api) {
       includeUnknowns: false,
     ),
   );
-  final resetPasswordDto = raw.ResetPasswordDto(
+  const resetPasswordDto = raw.ResetPasswordDto(
     userName: '',
     password: '',
     oldPassword: '',
   );
   when(() => api.apiAccountResetPasswordPost(body: resetPasswordDto))
       .thenResponse(null);
-  when(() => api.apiAccountConfirmPasswordResetPost(
-        body: raw.ConfirmPasswordResetDto(
-          token: '',
-          email: '',
-          password: '',
-        ),
-      )).thenResponse('test');
-  when(() => api.apiAccountRegisterPost(
-        body: raw.RegisterDto(
-          username: '',
-          password: '',
-          email: '',
-        ),
-      )).thenResponse(userDto);
-  when(() => api.apiAccountLoginPost(
-        body: raw.LoginDto(
-          username: '',
-          password: '',
-        ),
-      )).thenResponse(userDto);
+  when(
+    () => api.apiAccountConfirmPasswordResetPost(
+      body: const raw.ConfirmPasswordResetDto(
+        token: '',
+        email: '',
+        password: '',
+      ),
+    ),
+  ).thenResponse('test');
+  when(
+    () => api.apiAccountRegisterPost(
+      body: const raw.RegisterDto(
+        username: '',
+        password: '',
+        email: '',
+      ),
+    ),
+  ).thenResponse(userDto);
+  when(
+    () => api.apiAccountLoginPost(
+      body: const raw.LoginDto(
+        username: '',
+        password: '',
+      ),
+    ),
+  ).thenResponse(userDto);
   when(() => api.apiAccountRefreshAccountGet()).thenResponse(userDto);
-  when(() => api.apiAccountRefreshTokenPost(
-        body: raw.TokenRequestDto(
-          token: 'token',
-          refreshToken: 'refreshToken',
-        ),
-      )).thenResponse(raw.TokenRequestDto(
-    token: 'token2',
-    refreshToken: 'refreshToken2',
-  ));
+  when(
+    () => api.apiAccountRefreshTokenPost(
+      body: const raw.TokenRequestDto(
+        token: 'token',
+        refreshToken: 'refreshToken',
+      ),
+    ),
+  ).thenResponse(
+    const raw.TokenRequestDto(
+      token: 'token2',
+      refreshToken: 'refreshToken2',
+    ),
+  );
   when(() => api.apiAccountRolesGet()).thenResponse(['test']);
   when(() => api.apiAccountResetApiKeyPost()).thenResponse('key');
-  when(() => api.apiAccountUpdateEmailPost(
-        body: raw.UpdateEmailDto(
-          email: '',
-          password: '',
-        ),
-      )).thenResponse(null);
-  when(() => api.apiAccountConfirmEmailPost(
-        body: raw.ConfirmEmailDto(
-          token: '',
-          email: '',
-          password: '',
-          username: '',
-        ),
-      )).thenResponse(userDto);
-  when(() => api.apiAccountConfirmMigrationEmailPost(
-        body: raw.ConfirmMigrationEmailDto(
-          token: '',
-          email: '',
-        ),
-      )).thenResponse(userDto);
-  when(() => api.apiAccountResendConfirmationEmailPost(userId: 1))
-      .thenResponse(raw.InviteUserResponse(
-    invalidEmail: false,
-    emailSent: true,
-    emailLink: 'test',
-  ));
+  when(
+    () => api.apiAccountUpdateEmailPost(
+      body: const raw.UpdateEmailDto(
+        email: '',
+        password: '',
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiAccountConfirmEmailPost(
+      body: const raw.ConfirmEmailDto(
+        token: '',
+        email: '',
+        password: '',
+        username: '',
+      ),
+    ),
+  ).thenResponse(userDto);
+  when(
+    () => api.apiAccountConfirmMigrationEmailPost(
+      body: const raw.ConfirmMigrationEmailDto(
+        token: '',
+        email: '',
+      ),
+    ),
+  ).thenResponse(userDto);
+  when(() => api.apiAccountResendConfirmationEmailPost(userId: 1)).thenResponse(
+    const raw.InviteUserResponse(
+      invalidEmail: false,
+      emailSent: true,
+      emailLink: 'test',
+    ),
+  );
   when(() => api.apiAccountEmailConfirmedGet()).thenResponse(true);
   when(() => api.apiAccountIsEmailValidGet()).thenResponse(true);
-  when(() => api.apiAccountUpdateAgeRestrictionPost(
-        body: raw.UpdateAgeRestrictionDto(
+  when(
+    () => api.apiAccountUpdateAgeRestrictionPost(
+      body: const raw.UpdateAgeRestrictionDto(
+        ageRating: 0,
+        includeUnknowns: false,
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiAccountUpdatePost(
+      body: const raw.UpdateUserDto(
+        userId: 1,
+        username: '',
+        roles: [],
+        libraries: [],
+        ageRestriction: raw.AgeRestrictionDto(
           ageRating: 0,
           includeUnknowns: false,
         ),
-      )).thenResponse(null);
-  when(() => api.apiAccountUpdatePost(
-        body: raw.UpdateUserDto(
-          userId: 1,
-          username: '',
-          roles: [],
-          libraries: [],
-          ageRestriction: raw.AgeRestrictionDto(
-            ageRating: 0,
-            includeUnknowns: false,
-          ),
-        ),
-      )).thenResponse(null);
+      ),
+    ),
+  ).thenResponse(null);
   when(() => api.apiAccountInviteUrlGet(userId: 1, withBaseUrl: false))
       .thenResponse('test');
-  when(() => api.apiAccountInvitePost(
-        body: raw.InviteUserDto(
-            email: '',
-            roles: [],
-            libraries: [],
-            ageRestriction: raw.AgeRestrictionDto(
-              ageRating: 0,
-              includeUnknowns: false,
-            )),
-      )).thenResponse('test');
-  when(() => api.apiAccountForgotPasswordPost(
+  when(
+    () => api.apiAccountInvitePost(
+      body: const raw.InviteUserDto(
         email: '',
-      )).thenResponse('link');
+        roles: [],
+        libraries: [],
+        ageRestriction: raw.AgeRestrictionDto(
+          ageRating: 0,
+          includeUnknowns: false,
+        ),
+      ),
+    ),
+  ).thenResponse('test');
+  when(
+    () => api.apiAccountForgotPasswordPost(
+      email: '',
+    ),
+  ).thenResponse('link');
   when(() => api.apiAccountOpdsUrlGet()).thenResponse('test');
 }
 
 void mockCblApi(MockRawKavitaApiV1 api) {
-  final summary = raw.CblImportSummaryDto(
+  const summary = raw.CblImportSummaryDto(
     cblName: 'test.cbl',
     fileName: 'test.cbl',
     results: [],
@@ -217,141 +243,166 @@ void mockDownloadApi(MockRawKavitaApiV1 api) {
   when(() => api.apiDownloadSeriesGet(seriesId: 1)).thenResponse('1');
   when(
     () => api.apiDownloadBookmarksPost(
-      body: raw.DownloadBookmarkDto(bookmarks: [
-        raw.BookmarkDto(chapterId: 1, seriesId: 1, volumeId: 1, page: 1),
-      ]),
+      body: const raw.DownloadBookmarkDto(
+        bookmarks: [
+          raw.BookmarkDto(chapterId: 1, seriesId: 1, volumeId: 1, page: 1),
+        ],
+      ),
     ),
   ).thenResponse('1');
 }
 
 void mockCollectionApi(MockRawKavitaApiV1 api) {
   when(() => api.apiCollectionGet()).thenResponse([
-    raw.CollectionTagDto(id: 1, title: 'Test'),
+    const raw.CollectionTagDto(id: 1, title: 'Test'),
   ]);
   when(() => api.apiCollectionDelete(tagId: 1)).thenResponse(null);
   when(() => api.apiCollectionSearchGet(queryString: 'Test')).thenResponse([
-    raw.CollectionTagDto(id: 1, title: 'Test'),
+    const raw.CollectionTagDto(id: 1, title: 'Test'),
   ]);
   when(() => api.apiCollectionNameExistsGet(name: 'Test')).thenResponse(true);
-  when(() => api.apiCollectionUpdatePost(
-        body: raw.CollectionTagDto(
+  when(
+    () => api.apiCollectionUpdatePost(
+      body: const raw.CollectionTagDto(
+        id: 1,
+        title: 'Test',
+        summary: 'test',
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiCollectionUpdateForSeriesPost(
+      body: const raw.CollectionTagBulkAddDto(
+        collectionTagId: 1,
+        collectionTagTitle: 'Test',
+        seriesIds: [1],
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiCollectionUpdateForSeriesPost(
+      body: const raw.CollectionTagBulkAddDto(
+        collectionTagId: 0,
+        collectionTagTitle: 'Test',
+        seriesIds: [1],
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiCollectionUpdateSeriesPost(
+      body: const raw.UpdateSeriesForTagDto(
+        tag: raw.CollectionTagDto(
           id: 1,
-          title: 'Test',
-          summary: 'test',
         ),
-      )).thenResponse(null);
-  when(() => api.apiCollectionUpdateForSeriesPost(
-        body: raw.CollectionTagBulkAddDto(
-          collectionTagId: 1,
-          collectionTagTitle: 'Test',
-          seriesIds: [1],
-        ),
-      )).thenResponse(null);
-  when(() => api.apiCollectionUpdateForSeriesPost(
-        body: raw.CollectionTagBulkAddDto(
-          collectionTagId: 0,
-          collectionTagTitle: 'Test',
-          seriesIds: [1],
-        ),
-      )).thenResponse(null);
-  when(() => api.apiCollectionUpdateSeriesPost(
-        body: raw.UpdateSeriesForTagDto(
-          tag: raw.CollectionTagDto(
-            id: 1,
-          ),
-          seriesIdsToRemove: [1],
-        ),
-      )).thenResponse(null);
+        seriesIdsToRemove: [1],
+      ),
+    ),
+  ).thenResponse(null);
 }
 
 void mockDeviceApi(MockRawKavitaApiV1 api) {
   when(() => api.apiDeviceGet()).thenResponse([
-    raw.DeviceDto(id: 1, platform: 0, name: '', emailAddress: ''),
+    const raw.DeviceDto(id: 1, platform: 0, name: '', emailAddress: ''),
   ]);
-  when(() => api.apiDeviceCreatePost(
-        body: raw.CreateDeviceDto(
-          name: '',
-          platform: 0,
-          emailAddress: '',
-        ),
-      )).thenResponse(null);
-  when(() => api.apiDeviceUpdatePost(
-        body: raw.UpdateDeviceDto(
-          id: 1,
-          name: '',
-          platform: 0,
-          emailAddress: '',
-        ),
-      )).thenResponse(null);
-  when(() => api.apiDeviceDelete(
+  when(
+    () => api.apiDeviceCreatePost(
+      body: const raw.CreateDeviceDto(
+        name: '',
+        platform: 0,
+        emailAddress: '',
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiDeviceUpdatePost(
+      body: const raw.UpdateDeviceDto(
+        id: 1,
+        name: '',
+        platform: 0,
+        emailAddress: '',
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiDeviceDelete(
+      deviceId: 1,
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiDeviceSendToPost(
+      body: const raw.SendToDeviceDto(
         deviceId: 1,
-      )).thenResponse(null);
-  when(() => api.apiDeviceSendToPost(
-        body: raw.SendToDeviceDto(
-          deviceId: 1,
-          chapterIds: [1],
-        ),
-      )).thenResponse(null);
-  when(() => api.apiDeviceSendSeriesToPost(
-        body: raw.SendSeriesToDeviceDto(
-          deviceId: 1,
-          seriesId: 1,
-        ),
-      )).thenResponse(null);
+        chapterIds: [1],
+      ),
+    ),
+  ).thenResponse(null);
+  when(
+    () => api.apiDeviceSendSeriesToPost(
+      body: const raw.SendSeriesToDeviceDto(
+        deviceId: 1,
+        seriesId: 1,
+      ),
+    ),
+  ).thenResponse(null);
 }
 
 void mockFilterApi(MockRawKavitaApiV1 api) {
-  when(() => api.apiFilterUpdatePost(
-        body: raw.FilterV2Dto(
-          id: 1,
-          name: 'Test Filter',
-          statements: [
-            raw.FilterStatementDto(
-              comparison: 1,
-              field: 1,
-              $value: 'Test',
-            ),
-          ],
-          combination: 1,
-          sortOptions: raw.SortOptions(
-            sortField: 1,
-            isAscending: true,
+  when(
+    () => api.apiFilterUpdatePost(
+      body: const raw.FilterV2Dto(
+        id: 1,
+        name: 'Test Filter',
+        statements: [
+          raw.FilterStatementDto(
+            comparison: 1,
+            field: 1,
+            $value: 'Test',
           ),
-          limitTo: 10,
+        ],
+        combination: 1,
+        sortOptions: raw.SortOptions(
+          sortField: 1,
+          isAscending: true,
         ),
-      )).thenResponse(null);
+        limitTo: 10,
+      ),
+    ),
+  ).thenResponse(null);
   when(() => api.apiFilterGet()).thenResponse([
-    raw.SmartFilterDto(
+    const raw.SmartFilterDto(
       id: 1,
       name: 'Test Filter',
       filter: 'Test',
     ),
   ]);
   when(() => api.apiFilterDelete(filterId: 1)).thenResponse(null);
-  when(() => api.apiFilterEncodePost(
-        body: raw.FilterV2Dto(
-          id: 1,
-          name: 'Test Filter',
-          statements: [
-            raw.FilterStatementDto(
-              comparison: 1,
-              field: 1,
-              $value: 'Test',
-            ),
-          ],
-          combination: 1,
-          sortOptions: raw.SortOptions(
-            sortField: 1,
-            isAscending: true,
+  when(
+    () => api.apiFilterEncodePost(
+      body: const raw.FilterV2Dto(
+        id: 1,
+        name: 'Test Filter',
+        statements: [
+          raw.FilterStatementDto(
+            comparison: 1,
+            field: 1,
+            $value: 'Test',
           ),
-          limitTo: 10,
+        ],
+        combination: 1,
+        sortOptions: raw.SortOptions(
+          sortField: 1,
+          isAscending: true,
         ),
-      )).thenResponse('Test');
+        limitTo: 10,
+      ),
+    ),
+  ).thenResponse('Test');
   when(
     () => api.apiFilterDecodePost(
-        body: raw.DecodeFilterDto(encodedFilter: 'Test')),
+      body: const raw.DecodeFilterDto(encodedFilter: 'Test'),
+    ),
   ).thenResponse(
-    raw.FilterV2Dto(
+    const raw.FilterV2Dto(
       id: 1,
       name: 'Test Filter',
       statements: [
@@ -393,30 +444,34 @@ void mockImageApi(MockRawKavitaApiV1 api, String apiKey) {
 }
 
 void mockPanelsApi(MockRawKavitaApiV1 api, String apiKey) {
-  when(() => api.apiPanelsSaveProgressPost(
-        body: raw.ProgressDto(
-          volumeId: 1,
-          chapterId: 1,
-          pageNum: 1,
-          seriesId: 1,
-          libraryId: 1,
-        ),
-        apiKey: apiKey,
-      )).thenResponse(null);
+  when(
+    () => api.apiPanelsSaveProgressPost(
+      body: const raw.ProgressDto(
+        volumeId: 1,
+        chapterId: 1,
+        pageNum: 1,
+        seriesId: 1,
+        libraryId: 1,
+      ),
+      apiKey: apiKey,
+    ),
+  ).thenResponse(null);
   when(() => api.apiPanelsGetProgressGet(chapterId: 1, apiKey: apiKey))
-      .thenResponse(raw.ProgressDto(
-    volumeId: 1,
-    chapterId: 1,
-    pageNum: 1,
-    seriesId: 1,
-    libraryId: 1,
-  ));
+      .thenResponse(
+    const raw.ProgressDto(
+      volumeId: 1,
+      chapterId: 1,
+      pageNum: 1,
+      seriesId: 1,
+      libraryId: 1,
+    ),
+  );
 }
 
 void mockRatingApi(MockRawKavitaApiV1 api) {
   // overall
   when(() => api.apiRatingOverallGet(seriesId: 1)).thenResponse(
-    raw.RatingDto(),
+    const raw.RatingDto(),
   );
 }
 

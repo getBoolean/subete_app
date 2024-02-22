@@ -47,7 +47,7 @@ void main() {
 
     test('Test Download Bookmarks', () async {
       final res = await api.v1.download.downloadBookmarks([
-        Bookmark(
+        const Bookmark(
           page: 1,
           volumeId: 1,
           seriesId: 1,

@@ -13,6 +13,6 @@ class FilterStatement with FilterStatementMappable {
   final int? field;
   final String? $value;
 
-  static final fromMap = FilterStatementMapper.fromMap;
-  static final fromJson = FilterStatementMapper.fromJson;
+  static const fromMap = FilterStatementMapper.fromMap;
+  static const fromJson = FilterStatementMapper.fromJson;
 }

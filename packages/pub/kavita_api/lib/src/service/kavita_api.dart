@@ -6,9 +6,6 @@ import 'package:meta/meta.dart';
 class KavitaApi {
   final KavitaContext context;
 
-  @internal
-  const KavitaApi.fromContext(this.context);
-
   factory KavitaApi({
     required Uri baseUrl,
   }) {
@@ -16,6 +13,9 @@ class KavitaApi {
       KavitaContext(baseUrl: baseUrl),
     );
   }
+
+  @internal
+  const KavitaApi.fromContext(this.context);
 
   factory KavitaApi.fromUser(
     User user, {

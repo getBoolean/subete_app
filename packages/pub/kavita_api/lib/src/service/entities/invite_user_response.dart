@@ -14,6 +14,6 @@ class InviteUserResponse with InviteUserResponseMappable {
   final bool? emailSent;
   final bool? invalidEmail;
 
-  static final fromMap = InviteUserResponseMapper.fromMap;
-  static final fromJson = InviteUserResponseMapper.fromJson;
+  static const fromMap = InviteUserResponseMapper.fromMap;
+  static const fromJson = InviteUserResponseMapper.fromJson;
 }

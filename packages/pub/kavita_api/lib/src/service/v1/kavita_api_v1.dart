@@ -1,15 +1,15 @@
 import 'package:chopper/chopper.dart';
-import 'package:kavita_api/kavita_api.dart';
+import 'package:kavita_api/src/core.dart';
 import 'package:kavita_api/src/core/utils.dart';
+import 'package:kavita_api/src/service/entities.dart';
+import 'package:kavita_api/src/service/entities/mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
 import 'package:meta/meta.dart';
 
-import '../entities/mappr.dart';
-
 class KavitaApiV1 {
   final KavitaContext context;
-  final Mappr _mappr = const Mappr();
+  Mappr get _mappr => const Mappr();
 
   @internal
   const KavitaApiV1({
@@ -264,7 +264,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     return user;
   }
 
-  void logout() async {
+  void logout() {
     context.clearCurrentUser();
   }
 
@@ -272,7 +272,8 @@ class KavitaApiV1Account extends KavitaApiV1 {
   Future<KavitaResponse<User>> refreshAccount() async {
     final user = _mappr
         .convert<Response<raw.UserDto>, KavitaResponse<User>>(
-            await context.api.apiAccountRefreshAccountGet())
+          await context.api.apiAccountRefreshAccountGet(),
+        )
         .throwOnError;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
@@ -302,7 +303,8 @@ class KavitaApiV1Account extends KavitaApiV1 {
   Future<KavitaResponse<List<String>>> getRoles() async {
     return _mappr
         .convert<Response<List<String>>, KavitaResponse<List<String>>>(
-            await context.api.apiAccountRolesGet())
+          await context.api.apiAccountRolesGet(),
+        )
         .throwOnError;
   }
 
@@ -310,7 +312,8 @@ class KavitaApiV1Account extends KavitaApiV1 {
   Future<KavitaResponse<String>> resetApiKey() async {
     return _mappr
         .convert<Response<String>, KavitaResponse<String>>(
-            await context.api.apiAccountResetApiKeyPost())
+          await context.api.apiAccountResetApiKeyPost(),
+        )
         .throwOnError;
   }
 
@@ -912,9 +915,10 @@ class KavitaApiV1Download extends KavitaApiV1 {
   }) async {
     return _mappr
         .convert<Response<dynamic>, KavitaResponse<dynamic>>(
-            await context.api.apiDownloadChapterGet(
-          chapterId: id,
-        ))
+          await context.api.apiDownloadChapterGet(
+            chapterId: id,
+          ),
+        )
         .cast();
   }
 
@@ -1014,7 +1018,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
   /// Responsible for servicing up images stored in Kavita for entities
   KavitaApiV1Image._({required super.context});
 
-  /// Returns cover image for [Chapter]
+  /// Returns cover image for [raw.Chapter]
   ///
   /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getChapterCover({
@@ -1031,7 +1035,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
         .cast();
   }
 
-  /// Returns cover image for [Library]
+  /// Returns cover image for [raw.Library]
   ///
   /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getLibraryCover({
@@ -1048,7 +1052,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
         .cast();
   }
 
-  /// Returns cover image for [Volume]
+  /// Returns cover image for [raw.Volume]
   ///
   /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getVolumeCover({
@@ -1099,7 +1103,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
         .cast();
   }
 
-  /// Returns cover image for a [ReadingList]
+  /// Returns cover image for a [raw.ReadingList]
   ///
   /// Will throw [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getReadingListCover({

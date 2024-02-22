@@ -12,6 +12,6 @@ class FileFormat with FileFormatMappable {
   final String? extension;
   final int? format;
 
-  static final fromMap = FileFormatMapper.fromMap;
-  static final fromJson = FileFormatMapper.fromJson;
+  static const fromMap = FileFormatMapper.fromMap;
+  static const fromJson = FileFormatMapper.fromJson;
 }

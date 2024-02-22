@@ -81,6 +81,6 @@ class ServerInfo with ServerInfoMappable {
   final int? encodeMediaAs;
   final DateTime? lastReadTime;
 
-  static final fromMap = ServerInfoMapper.fromMap;
-  static final fromJson = ServerInfoMapper.fromJson;
+  static const fromMap = ServerInfoMapper.fromMap;
+  static const fromJson = ServerInfoMapper.fromJson;
 }

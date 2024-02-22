@@ -28,6 +28,6 @@ class SiteTheme with SiteThemeMappable {
   final DateTime? createdUtc;
   final DateTime? lastModifiedUtc;
 
-  static final fromMap = SiteThemeMapper.fromMap;
-  static final fromJson = SiteThemeMapper.fromJson;
+  static const fromMap = SiteThemeMapper.fromMap;
+  static const fromJson = SiteThemeMapper.fromJson;
 }

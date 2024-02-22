@@ -16,6 +16,6 @@ class Rating with RatingMappable {
   final int? provider;
   final String? providerUrl;
 
-  static final fromMap = RatingMapper.fromMap;
-  static final fromJson = RatingMapper.fromJson;
+  static const fromMap = RatingMapper.fromMap;
+  static const fromJson = RatingMapper.fromJson;
 }

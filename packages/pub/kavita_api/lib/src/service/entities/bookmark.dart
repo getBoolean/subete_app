@@ -6,11 +6,11 @@ part 'bookmark.mapper.dart';
 @MappableClass()
 class Bookmark with BookmarkMappable {
   const Bookmark({
-    this.id,
     required this.page,
     required this.volumeId,
     required this.seriesId,
     required this.chapterId,
+    this.id,
     this.series,
   });
 
@@ -21,6 +21,6 @@ class Bookmark with BookmarkMappable {
   final int chapterId;
   final Series? series;
 
-  static final fromMap = BookmarkMapper.fromMap;
-  static final fromJson = BookmarkMapper.fromJson;
+  static const fromMap = BookmarkMapper.fromMap;
+  static const fromJson = BookmarkMapper.fromJson;
 }

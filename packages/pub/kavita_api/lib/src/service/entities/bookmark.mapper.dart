@@ -21,8 +21,6 @@ class BookmarkMapper extends ClassMapperBase<Bookmark> {
   @override
   final String id = 'Bookmark';
 
-  static int? _$id(Bookmark v) => v.id;
-  static const Field<Bookmark, int> _f$id = Field('id', _$id, opt: true);
   static int _$page(Bookmark v) => v.page;
   static const Field<Bookmark, int> _f$page = Field('page', _$page);
   static int _$volumeId(Bookmark v) => v.volumeId;
@@ -32,27 +30,29 @@ class BookmarkMapper extends ClassMapperBase<Bookmark> {
   static int _$chapterId(Bookmark v) => v.chapterId;
   static const Field<Bookmark, int> _f$chapterId =
       Field('chapterId', _$chapterId);
+  static int? _$id(Bookmark v) => v.id;
+  static const Field<Bookmark, int> _f$id = Field('id', _$id, opt: true);
   static Series? _$series(Bookmark v) => v.series;
   static const Field<Bookmark, Series> _f$series =
       Field('series', _$series, opt: true);
 
   @override
   final MappableFields<Bookmark> fields = const {
-    #id: _f$id,
     #page: _f$page,
     #volumeId: _f$volumeId,
     #seriesId: _f$seriesId,
     #chapterId: _f$chapterId,
+    #id: _f$id,
     #series: _f$series,
   };
 
   static Bookmark _instantiate(DecodingData data) {
     return Bookmark(
-        id: data.dec(_f$id),
         page: data.dec(_f$page),
         volumeId: data.dec(_f$volumeId),
         seriesId: data.dec(_f$seriesId),
         chapterId: data.dec(_f$chapterId),
+        id: data.dec(_f$id),
         series: data.dec(_f$series));
   }
 
@@ -109,11 +109,11 @@ abstract class BookmarkCopyWith<$R, $In extends Bookmark, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   SeriesCopyWith<$R, Series, Series>? get series;
   $R call(
-      {int? id,
-      int? page,
+      {int? page,
       int? volumeId,
       int? seriesId,
       int? chapterId,
+      int? id,
       Series? series});
   BookmarkCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -131,27 +131,27 @@ class _BookmarkCopyWithImpl<$R, $Out>
       $value.series?.copyWith.$chain((v) => call(series: v));
   @override
   $R call(
-          {Object? id = $none,
-          int? page,
+          {int? page,
           int? volumeId,
           int? seriesId,
           int? chapterId,
+          Object? id = $none,
           Object? series = $none}) =>
       $apply(FieldCopyWithData({
-        if (id != $none) #id: id,
         if (page != null) #page: page,
         if (volumeId != null) #volumeId: volumeId,
         if (seriesId != null) #seriesId: seriesId,
         if (chapterId != null) #chapterId: chapterId,
+        if (id != $none) #id: id,
         if (series != $none) #series: series
       }));
   @override
   Bookmark $make(CopyWithData data) => Bookmark(
-      id: data.get(#id, or: $value.id),
       page: data.get(#page, or: $value.page),
       volumeId: data.get(#volumeId, or: $value.volumeId),
       seriesId: data.get(#seriesId, or: $value.seriesId),
       chapterId: data.get(#chapterId, or: $value.chapterId),
+      id: data.get(#id, or: $value.id),
       series: data.get(#series, or: $value.series));
 
   @override

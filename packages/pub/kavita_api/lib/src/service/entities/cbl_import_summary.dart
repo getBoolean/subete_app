@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-import 'cbl_book_result.dart';
+import 'package:kavita_api/src/service/entities/cbl_book_result.dart';
 
 part 'cbl_import_summary.mapper.dart';
 
@@ -26,6 +26,6 @@ class CblImportSummary with CblImportSummaryMappable {
   final int? success;
   final List<CblBookResult>? successfulInserts;
 
-  static final fromMap = CblImportSummaryMapper.fromMap;
-  static final fromJson = CblImportSummaryMapper.fromJson;
+  static const fromMap = CblImportSummaryMapper.fromMap;
+  static const fromJson = CblImportSummaryMapper.fromJson;
 }

@@ -2307,11 +2307,11 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<BookmarkDto, Bookmark> to handle null values during mapping.');
     }
     return _i22.Bookmark(
-      id: model.id,
       page: model.page,
       volumeId: model.volumeId,
       seriesId: model.seriesId,
       chapterId: model.chapterId,
+      id: model.id,
       series: _map__i4$SeriesDto_To__i21$Series_Nullable(model.series),
     );
   }

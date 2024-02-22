@@ -12,6 +12,6 @@ class SortOptions with SortOptionsMappable {
   final int? sortField;
   final bool? isAscending;
 
-  static final fromMap = SortOptionsMapper.fromMap;
-  static final fromJson = SortOptionsMapper.fromJson;
+  static const fromMap = SortOptionsMapper.fromMap;
+  static const fromJson = SortOptionsMapper.fromJson;
 }

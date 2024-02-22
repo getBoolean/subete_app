@@ -24,8 +24,11 @@ void main() {
         email: '',
         password: '',
       );
-      expect(res.isSuccessful, isTrue,
-          reason: 'Failed to confirm password reset');
+      expect(
+        res.isSuccessful,
+        isTrue,
+        reason: 'Failed to confirm password reset',
+      );
       expect(res.body, 'test', reason: 'Expected response to be "test"');
     });
 
@@ -49,8 +52,11 @@ void main() {
 
     test('Test Logout', () async {
       api.v1.account.logout();
-      expect(api.context.currentUser, isNull,
-          reason: 'Expected user to be null');
+      expect(
+        api.context.currentUser,
+        isNull,
+        reason: 'Expected user to be null',
+      );
     });
 
     test('Test Refresh Account', () async {
@@ -65,20 +71,32 @@ void main() {
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Expected response to be not null');
-      expect(res.body!.token, 'token2',
-          reason: 'Expected response token to be "token2"');
-      expect(res.body!.refreshToken, 'refreshToken2',
-          reason: 'Expected response refresh token to be "refreshToken2"');
+      expect(
+        res.body!.token,
+        'token2',
+        reason: 'Expected response token to be "token2"',
+      );
+      expect(
+        res.body!.refreshToken,
+        'refreshToken2',
+        reason: 'Expected response refresh token to be "refreshToken2"',
+      );
     });
 
     test('Test Get Roles', () async {
       final res = await api.v1.account.getRoles();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Expected response to be not null');
-      expect(res.body!.isNotEmpty, isTrue,
-          reason: 'Expected response to be not empty');
-      expect(res.body!.first, 'test',
-          reason: 'Expected first response to be "test"');
+      expect(
+        res.body!.isNotEmpty,
+        isTrue,
+        reason: 'Expected response to be not empty',
+      );
+      expect(
+        res.body!.first,
+        'test',
+        reason: 'Expected first response to be "test"',
+      );
     });
 
     test('Test Reset API Key', () async {
@@ -119,12 +137,21 @@ void main() {
       final res = await api.v1.account.resendConfirmationEmail(userId: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Expected response to be not null');
-      expect(res.body!.emailLink, 'test',
-          reason: 'Expected response email link to be "test"');
-      expect(res.body!.emailSent, isTrue,
-          reason: 'Expected response email sent to be true');
-      expect(res.body!.invalidEmail, isFalse,
-          reason: 'Expected response invalid email to be false');
+      expect(
+        res.body!.emailLink,
+        'test',
+        reason: 'Expected response email link to be "test"',
+      );
+      expect(
+        res.body!.emailSent,
+        isTrue,
+        reason: 'Expected response email sent to be true',
+      );
+      expect(
+        res.body!.invalidEmail,
+        isFalse,
+        reason: 'Expected response invalid email to be false',
+      );
     });
 
     test('Test Is Email Confirmed', () async {
@@ -153,7 +180,7 @@ void main() {
         username: '',
         roles: [],
         libraries: [],
-        ageRestriction: AgeRestriction(
+        ageRestriction: const AgeRestriction(
           ageRating: 0,
           includeUnknowns: false,
         ),
@@ -173,7 +200,7 @@ void main() {
         email: '',
         roles: [],
         libraries: [],
-        ageRestriction: AgeRestriction(
+        ageRestriction: const AgeRestriction(
           ageRating: 0,
           includeUnknowns: false,
         ),

@@ -22,6 +22,6 @@ class Progress with ProgressMappable {
   final String? bookScrollId;
   final DateTime? lastModifiedUtc;
 
-  static final fromMap = ProgressMapper.fromMap;
-  static final fromJson = ProgressMapper.fromJson;
+  static const fromMap = ProgressMapper.fromMap;
+  static const fromJson = ProgressMapper.fromJson;
 }

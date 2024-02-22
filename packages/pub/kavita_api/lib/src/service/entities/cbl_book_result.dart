@@ -33,6 +33,6 @@ class CblBookResult with CblBookResultMappable {
   /// TODO: Identify [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ], convert to extension type
   final int? reason;
 
-  static final fromMap = CblBookResultMapper.fromMap;
-  static final fromJson = CblBookResultMapper.fromJson;
+  static const fromMap = CblBookResultMapper.fromMap;
+  static const fromJson = CblBookResultMapper.fromJson;
 }

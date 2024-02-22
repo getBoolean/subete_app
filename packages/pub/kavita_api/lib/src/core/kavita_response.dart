@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:chopper/chopper.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart' as http;
 
@@ -77,6 +79,6 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
     );
   }
 
-  static final fromMap = KavitaResponseMapper.fromMap;
-  static final fromJson = KavitaResponseMapper.fromJson;
+  static const fromMap = KavitaResponseMapper.fromMap;
+  static const fromJson = KavitaResponseMapper.fromJson;
 }

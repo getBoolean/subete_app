@@ -17,6 +17,6 @@ class AgeRestriction with AgeRestrictionMappable {
   /// Are Unknowns explicitly allowed against age rating
   final bool? includeUnknowns;
 
-  static final fromMap = AgeRestrictionMapper.fromMap;
-  static final fromJson = AgeRestrictionMapper.fromJson;
+  static const fromMap = AgeRestrictionMapper.fromMap;
+  static const fromJson = AgeRestrictionMapper.fromJson;
 }

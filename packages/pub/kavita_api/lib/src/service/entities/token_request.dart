@@ -11,6 +11,6 @@ class TokenRequest with TokenRequestMappable {
   final String? token;
   final String? refreshToken;
 
-  static final fromMap = TokenRequestMapper.fromMap;
-  static final fromJson = TokenRequestMapper.fromJson;
+  static const fromMap = TokenRequestMapper.fromMap;
+  static const fromJson = TokenRequestMapper.fromJson;
 }

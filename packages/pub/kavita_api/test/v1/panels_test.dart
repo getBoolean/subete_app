@@ -10,13 +10,15 @@ void main() {
 
   group('Test Kavita API v1 Panels', () {
     test('Test Save Progress', () async {
-      final res = await api.v1.panels.saveProgress(Progress(
-        volumeId: 1,
-        chapterId: 1,
-        pageNum: 1,
-        seriesId: 1,
-        libraryId: 1,
-      ));
+      final res = await api.v1.panels.saveProgress(
+        const Progress(
+          volumeId: 1,
+          chapterId: 1,
+          pageNum: 1,
+          seriesId: 1,
+          libraryId: 1,
+        ),
+      );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 

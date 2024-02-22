@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-import 'age_restriction.dart';
-import 'user_preferences.dart';
+import 'package:kavita_api/src/service/entities/age_restriction.dart';
+import 'package:kavita_api/src/service/entities/user_preferences.dart';
 
 part 'user.mapper.dart';
 
@@ -27,6 +27,6 @@ class User with UserMappable {
   final AgeRestriction? ageRestriction;
   final String? kavitaVersion;
 
-  static final fromMap = UserMapper.fromMap;
-  static final fromJson = UserMapper.fromJson;
+  static const fromMap = UserMapper.fromMap;
+  static const fromJson = UserMapper.fromJson;
 }

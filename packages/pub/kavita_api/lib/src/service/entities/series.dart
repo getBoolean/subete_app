@@ -79,6 +79,6 @@ class Series with SeriesMappable {
   /// The last time the folder for this series was scanned
   final DateTime? lastFolderScanned;
 
-  static final fromMap = SeriesMapper.fromMap;
-  static final fromJson = SeriesMapper.fromJson;
+  static const fromMap = SeriesMapper.fromMap;
+  static const fromJson = SeriesMapper.fromJson;
 }

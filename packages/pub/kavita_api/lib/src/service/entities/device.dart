@@ -17,6 +17,6 @@ class Device with DeviceMappable {
   final String? emailAddress;
   final DevicePlatform? platform;
 
-  static final fromMap = DeviceMapper.fromMap;
-  static final fromJson = DeviceMapper.fromJson;
+  static const fromMap = DeviceMapper.fromMap;
+  static const fromJson = DeviceMapper.fromJson;
 }
