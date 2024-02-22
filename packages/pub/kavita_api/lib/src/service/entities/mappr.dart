@@ -52,7 +52,12 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<raw.CblBookResult, CblBookResult>(reverse: true),
   MapType<raw.ServerInfoDto, ServerInfoDto>(reverse: true),
   MapType<raw.FileFormatDto, FileFormatDto>(reverse: true),
-  MapType<raw.DeviceDto, DeviceDto>(reverse: true),
+  MapType<raw.DeviceDto, DeviceDto>(converters: [
+    // Also applied to DeviceDto.id. Not ideal,
+    // but works since DevicePlatform is also an int
+    TypeConverter<int, DevicePlatform>(DevicePlatform.new),
+  ]),
+  MapType<DeviceDto, raw.DeviceDto>(),
   MapType<raw.SeriesDto, SeriesDto>(reverse: true),
   MapType<raw.BookmarkDto, BookmarkDto>(reverse: true),
   MapType<raw.FilterStatementDto, FilterStatementDto>(reverse: true),

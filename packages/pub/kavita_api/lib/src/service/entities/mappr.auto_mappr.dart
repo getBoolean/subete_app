@@ -2441,10 +2441,12 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<DeviceDto, DeviceDto> to handle null values during mapping.');
     }
     return _i16.DeviceDto(
-      id: model.id,
+      id: model.id == null ? null : (_i28.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: null,
+      platform: model.platform == null
+          ? null
+          : (_i28.DevicePlatform(model.platform!) as _i28.DevicePlatform?),
     );
   }
 
@@ -3218,10 +3220,12 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i16.DeviceDto(
-      id: model.id,
+      id: model.id == null ? null : (_i28.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: null,
+      platform: model.platform == null
+          ? null
+          : (_i28.DevicePlatform(model.platform!) as _i28.DevicePlatform?),
     );
   }
 
