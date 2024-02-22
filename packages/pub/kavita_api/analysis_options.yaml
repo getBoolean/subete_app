@@ -217,7 +217,7 @@ linter:
     prefer_void_to_null: true
     provide_deprecation_message: true
     recursive_getters: true
-    require_trailing_commas: true
+    require_trailing_commas: false
     secure_pubspec_urls: true
     sized_box_for_whitespace: true
     sized_box_shrink_expand: true
