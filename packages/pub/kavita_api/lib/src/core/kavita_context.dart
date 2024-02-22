@@ -14,10 +14,10 @@ class KavitaContext {
   @internal
   client.KavitaApiV1 get api => _api;
 
-  User? _currentUser;
+  UserDto? _currentUser;
 
   /// The current user logged in to the Kavita server
-  User? get currentUser => _currentUser;
+  UserDto? get currentUser => _currentUser;
 
   final Uri _baseUrl;
 
@@ -42,7 +42,7 @@ class KavitaContext {
   @internal
   KavitaContext({
     required Uri baseUrl,
-    User? currentUser,
+    UserDto? currentUser,
   })  : _baseUrl = baseUrl,
         _currentUser = currentUser,
         _api = client.KavitaApiV1.create(
@@ -63,13 +63,13 @@ class KavitaContext {
   @internal
   KavitaContext.fromApi(
     client.KavitaApiV1 api, {
-    User? currentUser,
+    UserDto? currentUser,
   })  : _api = api,
         _currentUser = currentUser,
         _baseUrl = api.client.baseUrl;
 
   @internal
-  void setCurrentUser(User user) {
+  void setCurrentUser(UserDto user) {
     _currentUser = user;
 
     _api = _api = client.KavitaApiV1.create(
@@ -92,7 +92,7 @@ class KavitaContext {
     _userChangeController.add(null);
   }
 
-  Stream<User?> get onUserChange => _userChangeController.stream;
+  Stream<UserDto?> get onUserChange => _userChangeController.stream;
 
-  final _userChangeController = StreamController<User?>.broadcast();
+  final _userChangeController = StreamController<UserDto?>.broadcast();
 }

@@ -216,13 +216,13 @@ class KavitaApiV1Account extends KavitaApiV1 {
   }
 
   /// Register the first user (admin) on the server. Will not do anything if an admin is already confirmed
-  Future<KavitaResponse<User>> registerFirstUser({
+  Future<KavitaResponse<UserDto>> registerFirstUser({
     required String username,
     required String password,
     String? email,
   }) async {
     final user = _mappr
-        .convert<ch.Response<raw.UserDto>, KavitaResponse<User>>(
+        .convert<ch.Response<raw.UserDto>, KavitaResponse<UserDto>>(
           await context.api.apiAccountRegisterPost(
             body: raw.RegisterDto(
               username: username,
@@ -240,13 +240,13 @@ class KavitaApiV1Account extends KavitaApiV1 {
   }
 
   /// Perform a login. Will send JWT Token of the logged in user back.
-  Future<KavitaResponse<User>> login({
+  Future<KavitaResponse<UserDto>> login({
     required String username,
     required String password,
     String? apiKey,
   }) async {
     final user = _mappr
-        .convert<ch.Response<raw.UserDto>, KavitaResponse<User>>(
+        .convert<ch.Response<raw.UserDto>, KavitaResponse<UserDto>>(
           await context.api.apiAccountLoginPost(
             body: raw.LoginDto(
               username: username,
@@ -268,9 +268,9 @@ class KavitaApiV1Account extends KavitaApiV1 {
   }
 
   /// Returns an up-to-date user account
-  Future<KavitaResponse<User>> refreshAccount() async {
+  Future<KavitaResponse<UserDto>> refreshAccount() async {
     final user = _mappr
-        .convert<ch.Response<raw.UserDto>, KavitaResponse<User>>(
+        .convert<ch.Response<raw.UserDto>, KavitaResponse<UserDto>>(
           await context.api.apiAccountRefreshAccountGet(),
         )
         .throwOnErrors;
@@ -282,13 +282,13 @@ class KavitaApiV1Account extends KavitaApiV1 {
   }
 
   /// Refreshes the user's JWT token
-  Future<KavitaResponse<TokenRequest>> refreshToken({
+  Future<KavitaResponse<TokenRequestDto>> refreshToken({
     required String token,
     required String refreshToken,
   }) async {
     return _mappr
         .convert<ch.Response<raw.TokenRequestDto>,
-            KavitaResponse<TokenRequest>>(
+            KavitaResponse<TokenRequestDto>>(
           await context.api.apiAccountRefreshTokenPost(
             body: raw.TokenRequestDto(
               token: token,
@@ -363,7 +363,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     String? username,
     List<String>? roles,
     List<int>? libraries,
-    AgeRestriction? ageRestriction,
+    AgeRestrictionDto? ageRestriction,
   }) async {
     final res = _mappr
         .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
@@ -374,7 +374,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
               roles: roles,
               libraries: libraries,
               ageRestriction:
-                  _mappr.convert<AgeRestriction, raw.AgeRestrictionDto>(
+                  _mappr.convert<AgeRestrictionDto, raw.AgeRestrictionDto>(
                 ageRestriction,
               ),
             ),
@@ -407,7 +407,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
     required String email,
     List<String>? roles,
     List<int>? libraries,
-    AgeRestriction? ageRestriction,
+    AgeRestrictionDto? ageRestriction,
   }) async {
     return _mappr
         .convert<ch.Response<String>, KavitaResponse<String>>(
@@ -417,7 +417,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
               roles: roles,
               libraries: libraries,
               ageRestriction:
-                  _mappr.convert<AgeRestriction, raw.AgeRestrictionDto>(
+                  _mappr.convert<AgeRestrictionDto, raw.AgeRestrictionDto>(
                 ageRestriction,
               ),
             ),
@@ -427,14 +427,14 @@ class KavitaApiV1Account extends KavitaApiV1 {
   }
 
   /// Last step in authentication flow, confirms the email token for email
-  Future<KavitaResponse<User>> confirmEmail({
+  Future<KavitaResponse<UserDto>> confirmEmail({
     required String email,
     required String token,
     required String password,
     required String username,
   }) async {
     final user = _mappr
-        .convert<ch.Response<raw.UserDto>, KavitaResponse<User>>(
+        .convert<ch.Response<raw.UserDto>, KavitaResponse<UserDto>>(
           await context.api.apiAccountConfirmEmailPost(
             body: raw.ConfirmEmailDto(
               email: email,
@@ -494,12 +494,12 @@ class KavitaApiV1Account extends KavitaApiV1 {
   }
 
   /// Confirm migration email
-  Future<KavitaResponse<User>> confirmMigrationEmail({
+  Future<KavitaResponse<UserDto>> confirmMigrationEmail({
     required String email,
     required String token,
   }) async {
     final user = _mappr
-        .convert<ch.Response<raw.UserDto>, KavitaResponse<User>>(
+        .convert<ch.Response<raw.UserDto>, KavitaResponse<UserDto>>(
           await context.api.apiAccountConfirmMigrationEmailPost(
             body: raw.ConfirmMigrationEmailDto(
               email: email,
@@ -557,7 +557,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
   /// file that if an import occured, would it be successful.
   ///
   /// If this returns errors, the cbl will always be rejected by Kavita.
-  Future<KavitaResponse<CblImportSummary>> validateCbl({
+  Future<KavitaResponse<CblImportSummaryDto>> validateCbl({
     String? contentType,
     String? contentDisposition,
     Object? headers,
@@ -567,7 +567,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
   }) async {
     return _mappr
         .convert<ch.Response<raw.CblImportSummaryDto>,
-            KavitaResponse<CblImportSummary>>(
+            KavitaResponse<CblImportSummaryDto>>(
           await context.api.apiCblValidatePost(
             contentType: contentType,
             contentDisposition: contentDisposition,
@@ -581,7 +581,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
   }
 
   /// Performs the actual import (assuming [dryRun] = false)
-  Future<KavitaResponse<CblImportSummary>> importCbl({
+  Future<KavitaResponse<CblImportSummaryDto>> importCbl({
     String? contentType,
     String? contentDisposition,
     Object? headers,
@@ -592,7 +592,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
   }) async {
     return _mappr
         .convert<ch.Response<raw.CblImportSummaryDto>,
-            KavitaResponse<CblImportSummary>>(
+            KavitaResponse<CblImportSummaryDto>>(
           await context.api.apiCblImportPost(
             contentType: contentType,
             contentDisposition: contentDisposition,
@@ -613,10 +613,10 @@ class KavitaApiV1Collection extends KavitaApiV1 {
   KavitaApiV1Collection._({required super.context});
 
   /// Return a list of all collection tags on the server for the logged in user.
-  Future<KavitaResponse<List<CollectionTag>>> getCollections() async {
+  Future<KavitaResponse<List<CollectionTagDto>>> getCollections() async {
     return _mappr
         .convert<ch.Response<List<raw.CollectionTagDto>>,
-            KavitaResponse<List<CollectionTag>>>(
+            KavitaResponse<List<CollectionTagDto>>>(
           await context.api.apiCollectionGet(),
         )
         .throwOnErrors;
@@ -639,12 +639,12 @@ class KavitaApiV1Collection extends KavitaApiV1 {
   /// that meet the search criteria.
   ///
   /// Search strings will be cleaned of certain fields, like %
-  Future<KavitaResponse<List<CollectionTag>>> searchCollections(
+  Future<KavitaResponse<List<CollectionTagDto>>> searchCollections(
     String queryString,
   ) async {
     return _mappr
         .convert<ch.Response<List<raw.CollectionTagDto>>,
-            KavitaResponse<List<CollectionTag>>>(
+            KavitaResponse<List<CollectionTagDto>>>(
           await context.api.apiCollectionSearchGet(
             queryString: queryString,
           ),
@@ -800,10 +800,10 @@ class KavitaApiV1Device extends KavitaApiV1 {
   }
 
   /// Returns a list of all devices for the user
-  Future<KavitaResponse<List<Device>>> getDevices() async {
+  Future<KavitaResponse<List<DeviceDto>>> getDevices() async {
     return _mappr
         .convert<ch.Response<List<raw.DeviceDto>>,
-            KavitaResponse<List<Device>>>(
+            KavitaResponse<List<DeviceDto>>>(
           await context.api.apiDeviceGet(),
         )
         .throwOnErrors;
@@ -939,14 +939,14 @@ class KavitaApiV1Download extends KavitaApiV1 {
 
   /// Downloads all bookmarks in a zip for
   Future<KavitaResponse<String>> downloadBookmarks(
-    List<Bookmark> bookmarks,
+    List<BookmarkDto> bookmarks,
   ) async {
     return _mappr
         .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiDownloadBookmarksPost(
             body: raw.DownloadBookmarkDto(
               bookmarks: bookmarks
-                  .map((e) => _mappr.convert<Bookmark, raw.BookmarkDto>(e))
+                  .map((e) => _mappr.convert<BookmarkDto, raw.BookmarkDto>(e))
                   .toList(),
             ),
           ),
@@ -962,21 +962,21 @@ class KavitaApiV1Filter extends KavitaApiV1 {
   KavitaApiV1Filter._({required super.context});
 
   /// Creates or Updates the user's current filter
-  Future<KavitaResponse<void>> updateFilter(FilterV2 filter) async {
+  Future<KavitaResponse<void>> updateFilter(FilterV2Dto filter) async {
     return _mappr
         .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiFilterUpdatePost(
-            body: _mappr.convert<FilterV2, raw.FilterV2Dto>(filter),
+            body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
           ),
         )
         .throwOnErrors;
   }
 
   /// Returns the user's current filter
-  Future<KavitaResponse<List<SmartFilter>>> getFilter() async {
+  Future<KavitaResponse<List<SmartFilterDto>>> getFilter() async {
     return _mappr
         .convert<ch.Response<List<raw.SmartFilterDto>>,
-            KavitaResponse<List<SmartFilter>>>(
+            KavitaResponse<List<SmartFilterDto>>>(
           await context.api.apiFilterGet(),
         )
         .throwOnErrors;
@@ -992,20 +992,20 @@ class KavitaApiV1Filter extends KavitaApiV1 {
   }
 
   /// Encode the filter
-  Future<KavitaResponse<String>> encodeFilter(FilterV2 filter) async {
+  Future<KavitaResponse<String>> encodeFilter(FilterV2Dto filter) async {
     return _mappr
         .convert<ch.Response<String>, KavitaResponse<String>>(
           await context.api.apiFilterEncodePost(
-            body: _mappr.convert<FilterV2, raw.FilterV2Dto>(filter),
+            body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
           ),
         )
         .throwOnErrors;
   }
 
   /// Decode the filter
-  Future<KavitaResponse<FilterV2>> decodeFilter(String filter) async {
+  Future<KavitaResponse<FilterV2Dto>> decodeFilter(String filter) async {
     return _mappr
-        .convert<ch.Response<raw.FilterV2Dto>, KavitaResponse<FilterV2>>(
+        .convert<ch.Response<raw.FilterV2Dto>, KavitaResponse<FilterV2Dto>>(
           await context.api.apiFilterDecodePost(
             body: raw.DecodeFilterDto(encodedFilter: filter),
           ),
@@ -1070,7 +1070,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
         .cast();
   }
 
-  /// Returns cover image for [Series]
+  /// Returns cover image for [SeriesDto]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getSeriesCover({
@@ -1087,7 +1087,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
         .cast();
   }
 
-  /// Returns cover image for [CollectionTag]
+  /// Returns cover image for [CollectionTagDto]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getCollectionCover({
@@ -1121,7 +1121,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
         .cast();
   }
 
-  /// Returns image for a given [Bookmark] page
+  /// Returns image for a given [BookmarkDto] page
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getBookmarkImage({
@@ -1183,11 +1183,11 @@ class KavitaApiV1Panels extends KavitaApiV1 {
   /// Saves the progress of a given chapter.
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
-  Future<KavitaResponse<void>> saveProgress(Progress progress) async {
+  Future<KavitaResponse<void>> saveProgress(ProgressDto progress) async {
     return _mappr
         .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiPanelsSaveProgressPost(
-            body: _mappr.convert<Progress, raw.ProgressDto>(progress),
+            body: _mappr.convert<ProgressDto, raw.ProgressDto>(progress),
             apiKey: context.apiKey,
           ),
         )
@@ -1197,11 +1197,11 @@ class KavitaApiV1Panels extends KavitaApiV1 {
   /// Gets the Progress of a given chapter
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
-  Future<KavitaResponse<Progress>> getProgress({
+  Future<KavitaResponse<ProgressDto>> getProgress({
     required int chapterId,
   }) async {
     return _mappr
-        .convert<ch.Response<raw.ProgressDto>, KavitaResponse<Progress>>(
+        .convert<ch.Response<raw.ProgressDto>, KavitaResponse<ProgressDto>>(
           await context.api.apiPanelsGetProgressGet(
             chapterId: chapterId,
             apiKey: context.apiKey,
@@ -1217,11 +1217,11 @@ class KavitaApiV1Rating extends KavitaApiV1 {
   KavitaApiV1Rating._({required super.context});
 
   // overall rating
-  Future<KavitaResponse<Rating>> getOverallRating({
+  Future<KavitaResponse<RatingDto>> getOverallRating({
     required int seriesId,
   }) async {
     return _mappr
-        .convert<ch.Response<raw.RatingDto>, KavitaResponse<Rating>>(
+        .convert<ch.Response<raw.RatingDto>, KavitaResponse<RatingDto>>(
           await context.api.apiRatingOverallGet(
             seriesId: seriesId,
           ),
@@ -1322,13 +1322,13 @@ class KavitaApiV1Reader extends KavitaApiV1 {
 
   /// Returns the file dimensions for all pages in a chapter. If the underlying
   /// chapter is PDF, use [extractPdf] to unpack as images.
-  Future<KavitaResponse<List<FileDimension>>> getChapterDimensions({
+  Future<KavitaResponse<List<FileDimensionDto>>> getChapterDimensions({
     required int id,
     bool extractPdf = false,
   }) async {
     return _mappr
         .convert<ch.Response<List<raw.FileDimensionDto>>,
-            KavitaResponse<List<FileDimension>>>(
+            KavitaResponse<List<FileDimensionDto>>>(
           await context.api.apiReaderFileDimensionsGet(
             chapterId: id,
             extractPdf: extractPdf,
@@ -1339,13 +1339,14 @@ class KavitaApiV1Reader extends KavitaApiV1 {
 
   /// Returns various information about a Chapter. Side effect: This will cache
   /// the chapter images for reading.
-  Future<KavitaResponse<ChapterInfo>> getChapterInfo({
+  Future<KavitaResponse<ChapterInfoDto>> getChapterInfo({
     required int id,
     bool includeDimensions = true,
     bool extractPdf = false,
   }) async {
     return _mappr
-        .convert<ch.Response<raw.ChapterInfoDto>, KavitaResponse<ChapterInfo>>(
+        .convert<ch.Response<raw.ChapterInfoDto>,
+            KavitaResponse<ChapterInfoDto>>(
           await context.api.apiReaderChapterInfoGet(
             chapterId: id,
             includeDimensions: includeDimensions,
@@ -1357,13 +1358,13 @@ class KavitaApiV1Reader extends KavitaApiV1 {
 
   /// Returns various information about all bookmark files for a Series.
   /// Side effect: This will cache the bookmark images for reading.
-  Future<KavitaResponse<BookmarkInfo>> getBookmarkInfo({
+  Future<KavitaResponse<BookmarkInfoDto>> getBookmarkInfo({
     required int seriesId,
     bool includeDimensions = true,
   }) async {
     return _mappr
         .convert<ch.Response<raw.BookmarkInfoDto>,
-            KavitaResponse<BookmarkInfo>>(
+            KavitaResponse<BookmarkInfoDto>>(
           await context.api.apiReaderBookmarkInfoGet(
             seriesId: seriesId,
             includeDimensions: includeDimensions,
@@ -1588,9 +1589,10 @@ class KavitaApiV1Server extends KavitaApiV1 {
 
   // TODO: Server
 
-  Future<KavitaResponse<ServerInfo>> getServerInfo() async {
-    return _mappr.convert<ch.Response<raw.ServerInfoDto>,
-        KavitaResponse<ServerInfo>>(await context.api.apiServerServerInfoGet());
+  Future<KavitaResponse<ServerInfoDto>> getServerInfo() async {
+    return _mappr
+        .convert<ch.Response<raw.ServerInfoDto>, KavitaResponse<ServerInfoDto>>(
+            await context.api.apiServerServerInfoGet());
   }
 }
 

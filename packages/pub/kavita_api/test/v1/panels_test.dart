@@ -11,7 +11,7 @@ void main() {
   group('Test Kavita API v1 Panels', () {
     test('Test Save Progress', () async {
       final res = await api.v1.panels.saveProgress(
-        const Progress(
+        const ProgressDto(
           volumeId: 1,
           chapterId: 1,
           pageNum: 1,

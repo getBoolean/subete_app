@@ -10,11 +10,11 @@ void main() {
 
   group('Test Kavita API v1 Filter', () {
     test('Test update filter', () async {
-      const filter = FilterV2(
+      const filter = FilterV2Dto(
         id: 1,
         name: 'Test Filter',
         statements: [
-          FilterStatement(
+          FilterStatementDto(
             comparison: 1,
             field: 1,
             $value: 'Test',
@@ -43,11 +43,11 @@ void main() {
     });
 
     test('Test Encode Filter', () async {
-      const filter = FilterV2(
+      const filter = FilterV2Dto(
         id: 1,
         name: 'Test Filter',
         statements: [
-          FilterStatement(
+          FilterStatementDto(
             comparison: 1,
             field: 1,
             $value: 'Test',

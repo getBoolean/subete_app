@@ -34,7 +34,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     return KavitaApi.fromContext(
       KavitaContext.fromApi(
         rawApi,
-        currentUser: const User(
+        currentUser: const UserDto(
           username: 'test',
           email: 'test',
           apiKey: apiKey,

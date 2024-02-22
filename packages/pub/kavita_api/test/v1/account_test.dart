@@ -180,7 +180,7 @@ void main() {
         username: '',
         roles: [],
         libraries: [],
-        ageRestriction: const AgeRestriction(
+        ageRestriction: const AgeRestrictionDto(
           ageRating: 0,
           includeUnknowns: false,
         ),
@@ -200,7 +200,7 @@ void main() {
         email: '',
         roles: [],
         libraries: [],
-        ageRestriction: const AgeRestriction(
+        ageRestriction: const AgeRestrictionDto(
           ageRating: 0,
           includeUnknowns: false,
         ),

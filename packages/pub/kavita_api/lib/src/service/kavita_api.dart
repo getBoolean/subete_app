@@ -1,5 +1,5 @@
 import 'package:kavita_api/src/core/kavita_context.dart';
-import 'package:kavita_api/src/service/entities/user.dart';
+import 'package:kavita_api/src/service/entities/user_dto.dart';
 import 'package:kavita_api/src/service/v1/kavita_api_v1.dart';
 import 'package:meta/meta.dart';
 
@@ -18,7 +18,7 @@ class KavitaApi {
   const KavitaApi.fromContext(this.context);
 
   factory KavitaApi.fromUser(
-    User user, {
+    UserDto user, {
     required Uri baseUrl,
   }) {
     return KavitaApi.fromContext(
