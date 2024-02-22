@@ -1440,7 +1440,7 @@ class KavitaApiV1Stream extends KavitaApiV1 {
   /// ExternalSource, DashboardStream, SideNavStream)
   KavitaApiV1Stream._({required super.context});
 
-  // TODO*: Stream
+  // TODO!: Stream
 }
 
 /// All APIs are for Tachiyomi extension and app. They have hacks for
