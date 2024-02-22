@@ -477,18 +477,41 @@ void mockRatingApi(MockRawKavitaApiV1 api) {
 
 void mockReaderApi(MockRawKavitaApiV1 api, String apiKey) {
   // pdf
+  when(() => api.apiReaderPdfGet(chapterId: 1, apiKey: apiKey))
+      .thenResponse('1');
 
   // image
+  when(() => api.apiReaderImageGet(
+      chapterId: 1,
+      page: 1,
+      apiKey: apiKey,
+      extractPdf: false)).thenResponse('1');
 
   // thumbnail
+  when(() =>
+          api.apiReaderThumbnailGet(chapterId: 1, pageNum: 1, apiKey: apiKey))
+      .thenResponse('1');
 
   // bookmark image
+  when(() =>
+          api.apiReaderBookmarkImageGet(seriesId: 1, page: 1, apiKey: apiKey))
+      .thenResponse('1');
 
   // file dimensions
+  when(() => api.apiReaderFileDimensionsGet(chapterId: 1, extractPdf: false))
+      .thenResponse([const raw.FileDimensionDto()]);
 
   // chapter info
+  when(() => api.apiReaderChapterInfoGet(
+      chapterId: 1, includeDimensions: true, extractPdf: false)).thenResponse(
+    const raw.ChapterInfoDto(),
+  );
 
   // bookmark info
+  when(() => api.apiReaderBookmarkInfoGet(seriesId: 1, includeDimensions: true))
+      .thenResponse(
+    const raw.BookmarkInfoDto(),
+  );
 
   // mark read
 
