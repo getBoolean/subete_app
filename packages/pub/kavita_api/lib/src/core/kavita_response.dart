@@ -1,9 +1,10 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:chopper/chopper.dart' as ch show Converter;
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart' as http;
+import 'package:kavita_api/src/core/kavita_exception.dart';
+import 'package:meta/meta.dart';
 
 part 'kavita_response.mapper.dart';
 
@@ -48,7 +49,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
       base is http.Response ? (base as http.Response).body : '';
 
   /// Returns the response body if [Response] [isSuccessful] and [body] is not null.
-  /// Otherwise it throws an [HttpException] with the response status code and error object.
+  /// Otherwise it throws an [KavitaHttpException] with the response status code and error object.
   /// If the error object is an [Exception], it will be thrown instead.
   BodyType get bodyOrThrow {
     if (isSuccessful && body != null) {
@@ -58,7 +59,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
         // ignore: only_throw_errors
         throw error!;
       }
-      throw Exception(this);
+      throw KavitaHttpException(error.toString(), this);
     }
   }
 
@@ -71,12 +72,69 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
     }
   }
 
+  @internal
   KavitaResponse<NewBodyType> cast<NewBodyType>() {
     return KavitaResponse<NewBodyType>(
       base,
       body as NewBodyType?,
       error: error,
     );
+  }
+
+  @internal
+  KavitaResponse<BodyType> get throwOnErrors => _checkResponse(this);
+
+  KavitaResponse<BodyType> _checkResponse(
+    KavitaResponse<BodyType> response,
+  ) {
+    if (response.statusCode == 204) {
+      return response;
+    }
+
+    if (response.statusCode == 200 && response.body != null) {
+      return response;
+    }
+
+    if (response.statusCode == 401) {
+      throw KavitaUnauthorizedException(
+        'The specified access token is invalid.',
+        response,
+      );
+    }
+
+    if (response.statusCode == 403) {
+      throw KavitaUnauthorizedException(
+        'Your request is forbidden.',
+        response,
+      );
+    }
+
+    if (response.statusCode == 404) {
+      throw KavitaDataNotFoundException(
+        'There is no data associated with request.',
+        response,
+      );
+    }
+
+    if (response.statusCode == 429) {
+      throw KavitaRateLimitExceededException(
+        'Rate limit exceeded.',
+        response,
+      );
+    }
+
+    if (response.statusCode == 206) {
+      throw KavitaPendingException('Still being processed.', response);
+    }
+
+    if (response.statusCode >= 400 && response.statusCode < 500) {
+      throw KavitaHttpException(
+        'Required parameter is missing or improperly formatted.',
+        response,
+      );
+    }
+
+    return response;
   }
 
   static const fromMap = KavitaResponseMapper.fromMap;

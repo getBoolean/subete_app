@@ -1,6 +1,5 @@
 import 'package:chopper/chopper.dart' as ch show Response;
 import 'package:kavita_api/src/core.dart';
-import 'package:kavita_api/src/core/utils.dart';
 import 'package:kavita_api/src/service/entities.dart';
 import 'package:kavita_api/src/service/entities/mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
@@ -213,7 +212,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Register the first user (admin) on the server. Will not do anything if an admin is already confirmed
@@ -232,7 +231,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -256,7 +255,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -274,7 +273,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
         .convert<ch.Response<raw.UserDto>, KavitaResponse<User>>(
           await context.api.apiAccountRefreshAccountGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -297,7 +296,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Get All Roles back. See API.Constants.PolicyConstants
@@ -306,7 +305,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
         .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
           await context.api.apiAccountRolesGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Resets the API Key assigned with a user
@@ -315,7 +314,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
         .convert<ch.Response<String>, KavitaResponse<String>>(
           await context.api.apiAccountResetApiKeyPost(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Initiates the flow to update a user's email address. If email is not setup,
@@ -335,7 +334,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Update age restriction settings
@@ -352,7 +351,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
 
     await refreshAccount();
     return res;
@@ -381,7 +380,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
 
     await refreshAccount();
     return res;
@@ -399,7 +398,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             withBaseUrl: withBaseUrl,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Invites a user to the server. Will generate a setup link for continuing setup.
@@ -424,7 +423,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Last step in authentication flow, confirms the email token for email
@@ -445,7 +444,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -469,7 +468,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Will send user a link to update their password to their email or prompt them if not accessible
@@ -482,7 +481,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             email: email,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Email is confirmed
@@ -491,7 +490,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
         .convert<ch.Response<bool>, KavitaResponse<bool>>(
           await context.api.apiAccountEmailConfirmedGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Confirm migration email
@@ -508,7 +507,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -527,7 +526,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
             userId: userId,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Returns the OPDS url for this user
@@ -536,7 +535,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
         .convert<ch.Response<String>, KavitaResponse<String>>(
           await context.api.apiAccountOpdsUrlGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Is the user's current email valid or not
@@ -545,7 +544,7 @@ class KavitaApiV1Account extends KavitaApiV1 {
         .convert<ch.Response<bool>, KavitaResponse<bool>>(
           await context.api.apiAccountIsEmailValidGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 }
 
@@ -578,7 +577,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
             fileName: fileName,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Performs the actual import (assuming [dryRun] = false)
@@ -604,7 +603,7 @@ class KavitaApiV1Cbl extends KavitaApiV1 {
             dryRun: dryRun,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 }
 
@@ -620,7 +619,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
             KavitaResponse<List<CollectionTag>>>(
           await context.api.apiCollectionGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Removes the collection tag from all Series it was attached to
@@ -633,7 +632,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
             tagId: id,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Searches against the collection tags on the DB and returns matches
@@ -650,7 +649,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
             queryString: queryString,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Checks if a collection exists with the [title]
@@ -663,7 +662,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
             name: title,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Updates an existing tag with a new title, promotion status,
@@ -685,7 +684,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Creates and adds collection tag onto multiple Series.
@@ -714,7 +713,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// For a given tag, update the summary if summary has changed
@@ -736,7 +735,7 @@ class KavitaApiV1Collection extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 }
 
@@ -763,7 +762,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Update a device
@@ -784,7 +783,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Deletes the device from the user
@@ -797,7 +796,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
             deviceId: id,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Returns a list of all devices for the user
@@ -807,7 +806,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
             KavitaResponse<List<Device>>>(
           await context.api.apiDeviceGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Sends a collection of chapters to the user's device
@@ -824,7 +823,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Sends a series to the user's device
@@ -841,7 +840,7 @@ class KavitaApiV1Device extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 }
 
@@ -864,7 +863,7 @@ class KavitaApiV1Download extends KavitaApiV1 {
             volumeId: id,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// For a given chapter, return the size in bytes
@@ -877,7 +876,7 @@ class KavitaApiV1Download extends KavitaApiV1 {
             chapterId: id,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// For a series, return the size in bytes
@@ -890,7 +889,7 @@ class KavitaApiV1Download extends KavitaApiV1 {
             seriesId: id,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Downloads all chapters within a volume.
@@ -905,7 +904,7 @@ class KavitaApiV1Download extends KavitaApiV1 {
             volumeId: id,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -934,7 +933,7 @@ class KavitaApiV1Download extends KavitaApiV1 {
             seriesId: id,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -952,7 +951,7 @@ class KavitaApiV1Download extends KavitaApiV1 {
             ),
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 }
@@ -970,7 +969,7 @@ class KavitaApiV1Filter extends KavitaApiV1 {
             body: _mappr.convert<FilterV2, raw.FilterV2Dto>(filter),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Returns the user's current filter
@@ -980,7 +979,7 @@ class KavitaApiV1Filter extends KavitaApiV1 {
             KavitaResponse<List<SmartFilter>>>(
           await context.api.apiFilterGet(),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Deletes the filter
@@ -989,7 +988,7 @@ class KavitaApiV1Filter extends KavitaApiV1 {
         .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiFilterDelete(filterId: id),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Encode the filter
@@ -1000,7 +999,7 @@ class KavitaApiV1Filter extends KavitaApiV1 {
             body: _mappr.convert<FilterV2, raw.FilterV2Dto>(filter),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Decode the filter
@@ -1011,7 +1010,7 @@ class KavitaApiV1Filter extends KavitaApiV1 {
             body: raw.DecodeFilterDto(encodedFilter: filter),
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 }
 
@@ -1033,7 +1032,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1050,7 +1049,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1067,7 +1066,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1084,7 +1083,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1101,7 +1100,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1118,7 +1117,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1137,7 +1136,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1154,7 +1153,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 
@@ -1171,7 +1170,7 @@ class KavitaApiV1Image extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError
+        .throwOnErrors
         .cast();
   }
 }
@@ -1192,7 +1191,7 @@ class KavitaApiV1Panels extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 
   /// Gets the Progress of a given chapter
@@ -1208,7 +1207,7 @@ class KavitaApiV1Panels extends KavitaApiV1 {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 }
 
@@ -1227,7 +1226,7 @@ class KavitaApiV1Rating extends KavitaApiV1 {
             seriesId: seriesId,
           ),
         )
-        .throwOnError;
+        .throwOnErrors;
   }
 }
 
