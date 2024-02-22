@@ -10,8 +10,13 @@ class InviteUserResponse with InviteUserResponseMappable {
     this.invalidEmail,
   });
 
+  /// Email link used to setup the user account
   final String? emailLink;
+
+  /// Was an email sent (ie is this server accessible)
   final bool? emailSent;
+
+  /// When a user has an invalid email and is attempting to perform a flow.
   final bool? invalidEmail;
 
   static const fromMap = InviteUserResponseMapper.fromMap;

@@ -13,6 +13,10 @@ class Rating with RatingMappable {
 
   final int? averageScore;
   final int? favoriteCount;
+
+  /// Misleading name but is the source of data (like a review coming from AniList)
+  ///
+  /// TODO: Identify [ 0, 1, 2 ]
   final int? provider;
   final String? providerUrl;
 

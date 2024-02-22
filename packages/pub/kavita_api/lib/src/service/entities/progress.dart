@@ -19,6 +19,9 @@ class Progress with ProgressMappable {
   final int pageNum;
   final int seriesId;
   final int libraryId;
+
+  /// For EPUB reader, this can be an optional string of the id of a part marker,
+  /// to help resume reading position on pages that combine multiple "chapters"
   final String? bookScrollId;
   final DateTime? lastModifiedUtc;
 
