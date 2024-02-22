@@ -1239,19 +1239,138 @@ class KavitaApiV1Reader extends KavitaApiV1 {
 
   // TODO!: Reader
 
-  // pdf
+  /// Returns the PDF for the chapterId.
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<String>> getChapterPdf({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderPdfGet(
+            chapterId: id,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnErrors
+        .cast();
+  }
 
-  // image
+  /// Returns an image for a given chapter. Will perform bounding checks
+  ///
+  /// - [id] Chapter Id
+  /// - [page] Page in question
+  /// - [extractPdf] Should Kavita extract pdf into images. Defaults to false.
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<String>> getChapterImage({
+    required int id,
+    required int page,
+    bool extractPdf = false,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderImageGet(
+            chapterId: id,
+            page: page,
+            extractPdf: extractPdf,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnErrors
+        .cast();
+  }
 
-  // thumbnail
+  /// Returns a thumbnail for the given page number
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<String>> getChapterThumbnail({
+    required int id,
+    required int page,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderThumbnailGet(
+            chapterId: id,
+            pageNum: page,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnErrors
+        .cast();
+  }
 
-  // bookmark image
+  /// Returns an image for a given bookmark series. Side effect: This will
+  /// cache the bookmark images for reading.
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<String>> getBookmarkImage({
+    required int seriesId,
+    required int page,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderBookmarkImageGet(
+            seriesId: seriesId,
+            page: page,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnErrors
+        .cast();
+  }
 
-  // file dimensions
+  /// Returns the file dimensions for all pages in a chapter. If the underlying
+  /// chapter is PDF, use [extractPdf] to unpack as images.
+  Future<KavitaResponse<List<FileDimension>>> getChapterDimensions({
+    required int id,
+    bool extractPdf = false,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.FileDimensionDto>>,
+            KavitaResponse<List<FileDimension>>>(
+          await context.api.apiReaderFileDimensionsGet(
+            chapterId: id,
+            extractPdf: extractPdf,
+          ),
+        )
+        .throwOnErrors;
+  }
 
-  // chapter info
+  /// Returns various information about a Chapter. Side effect: This will cache
+  /// the chapter images for reading.
+  Future<KavitaResponse<ChapterInfo>> getChapterInfo({
+    required int id,
+    bool includeDimensions = true,
+    bool extractPdf = false,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.ChapterInfoDto>, KavitaResponse<ChapterInfo>>(
+          await context.api.apiReaderChapterInfoGet(
+            chapterId: id,
+            includeDimensions: includeDimensions,
+            extractPdf: extractPdf,
+          ),
+        )
+        .throwOnErrors;
+  }
 
-  // bookmark info
+  /// Returns various information about all bookmark files for a Series.
+  /// Side effect: This will cache the bookmark images for reading.
+  Future<KavitaResponse<BookmarkInfo>> getBookmarkInfo({
+    required int seriesId,
+    bool includeDimensions = true,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.BookmarkInfoDto>,
+            KavitaResponse<BookmarkInfo>>(
+          await context.api.apiReaderBookmarkInfoGet(
+            seriesId: seriesId,
+            includeDimensions: includeDimensions,
+          ),
+        )
+        .throwOnErrors;
+  }
 
   // mark read
 

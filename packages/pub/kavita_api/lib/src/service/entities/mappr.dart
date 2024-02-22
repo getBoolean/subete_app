@@ -30,11 +30,15 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<bool>, KavitaResponse<bool>>(),
   MapType<ch.Response<String>, KavitaResponse<String>>(),
   MapType<ch.Response<List<String>>, KavitaResponse<List<String>>>(),
+  MapType<ch.Response<List<raw.FileDimensionDto>>,
+      KavitaResponse<List<FileDimension>>>(),
   MapType<ch.Response<List<raw.SmartFilterDto>>,
       KavitaResponse<List<SmartFilter>>>(),
   MapType<ch.Response<raw.FilterV2Dto>, KavitaResponse<FilterV2>>(),
   MapType<ch.Response<raw.ProgressDto>, KavitaResponse<Progress>>(),
   MapType<ch.Response<raw.RatingDto>, KavitaResponse<Rating>>(),
+  MapType<ch.Response<raw.ChapterInfoDto>, KavitaResponse<ChapterInfo>>(),
+  MapType<ch.Response<raw.BookmarkInfoDto>, KavitaResponse<BookmarkInfo>>(),
   MapType<raw.UserDto, User>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestriction>(reverse: true),
   MapType<raw.UserPreferencesDto, UserPreferences>(reverse: true),
@@ -55,6 +59,9 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<raw.SmartFilterDto, SmartFilter>(reverse: true),
   MapType<raw.RatingDto, Rating>(reverse: true),
   MapType<raw.ProgressDto, Progress>(reverse: true),
+  MapType<raw.FileDimensionDto, FileDimension>(reverse: true),
+  MapType<raw.ChapterInfoDto, ChapterInfo>(reverse: true),
+  MapType<raw.BookmarkInfoDto, BookmarkInfo>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();

@@ -13,23 +13,26 @@ import 'package:chopper/src/response.dart' as _i2;
 import '../../core/kavita_response.dart' as _i3;
 import '../openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 import 'age_restriction.dart' as _i6;
-import 'bookmark.dart' as _i22;
+import 'bookmark.dart' as _i25;
+import 'bookmark_info.dart' as _i23;
 import 'cbl_book_result.dart' as _i13;
 import 'cbl_import_summary.dart' as _i12;
+import 'chapter_info.dart' as _i22;
 import 'collection_tag.dart' as _i11;
 import 'device.dart' as _i16;
-import 'device_platform.dart' as _i25;
+import 'device_platform.dart' as _i28;
+import 'file_dimension.dart' as _i17;
 import 'file_format.dart' as _i15;
-import 'filter_statement.dart' as _i23;
-import 'filter_v2.dart' as _i18;
+import 'filter_statement.dart' as _i26;
+import 'filter_v2.dart' as _i19;
 import 'invite_user_response.dart' as _i10;
-import 'progress.dart' as _i19;
-import 'rating.dart' as _i20;
-import 'series.dart' as _i21;
+import 'progress.dart' as _i20;
+import 'rating.dart' as _i21;
+import 'series.dart' as _i24;
 import 'server_info.dart' as _i14;
 import 'site_theme.dart' as _i8;
-import 'smart_filter.dart' as _i17;
-import 'sort_options.dart' as _i24;
+import 'smart_filter.dart' as _i18;
+import 'sort_options.dart' as _i27;
 import 'token_request.dart' as _i9;
 import 'user.dart' as _i5;
 import 'user_preferences.dart' as _i7;
@@ -55,10 +58,13 @@ import 'user_preferences.dart' as _i7;
 /// - `Response<bool>` → `KavitaResponse<bool>`.
 /// - `Response<String>` → `KavitaResponse<String>`.
 /// - `Response<List<String>>` → `KavitaResponse<List<String>>`.
+/// - `Response<List<FileDimensionDto>>` → `KavitaResponse<List<FileDimension>>`.
 /// - `Response<List<SmartFilterDto>>` → `KavitaResponse<List<SmartFilter>>`.
 /// - `Response<FilterV2Dto>` → `KavitaResponse<FilterV2>`.
 /// - `Response<ProgressDto>` → `KavitaResponse<Progress>`.
 /// - `Response<RatingDto>` → `KavitaResponse<Rating>`.
+/// - `Response<ChapterInfoDto>` → `KavitaResponse<ChapterInfo>`.
+/// - `Response<BookmarkInfoDto>` → `KavitaResponse<BookmarkInfo>`.
 /// - `UserDto` → `User`.
 /// - `User` → `UserDto`.
 /// - `AgeRestrictionDto` → `AgeRestriction`.
@@ -99,6 +105,12 @@ import 'user_preferences.dart' as _i7;
 /// - `Rating` → `RatingDto`.
 /// - `ProgressDto` → `Progress`.
 /// - `Progress` → `ProgressDto`.
+/// - `FileDimensionDto` → `FileDimension`.
+/// - `FileDimension` → `FileDimensionDto`.
+/// - `ChapterInfoDto` → `ChapterInfo`.
+/// - `ChapterInfo` → `ChapterInfoDto`.
+/// - `BookmarkInfoDto` → `BookmarkInfo`.
+/// - `BookmarkInfo` → `BookmarkInfoDto`.
 /// {@endtemplate}
 class $Mappr implements _i1.AutoMapprInterface {
   const $Mappr();
@@ -239,31 +251,53 @@ class $Mappr implements _i1.AutoMapprInterface {
             targetTypeOf == _typeOf<_i3.KavitaResponse<List<String>>?>())) {
       return true;
     }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.FileDimensionDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.FileDimensionDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i17.FileDimension>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i17.FileDimension>>?>())) {
+      return true;
+    }
     if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.SmartFilterDto>>>() ||
             sourceTypeOf ==
                 _typeOf<_i2.Response<List<_i4.SmartFilterDto>>?>()) &&
         (targetTypeOf ==
-                _typeOf<_i3.KavitaResponse<List<_i17.SmartFilter>>>() ||
+                _typeOf<_i3.KavitaResponse<List<_i18.SmartFilter>>>() ||
             targetTypeOf ==
-                _typeOf<_i3.KavitaResponse<List<_i17.SmartFilter>>?>())) {
+                _typeOf<_i3.KavitaResponse<List<_i18.SmartFilter>>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.FilterV2Dto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.FilterV2Dto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i18.FilterV2>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i18.FilterV2>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.FilterV2>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.FilterV2>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ProgressDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.ProgressDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.Progress>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.Progress>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Progress>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Progress>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.RatingDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.RatingDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Rating>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Rating>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i21.Rating>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i21.Rating>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ChapterInfoDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.ChapterInfoDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i22.ChapterInfo>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i22.ChapterInfo>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.BookmarkInfoDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.BookmarkInfoDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i23.BookmarkInfo>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i23.BookmarkInfo>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
@@ -412,98 +446,134 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.SeriesDto>() ||
             sourceTypeOf == _typeOf<_i4.SeriesDto?>()) &&
-        (targetTypeOf == _typeOf<_i21.Series>() ||
-            targetTypeOf == _typeOf<_i21.Series?>())) {
+        (targetTypeOf == _typeOf<_i24.Series>() ||
+            targetTypeOf == _typeOf<_i24.Series?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i21.Series>() ||
-            sourceTypeOf == _typeOf<_i21.Series?>()) &&
+    if ((sourceTypeOf == _typeOf<_i24.Series>() ||
+            sourceTypeOf == _typeOf<_i24.Series?>()) &&
         (targetTypeOf == _typeOf<_i4.SeriesDto>() ||
             targetTypeOf == _typeOf<_i4.SeriesDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.BookmarkDto>() ||
             sourceTypeOf == _typeOf<_i4.BookmarkDto?>()) &&
-        (targetTypeOf == _typeOf<_i22.Bookmark>() ||
-            targetTypeOf == _typeOf<_i22.Bookmark?>())) {
+        (targetTypeOf == _typeOf<_i25.Bookmark>() ||
+            targetTypeOf == _typeOf<_i25.Bookmark?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i22.Bookmark>() ||
-            sourceTypeOf == _typeOf<_i22.Bookmark?>()) &&
+    if ((sourceTypeOf == _typeOf<_i25.Bookmark>() ||
+            sourceTypeOf == _typeOf<_i25.Bookmark?>()) &&
         (targetTypeOf == _typeOf<_i4.BookmarkDto>() ||
             targetTypeOf == _typeOf<_i4.BookmarkDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             sourceTypeOf == _typeOf<_i4.FilterStatementDto?>()) &&
-        (targetTypeOf == _typeOf<_i23.FilterStatement>() ||
-            targetTypeOf == _typeOf<_i23.FilterStatement?>())) {
+        (targetTypeOf == _typeOf<_i26.FilterStatement>() ||
+            targetTypeOf == _typeOf<_i26.FilterStatement?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i23.FilterStatement>() ||
-            sourceTypeOf == _typeOf<_i23.FilterStatement?>()) &&
+    if ((sourceTypeOf == _typeOf<_i26.FilterStatement>() ||
+            sourceTypeOf == _typeOf<_i26.FilterStatement?>()) &&
         (targetTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             targetTypeOf == _typeOf<_i4.FilterStatementDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.SortOptions>() ||
             sourceTypeOf == _typeOf<_i4.SortOptions?>()) &&
-        (targetTypeOf == _typeOf<_i24.SortOptions>() ||
-            targetTypeOf == _typeOf<_i24.SortOptions?>())) {
+        (targetTypeOf == _typeOf<_i27.SortOptions>() ||
+            targetTypeOf == _typeOf<_i27.SortOptions?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i24.SortOptions>() ||
-            sourceTypeOf == _typeOf<_i24.SortOptions?>()) &&
+    if ((sourceTypeOf == _typeOf<_i27.SortOptions>() ||
+            sourceTypeOf == _typeOf<_i27.SortOptions?>()) &&
         (targetTypeOf == _typeOf<_i4.SortOptions>() ||
             targetTypeOf == _typeOf<_i4.SortOptions?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.FilterV2Dto>() ||
             sourceTypeOf == _typeOf<_i4.FilterV2Dto?>()) &&
-        (targetTypeOf == _typeOf<_i18.FilterV2>() ||
-            targetTypeOf == _typeOf<_i18.FilterV2?>())) {
+        (targetTypeOf == _typeOf<_i19.FilterV2>() ||
+            targetTypeOf == _typeOf<_i19.FilterV2?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i18.FilterV2>() ||
-            sourceTypeOf == _typeOf<_i18.FilterV2?>()) &&
+    if ((sourceTypeOf == _typeOf<_i19.FilterV2>() ||
+            sourceTypeOf == _typeOf<_i19.FilterV2?>()) &&
         (targetTypeOf == _typeOf<_i4.FilterV2Dto>() ||
             targetTypeOf == _typeOf<_i4.FilterV2Dto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.SmartFilterDto>() ||
             sourceTypeOf == _typeOf<_i4.SmartFilterDto?>()) &&
-        (targetTypeOf == _typeOf<_i17.SmartFilter>() ||
-            targetTypeOf == _typeOf<_i17.SmartFilter?>())) {
+        (targetTypeOf == _typeOf<_i18.SmartFilter>() ||
+            targetTypeOf == _typeOf<_i18.SmartFilter?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i17.SmartFilter>() ||
-            sourceTypeOf == _typeOf<_i17.SmartFilter?>()) &&
+    if ((sourceTypeOf == _typeOf<_i18.SmartFilter>() ||
+            sourceTypeOf == _typeOf<_i18.SmartFilter?>()) &&
         (targetTypeOf == _typeOf<_i4.SmartFilterDto>() ||
             targetTypeOf == _typeOf<_i4.SmartFilterDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.RatingDto>() ||
             sourceTypeOf == _typeOf<_i4.RatingDto?>()) &&
-        (targetTypeOf == _typeOf<_i20.Rating>() ||
-            targetTypeOf == _typeOf<_i20.Rating?>())) {
+        (targetTypeOf == _typeOf<_i21.Rating>() ||
+            targetTypeOf == _typeOf<_i21.Rating?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i20.Rating>() ||
-            sourceTypeOf == _typeOf<_i20.Rating?>()) &&
+    if ((sourceTypeOf == _typeOf<_i21.Rating>() ||
+            sourceTypeOf == _typeOf<_i21.Rating?>()) &&
         (targetTypeOf == _typeOf<_i4.RatingDto>() ||
             targetTypeOf == _typeOf<_i4.RatingDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.ProgressDto>() ||
             sourceTypeOf == _typeOf<_i4.ProgressDto?>()) &&
-        (targetTypeOf == _typeOf<_i19.Progress>() ||
-            targetTypeOf == _typeOf<_i19.Progress?>())) {
+        (targetTypeOf == _typeOf<_i20.Progress>() ||
+            targetTypeOf == _typeOf<_i20.Progress?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i19.Progress>() ||
-            sourceTypeOf == _typeOf<_i19.Progress?>()) &&
+    if ((sourceTypeOf == _typeOf<_i20.Progress>() ||
+            sourceTypeOf == _typeOf<_i20.Progress?>()) &&
         (targetTypeOf == _typeOf<_i4.ProgressDto>() ||
             targetTypeOf == _typeOf<_i4.ProgressDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i4.FileDimensionDto>() ||
+            sourceTypeOf == _typeOf<_i4.FileDimensionDto?>()) &&
+        (targetTypeOf == _typeOf<_i17.FileDimension>() ||
+            targetTypeOf == _typeOf<_i17.FileDimension?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i17.FileDimension>() ||
+            sourceTypeOf == _typeOf<_i17.FileDimension?>()) &&
+        (targetTypeOf == _typeOf<_i4.FileDimensionDto>() ||
+            targetTypeOf == _typeOf<_i4.FileDimensionDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i4.ChapterInfoDto>() ||
+            sourceTypeOf == _typeOf<_i4.ChapterInfoDto?>()) &&
+        (targetTypeOf == _typeOf<_i22.ChapterInfo>() ||
+            targetTypeOf == _typeOf<_i22.ChapterInfo?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i22.ChapterInfo>() ||
+            sourceTypeOf == _typeOf<_i22.ChapterInfo?>()) &&
+        (targetTypeOf == _typeOf<_i4.ChapterInfoDto>() ||
+            targetTypeOf == _typeOf<_i4.ChapterInfoDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i4.BookmarkInfoDto>() ||
+            sourceTypeOf == _typeOf<_i4.BookmarkInfoDto?>()) &&
+        (targetTypeOf == _typeOf<_i23.BookmarkInfo>() ||
+            targetTypeOf == _typeOf<_i23.BookmarkInfo?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i23.BookmarkInfo>() ||
+            sourceTypeOf == _typeOf<_i23.BookmarkInfo?>()) &&
+        (targetTypeOf == _typeOf<_i4.BookmarkInfoDto>() ||
+            targetTypeOf == _typeOf<_i4.BookmarkInfoDto?>())) {
       return true;
     }
     if (recursive) {
@@ -865,48 +935,82 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$Response$List$String$$_To__i3$KavitaResponse$List$String$$(
           (model as _i2.Response<List<String>>?)) as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.FileDimensionDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.FileDimensionDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i17.FileDimension>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i17.FileDimension>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$FileDimensionDto$$_To__i3$KavitaResponse$List$_i17$FileDimension$$(
+          (model as _i2.Response<List<_i4.FileDimensionDto>>?)) as TARGET);
+    }
     if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.SmartFilterDto>>>() ||
             sourceTypeOf ==
                 _typeOf<_i2.Response<List<_i4.SmartFilterDto>>?>()) &&
         (targetTypeOf ==
-                _typeOf<_i3.KavitaResponse<List<_i17.SmartFilter>>>() ||
+                _typeOf<_i3.KavitaResponse<List<_i18.SmartFilter>>>() ||
             targetTypeOf ==
-                _typeOf<_i3.KavitaResponse<List<_i17.SmartFilter>>?>())) {
+                _typeOf<_i3.KavitaResponse<List<_i18.SmartFilter>>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$List$_i4$SmartFilterDto$$_To__i3$KavitaResponse$List$_i17$SmartFilter$$(
+      return (_map__i2$Response$List$_i4$SmartFilterDto$$_To__i3$KavitaResponse$List$_i18$SmartFilter$$(
           (model as _i2.Response<List<_i4.SmartFilterDto>>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.FilterV2Dto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.FilterV2Dto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i18.FilterV2>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i18.FilterV2>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.FilterV2>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.FilterV2>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$_i4$FilterV2Dto$_To__i3$KavitaResponse$_i18$FilterV2$(
+      return (_map__i2$Response$_i4$FilterV2Dto$_To__i3$KavitaResponse$_i19$FilterV2$(
           (model as _i2.Response<_i4.FilterV2Dto>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ProgressDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.ProgressDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.Progress>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i19.Progress>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Progress>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Progress>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$_i4$ProgressDto$_To__i3$KavitaResponse$_i19$Progress$(
+      return (_map__i2$Response$_i4$ProgressDto$_To__i3$KavitaResponse$_i20$Progress$(
           (model as _i2.Response<_i4.ProgressDto>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i2.Response<_i4.RatingDto>>() ||
             sourceTypeOf == _typeOf<_i2.Response<_i4.RatingDto>?>()) &&
-        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Rating>>() ||
-            targetTypeOf == _typeOf<_i3.KavitaResponse<_i20.Rating>?>())) {
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i21.Rating>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i21.Rating>?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i2$Response$_i4$RatingDto$_To__i3$KavitaResponse$_i20$Rating$(
+      return (_map__i2$Response$_i4$RatingDto$_To__i3$KavitaResponse$_i21$Rating$(
           (model as _i2.Response<_i4.RatingDto>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ChapterInfoDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.ChapterInfoDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i22.ChapterInfo>>() ||
+            targetTypeOf == _typeOf<_i3.KavitaResponse<_i22.ChapterInfo>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$_i4$ChapterInfoDto$_To__i3$KavitaResponse$_i22$ChapterInfo$(
+          (model as _i2.Response<_i4.ChapterInfoDto>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.BookmarkInfoDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.BookmarkInfoDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i23.BookmarkInfo>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i23.BookmarkInfo>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$_i4$BookmarkInfoDto$_To__i3$KavitaResponse$_i23$BookmarkInfo$(
+          (model as _i2.Response<_i4.BookmarkInfoDto>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
@@ -1148,163 +1252,223 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.SeriesDto>() ||
             sourceTypeOf == _typeOf<_i4.SeriesDto?>()) &&
-        (targetTypeOf == _typeOf<_i21.Series>() ||
-            targetTypeOf == _typeOf<_i21.Series?>())) {
+        (targetTypeOf == _typeOf<_i24.Series>() ||
+            targetTypeOf == _typeOf<_i24.Series?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$SeriesDto_To__i21$Series((model as _i4.SeriesDto?))
+      return (_map__i4$SeriesDto_To__i24$Series((model as _i4.SeriesDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i21.Series>() ||
-            sourceTypeOf == _typeOf<_i21.Series?>()) &&
+    if ((sourceTypeOf == _typeOf<_i24.Series>() ||
+            sourceTypeOf == _typeOf<_i24.Series?>()) &&
         (targetTypeOf == _typeOf<_i4.SeriesDto>() ||
             targetTypeOf == _typeOf<_i4.SeriesDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i21$Series_To__i4$SeriesDto((model as _i21.Series?))
+      return (_map__i24$Series_To__i4$SeriesDto((model as _i24.Series?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.BookmarkDto>() ||
             sourceTypeOf == _typeOf<_i4.BookmarkDto?>()) &&
-        (targetTypeOf == _typeOf<_i22.Bookmark>() ||
-            targetTypeOf == _typeOf<_i22.Bookmark?>())) {
+        (targetTypeOf == _typeOf<_i25.Bookmark>() ||
+            targetTypeOf == _typeOf<_i25.Bookmark?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$BookmarkDto_To__i22$Bookmark((model as _i4.BookmarkDto?))
+      return (_map__i4$BookmarkDto_To__i25$Bookmark((model as _i4.BookmarkDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i22.Bookmark>() ||
-            sourceTypeOf == _typeOf<_i22.Bookmark?>()) &&
+    if ((sourceTypeOf == _typeOf<_i25.Bookmark>() ||
+            sourceTypeOf == _typeOf<_i25.Bookmark?>()) &&
         (targetTypeOf == _typeOf<_i4.BookmarkDto>() ||
             targetTypeOf == _typeOf<_i4.BookmarkDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i22$Bookmark_To__i4$BookmarkDto((model as _i22.Bookmark?))
+      return (_map__i25$Bookmark_To__i4$BookmarkDto((model as _i25.Bookmark?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             sourceTypeOf == _typeOf<_i4.FilterStatementDto?>()) &&
-        (targetTypeOf == _typeOf<_i23.FilterStatement>() ||
-            targetTypeOf == _typeOf<_i23.FilterStatement?>())) {
+        (targetTypeOf == _typeOf<_i26.FilterStatement>() ||
+            targetTypeOf == _typeOf<_i26.FilterStatement?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$FilterStatementDto_To__i23$FilterStatement(
+      return (_map__i4$FilterStatementDto_To__i26$FilterStatement(
           (model as _i4.FilterStatementDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i23.FilterStatement>() ||
-            sourceTypeOf == _typeOf<_i23.FilterStatement?>()) &&
+    if ((sourceTypeOf == _typeOf<_i26.FilterStatement>() ||
+            sourceTypeOf == _typeOf<_i26.FilterStatement?>()) &&
         (targetTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             targetTypeOf == _typeOf<_i4.FilterStatementDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i23$FilterStatement_To__i4$FilterStatementDto(
-          (model as _i23.FilterStatement?)) as TARGET);
+      return (_map__i26$FilterStatement_To__i4$FilterStatementDto(
+          (model as _i26.FilterStatement?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.SortOptions>() ||
             sourceTypeOf == _typeOf<_i4.SortOptions?>()) &&
-        (targetTypeOf == _typeOf<_i24.SortOptions>() ||
-            targetTypeOf == _typeOf<_i24.SortOptions?>())) {
+        (targetTypeOf == _typeOf<_i27.SortOptions>() ||
+            targetTypeOf == _typeOf<_i27.SortOptions?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$SortOptions_To__i24$SortOptions(
+      return (_map__i4$SortOptions_To__i27$SortOptions(
           (model as _i4.SortOptions?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i24.SortOptions>() ||
-            sourceTypeOf == _typeOf<_i24.SortOptions?>()) &&
+    if ((sourceTypeOf == _typeOf<_i27.SortOptions>() ||
+            sourceTypeOf == _typeOf<_i27.SortOptions?>()) &&
         (targetTypeOf == _typeOf<_i4.SortOptions>() ||
             targetTypeOf == _typeOf<_i4.SortOptions?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i24$SortOptions_To__i4$SortOptions(
-          (model as _i24.SortOptions?)) as TARGET);
+      return (_map__i27$SortOptions_To__i4$SortOptions(
+          (model as _i27.SortOptions?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.FilterV2Dto>() ||
             sourceTypeOf == _typeOf<_i4.FilterV2Dto?>()) &&
-        (targetTypeOf == _typeOf<_i18.FilterV2>() ||
-            targetTypeOf == _typeOf<_i18.FilterV2?>())) {
+        (targetTypeOf == _typeOf<_i19.FilterV2>() ||
+            targetTypeOf == _typeOf<_i19.FilterV2?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$FilterV2Dto_To__i18$FilterV2((model as _i4.FilterV2Dto?))
+      return (_map__i4$FilterV2Dto_To__i19$FilterV2((model as _i4.FilterV2Dto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i18.FilterV2>() ||
-            sourceTypeOf == _typeOf<_i18.FilterV2?>()) &&
+    if ((sourceTypeOf == _typeOf<_i19.FilterV2>() ||
+            sourceTypeOf == _typeOf<_i19.FilterV2?>()) &&
         (targetTypeOf == _typeOf<_i4.FilterV2Dto>() ||
             targetTypeOf == _typeOf<_i4.FilterV2Dto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i18$FilterV2_To__i4$FilterV2Dto((model as _i18.FilterV2?))
+      return (_map__i19$FilterV2_To__i4$FilterV2Dto((model as _i19.FilterV2?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.SmartFilterDto>() ||
             sourceTypeOf == _typeOf<_i4.SmartFilterDto?>()) &&
-        (targetTypeOf == _typeOf<_i17.SmartFilter>() ||
-            targetTypeOf == _typeOf<_i17.SmartFilter?>())) {
+        (targetTypeOf == _typeOf<_i18.SmartFilter>() ||
+            targetTypeOf == _typeOf<_i18.SmartFilter?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$SmartFilterDto_To__i17$SmartFilter(
+      return (_map__i4$SmartFilterDto_To__i18$SmartFilter(
           (model as _i4.SmartFilterDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i17.SmartFilter>() ||
-            sourceTypeOf == _typeOf<_i17.SmartFilter?>()) &&
+    if ((sourceTypeOf == _typeOf<_i18.SmartFilter>() ||
+            sourceTypeOf == _typeOf<_i18.SmartFilter?>()) &&
         (targetTypeOf == _typeOf<_i4.SmartFilterDto>() ||
             targetTypeOf == _typeOf<_i4.SmartFilterDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i17$SmartFilter_To__i4$SmartFilterDto(
-          (model as _i17.SmartFilter?)) as TARGET);
+      return (_map__i18$SmartFilter_To__i4$SmartFilterDto(
+          (model as _i18.SmartFilter?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.RatingDto>() ||
             sourceTypeOf == _typeOf<_i4.RatingDto?>()) &&
-        (targetTypeOf == _typeOf<_i20.Rating>() ||
-            targetTypeOf == _typeOf<_i20.Rating?>())) {
+        (targetTypeOf == _typeOf<_i21.Rating>() ||
+            targetTypeOf == _typeOf<_i21.Rating?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$RatingDto_To__i20$Rating((model as _i4.RatingDto?))
+      return (_map__i4$RatingDto_To__i21$Rating((model as _i4.RatingDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i20.Rating>() ||
-            sourceTypeOf == _typeOf<_i20.Rating?>()) &&
+    if ((sourceTypeOf == _typeOf<_i21.Rating>() ||
+            sourceTypeOf == _typeOf<_i21.Rating?>()) &&
         (targetTypeOf == _typeOf<_i4.RatingDto>() ||
             targetTypeOf == _typeOf<_i4.RatingDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i20$Rating_To__i4$RatingDto((model as _i20.Rating?))
+      return (_map__i21$Rating_To__i4$RatingDto((model as _i21.Rating?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.ProgressDto>() ||
             sourceTypeOf == _typeOf<_i4.ProgressDto?>()) &&
-        (targetTypeOf == _typeOf<_i19.Progress>() ||
-            targetTypeOf == _typeOf<_i19.Progress?>())) {
+        (targetTypeOf == _typeOf<_i20.Progress>() ||
+            targetTypeOf == _typeOf<_i20.Progress?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$ProgressDto_To__i19$Progress((model as _i4.ProgressDto?))
+      return (_map__i4$ProgressDto_To__i20$Progress((model as _i4.ProgressDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i19.Progress>() ||
-            sourceTypeOf == _typeOf<_i19.Progress?>()) &&
+    if ((sourceTypeOf == _typeOf<_i20.Progress>() ||
+            sourceTypeOf == _typeOf<_i20.Progress?>()) &&
         (targetTypeOf == _typeOf<_i4.ProgressDto>() ||
             targetTypeOf == _typeOf<_i4.ProgressDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i19$Progress_To__i4$ProgressDto((model as _i19.Progress?))
+      return (_map__i20$Progress_To__i4$ProgressDto((model as _i20.Progress?))
           as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i4.FileDimensionDto>() ||
+            sourceTypeOf == _typeOf<_i4.FileDimensionDto?>()) &&
+        (targetTypeOf == _typeOf<_i17.FileDimension>() ||
+            targetTypeOf == _typeOf<_i17.FileDimension?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$FileDimensionDto_To__i17$FileDimension(
+          (model as _i4.FileDimensionDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i17.FileDimension>() ||
+            sourceTypeOf == _typeOf<_i17.FileDimension?>()) &&
+        (targetTypeOf == _typeOf<_i4.FileDimensionDto>() ||
+            targetTypeOf == _typeOf<_i4.FileDimensionDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i17$FileDimension_To__i4$FileDimensionDto(
+          (model as _i17.FileDimension?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i4.ChapterInfoDto>() ||
+            sourceTypeOf == _typeOf<_i4.ChapterInfoDto?>()) &&
+        (targetTypeOf == _typeOf<_i22.ChapterInfo>() ||
+            targetTypeOf == _typeOf<_i22.ChapterInfo?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$ChapterInfoDto_To__i22$ChapterInfo(
+          (model as _i4.ChapterInfoDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i22.ChapterInfo>() ||
+            sourceTypeOf == _typeOf<_i22.ChapterInfo?>()) &&
+        (targetTypeOf == _typeOf<_i4.ChapterInfoDto>() ||
+            targetTypeOf == _typeOf<_i4.ChapterInfoDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i22$ChapterInfo_To__i4$ChapterInfoDto(
+          (model as _i22.ChapterInfo?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i4.BookmarkInfoDto>() ||
+            sourceTypeOf == _typeOf<_i4.BookmarkInfoDto?>()) &&
+        (targetTypeOf == _typeOf<_i23.BookmarkInfo>() ||
+            targetTypeOf == _typeOf<_i23.BookmarkInfo?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$BookmarkInfoDto_To__i23$BookmarkInfo(
+          (model as _i4.BookmarkInfoDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i23.BookmarkInfo>() ||
+            sourceTypeOf == _typeOf<_i23.BookmarkInfo?>()) &&
+        (targetTypeOf == _typeOf<_i4.BookmarkInfoDto>() ||
+            targetTypeOf == _typeOf<_i4.BookmarkInfoDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i23$BookmarkInfo_To__i4$BookmarkInfoDto(
+          (model as _i23.BookmarkInfo?)) as TARGET);
     }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
   }
@@ -1619,8 +1783,27 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i3.KavitaResponse<List<_i17.SmartFilter>>
-      _map__i2$Response$List$_i4$SmartFilterDto$$_To__i3$KavitaResponse$List$_i17$SmartFilter$$(
+  _i3.KavitaResponse<List<_i17.FileDimension>>
+      _map__i2$Response$List$_i4$FileDimensionDto$$_To__i3$KavitaResponse$List$_i17$FileDimension$$(
+          _i2.Response<List<_i4.FileDimensionDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<FileDimensionDto>> → KavitaResponse<List<FileDimension>> failed because Response<List<FileDimensionDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<FileDimensionDto>>, KavitaResponse<List<FileDimension>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i17.FileDimension>(
+              (value) => _map__i4$FileDimensionDto_To__i17$FileDimension(value))
+          .toList(),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<List<_i18.SmartFilter>>
+      _map__i2$Response$List$_i4$SmartFilterDto$$_To__i3$KavitaResponse$List$_i18$SmartFilter$$(
           _i2.Response<List<_i4.SmartFilterDto>>? input) {
     final model = input;
     if (model == null) {
@@ -1631,15 +1814,15 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i3.KavitaResponse(
       model.base,
       model.body
-          ?.map<_i17.SmartFilter>(
-              (value) => _map__i4$SmartFilterDto_To__i17$SmartFilter(value))
+          ?.map<_i18.SmartFilter>(
+              (value) => _map__i4$SmartFilterDto_To__i18$SmartFilter(value))
           .toList(),
       error: model.error,
     );
   }
 
-  _i3.KavitaResponse<_i18.FilterV2>
-      _map__i2$Response$_i4$FilterV2Dto$_To__i3$KavitaResponse$_i18$FilterV2$(
+  _i3.KavitaResponse<_i19.FilterV2>
+      _map__i2$Response$_i4$FilterV2Dto$_To__i3$KavitaResponse$_i19$FilterV2$(
           _i2.Response<_i4.FilterV2Dto>? input) {
     final model = input;
     if (model == null) {
@@ -1649,13 +1832,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     return _i3.KavitaResponse(
       model.base,
-      _map__i4$FilterV2Dto_To__i18$FilterV2_Nullable(model.body),
+      _map__i4$FilterV2Dto_To__i19$FilterV2_Nullable(model.body),
       error: model.error,
     );
   }
 
-  _i3.KavitaResponse<_i19.Progress>
-      _map__i2$Response$_i4$ProgressDto$_To__i3$KavitaResponse$_i19$Progress$(
+  _i3.KavitaResponse<_i20.Progress>
+      _map__i2$Response$_i4$ProgressDto$_To__i3$KavitaResponse$_i20$Progress$(
           _i2.Response<_i4.ProgressDto>? input) {
     final model = input;
     if (model == null) {
@@ -1665,13 +1848,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     return _i3.KavitaResponse(
       model.base,
-      _map__i4$ProgressDto_To__i19$Progress_Nullable(model.body),
+      _map__i4$ProgressDto_To__i20$Progress_Nullable(model.body),
       error: model.error,
     );
   }
 
-  _i3.KavitaResponse<_i20.Rating>
-      _map__i2$Response$_i4$RatingDto$_To__i3$KavitaResponse$_i20$Rating$(
+  _i3.KavitaResponse<_i21.Rating>
+      _map__i2$Response$_i4$RatingDto$_To__i3$KavitaResponse$_i21$Rating$(
           _i2.Response<_i4.RatingDto>? input) {
     final model = input;
     if (model == null) {
@@ -1681,7 +1864,39 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     return _i3.KavitaResponse(
       model.base,
-      _map__i4$RatingDto_To__i20$Rating_Nullable(model.body),
+      _map__i4$RatingDto_To__i21$Rating_Nullable(model.body),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<_i22.ChapterInfo>
+      _map__i2$Response$_i4$ChapterInfoDto$_To__i3$KavitaResponse$_i22$ChapterInfo$(
+          _i2.Response<_i4.ChapterInfoDto>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<ChapterInfoDto> → KavitaResponse<ChapterInfo> failed because Response<ChapterInfoDto> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<ChapterInfoDto>, KavitaResponse<ChapterInfo>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      _map__i4$ChapterInfoDto_To__i22$ChapterInfo_Nullable(model.body),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<_i23.BookmarkInfo>
+      _map__i2$Response$_i4$BookmarkInfoDto$_To__i3$KavitaResponse$_i23$BookmarkInfo$(
+          _i2.Response<_i4.BookmarkInfoDto>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<BookmarkInfoDto> → KavitaResponse<BookmarkInfo> failed because Response<BookmarkInfoDto> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<BookmarkInfoDto>, KavitaResponse<BookmarkInfo>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      _map__i4$BookmarkInfoDto_To__i23$BookmarkInfo_Nullable(model.body),
       error: model.error,
     );
   }
@@ -2227,14 +2442,14 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i21.Series _map__i4$SeriesDto_To__i21$Series(_i4.SeriesDto? input) {
+  _i24.Series _map__i4$SeriesDto_To__i24$Series(_i4.SeriesDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping SeriesDto → Series failed because SeriesDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<SeriesDto, Series> to handle null values during mapping.');
     }
-    return _i21.Series(
+    return _i24.Series(
       id: model.id,
       name: model.name,
       originalName: model.originalName,
@@ -2263,7 +2478,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.SeriesDto _map__i21$Series_To__i4$SeriesDto(_i21.Series? input) {
+  _i4.SeriesDto _map__i24$Series_To__i4$SeriesDto(_i24.Series? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2299,24 +2514,24 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i22.Bookmark _map__i4$BookmarkDto_To__i22$Bookmark(_i4.BookmarkDto? input) {
+  _i25.Bookmark _map__i4$BookmarkDto_To__i25$Bookmark(_i4.BookmarkDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping BookmarkDto → Bookmark failed because BookmarkDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<BookmarkDto, Bookmark> to handle null values during mapping.');
     }
-    return _i22.Bookmark(
+    return _i25.Bookmark(
       page: model.page,
       volumeId: model.volumeId,
       seriesId: model.seriesId,
       chapterId: model.chapterId,
       id: model.id,
-      series: _map__i4$SeriesDto_To__i21$Series_Nullable(model.series),
+      series: _map__i4$SeriesDto_To__i24$Series_Nullable(model.series),
     );
   }
 
-  _i4.BookmarkDto _map__i22$Bookmark_To__i4$BookmarkDto(_i22.Bookmark? input) {
+  _i4.BookmarkDto _map__i25$Bookmark_To__i4$BookmarkDto(_i25.Bookmark? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2329,11 +2544,11 @@ class $Mappr implements _i1.AutoMapprInterface {
       volumeId: model.volumeId,
       seriesId: model.seriesId,
       chapterId: model.chapterId,
-      series: _map__i21$Series_To__i4$SeriesDto_Nullable(model.series),
+      series: _map__i24$Series_To__i4$SeriesDto_Nullable(model.series),
     );
   }
 
-  _i23.FilterStatement _map__i4$FilterStatementDto_To__i23$FilterStatement(
+  _i26.FilterStatement _map__i4$FilterStatementDto_To__i26$FilterStatement(
       _i4.FilterStatementDto? input) {
     final model = input;
     if (model == null) {
@@ -2341,15 +2556,15 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping FilterStatementDto → FilterStatement failed because FilterStatementDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<FilterStatementDto, FilterStatement> to handle null values during mapping.');
     }
-    return _i23.FilterStatement(
+    return _i26.FilterStatement(
       comparison: model.comparison,
       field: model.field,
       $value: model.$value,
     );
   }
 
-  _i4.FilterStatementDto _map__i23$FilterStatement_To__i4$FilterStatementDto(
-      _i23.FilterStatement? input) {
+  _i4.FilterStatementDto _map__i26$FilterStatement_To__i4$FilterStatementDto(
+      _i26.FilterStatement? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2363,7 +2578,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i24.SortOptions _map__i4$SortOptions_To__i24$SortOptions(
+  _i27.SortOptions _map__i4$SortOptions_To__i27$SortOptions(
       _i4.SortOptions? input) {
     final model = input;
     if (model == null) {
@@ -2371,14 +2586,14 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping SortOptions → SortOptions failed because SortOptions was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<SortOptions, SortOptions> to handle null values during mapping.');
     }
-    return _i24.SortOptions(
+    return _i27.SortOptions(
       sortField: model.sortField,
       isAscending: model.isAscending,
     );
   }
 
-  _i4.SortOptions _map__i24$SortOptions_To__i4$SortOptions(
-      _i24.SortOptions? input) {
+  _i4.SortOptions _map__i27$SortOptions_To__i4$SortOptions(
+      _i27.SortOptions? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2391,28 +2606,28 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i18.FilterV2 _map__i4$FilterV2Dto_To__i18$FilterV2(_i4.FilterV2Dto? input) {
+  _i19.FilterV2 _map__i4$FilterV2Dto_To__i19$FilterV2(_i4.FilterV2Dto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping FilterV2Dto → FilterV2 failed because FilterV2Dto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<FilterV2Dto, FilterV2> to handle null values during mapping.');
     }
-    return _i18.FilterV2(
+    return _i19.FilterV2(
       id: model.id,
       name: model.name,
       statements: model.statements
-          ?.map<_i23.FilterStatement>((value) =>
-              _map__i4$FilterStatementDto_To__i23$FilterStatement(value))
+          ?.map<_i26.FilterStatement>((value) =>
+              _map__i4$FilterStatementDto_To__i26$FilterStatement(value))
           .toList(),
       combination: model.combination,
       sortOptions:
-          _map__i4$SortOptions_To__i24$SortOptions_Nullable(model.sortOptions),
+          _map__i4$SortOptions_To__i27$SortOptions_Nullable(model.sortOptions),
       limitTo: model.limitTo,
     );
   }
 
-  _i4.FilterV2Dto _map__i18$FilterV2_To__i4$FilterV2Dto(_i18.FilterV2? input) {
+  _i4.FilterV2Dto _map__i19$FilterV2_To__i4$FilterV2Dto(_i19.FilterV2? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2424,16 +2639,16 @@ class $Mappr implements _i1.AutoMapprInterface {
       name: model.name,
       statements: model.statements
           ?.map<_i4.FilterStatementDto>((value) =>
-              _map__i23$FilterStatement_To__i4$FilterStatementDto(value))
+              _map__i26$FilterStatement_To__i4$FilterStatementDto(value))
           .toList(),
       combination: model.combination,
       sortOptions:
-          _map__i24$SortOptions_To__i4$SortOptions_Nullable(model.sortOptions),
+          _map__i27$SortOptions_To__i4$SortOptions_Nullable(model.sortOptions),
       limitTo: model.limitTo,
     );
   }
 
-  _i17.SmartFilter _map__i4$SmartFilterDto_To__i17$SmartFilter(
+  _i18.SmartFilter _map__i4$SmartFilterDto_To__i18$SmartFilter(
       _i4.SmartFilterDto? input) {
     final model = input;
     if (model == null) {
@@ -2441,15 +2656,15 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping SmartFilterDto → SmartFilter failed because SmartFilterDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<SmartFilterDto, SmartFilter> to handle null values during mapping.');
     }
-    return _i17.SmartFilter(
+    return _i18.SmartFilter(
       id: model.id,
       name: model.name,
       filter: model.filter,
     );
   }
 
-  _i4.SmartFilterDto _map__i17$SmartFilter_To__i4$SmartFilterDto(
-      _i17.SmartFilter? input) {
+  _i4.SmartFilterDto _map__i18$SmartFilter_To__i4$SmartFilterDto(
+      _i18.SmartFilter? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2463,14 +2678,14 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i20.Rating _map__i4$RatingDto_To__i20$Rating(_i4.RatingDto? input) {
+  _i21.Rating _map__i4$RatingDto_To__i21$Rating(_i4.RatingDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping RatingDto → Rating failed because RatingDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<RatingDto, Rating> to handle null values during mapping.');
     }
-    return _i20.Rating(
+    return _i21.Rating(
       averageScore: model.averageScore,
       favoriteCount: model.favoriteCount,
       provider: model.provider,
@@ -2478,7 +2693,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.RatingDto _map__i20$Rating_To__i4$RatingDto(_i20.Rating? input) {
+  _i4.RatingDto _map__i21$Rating_To__i4$RatingDto(_i21.Rating? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2493,14 +2708,14 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i19.Progress _map__i4$ProgressDto_To__i19$Progress(_i4.ProgressDto? input) {
+  _i20.Progress _map__i4$ProgressDto_To__i20$Progress(_i4.ProgressDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping ProgressDto → Progress failed because ProgressDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<ProgressDto, Progress> to handle null values during mapping.');
     }
-    return _i19.Progress(
+    return _i20.Progress(
       volumeId: model.volumeId,
       chapterId: model.chapterId,
       pageNum: model.pageNum,
@@ -2511,7 +2726,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.ProgressDto _map__i19$Progress_To__i4$ProgressDto(_i19.Progress? input) {
+  _i4.ProgressDto _map__i20$Progress_To__i4$ProgressDto(_i20.Progress? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -2526,6 +2741,152 @@ class $Mappr implements _i1.AutoMapprInterface {
       libraryId: model.libraryId,
       bookScrollId: model.bookScrollId,
       lastModifiedUtc: model.lastModifiedUtc,
+    );
+  }
+
+  _i17.FileDimension _map__i4$FileDimensionDto_To__i17$FileDimension(
+      _i4.FileDimensionDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping FileDimensionDto → FileDimension failed because FileDimensionDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<FileDimensionDto, FileDimension> to handle null values during mapping.');
+    }
+    return _i17.FileDimension(
+      width: model.width,
+      height: model.height,
+      pageNumber: model.pageNumber,
+      fileName: model.fileName,
+      isWide: model.isWide,
+    );
+  }
+
+  _i4.FileDimensionDto _map__i17$FileDimension_To__i4$FileDimensionDto(
+      _i17.FileDimension? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping FileDimension → FileDimensionDto failed because FileDimension was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<FileDimension, FileDimensionDto> to handle null values during mapping.');
+    }
+    return _i4.FileDimensionDto(
+      width: model.width,
+      height: model.height,
+      pageNumber: model.pageNumber,
+      fileName: model.fileName,
+      isWide: model.isWide,
+    );
+  }
+
+  _i22.ChapterInfo _map__i4$ChapterInfoDto_To__i22$ChapterInfo(
+      _i4.ChapterInfoDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping ChapterInfoDto → ChapterInfo failed because ChapterInfoDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<ChapterInfoDto, ChapterInfo> to handle null values during mapping.');
+    }
+    return _i22.ChapterInfo(
+      chapterNumber: model.chapterNumber,
+      volumeNumber: model.volumeNumber,
+      volumeId: model.volumeId,
+      seriesName: model.seriesName,
+      seriesFormat: model.seriesFormat,
+      seriesId: model.seriesId,
+      libraryId: model.libraryId,
+      libraryType: model.libraryType,
+      chapterTitle: model.chapterTitle,
+      pages: model.pages,
+      fileName: model.fileName,
+      isSpecial: model.isSpecial,
+      subtitle: model.subtitle,
+      title: model.title,
+      seriesTotalPages: model.seriesTotalPages,
+      seriesTotalPagesRead: model.seriesTotalPagesRead,
+      pageDimensions: model.pageDimensions
+          ?.map<_i17.FileDimension>(
+              (value) => _map__i4$FileDimensionDto_To__i17$FileDimension(value))
+          .toList(),
+      doublePairs: model.doublePairs,
+    );
+  }
+
+  _i4.ChapterInfoDto _map__i22$ChapterInfo_To__i4$ChapterInfoDto(
+      _i22.ChapterInfo? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping ChapterInfo → ChapterInfoDto failed because ChapterInfo was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<ChapterInfo, ChapterInfoDto> to handle null values during mapping.');
+    }
+    return _i4.ChapterInfoDto(
+      chapterNumber: model.chapterNumber,
+      volumeNumber: model.volumeNumber,
+      volumeId: model.volumeId,
+      seriesName: model.seriesName,
+      seriesFormat: model.seriesFormat,
+      seriesId: model.seriesId,
+      libraryId: model.libraryId,
+      libraryType: model.libraryType,
+      chapterTitle: model.chapterTitle,
+      pages: model.pages,
+      fileName: model.fileName,
+      isSpecial: model.isSpecial,
+      subtitle: model.subtitle,
+      title: model.title,
+      seriesTotalPages: model.seriesTotalPages,
+      seriesTotalPagesRead: model.seriesTotalPagesRead,
+      pageDimensions: model.pageDimensions
+          ?.map<_i4.FileDimensionDto>(
+              (value) => _map__i17$FileDimension_To__i4$FileDimensionDto(value))
+          .toList(),
+      doublePairs: model.doublePairs,
+    );
+  }
+
+  _i23.BookmarkInfo _map__i4$BookmarkInfoDto_To__i23$BookmarkInfo(
+      _i4.BookmarkInfoDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping BookmarkInfoDto → BookmarkInfo failed because BookmarkInfoDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<BookmarkInfoDto, BookmarkInfo> to handle null values during mapping.');
+    }
+    return _i23.BookmarkInfo(
+      seriesName: model.seriesName,
+      seriesFormat: model.seriesFormat,
+      seriesId: model.seriesId,
+      libraryId: model.libraryId,
+      libraryType: model.libraryType,
+      pages: model.pages,
+      pageDimensions: model.pageDimensions
+          ?.map<_i17.FileDimension>(
+              (value) => _map__i4$FileDimensionDto_To__i17$FileDimension(value))
+          .toList(),
+      doublePairs: model.doublePairs,
+    );
+  }
+
+  _i4.BookmarkInfoDto _map__i23$BookmarkInfo_To__i4$BookmarkInfoDto(
+      _i23.BookmarkInfo? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping BookmarkInfo → BookmarkInfoDto failed because BookmarkInfo was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<BookmarkInfo, BookmarkInfoDto> to handle null values during mapping.');
+    }
+    return _i4.BookmarkInfoDto(
+      seriesName: model.seriesName,
+      seriesFormat: model.seriesFormat,
+      seriesId: model.seriesId,
+      libraryId: model.libraryId,
+      libraryType: model.libraryType,
+      pages: model.pages,
+      pageDimensions: model.pageDimensions
+          ?.map<_i4.FileDimensionDto>(
+              (value) => _map__i17$FileDimension_To__i4$FileDimensionDto(value))
+          .toList(),
+      doublePairs: model.doublePairs,
     );
   }
 
@@ -2832,13 +3193,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i21.Series? _map__i4$SeriesDto_To__i21$Series_Nullable(
+  _i24.Series? _map__i4$SeriesDto_To__i24$Series_Nullable(
       _i4.SeriesDto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i21.Series(
+    return _i24.Series(
       id: model.id,
       name: model.name,
       originalName: model.originalName,
@@ -2867,8 +3228,8 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.SeriesDto? _map__i21$Series_To__i4$SeriesDto_Nullable(
-      _i21.Series? input) {
+  _i4.SeriesDto? _map__i24$Series_To__i4$SeriesDto_Nullable(
+      _i24.Series? input) {
     final model = input;
     if (model == null) {
       return null;
@@ -2902,20 +3263,20 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i24.SortOptions? _map__i4$SortOptions_To__i24$SortOptions_Nullable(
+  _i27.SortOptions? _map__i4$SortOptions_To__i27$SortOptions_Nullable(
       _i4.SortOptions? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i24.SortOptions(
+    return _i27.SortOptions(
       sortField: model.sortField,
       isAscending: model.isAscending,
     );
   }
 
-  _i4.SortOptions? _map__i24$SortOptions_To__i4$SortOptions_Nullable(
-      _i24.SortOptions? input) {
+  _i4.SortOptions? _map__i27$SortOptions_To__i4$SortOptions_Nullable(
+      _i27.SortOptions? input) {
     final model = input;
     if (model == null) {
       return null;
@@ -2926,33 +3287,33 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i18.FilterV2? _map__i4$FilterV2Dto_To__i18$FilterV2_Nullable(
+  _i19.FilterV2? _map__i4$FilterV2Dto_To__i19$FilterV2_Nullable(
       _i4.FilterV2Dto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i18.FilterV2(
+    return _i19.FilterV2(
       id: model.id,
       name: model.name,
       statements: model.statements
-          ?.map<_i23.FilterStatement>((value) =>
-              _map__i4$FilterStatementDto_To__i23$FilterStatement(value))
+          ?.map<_i26.FilterStatement>((value) =>
+              _map__i4$FilterStatementDto_To__i26$FilterStatement(value))
           .toList(),
       combination: model.combination,
       sortOptions:
-          _map__i4$SortOptions_To__i24$SortOptions_Nullable(model.sortOptions),
+          _map__i4$SortOptions_To__i27$SortOptions_Nullable(model.sortOptions),
       limitTo: model.limitTo,
     );
   }
 
-  _i20.Rating? _map__i4$RatingDto_To__i20$Rating_Nullable(
+  _i21.Rating? _map__i4$RatingDto_To__i21$Rating_Nullable(
       _i4.RatingDto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i20.Rating(
+    return _i21.Rating(
       averageScore: model.averageScore,
       favoriteCount: model.favoriteCount,
       provider: model.provider,
@@ -2960,13 +3321,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i19.Progress? _map__i4$ProgressDto_To__i19$Progress_Nullable(
+  _i20.Progress? _map__i4$ProgressDto_To__i20$Progress_Nullable(
       _i4.ProgressDto? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i19.Progress(
+    return _i20.Progress(
       volumeId: model.volumeId,
       chapterId: model.chapterId,
       pageNum: model.pageNum,
@@ -2974,6 +3335,58 @@ class $Mappr implements _i1.AutoMapprInterface {
       libraryId: model.libraryId,
       bookScrollId: model.bookScrollId,
       lastModifiedUtc: model.lastModifiedUtc,
+    );
+  }
+
+  _i22.ChapterInfo? _map__i4$ChapterInfoDto_To__i22$ChapterInfo_Nullable(
+      _i4.ChapterInfoDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i22.ChapterInfo(
+      chapterNumber: model.chapterNumber,
+      volumeNumber: model.volumeNumber,
+      volumeId: model.volumeId,
+      seriesName: model.seriesName,
+      seriesFormat: model.seriesFormat,
+      seriesId: model.seriesId,
+      libraryId: model.libraryId,
+      libraryType: model.libraryType,
+      chapterTitle: model.chapterTitle,
+      pages: model.pages,
+      fileName: model.fileName,
+      isSpecial: model.isSpecial,
+      subtitle: model.subtitle,
+      title: model.title,
+      seriesTotalPages: model.seriesTotalPages,
+      seriesTotalPagesRead: model.seriesTotalPagesRead,
+      pageDimensions: model.pageDimensions
+          ?.map<_i17.FileDimension>(
+              (value) => _map__i4$FileDimensionDto_To__i17$FileDimension(value))
+          .toList(),
+      doublePairs: model.doublePairs,
+    );
+  }
+
+  _i23.BookmarkInfo? _map__i4$BookmarkInfoDto_To__i23$BookmarkInfo_Nullable(
+      _i4.BookmarkInfoDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i23.BookmarkInfo(
+      seriesName: model.seriesName,
+      seriesFormat: model.seriesFormat,
+      seriesId: model.seriesId,
+      libraryId: model.libraryId,
+      libraryType: model.libraryType,
+      pages: model.pages,
+      pageDimensions: model.pageDimensions
+          ?.map<_i17.FileDimension>(
+              (value) => _map__i4$FileDimensionDto_To__i17$FileDimension(value))
+          .toList(),
+      doublePairs: model.doublePairs,
     );
   }
 }
