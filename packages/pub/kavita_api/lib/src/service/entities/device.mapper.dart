@@ -13,7 +13,6 @@ class DeviceMapper extends ClassMapperBase<Device> {
   static DeviceMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = DeviceMapper._());
-      DevicePlatformMapper.ensureInitialized();
     }
     return _instance!;
   }

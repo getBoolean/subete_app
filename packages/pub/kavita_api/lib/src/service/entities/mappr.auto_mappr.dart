@@ -18,12 +18,11 @@ import 'cbl_book_result.dart' as _i13;
 import 'cbl_import_summary.dart' as _i12;
 import 'collection_tag.dart' as _i11;
 import 'device.dart' as _i16;
-import 'device_platform.dart' as _i26;
+import 'device_platform.dart' as _i25;
 import 'file_format.dart' as _i15;
 import 'filter_statement.dart' as _i23;
 import 'filter_v2.dart' as _i18;
 import 'invite_user_response.dart' as _i10;
-import 'mappr.dart' as _i25;
 import 'progress.dart' as _i19;
 import 'rating.dart' as _i20;
 import 'series.dart' as _i21;
@@ -2209,10 +2208,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: model.platform == null
-          ? null
-          : (_i25.Mappr.convertIntToDevicePlatform(model.platform!)
-              as _i26.DevicePlatform?),
+      platform: null,
     );
   }
 
@@ -2227,9 +2223,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: model.platform == null
-          ? null
-          : (_i25.Mappr.convertDevicePlatformToInt(model.platform!) as int?),
+      platform: model.platform,
     );
   }
 
@@ -2834,10 +2828,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id,
       name: model.name,
       emailAddress: model.emailAddress,
-      platform: model.platform == null
-          ? null
-          : (_i25.Mappr.convertIntToDevicePlatform(model.platform!)
-              as _i26.DevicePlatform?),
+      platform: null,
     );
   }
 

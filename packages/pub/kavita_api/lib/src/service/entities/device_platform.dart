@@ -1,19 +1,6 @@
-import 'package:dart_mappable/dart_mappable.dart';
-
-part 'device_platform.mapper.dart';
-
-@MappableEnum()
-enum DevicePlatform {
-  @MappableValue(0)
-  custom(0),
-  @MappableValue(1)
-  pocketBook(1),
-  @MappableValue(2)
-  kindle(2),
-  @MappableValue(3)
-  kobo(3);
-
-  const DevicePlatform(this.value);
-
-  final int value;
+extension type DevicePlatform(int value) implements int {
+  static const DevicePlatform custom = 0 as DevicePlatform;
+  static const DevicePlatform pocketBook = 1 as DevicePlatform;
+  static const DevicePlatform kindle = 2 as DevicePlatform;
+  static const DevicePlatform kobo = 3 as DevicePlatform;
 }

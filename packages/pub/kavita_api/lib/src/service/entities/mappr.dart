@@ -47,12 +47,7 @@ import 'mappr.auto_mappr.dart';
   MapType<raw.CblBookResult, CblBookResult>(reverse: true),
   MapType<raw.ServerInfoDto, ServerInfo>(reverse: true),
   MapType<raw.FileFormatDto, FileFormat>(reverse: true),
-  MapType<raw.DeviceDto, Device>(converters: [
-    TypeConverter<int, DevicePlatform>(Mappr.convertIntToDevicePlatform),
-  ]),
-  MapType<Device, raw.DeviceDto>(converters: [
-    TypeConverter<DevicePlatform, int>(Mappr.convertDevicePlatformToInt),
-  ]),
+  MapType<raw.DeviceDto, Device>(reverse: true),
   MapType<raw.SeriesDto, Series>(reverse: true),
   MapType<raw.BookmarkDto, Bookmark>(reverse: true),
   MapType<raw.FilterStatementDto, FilterStatement>(reverse: true),
@@ -65,11 +60,5 @@ import 'mappr.auto_mappr.dart';
 class Mappr extends $Mappr {
   const Mappr();
 
-  static DevicePlatform convertIntToDevicePlatform(int value) {
-    return DevicePlatform.values.firstWhere((e) => e.value == value);
-  }
-
-  static int convertDevicePlatformToInt(DevicePlatform value) {
-    return value.value;
-  }
+  static int convertDevicePlatformToInt(DevicePlatform value) => value.value;
 }
