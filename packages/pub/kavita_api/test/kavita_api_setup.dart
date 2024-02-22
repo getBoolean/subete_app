@@ -1,4 +1,4 @@
-import 'package:chopper/chopper.dart';
+import 'package:chopper/chopper.dart' as ch show ChopperClient, Response;
 import 'package:dotenv/dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:kavita_api/kavita_api.dart';
@@ -16,7 +16,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
 
   if (mock) {
     final rawApi = MockRawKavitaApiV1();
-    when(() => rawApi.client).thenReturn(ChopperClient(baseUrl: baseUrl));
+    when(() => rawApi.client).thenReturn(ch.ChopperClient(baseUrl: baseUrl));
     when(rawApi.apiServerServerInfoGet).thenResponse(const raw.ServerInfoDto());
 
     const apiKey = 'test';
@@ -543,10 +543,10 @@ void mockReaderApi(MockRawKavitaApiV1 api, String apiKey) {
   // create ptoc (personal table of contents)
 }
 
-extension _ReponseExtension<T> on When<Future<Response<T>>> {
+extension _ReponseExtension<T> on When<Future<ch.Response<T>>> {
   void thenResponse(T? body, {Object? error, int statusCode = 200}) {
     return thenAnswer(
-      (_) async => Response(
+      (_) async => ch.Response(
         http.Response(body.toString(), statusCode),
         body,
         error: error,

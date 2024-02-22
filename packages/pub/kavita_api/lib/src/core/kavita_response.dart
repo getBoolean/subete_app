@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:chopper/chopper.dart';
+import 'package:chopper/chopper.dart' as ch show Converter;
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,7 +13,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
   final http.BaseResponse base;
 
   /// The body of the response after conversion by Chopper
-  /// See [Converter] for more on body conversion.
+  /// See [ch.Converter] for more on body conversion.
   ///
   /// Can be null if [isSuccessful] is not true.
   /// Use [error] to get error body.
