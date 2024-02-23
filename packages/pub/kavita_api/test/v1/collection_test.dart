@@ -10,22 +10,22 @@ void main() {
 
   group('Test Kavita API v1 Collection', () {
     test('Test Get Collections', () async {
-      final res = await api.v1.collection.getCollections();
+      final res = await api.collection.getCollections();
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Search Collections', () async {
-      final res = await api.v1.collection.searchCollections('Test');
+      final res = await api.collection.searchCollections('Test');
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Collection Exists', () async {
-      final res = await api.v1.collection.collectionExists('Test');
+      final res = await api.collection.collectionExists('Test');
       expect(res.body, isTrue, reason: 'Collection does not exist');
     });
 
     test('Test Create Collection For Series', () async {
-      final res = await api.v1.collection.createCollectionForSeries(
+      final res = await api.collection.createCollectionForSeries(
         title: 'Test',
         seriesIds: [1],
       );
@@ -33,7 +33,7 @@ void main() {
     });
 
     test('Test Update Collection For Series', () async {
-      final res = await api.v1.collection.updateCollectionForSeries(
+      final res = await api.collection.updateCollectionForSeries(
         id: 1,
         title: 'Test',
         seriesIds: [1],
@@ -42,7 +42,7 @@ void main() {
     });
 
     test('Test Update Collection', () async {
-      final res = await api.v1.collection.updateCollection(
+      final res = await api.collection.updateCollection(
         id: 1,
         title: 'Test',
         summary: 'test',
@@ -51,7 +51,7 @@ void main() {
     });
 
     test('Test Remove Series From Collection', () async {
-      final res = await api.v1.collection.removeSeriesFromCollection(
+      final res = await api.collection.removeSeriesFromCollection(
         id: 1,
         seriesIds: [1],
       );
@@ -59,7 +59,7 @@ void main() {
     });
 
     test('Test Delete Collection', () async {
-      final res = await api.v1.collection.deleteCollection(id: 1);
+      final res = await api.collection.deleteCollection(id: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
   });

@@ -51,7 +51,7 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
     );
   }
   final kavitaApi = KavitaApi(baseUrl: baseUrl);
-  await kavitaApi.v1.account.login(
+  await kavitaApi.account.login(
     username: env['KAVITA_USERNAME']!,
     password: env['KAVITA_PASSWORD']!,
   );

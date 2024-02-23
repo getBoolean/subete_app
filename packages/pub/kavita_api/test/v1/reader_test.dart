@@ -10,7 +10,7 @@ void main() {
 
   group('Test Kavita API v1 Reader', () {
     test('Test Overall Rating', () async {
-      final res = await api.v1.rating.getOverallRating(
+      final res = await api.rating.getOverallRating(
         seriesId: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -19,7 +19,7 @@ void main() {
 
     // pdf
     test('Test Get Chapter PDF', () async {
-      final res = await api.v1.reader.getChapterPdf(
+      final res = await api.reader.getChapterPdf(
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -28,7 +28,7 @@ void main() {
 
     // image
     test('Test Get Chapter Image', () async {
-      final res = await api.v1.reader.getChapterImage(
+      final res = await api.reader.getChapterImage(
         id: 1,
         page: 1,
       );
@@ -38,7 +38,7 @@ void main() {
 
     // thumbnail
     test('Test Get Chapter Thumbnail', () async {
-      final res = await api.v1.reader.getChapterThumbnail(
+      final res = await api.reader.getChapterThumbnail(
         id: 1,
         page: 1,
       );
@@ -48,7 +48,7 @@ void main() {
 
     // bookmark image
     test('Test Get Bookmark Image', () async {
-      final res = await api.v1.reader.getBookmarkImage(
+      final res = await api.reader.getBookmarkImage(
         seriesId: 1,
         page: 1,
       );
@@ -58,7 +58,7 @@ void main() {
 
     // file dimensions
     test('Test Get Chapter File Dimensions', () async {
-      final res = await api.v1.reader.getChapterDimensions(
+      final res = await api.reader.getChapterDimensions(
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -67,7 +67,7 @@ void main() {
 
     // chapter info
     test('Test Get Chapter Info', () async {
-      final res = await api.v1.reader.getChapterInfo(
+      final res = await api.reader.getChapterInfo(
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -76,7 +76,7 @@ void main() {
 
     // bookmark info
     test('Test Get Bookmark Info', () async {
-      final res = await api.v1.reader.getBookmarkInfo(
+      final res = await api.reader.getBookmarkInfo(
         seriesId: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());

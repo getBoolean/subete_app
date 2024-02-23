@@ -27,18 +27,18 @@ void main() {
         ),
         limitTo: 10,
       );
-      final res = await api.v1.filter.updateFilter(filter);
+      final res = await api.filter.updateFilter(filter);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Get Filter', () async {
-      final res = await api.v1.filter.getFilter();
+      final res = await api.filter.getFilter();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'SmartFilter is null');
     });
 
     test('Test Delete Filter', () async {
-      final res = await api.v1.filter.deleteFilter(id: 1);
+      final res = await api.filter.deleteFilter(id: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
@@ -60,13 +60,13 @@ void main() {
         ),
         limitTo: 10,
       );
-      final res = await api.v1.filter.encodeFilter(filter);
+      final res = await api.filter.encodeFilter(filter);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Encoded filter is null');
     });
 
     test('Test Decode Filter', () async {
-      final res = await api.v1.filter.decodeFilter('Test');
+      final res = await api.filter.decodeFilter('Test');
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Decoded filter is null');
     });

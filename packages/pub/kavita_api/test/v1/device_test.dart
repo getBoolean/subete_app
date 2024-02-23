@@ -10,12 +10,12 @@ void main() {
 
   group('Test Kavita API v1 Device', () {
     test('Test Get Devices', () async {
-      final res = await api.v1.device.getDevices();
+      final res = await api.device.getDevices();
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Create Device', () async {
-      final res = await api.v1.device.createDevice(
+      final res = await api.device.createDevice(
         name: '',
         platform: DevicePlatform.custom,
         emailAddress: '',
@@ -24,7 +24,7 @@ void main() {
     });
 
     test('Test Update Device', () async {
-      final res = await api.v1.device.updateDevice(
+      final res = await api.device.updateDevice(
         id: 1,
         name: '',
         platform: DevicePlatform.custom,
@@ -34,12 +34,12 @@ void main() {
     });
 
     test('Test Delete Device', () async {
-      final res = await api.v1.device.deleteDevice(id: 1);
+      final res = await api.device.deleteDevice(id: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Send to Device', () async {
-      final res = await api.v1.device.sendToDevice(
+      final res = await api.device.sendToDevice(
         deviceId: 1,
         chapterIds: [1],
       );
@@ -47,7 +47,7 @@ void main() {
     });
 
     test('Test Send Series to Device', () async {
-      final res = await api.v1.device.sendSeriesToDevice(
+      final res = await api.device.sendSeriesToDevice(
         deviceId: 1,
         seriesId: 1,
       );

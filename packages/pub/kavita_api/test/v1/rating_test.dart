@@ -10,7 +10,7 @@ void main() {
 
   group('Test Kavita API v1 Rating', () {
     test('Test Overall Rating', () async {
-      final res = await api.v1.rating.getOverallRating(
+      final res = await api.rating.getOverallRating(
         seriesId: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());

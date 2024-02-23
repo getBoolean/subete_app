@@ -10,7 +10,7 @@ void main() {
 
   group('Test Kavita API v1 Cbl', () {
     test('Test Validate Cbl', () async {
-      final res = await api.v1.cbl.validateCbl(
+      final res = await api.cbl.validateCbl(
         contentType: 'application/json',
         contentDisposition: 'attachment; filename=test.cbl',
         headers: {},
@@ -23,7 +23,7 @@ void main() {
     });
 
     test('Test Import Cbl', () async {
-      final res = await api.v1.cbl.importCbl(
+      final res = await api.cbl.importCbl(
         contentType: 'application/json',
         contentDisposition: 'attachment; filename=test.cbl',
         headers: {},

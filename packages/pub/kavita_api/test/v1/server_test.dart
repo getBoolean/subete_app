@@ -10,7 +10,7 @@ void main() {
 
   group('Test Kavita API v1 Server', () {
     test('Test Server Info', () async {
-      final res = await api.v1.server.getServerInfo();
+      final res = await api.server.getServerInfo();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
   });
