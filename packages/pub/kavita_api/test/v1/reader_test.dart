@@ -1,16 +1,12 @@
-import 'package:kavita_api/kavita_api.dart';
-import 'package:test/test.dart';
-
-import '../kavita_api_setup.dart';
+import '../tests.dart';
 
 void main() {
-  late KavitaApi api;
-
-  setUp(() async => api = await setUpKavita());
+  late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
+  setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Reader', () {
     test('Test Overall Rating', () async {
-      final res = await api.rating.getOverallRating(
+      final res = await kavita.underTest.rating.getOverallRating(
         seriesId: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -19,7 +15,7 @@ void main() {
 
     // pdf
     test('Test Get Chapter PDF', () async {
-      final res = await api.reader.getChapterPdf(
+      final res = await kavita.underTest.reader.getChapterPdf(
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -28,7 +24,7 @@ void main() {
 
     // image
     test('Test Get Chapter Image', () async {
-      final res = await api.reader.getChapterImage(
+      final res = await kavita.underTest.reader.getChapterImage(
         id: 1,
         page: 1,
       );
@@ -38,7 +34,7 @@ void main() {
 
     // thumbnail
     test('Test Get Chapter Thumbnail', () async {
-      final res = await api.reader.getChapterThumbnail(
+      final res = await kavita.underTest.reader.getChapterThumbnail(
         id: 1,
         page: 1,
       );
@@ -48,7 +44,7 @@ void main() {
 
     // bookmark image
     test('Test Get Bookmark Image', () async {
-      final res = await api.reader.getBookmarkImage(
+      final res = await kavita.underTest.reader.getBookmarkImage(
         seriesId: 1,
         page: 1,
       );
@@ -58,7 +54,7 @@ void main() {
 
     // file dimensions
     test('Test Get Chapter File Dimensions', () async {
-      final res = await api.reader.getChapterDimensions(
+      final res = await kavita.underTest.reader.getChapterDimensions(
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -67,7 +63,7 @@ void main() {
 
     // chapter info
     test('Test Get Chapter Info', () async {
-      final res = await api.reader.getChapterInfo(
+      final res = await kavita.underTest.reader.getChapterInfo(
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -76,7 +72,7 @@ void main() {
 
     // bookmark info
     test('Test Get Bookmark Info', () async {
-      final res = await api.reader.getBookmarkInfo(
+      final res = await kavita.underTest.reader.getBookmarkInfo(
         seriesId: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());

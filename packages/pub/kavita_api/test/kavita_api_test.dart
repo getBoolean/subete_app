@@ -1,4 +1,5 @@
-import 'package:kavita_api/kavita_api.dart';
+import 'package:kavita_api/src/service/entities/user_dto.dart';
+import 'package:kavita_api/src/service/kavita_api.dart';
 import 'package:test/test.dart';
 
 void main() {

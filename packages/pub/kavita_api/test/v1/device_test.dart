@@ -1,21 +1,17 @@
-import 'package:kavita_api/kavita_api.dart';
-import 'package:test/test.dart';
-
-import '../kavita_api_setup.dart';
+import '../tests.dart';
 
 void main() {
-  late KavitaApi api;
-
-  setUp(() async => api = await setUpKavita());
+  late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
+  setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Device', () {
     test('Test Get Devices', () async {
-      final res = await api.device.getDevices();
+      final res = await kavita.underTest.device.getDevices();
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Create Device', () async {
-      final res = await api.device.createDevice(
+      final res = await kavita.underTest.device.createDevice(
         name: '',
         platform: DevicePlatform.custom,
         emailAddress: '',
@@ -24,7 +20,7 @@ void main() {
     });
 
     test('Test Update Device', () async {
-      final res = await api.device.updateDevice(
+      final res = await kavita.underTest.device.updateDevice(
         id: 1,
         name: '',
         platform: DevicePlatform.custom,
@@ -34,12 +30,12 @@ void main() {
     });
 
     test('Test Delete Device', () async {
-      final res = await api.device.deleteDevice(id: 1);
+      final res = await kavita.underTest.device.deleteDevice(id: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Send to Device', () async {
-      final res = await api.device.sendToDevice(
+      final res = await kavita.underTest.device.sendToDevice(
         deviceId: 1,
         chapterIds: [1],
       );
@@ -47,7 +43,7 @@ void main() {
     });
 
     test('Test Send Series to Device', () async {
-      final res = await api.device.sendSeriesToDevice(
+      final res = await kavita.underTest.device.sendSeriesToDevice(
         deviceId: 1,
         seriesId: 1,
       );

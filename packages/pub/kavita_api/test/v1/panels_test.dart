@@ -1,16 +1,12 @@
-import 'package:kavita_api/kavita_api.dart';
-import 'package:test/test.dart';
-
-import '../kavita_api_setup.dart';
+import '../tests.dart';
 
 void main() {
-  late KavitaApi api;
-
-  setUp(() async => api = await setUpKavita());
+  late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
+  setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Panels', () {
     test('Test Save Progress', () async {
-      final res = await api.panels.saveProgress(
+      final res = await kavita.underTest.panels.saveProgress(
         const ProgressDto(
           volumeId: 1,
           chapterId: 1,
@@ -23,7 +19,7 @@ void main() {
     });
 
     test('Test Get Progress', () async {
-      final res = await api.panels.getProgress(chapterId: 1);
+      final res = await kavita.underTest.panels.getProgress(chapterId: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Response body is null');
     });

@@ -1,25 +1,26 @@
-import 'package:kavita_api/kavita_api.dart';
-import 'package:test/test.dart';
-
-import '../kavita_api_setup.dart';
+import '../tests.dart';
 
 void main() {
-  late KavitaApi api;
-
-  setUp(() async => api = await setUpKavita());
+  late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
+  setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Account', () {
     test('Test Reset Password', () async {
-      final res = await api.account.resetPassword(
+      // Given
+
+      // When
+      final res = await kavita.underTest.account.resetPassword(
         username: '',
         password: '',
         oldPassword: '',
       );
+
+      // Then
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Confirm Password Reset', () async {
-      final res = await api.account.confirmPasswordReset(
+      final res = await kavita.underTest.account.confirmPasswordReset(
         token: '',
         email: '',
         password: '',
@@ -33,7 +34,7 @@ void main() {
     });
 
     test('Test Register First User', () async {
-      final res = await api.account.registerFirstUser(
+      final res = await kavita.underTest.account.registerFirstUser(
         username: '',
         password: '',
         email: '',
@@ -42,7 +43,7 @@ void main() {
     });
 
     test('Test Login', () async {
-      final res = await api.account.login(
+      final res = await kavita.underTest.account.login(
         username: '',
         password: '',
       );
@@ -51,21 +52,21 @@ void main() {
     });
 
     test('Test Logout', () async {
-      api.account.logout();
+      kavita.underTest.account.logout();
       expect(
-        api.context.currentUser,
+        kavita.underTest.context.currentUser,
         isNull,
         reason: 'Expected user to be null',
       );
     });
 
     test('Test Refresh Account', () async {
-      final res = await api.account.refreshAccount();
+      final res = await kavita.underTest.account.refreshAccount();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Refresh Token', () async {
-      final res = await api.account.refreshToken(
+      final res = await kavita.underTest.account.refreshToken(
         token: 'token',
         refreshToken: 'refreshToken',
       );
@@ -84,7 +85,7 @@ void main() {
     });
 
     test('Test Get Roles', () async {
-      final res = await api.account.getRoles();
+      final res = await kavita.underTest.account.getRoles();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Expected response to be not null');
       expect(
@@ -100,13 +101,13 @@ void main() {
     });
 
     test('Test Reset API Key', () async {
-      final res = await api.account.resetApiKey();
+      final res = await kavita.underTest.account.resetApiKey();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, 'key', reason: 'Expected response to be "key"');
     });
 
     test('Test Update Email', () async {
-      final res = await api.account.updateEmail(
+      final res = await kavita.underTest.account.updateEmail(
         email: '',
         password: '',
       );
@@ -114,7 +115,7 @@ void main() {
     });
 
     test('Test Confirm Email', () async {
-      final res = await api.account.confirmEmail(
+      final res = await kavita.underTest.account.confirmEmail(
         token: '',
         email: '',
         password: '',
@@ -125,7 +126,7 @@ void main() {
     });
 
     test('Test Confirm Migration Email', () async {
-      final res = await api.account.confirmMigrationEmail(
+      final res = await kavita.underTest.account.confirmMigrationEmail(
         token: '',
         email: '',
       );
@@ -134,7 +135,8 @@ void main() {
     });
 
     test('Test Resend Confirmation Email', () async {
-      final res = await api.account.resendConfirmationEmail(userId: 1);
+      final res =
+          await kavita.underTest.account.resendConfirmationEmail(userId: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Expected response to be not null');
       expect(
@@ -155,19 +157,19 @@ void main() {
     });
 
     test('Test Is Email Confirmed', () async {
-      final res = await api.account.isEmailConfirmed();
+      final res = await kavita.underTest.account.isEmailConfirmed();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isTrue, reason: 'Expected response to be true');
     });
 
     test('Test Is Email Valid', () async {
-      final res = await api.account.isEmailValid();
+      final res = await kavita.underTest.account.isEmailValid();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isTrue, reason: 'Expected response to be true');
     });
 
     test('Test Update Age Restriction', () async {
-      final res = await api.account.updateAgeRestriction(
+      final res = await kavita.underTest.account.updateAgeRestriction(
         ageRating: 0,
         includeUnknowns: false,
       );
@@ -175,7 +177,7 @@ void main() {
     });
 
     test('Test Update User', () async {
-      final res = await api.account.updateUser(
+      final res = await kavita.underTest.account.updateUser(
         userId: 1,
         username: '',
         roles: [],
@@ -189,13 +191,14 @@ void main() {
     });
 
     test('Test Get Invite URL', () async {
-      final res = await api.account.getInviteUrl(userId: 1, withBaseUrl: false);
+      final res = await kavita.underTest.account
+          .getInviteUrl(userId: 1, withBaseUrl: false);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, 'test', reason: 'Expected response to be "test"');
     });
 
     test('Test Invite User', () async {
-      final res = await api.account.inviteUser(
+      final res = await kavita.underTest.account.inviteUser(
         email: '',
         roles: [],
         libraries: [],
@@ -209,13 +212,13 @@ void main() {
     });
 
     test('Test Forgot Password', () async {
-      final res = await api.account.forgotPassword(email: '');
+      final res = await kavita.underTest.account.forgotPassword(email: '');
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, 'link', reason: 'Expected response to be "link"');
     });
 
     test('Test Get OPDS URL', () async {
-      final res = await api.account.getOpdsUrl();
+      final res = await kavita.underTest.account.getOpdsUrl();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, 'test', reason: 'Expected response to be "test"');
     });

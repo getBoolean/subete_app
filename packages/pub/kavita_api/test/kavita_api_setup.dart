@@ -7,31 +7,30 @@ import 'package:mocktail/mocktail.dart';
 
 class MockRawKavitaApiV1 extends Mock implements raw.KavitaApiV1 {}
 
-Future<KavitaApi> setUpKavita({bool mock = true}) async {
-  final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
+Future<({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey})>
+    setUpKavita({
+  String baseUrl = 'http://127.0.0.1:5000',
+}) async {
+  const apiKey = 'test';
+  final baseUri = Uri.parse(baseUrl);
+  final rawApi = MockRawKavitaApiV1();
 
-  final baseUrl = Uri.parse(
-    env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'),
-  );
+  when(() => rawApi.client).thenReturn(ch.ChopperClient(baseUrl: baseUri));
+  when(rawApi.apiServerServerInfoGet).thenResponse(const raw.ServerInfoDto());
 
-  if (mock) {
-    final rawApi = MockRawKavitaApiV1();
-    when(() => rawApi.client).thenReturn(ch.ChopperClient(baseUrl: baseUrl));
-    when(rawApi.apiServerServerInfoGet).thenResponse(const raw.ServerInfoDto());
+  mockAccountApi(rawApi);
+  mockCblApi(rawApi);
+  mockDownloadApi(rawApi);
+  mockCollectionApi(rawApi);
+  mockDeviceApi(rawApi);
+  mockFilterApi(rawApi);
+  mockImageApi(rawApi, apiKey);
+  mockPanelsApi(rawApi, apiKey);
+  mockRatingApi(rawApi);
+  mockReaderApi(rawApi, apiKey);
 
-    const apiKey = 'test';
-    mockAccountApi(rawApi);
-    mockCblApi(rawApi);
-    mockDownloadApi(rawApi);
-    mockCollectionApi(rawApi);
-    mockDeviceApi(rawApi);
-    mockFilterApi(rawApi);
-    mockImageApi(rawApi, apiKey);
-    mockPanelsApi(rawApi, apiKey);
-    mockRatingApi(rawApi);
-    mockReaderApi(rawApi, apiKey);
-
-    return KavitaApi.fromContext(
+  return (
+    underTest: KavitaApi.fromContext(
       KavitaContext.fromApi(
         rawApi,
         currentUser: const UserDto(
@@ -42,8 +41,18 @@ Future<KavitaApi> setUpKavita({bool mock = true}) async {
           refreshToken: 'test',
         ),
       ),
-    );
-  }
+    ),
+    rawApi: rawApi,
+    apiKey: apiKey
+  );
+}
+
+Future<KavitaApi> setUpRealKavita() async {
+  final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
+
+  final baseUrl = Uri.parse(
+    env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'),
+  );
 
   if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
     throw Exception(
@@ -566,7 +575,7 @@ void mockReaderApi(MockRawKavitaApiV1 api, String apiKey) {
   // create ptoc (personal table of contents)
 }
 
-extension _ReponseExtension<T> on When<Future<ch.Response<T>>> {
+extension ReponseExtension<T> on When<Future<ch.Response<T>>> {
   void thenResponse(T? body, {Object? error, int statusCode = 200}) {
     return thenAnswer(
       (_) async => ch.Response(

@@ -1,16 +1,12 @@
-import 'package:kavita_api/kavita_api.dart';
-import 'package:test/test.dart';
-
-import '../kavita_api_setup.dart';
+import '../tests.dart';
 
 void main() {
-  late KavitaApi api;
-
-  setUp(() async => api = await setUpKavita());
+  late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
+  setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Cbl', () {
     test('Test Validate Cbl', () async {
-      final res = await api.cbl.validateCbl(
+      final res = await kavita.underTest.cbl.validateCbl(
         contentType: 'application/json',
         contentDisposition: 'attachment; filename=test.cbl',
         headers: {},
@@ -23,7 +19,7 @@ void main() {
     });
 
     test('Test Import Cbl', () async {
-      final res = await api.cbl.importCbl(
+      final res = await kavita.underTest.cbl.importCbl(
         contentType: 'application/json',
         contentDisposition: 'attachment; filename=test.cbl',
         headers: {},
