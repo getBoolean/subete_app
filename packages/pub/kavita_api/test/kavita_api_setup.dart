@@ -16,7 +16,6 @@ Future<({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey})>
   final rawApi = MockRawKavitaApiV1();
 
   when(() => rawApi.client).thenReturn(ch.ChopperClient(baseUrl: baseUri));
-  when(rawApi.apiServerServerInfoGet).thenResponse(const raw.ServerInfoDto());
 
   mockAccountApi(rawApi);
   mockCblApi(rawApi);
