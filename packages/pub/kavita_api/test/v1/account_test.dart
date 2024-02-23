@@ -1,12 +1,34 @@
+import 'package:kavita_api/raw_api.dart' as raw;
+
 import '../tests.dart';
 
 void main() {
+  const userDto = raw.UserDto(
+    username: 'test',
+    email: 'test',
+    apiKey: 'test',
+    token: 'test',
+    refreshToken: 'test',
+    kavitaVersion: '1.0.0',
+    ageRestriction: raw.AgeRestrictionDto(
+      ageRating: 0,
+      includeUnknowns: false,
+    ),
+  );
   late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Account', () {
     test('Test Reset Password', () async {
       // Given
+      const resetPasswordDto = raw.ResetPasswordDto(
+        userName: '',
+        password: '',
+        oldPassword: '',
+      );
+      when(() =>
+              kavita.rawApi.apiAccountResetPasswordPost(body: resetPasswordDto))
+          .thenResponse(null);
 
       // When
       final res = await kavita.underTest.account.resetPassword(
@@ -20,6 +42,15 @@ void main() {
     });
 
     test('Test Confirm Password Reset', () async {
+      when(
+        () => kavita.rawApi.apiAccountConfirmPasswordResetPost(
+          body: const raw.ConfirmPasswordResetDto(
+            token: '',
+            email: '',
+            password: '',
+          ),
+        ),
+      ).thenResponse('test');
       final res = await kavita.underTest.account.confirmPasswordReset(
         token: '',
         email: '',
@@ -34,6 +65,15 @@ void main() {
     });
 
     test('Test Register First User', () async {
+      when(
+        () => kavita.rawApi.apiAccountRegisterPost(
+          body: const raw.RegisterDto(
+            username: '',
+            password: '',
+            email: '',
+          ),
+        ),
+      ).thenResponse(userDto);
       final res = await kavita.underTest.account.registerFirstUser(
         username: '',
         password: '',
@@ -43,6 +83,14 @@ void main() {
     });
 
     test('Test Login', () async {
+      when(
+        () => kavita.rawApi.apiAccountLoginPost(
+          body: const raw.LoginDto(
+            username: '',
+            password: '',
+          ),
+        ),
+      ).thenResponse(userDto);
       final res = await kavita.underTest.account.login(
         username: '',
         password: '',
@@ -61,11 +109,25 @@ void main() {
     });
 
     test('Test Refresh Account', () async {
+      when(kavita.rawApi.apiAccountRefreshAccountGet).thenResponse(userDto);
       final res = await kavita.underTest.account.refreshAccount();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
     test('Test Refresh Token', () async {
+      when(
+        () => kavita.rawApi.apiAccountRefreshTokenPost(
+          body: const raw.TokenRequestDto(
+            token: 'token',
+            refreshToken: 'refreshToken',
+          ),
+        ),
+      ).thenResponse(
+        const raw.TokenRequestDto(
+          token: 'token2',
+          refreshToken: 'refreshToken2',
+        ),
+      );
       final res = await kavita.underTest.account.refreshToken(
         token: 'token',
         refreshToken: 'refreshToken',
@@ -85,6 +147,8 @@ void main() {
     });
 
     test('Test Get Roles', () async {
+      final expected = ['test'];
+      when(() => kavita.rawApi.apiAccountRolesGet()).thenResponse(expected);
       final res = await kavita.underTest.account.getRoles();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Expected response to be not null');
@@ -94,19 +158,28 @@ void main() {
         reason: 'Expected response to be not empty',
       );
       expect(
-        res.body!.first,
-        'test',
-        reason: 'Expected first response to be "test"',
+        res.body,
+        equals(expected),
+        reason: 'Expected response to be "[test]"',
       );
     });
 
     test('Test Reset API Key', () async {
+      when(() => kavita.rawApi.apiAccountResetApiKeyPost()).thenResponse('key');
       final res = await kavita.underTest.account.resetApiKey();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, 'key', reason: 'Expected response to be "key"');
     });
 
     test('Test Update Email', () async {
+      when(
+        () => kavita.rawApi.apiAccountUpdateEmailPost(
+          body: const raw.UpdateEmailDto(
+            email: '',
+            password: '',
+          ),
+        ),
+      ).thenResponse(null);
       final res = await kavita.underTest.account.updateEmail(
         email: '',
         password: '',
@@ -115,6 +188,16 @@ void main() {
     });
 
     test('Test Confirm Email', () async {
+      when(
+        () => kavita.rawApi.apiAccountConfirmEmailPost(
+          body: const raw.ConfirmEmailDto(
+            token: '',
+            email: '',
+            password: '',
+            username: '',
+          ),
+        ),
+      ).thenResponse(userDto);
       final res = await kavita.underTest.account.confirmEmail(
         token: '',
         email: '',
@@ -126,6 +209,14 @@ void main() {
     });
 
     test('Test Confirm Migration Email', () async {
+      when(
+        () => kavita.rawApi.apiAccountConfirmMigrationEmailPost(
+          body: const raw.ConfirmMigrationEmailDto(
+            token: '',
+            email: '',
+          ),
+        ),
+      ).thenResponse(userDto);
       final res = await kavita.underTest.account.confirmMigrationEmail(
         token: '',
         email: '',
@@ -135,6 +226,14 @@ void main() {
     });
 
     test('Test Resend Confirmation Email', () async {
+      when(() => kavita.rawApi.apiAccountResendConfirmationEmailPost(userId: 1))
+          .thenResponse(
+        const raw.InviteUserResponse(
+          invalidEmail: false,
+          emailSent: true,
+          emailLink: 'test',
+        ),
+      );
       final res =
           await kavita.underTest.account.resendConfirmationEmail(userId: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -157,18 +256,29 @@ void main() {
     });
 
     test('Test Is Email Confirmed', () async {
+      when(() => kavita.rawApi.apiAccountEmailConfirmedGet())
+          .thenResponse(true);
       final res = await kavita.underTest.account.isEmailConfirmed();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isTrue, reason: 'Expected response to be true');
     });
 
     test('Test Is Email Valid', () async {
+      when(() => kavita.rawApi.apiAccountIsEmailValidGet()).thenResponse(true);
       final res = await kavita.underTest.account.isEmailValid();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isTrue, reason: 'Expected response to be true');
     });
 
     test('Test Update Age Restriction', () async {
+      when(
+        () => kavita.rawApi.apiAccountUpdateAgeRestrictionPost(
+          body: const raw.UpdateAgeRestrictionDto(
+            ageRating: 0,
+            includeUnknowns: false,
+          ),
+        ),
+      ).thenResponse(null);
       final res = await kavita.underTest.account.updateAgeRestriction(
         ageRating: 0,
         includeUnknowns: false,
@@ -177,6 +287,20 @@ void main() {
     });
 
     test('Test Update User', () async {
+      when(
+        () => kavita.rawApi.apiAccountUpdatePost(
+          body: const raw.UpdateUserDto(
+            userId: 1,
+            username: '',
+            roles: [],
+            libraries: [],
+            ageRestriction: raw.AgeRestrictionDto(
+              ageRating: 0,
+              includeUnknowns: false,
+            ),
+          ),
+        ),
+      ).thenResponse(null);
       final res = await kavita.underTest.account.updateUser(
         userId: 1,
         username: '',
@@ -191,6 +315,8 @@ void main() {
     });
 
     test('Test Get Invite URL', () async {
+      when(() => kavita.rawApi.apiAccountInviteUrlGet(
+          userId: 1, withBaseUrl: false)).thenResponse('test');
       final res = await kavita.underTest.account
           .getInviteUrl(userId: 1, withBaseUrl: false);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -198,6 +324,19 @@ void main() {
     });
 
     test('Test Invite User', () async {
+      when(
+        () => kavita.rawApi.apiAccountInvitePost(
+          body: const raw.InviteUserDto(
+            email: '',
+            roles: [],
+            libraries: [],
+            ageRestriction: raw.AgeRestrictionDto(
+              ageRating: 0,
+              includeUnknowns: false,
+            ),
+          ),
+        ),
+      ).thenResponse('test');
       final res = await kavita.underTest.account.inviteUser(
         email: '',
         roles: [],
@@ -212,12 +351,18 @@ void main() {
     });
 
     test('Test Forgot Password', () async {
+      when(
+        () => kavita.rawApi.apiAccountForgotPasswordPost(
+          email: '',
+        ),
+      ).thenResponse('link');
       final res = await kavita.underTest.account.forgotPassword(email: '');
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, 'link', reason: 'Expected response to be "link"');
     });
 
     test('Test Get OPDS URL', () async {
+      when(() => kavita.rawApi.apiAccountOpdsUrlGet()).thenResponse('test');
       final res = await kavita.underTest.account.getOpdsUrl();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, 'test', reason: 'Expected response to be "test"');

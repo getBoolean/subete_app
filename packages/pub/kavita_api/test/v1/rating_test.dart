@@ -1,3 +1,5 @@
+import 'package:kavita_api/raw_api.dart' as raw;
+
 import '../tests.dart';
 
 void main() {
@@ -6,11 +8,23 @@ void main() {
 
   group('Test Kavita API v1 Rating', () {
     test('Test Overall Rating', () async {
-      final res = await kavita.underTest.rating.getOverallRating(
-        seriesId: 1,
+      // Given
+      const seriesId = 1;
+      when(() => kavita.rawApi.apiRatingOverallGet(seriesId: seriesId))
+          .thenResponse(
+        const raw.RatingDto(),
       );
+
+      const expected = RatingDto();
+
+      // When
+      final res = await kavita.underTest.rating.getOverallRating(
+        seriesId: seriesId,
+      );
+
+      // Then
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      expect(res.body, isNotNull, reason: 'No data received');
+      expect(res.body, equals(expected));
     });
   });
 }

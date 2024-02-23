@@ -1,3 +1,5 @@
+import 'package:kavita_api/raw_api.dart' as raw;
+
 import '../tests.dart';
 
 void main() {
@@ -5,16 +7,10 @@ void main() {
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Reader', () {
-    test('Test Overall Rating', () async {
-      final res = await kavita.underTest.rating.getOverallRating(
-        seriesId: 1,
-      );
-      expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      expect(res.body, isNotNull, reason: 'No data received');
-    });
-
     // pdf
     test('Test Get Chapter PDF', () async {
+      when(() => kavita.rawApi.apiReaderPdfGet(
+          chapterId: 1, apiKey: kavita.apiKey)).thenResponse('1');
       final res = await kavita.underTest.reader.getChapterPdf(
         id: 1,
       );
@@ -24,6 +20,11 @@ void main() {
 
     // image
     test('Test Get Chapter Image', () async {
+      when(() => kavita.rawApi.apiReaderImageGet(
+          chapterId: 1,
+          page: 1,
+          apiKey: kavita.apiKey,
+          extractPdf: false)).thenResponse('1');
       final res = await kavita.underTest.reader.getChapterImage(
         id: 1,
         page: 1,
@@ -34,6 +35,8 @@ void main() {
 
     // thumbnail
     test('Test Get Chapter Thumbnail', () async {
+      when(() => kavita.rawApi.apiReaderThumbnailGet(
+          chapterId: 1, pageNum: 1, apiKey: kavita.apiKey)).thenResponse('1');
       final res = await kavita.underTest.reader.getChapterThumbnail(
         id: 1,
         page: 1,
@@ -44,6 +47,8 @@ void main() {
 
     // bookmark image
     test('Test Get Bookmark Image', () async {
+      when(() => kavita.rawApi.apiReaderBookmarkImageGet(
+          seriesId: 1, page: 1, apiKey: kavita.apiKey)).thenResponse('1');
       final res = await kavita.underTest.reader.getBookmarkImage(
         seriesId: 1,
         page: 1,
@@ -54,6 +59,9 @@ void main() {
 
     // file dimensions
     test('Test Get Chapter File Dimensions', () async {
+      when(() => kavita.rawApi.apiReaderFileDimensionsGet(
+          chapterId: 1,
+          extractPdf: false)).thenResponse([const raw.FileDimensionDto()]);
       final res = await kavita.underTest.reader.getChapterDimensions(
         id: 1,
       );
@@ -63,6 +71,12 @@ void main() {
 
     // chapter info
     test('Test Get Chapter Info', () async {
+      when(() => kavita.rawApi.apiReaderChapterInfoGet(
+          chapterId: 1,
+          includeDimensions: true,
+          extractPdf: false)).thenResponse(
+        const raw.ChapterInfoDto(),
+      );
       final res = await kavita.underTest.reader.getChapterInfo(
         id: 1,
       );
@@ -72,6 +86,10 @@ void main() {
 
     // bookmark info
     test('Test Get Bookmark Info', () async {
+      when(() => kavita.rawApi.apiReaderBookmarkInfoGet(
+          seriesId: 1, includeDimensions: true)).thenResponse(
+        const raw.BookmarkInfoDto(),
+      );
       final res = await kavita.underTest.reader.getBookmarkInfo(
         seriesId: 1,
       );
