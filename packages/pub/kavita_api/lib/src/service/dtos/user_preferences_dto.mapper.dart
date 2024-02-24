@@ -21,20 +21,22 @@ class UserPreferencesDtoMapper extends ClassMapperBase<UserPreferencesDto> {
   @override
   final String id = 'UserPreferencesDto';
 
-  static int _$readingDirection(UserPreferencesDto v) => v.readingDirection;
-  static const Field<UserPreferencesDto, int> _f$readingDirection =
+  static ReadingDirection _$readingDirection(UserPreferencesDto v) =>
+      v.readingDirection;
+  static const Field<UserPreferencesDto, ReadingDirection> _f$readingDirection =
       Field('readingDirection', _$readingDirection);
-  static int _$scalingOption(UserPreferencesDto v) => v.scalingOption;
-  static const Field<UserPreferencesDto, int> _f$scalingOption =
+  static ScalingOption _$scalingOption(UserPreferencesDto v) => v.scalingOption;
+  static const Field<UserPreferencesDto, ScalingOption> _f$scalingOption =
       Field('scalingOption', _$scalingOption);
-  static int _$pageSplitOption(UserPreferencesDto v) => v.pageSplitOption;
-  static const Field<UserPreferencesDto, int> _f$pageSplitOption =
+  static PageSplitOption _$pageSplitOption(UserPreferencesDto v) =>
+      v.pageSplitOption;
+  static const Field<UserPreferencesDto, PageSplitOption> _f$pageSplitOption =
       Field('pageSplitOption', _$pageSplitOption);
-  static int _$readerMode(UserPreferencesDto v) => v.readerMode;
-  static const Field<UserPreferencesDto, int> _f$readerMode =
+  static ReaderMode _$readerMode(UserPreferencesDto v) => v.readerMode;
+  static const Field<UserPreferencesDto, ReaderMode> _f$readerMode =
       Field('readerMode', _$readerMode);
-  static int _$layoutMode(UserPreferencesDto v) => v.layoutMode;
-  static const Field<UserPreferencesDto, int> _f$layoutMode =
+  static LayoutMode _$layoutMode(UserPreferencesDto v) => v.layoutMode;
+  static const Field<UserPreferencesDto, LayoutMode> _f$layoutMode =
       Field('layoutMode', _$layoutMode);
   static bool _$emulateBook(UserPreferencesDto v) => v.emulateBook;
   static const Field<UserPreferencesDto, bool> _f$emulateBook =
@@ -69,13 +71,15 @@ class UserPreferencesDtoMapper extends ClassMapperBase<UserPreferencesDto> {
       v.bookReaderTapToPaginate;
   static const Field<UserPreferencesDto, bool> _f$bookReaderTapToPaginate =
       Field('bookReaderTapToPaginate', _$bookReaderTapToPaginate);
-  static int _$bookReaderReadingDirection(UserPreferencesDto v) =>
+  static ReadingDirection _$bookReaderReadingDirection(UserPreferencesDto v) =>
       v.bookReaderReadingDirection;
-  static const Field<UserPreferencesDto, int> _f$bookReaderReadingDirection =
+  static const Field<UserPreferencesDto, ReadingDirection>
+      _f$bookReaderReadingDirection =
       Field('bookReaderReadingDirection', _$bookReaderReadingDirection);
-  static int _$bookReaderWritingStyle(UserPreferencesDto v) =>
+  static WritingStyle _$bookReaderWritingStyle(UserPreferencesDto v) =>
       v.bookReaderWritingStyle;
-  static const Field<UserPreferencesDto, int> _f$bookReaderWritingStyle =
+  static const Field<UserPreferencesDto, WritingStyle>
+      _f$bookReaderWritingStyle =
       Field('bookReaderWritingStyle', _$bookReaderWritingStyle);
   static SiteTheme _$theme(UserPreferencesDto v) => v.theme;
   static const Field<UserPreferencesDto, SiteTheme> _f$theme =
@@ -84,17 +88,19 @@ class UserPreferencesDtoMapper extends ClassMapperBase<UserPreferencesDto> {
       v.bookReaderThemeName;
   static const Field<UserPreferencesDto, String> _f$bookReaderThemeName =
       Field('bookReaderThemeName', _$bookReaderThemeName);
-  static int _$bookReaderLayoutMode(UserPreferencesDto v) =>
+  static BookPageLayoutMode _$bookReaderLayoutMode(UserPreferencesDto v) =>
       v.bookReaderLayoutMode;
-  static const Field<UserPreferencesDto, int> _f$bookReaderLayoutMode =
+  static const Field<UserPreferencesDto, BookPageLayoutMode>
+      _f$bookReaderLayoutMode =
       Field('bookReaderLayoutMode', _$bookReaderLayoutMode);
   static bool _$bookReaderImmersiveMode(UserPreferencesDto v) =>
       v.bookReaderImmersiveMode;
   static const Field<UserPreferencesDto, bool> _f$bookReaderImmersiveMode =
       Field('bookReaderImmersiveMode', _$bookReaderImmersiveMode);
-  static int _$globalPageLayoutMode(UserPreferencesDto v) =>
+  static PageLayoutMode _$globalPageLayoutMode(UserPreferencesDto v) =>
       v.globalPageLayoutMode;
-  static const Field<UserPreferencesDto, int> _f$globalPageLayoutMode =
+  static const Field<UserPreferencesDto, PageLayoutMode>
+      _f$globalPageLayoutMode =
       Field('globalPageLayoutMode', _$globalPageLayoutMode);
   static bool _$blurUnreadSummaries(UserPreferencesDto v) =>
       v.blurUnreadSummaries;
@@ -241,11 +247,11 @@ abstract class UserPreferencesDtoCopyWith<$R, $In extends UserPreferencesDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
   SiteThemeCopyWith<$R, SiteTheme, SiteTheme> get theme;
   $R call(
-      {int? readingDirection,
-      int? scalingOption,
-      int? pageSplitOption,
-      int? readerMode,
-      int? layoutMode,
+      {ReadingDirection? readingDirection,
+      ScalingOption? scalingOption,
+      PageSplitOption? pageSplitOption,
+      ReaderMode? readerMode,
+      LayoutMode? layoutMode,
       bool? emulateBook,
       String? backgroundColor,
       bool? swipeToPaginate,
@@ -256,13 +262,13 @@ abstract class UserPreferencesDtoCopyWith<$R, $In extends UserPreferencesDto,
       int? bookReaderFontSize,
       String? bookReaderFontFamily,
       bool? bookReaderTapToPaginate,
-      int? bookReaderReadingDirection,
-      int? bookReaderWritingStyle,
+      ReadingDirection? bookReaderReadingDirection,
+      WritingStyle? bookReaderWritingStyle,
       SiteTheme? theme,
       String? bookReaderThemeName,
-      int? bookReaderLayoutMode,
+      BookPageLayoutMode? bookReaderLayoutMode,
       bool? bookReaderImmersiveMode,
-      int? globalPageLayoutMode,
+      PageLayoutMode? globalPageLayoutMode,
       bool? blurUnreadSummaries,
       bool? promptForDownloadSize,
       bool? noTransitions,
@@ -286,11 +292,11 @@ class _UserPreferencesDtoCopyWithImpl<$R, $Out>
       $value.theme.copyWith.$chain((v) => call(theme: v));
   @override
   $R call(
-          {int? readingDirection,
-          int? scalingOption,
-          int? pageSplitOption,
-          int? readerMode,
-          int? layoutMode,
+          {ReadingDirection? readingDirection,
+          ScalingOption? scalingOption,
+          PageSplitOption? pageSplitOption,
+          ReaderMode? readerMode,
+          LayoutMode? layoutMode,
           bool? emulateBook,
           String? backgroundColor,
           bool? swipeToPaginate,
@@ -301,13 +307,13 @@ class _UserPreferencesDtoCopyWithImpl<$R, $Out>
           int? bookReaderFontSize,
           String? bookReaderFontFamily,
           bool? bookReaderTapToPaginate,
-          int? bookReaderReadingDirection,
-          int? bookReaderWritingStyle,
+          ReadingDirection? bookReaderReadingDirection,
+          WritingStyle? bookReaderWritingStyle,
           SiteTheme? theme,
           String? bookReaderThemeName,
-          int? bookReaderLayoutMode,
+          BookPageLayoutMode? bookReaderLayoutMode,
           bool? bookReaderImmersiveMode,
-          int? globalPageLayoutMode,
+          PageLayoutMode? globalPageLayoutMode,
           bool? blurUnreadSummaries,
           bool? promptForDownloadSize,
           bool? noTransitions,

@@ -1,5 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:kavita_api/src/service/dtos/file_format_dto.dart';
+import 'package:kavita_api/src/service/entities.dart';
 
 part 'server_info_dto.mapper.dart';
 
@@ -72,9 +73,7 @@ class ServerInfoDto with ServerInfoDtoMappable {
   final String? activeSiteTheme;
 
   /// The reading mode the main user has as a preference
-  ///
-  /// TODO: Identify [ 0, 1, 2 ], and create extension type
-  final int? mangaReaderMode;
+  final ReaderMode? mangaReaderMode;
 
   /// Number of users on the install
   final int? numberOfUsers;
@@ -119,14 +118,10 @@ class ServerInfoDto with ServerInfoDtoMappable {
   final List<String>? mangaReaderBackgroundColors;
 
   /// A list of Page Split defaults being used on the instance
-  ///
-  /// TODO: Identify [ 0, 1, 2, 3 ], and create extension type
-  final List<int>? mangaReaderPageSplittingModes;
+  final List<PageSplitOption>? mangaReaderPageSplittingModes;
 
   /// A list of Layout Mode defaults being used on the instance
-  ///
-  /// TODO: Identify [ 1, 2, 3 ], and create extension type
-  final List<int>? mangaReaderLayoutModes;
+  final List<LayoutMode>? mangaReaderLayoutModes;
 
   /// A list of file formats existing in the instance
   final List<FileFormatDto>? fileFormats;
@@ -153,9 +148,7 @@ class ServerInfoDto with ServerInfoDtoMappable {
   final int? totalReadingHours;
 
   /// The encoding the server is using to save media
-  ///
-  /// TODO: Identify [ 0, 1, 2 ], and create extension type
-  final int? encodeMediaAs;
+  final EncodeFormat? encodeMediaAs;
 
   /// The last user reading progress on the server (in UTC)
   final DateTime? lastReadTime;

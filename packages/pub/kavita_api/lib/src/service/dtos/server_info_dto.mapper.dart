@@ -48,8 +48,8 @@ class ServerInfoDtoMapper extends ClassMapperBase<ServerInfoDto> {
   static String? _$activeSiteTheme(ServerInfoDto v) => v.activeSiteTheme;
   static const Field<ServerInfoDto, String> _f$activeSiteTheme =
       Field('activeSiteTheme', _$activeSiteTheme, opt: true);
-  static int? _$mangaReaderMode(ServerInfoDto v) => v.mangaReaderMode;
-  static const Field<ServerInfoDto, int> _f$mangaReaderMode =
+  static ReaderMode? _$mangaReaderMode(ServerInfoDto v) => v.mangaReaderMode;
+  static const Field<ServerInfoDto, ReaderMode> _f$mangaReaderMode =
       Field('mangaReaderMode', _$mangaReaderMode, opt: true);
   static int? _$numberOfUsers(ServerInfoDto v) => v.numberOfUsers;
   static const Field<ServerInfoDto, int> _f$numberOfUsers =
@@ -97,15 +97,17 @@ class ServerInfoDtoMapper extends ClassMapperBase<ServerInfoDto> {
       _f$mangaReaderBackgroundColors = Field(
           'mangaReaderBackgroundColors', _$mangaReaderBackgroundColors,
           opt: true);
-  static List<int>? _$mangaReaderPageSplittingModes(ServerInfoDto v) =>
+  static List<PageSplitOption>? _$mangaReaderPageSplittingModes(
+          ServerInfoDto v) =>
       v.mangaReaderPageSplittingModes;
-  static const Field<ServerInfoDto, List<int>>
+  static const Field<ServerInfoDto, List<PageSplitOption>>
       _f$mangaReaderPageSplittingModes = Field(
           'mangaReaderPageSplittingModes', _$mangaReaderPageSplittingModes,
           opt: true);
-  static List<int>? _$mangaReaderLayoutModes(ServerInfoDto v) =>
+  static List<LayoutMode>? _$mangaReaderLayoutModes(ServerInfoDto v) =>
       v.mangaReaderLayoutModes;
-  static const Field<ServerInfoDto, List<int>> _f$mangaReaderLayoutModes =
+  static const Field<ServerInfoDto, List<LayoutMode>>
+      _f$mangaReaderLayoutModes =
       Field('mangaReaderLayoutModes', _$mangaReaderLayoutModes, opt: true);
   static List<FileFormatDto>? _$fileFormats(ServerInfoDto v) => v.fileFormats;
   static const Field<ServerInfoDto, List<FileFormatDto>> _f$fileFormats =
@@ -151,8 +153,8 @@ class ServerInfoDtoMapper extends ClassMapperBase<ServerInfoDto> {
   static int? _$totalReadingHours(ServerInfoDto v) => v.totalReadingHours;
   static const Field<ServerInfoDto, int> _f$totalReadingHours =
       Field('totalReadingHours', _$totalReadingHours, opt: true);
-  static int? _$encodeMediaAs(ServerInfoDto v) => v.encodeMediaAs;
-  static const Field<ServerInfoDto, int> _f$encodeMediaAs =
+  static EncodeFormat? _$encodeMediaAs(ServerInfoDto v) => v.encodeMediaAs;
+  static const Field<ServerInfoDto, EncodeFormat> _f$encodeMediaAs =
       Field('encodeMediaAs', _$encodeMediaAs, opt: true);
   static DateTime? _$lastReadTime(ServerInfoDto v) => v.lastReadTime;
   static const Field<ServerInfoDto, DateTime> _f$lastReadTime =
@@ -303,9 +305,10 @@ abstract class ServerInfoDtoCopyWith<$R, $In extends ServerInfoDto, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>?
       get mangaReaderBackgroundColors;
-  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>?
+  ListCopyWith<$R, PageSplitOption,
+          ObjectCopyWith<$R, PageSplitOption, PageSplitOption>>?
       get mangaReaderPageSplittingModes;
-  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>?
+  ListCopyWith<$R, LayoutMode, ObjectCopyWith<$R, LayoutMode, LayoutMode>>?
       get mangaReaderLayoutModes;
   ListCopyWith<$R, FileFormatDto,
       FileFormatDtoCopyWith<$R, FileFormatDto, FileFormatDto>>? get fileFormats;
@@ -319,7 +322,7 @@ abstract class ServerInfoDtoCopyWith<$R, $In extends ServerInfoDto, $Out>
       int? numberOfLibraries,
       bool? hasBookmarks,
       String? activeSiteTheme,
-      int? mangaReaderMode,
+      ReaderMode? mangaReaderMode,
       int? numberOfUsers,
       int? numberOfCollections,
       int? numberOfReadingLists,
@@ -334,8 +337,8 @@ abstract class ServerInfoDtoCopyWith<$R, $In extends ServerInfoDto, $Out>
       int? maxChaptersInASeries,
       bool? usingSeriesRelationships,
       List<String>? mangaReaderBackgroundColors,
-      List<int>? mangaReaderPageSplittingModes,
-      List<int>? mangaReaderLayoutModes,
+      List<PageSplitOption>? mangaReaderPageSplittingModes,
+      List<LayoutMode>? mangaReaderLayoutModes,
       List<FileFormatDto>? fileFormats,
       bool? usingRestrictedProfiles,
       int? usersWithEmulateComicBook,
@@ -344,7 +347,7 @@ abstract class ServerInfoDtoCopyWith<$R, $In extends ServerInfoDto, $Out>
       double? percentOfLibrariesIncludedInRecommended,
       double? percentOfLibrariesIncludedInDashboard,
       int? totalReadingHours,
-      int? encodeMediaAs,
+      EncodeFormat? encodeMediaAs,
       DateTime? lastReadTime});
   ServerInfoDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -367,7 +370,8 @@ class _ServerInfoDtoCopyWithImpl<$R, $Out>
                   (v) => call(mangaReaderBackgroundColors: v))
               : null;
   @override
-  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>?
+  ListCopyWith<$R, PageSplitOption,
+          ObjectCopyWith<$R, PageSplitOption, PageSplitOption>>?
       get mangaReaderPageSplittingModes =>
           $value.mangaReaderPageSplittingModes != null
               ? ListCopyWith(
@@ -376,7 +380,7 @@ class _ServerInfoDtoCopyWithImpl<$R, $Out>
                   (v) => call(mangaReaderPageSplittingModes: v))
               : null;
   @override
-  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>?
+  ListCopyWith<$R, LayoutMode, ObjectCopyWith<$R, LayoutMode, LayoutMode>>?
       get mangaReaderLayoutModes => $value.mangaReaderLayoutModes != null
           ? ListCopyWith(
               $value.mangaReaderLayoutModes!,

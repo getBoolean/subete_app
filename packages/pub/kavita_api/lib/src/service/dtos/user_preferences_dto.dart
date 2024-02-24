@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/entities/site_theme.dart';
+import 'package:kavita_api/src/service/entities.dart';
 
 part 'user_preferences_dto.mapper.dart';
 
@@ -37,32 +37,22 @@ class UserPreferencesDto with UserPreferencesDtoMappable {
   });
 
   /// Manga Reader Option: What direction should the next/prev page buttons go
-  ///
-  /// TODO: Identify [ 0, 1 ], and create extension type
-  final int readingDirection;
+  final ReadingDirection readingDirection;
 
   /// Manga Reader Option: How should the image be scaled to screen
-  ///
-  /// TODO: Identify [ 0, 1, 2, 3 ], and create extension type
-  final int scalingOption;
+  final ScalingOption scalingOption;
 
   /// Manga Reader Option: Which side of a split image should we show first
-  ///
-  /// TODO: Identify [ 0, 1, 2, 3 ], and create extension type
-  final int pageSplitOption;
+  final PageSplitOption pageSplitOption;
 
   /// Manga Reader Option: How the manga reader should perform paging or
   /// reading of the file Webtoon uses scrolling to page, LeftRight uses
   /// paging by clicking left/right side of reader, UpDown uses paging
   /// by clicking top/bottom sides of reader.
-  ///
-  /// TODO: Identify [ 0, 1, 2 ], and create extension type
-  final int readerMode;
+  final ReaderMode readerMode;
 
   /// Manga Reader Option: How many pages to display in the reader at once
-  ///
-  /// TODO: Identify [ 1, 2, 3 ], and create extension type
-  final int layoutMode;
+  final LayoutMode layoutMode;
 
   /// Manga Reader Option: Emulate a book by applying a shadow effect on the
   /// pages
@@ -99,20 +89,15 @@ class UserPreferencesDto with UserPreferencesDtoMappable {
   final bool bookReaderTapToPaginate;
 
   /// Book Reader Option: What direction should the next/prev page buttons go
-  ///
-  /// TODO: Identify [ 0, 1 ], and create extension type
-  final int bookReaderReadingDirection;
+  final ReadingDirection bookReaderReadingDirection;
 
   /// Book Reader Option: What writing style should be used, horizontal or
   /// vertical.
-  ///
-  /// TODO: Identify [ 0, 1 ], and create extension type
-  final int bookReaderWritingStyle;
+  final WritingStyle bookReaderWritingStyle;
   final SiteTheme theme;
   final String bookReaderThemeName;
 
-  /// TODO: Identify [ 0, 1, 2 ], and create extension type
-  final int bookReaderLayoutMode;
+  final BookPageLayoutMode bookReaderLayoutMode;
 
   /// Book Reader Option: A flag that hides the menu-ing system behind a click
   /// on the screen. This should be used with tap to paginate, but the app
@@ -120,9 +105,7 @@ class UserPreferencesDto with UserPreferencesDtoMappable {
   final bool bookReaderImmersiveMode;
 
   /// Global Site Option: If the UI should layout items as Cards or List items
-  ///
-  /// TODO: Identify [ 0, 1 ], and create extension type
-  final int globalPageLayoutMode;
+  final PageLayoutMode globalPageLayoutMode;
 
   /// UI Site Global Setting: If unread summaries should be blurred until
   /// expanded or unless user has read it already

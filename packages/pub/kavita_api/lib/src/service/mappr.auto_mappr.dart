@@ -31,12 +31,21 @@ import 'dtos/token_request_dto.dart' as _i9;
 import 'dtos/user_dto.dart' as _i5;
 import 'dtos/user_preferences_dto.dart' as _i7;
 import 'entities/cbl_book_result.dart' as _i13;
-import 'entities/device_platform.dart' as _i31;
-import 'entities/enums/age_rating.dart' as _i28;
-import 'entities/enums/library_type.dart' as _i33;
-import 'entities/enums/manga_format.dart' as _i30;
-import 'entities/enums/scrobble_provider.dart' as _i32;
-import 'entities/enums/theme_provider.dart' as _i29;
+import 'entities/device_platform.dart' as _i40;
+import 'entities/enums/age_rating.dart' as _i31;
+import 'entities/enums/book_page_layout_mode.dart' as _i35;
+import 'entities/enums/encode_format.dart' as _i38;
+import 'entities/enums/layout_mode.dart' as _i30;
+import 'entities/enums/library_type.dart' as _i42;
+import 'entities/enums/manga_format.dart' as _i39;
+import 'entities/enums/page_layout_mode.dart' as _i36;
+import 'entities/enums/page_split_option.dart' as _i29;
+import 'entities/enums/reader_mode.dart' as _i28;
+import 'entities/enums/reading_direction.dart' as _i32;
+import 'entities/enums/scaling_option.dart' as _i33;
+import 'entities/enums/scrobble_provider.dart' as _i41;
+import 'entities/enums/theme_provider.dart' as _i37;
+import 'entities/enums/writing_style.dart' as _i34;
 import 'entities/invite_user_response.dart' as _i10;
 import 'entities/site_theme.dart' as _i8;
 import 'entities/sort_options.dart' as _i27;
@@ -1978,7 +1987,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i6.AgeRestrictionDto(
       ageRating: model.ageRating == null
           ? null
-          : (_i28.AgeRating(model.ageRating!) as _i28.AgeRating?),
+          : (_i31.AgeRating(model.ageRating!) as _i31.AgeRating?),
       includeUnknowns: model.includeUnknowns,
     );
   }
@@ -2006,28 +2015,39 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<UserPreferencesDto, UserPreferencesDto> to handle null values during mapping.');
     }
     return _i7.UserPreferencesDto(
-      readingDirection: model.readingDirection,
-      scalingOption: model.scalingOption,
-      pageSplitOption: model.pageSplitOption,
-      readerMode: model.readerMode,
-      layoutMode: model.layoutMode,
+      readingDirection: (_i32.ReadingDirection(model.readingDirection)
+          as _i32.ReadingDirection),
+      scalingOption:
+          (_i32.ReadingDirection(model.scalingOption) as _i33.ScalingOption),
+      pageSplitOption: (_i32.ReadingDirection(model.pageSplitOption)
+          as _i29.PageSplitOption),
+      readerMode: (_i32.ReadingDirection(model.readerMode) as _i28.ReaderMode),
+      layoutMode: (_i32.ReadingDirection(model.layoutMode) as _i30.LayoutMode),
       emulateBook: model.emulateBook,
       backgroundColor: model.backgroundColor,
       swipeToPaginate: model.swipeToPaginate,
       autoCloseMenu: model.autoCloseMenu,
       showScreenHints: model.showScreenHints,
-      bookReaderMargin: model.bookReaderMargin,
-      bookReaderLineSpacing: model.bookReaderLineSpacing,
-      bookReaderFontSize: model.bookReaderFontSize,
+      bookReaderMargin: (_i32.ReadingDirection(model.bookReaderMargin) as int),
+      bookReaderLineSpacing:
+          (_i32.ReadingDirection(model.bookReaderLineSpacing) as int),
+      bookReaderFontSize:
+          (_i32.ReadingDirection(model.bookReaderFontSize) as int),
       bookReaderFontFamily: model.bookReaderFontFamily,
       bookReaderTapToPaginate: model.bookReaderTapToPaginate,
-      bookReaderReadingDirection: model.bookReaderReadingDirection,
-      bookReaderWritingStyle: model.bookReaderWritingStyle,
+      bookReaderReadingDirection:
+          (_i32.ReadingDirection(model.bookReaderReadingDirection)
+              as _i32.ReadingDirection),
+      bookReaderWritingStyle:
+          (_i32.ReadingDirection(model.bookReaderWritingStyle)
+              as _i34.WritingStyle),
       theme: _map__i4$SiteTheme_To__i8$SiteTheme(model.theme),
       bookReaderThemeName: model.bookReaderThemeName,
-      bookReaderLayoutMode: model.bookReaderLayoutMode,
+      bookReaderLayoutMode: (_i32.ReadingDirection(model.bookReaderLayoutMode)
+          as _i35.BookPageLayoutMode),
       bookReaderImmersiveMode: model.bookReaderImmersiveMode,
-      globalPageLayoutMode: model.globalPageLayoutMode,
+      globalPageLayoutMode: (_i32.ReadingDirection(model.globalPageLayoutMode)
+          as _i36.PageLayoutMode),
       blurUnreadSummaries: model.blurUnreadSummaries,
       promptForDownloadSize: model.promptForDownloadSize,
       noTransitions: model.noTransitions,
@@ -2085,14 +2105,14 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<SiteTheme, SiteTheme> to handle null values during mapping.');
     }
     return _i8.SiteTheme(
-      id: model.id == null ? null : (_i29.ThemeProvider(model.id!) as int?),
+      id: model.id == null ? null : (_i37.ThemeProvider(model.id!) as int?),
       name: model.name,
       normalizedName: model.normalizedName,
       fileName: model.fileName,
       isDefault: model.isDefault,
       provider: model.provider == null
           ? null
-          : (_i29.ThemeProvider(model.provider!) as _i29.ThemeProvider?),
+          : (_i37.ThemeProvider(model.provider!) as _i37.ThemeProvider?),
       created: model.created,
       lastModified: model.lastModified,
       createdUtc: model.createdUtc,
@@ -2328,33 +2348,69 @@ class $Mappr implements _i1.AutoMapprInterface {
       isDocker: model.isDocker,
       dotnetVersion: model.dotnetVersion,
       kavitaVersion: model.kavitaVersion,
-      numOfCores: model.numOfCores,
-      numberOfLibraries: model.numberOfLibraries,
+      numOfCores: model.numOfCores == null
+          ? null
+          : (_i28.ReaderMode(model.numOfCores!) as int?),
+      numberOfLibraries: model.numberOfLibraries == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfLibraries!) as int?),
       hasBookmarks: model.hasBookmarks,
       activeSiteTheme: model.activeSiteTheme,
-      mangaReaderMode: model.mangaReaderMode,
-      numberOfUsers: model.numberOfUsers,
-      numberOfCollections: model.numberOfCollections,
-      numberOfReadingLists: model.numberOfReadingLists,
+      mangaReaderMode: model.mangaReaderMode == null
+          ? null
+          : (_i28.ReaderMode(model.mangaReaderMode!) as _i28.ReaderMode?),
+      numberOfUsers: model.numberOfUsers == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfUsers!) as int?),
+      numberOfCollections: model.numberOfCollections == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfCollections!) as int?),
+      numberOfReadingLists: model.numberOfReadingLists == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfReadingLists!) as int?),
       opdsEnabled: model.opdsEnabled,
-      totalFiles: model.totalFiles,
-      totalGenres: model.totalGenres,
-      totalPeople: model.totalPeople,
-      usersOnCardLayout: model.usersOnCardLayout,
-      usersOnListLayout: model.usersOnListLayout,
-      maxSeriesInALibrary: model.maxSeriesInALibrary,
-      maxVolumesInASeries: model.maxVolumesInASeries,
-      maxChaptersInASeries: model.maxChaptersInASeries,
+      totalFiles: model.totalFiles == null
+          ? null
+          : (_i28.ReaderMode(model.totalFiles!) as int?),
+      totalGenres: model.totalGenres == null
+          ? null
+          : (_i28.ReaderMode(model.totalGenres!) as int?),
+      totalPeople: model.totalPeople == null
+          ? null
+          : (_i28.ReaderMode(model.totalPeople!) as int?),
+      usersOnCardLayout: model.usersOnCardLayout == null
+          ? null
+          : (_i28.ReaderMode(model.usersOnCardLayout!) as int?),
+      usersOnListLayout: model.usersOnListLayout == null
+          ? null
+          : (_i28.ReaderMode(model.usersOnListLayout!) as int?),
+      maxSeriesInALibrary: model.maxSeriesInALibrary == null
+          ? null
+          : (_i28.ReaderMode(model.maxSeriesInALibrary!) as int?),
+      maxVolumesInASeries: model.maxVolumesInASeries == null
+          ? null
+          : (_i28.ReaderMode(model.maxVolumesInASeries!) as int?),
+      maxChaptersInASeries: model.maxChaptersInASeries == null
+          ? null
+          : (_i28.ReaderMode(model.maxChaptersInASeries!) as int?),
       usingSeriesRelationships: model.usingSeriesRelationships,
       mangaReaderBackgroundColors: model.mangaReaderBackgroundColors,
-      mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes,
-      mangaReaderLayoutModes: model.mangaReaderLayoutModes,
+      mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes
+          ?.map<_i29.PageSplitOption>(
+              (value) => (_i28.ReaderMode(value) as _i29.PageSplitOption))
+          .toList(),
+      mangaReaderLayoutModes: model.mangaReaderLayoutModes
+          ?.map<_i30.LayoutMode>(
+              (value) => (_i28.ReaderMode(value) as _i30.LayoutMode))
+          .toList(),
       fileFormats: model.fileFormats
           ?.map<_i15.FileFormatDto>(
               (value) => _map__i4$FileFormatDto_To__i15$FileFormatDto(value))
           .toList(),
       usingRestrictedProfiles: model.usingRestrictedProfiles,
-      usersWithEmulateComicBook: model.usersWithEmulateComicBook,
+      usersWithEmulateComicBook: model.usersWithEmulateComicBook == null
+          ? null
+          : (_i28.ReaderMode(model.usersWithEmulateComicBook!) as int?),
       percentOfLibrariesWithFolderWatchingEnabled:
           model.percentOfLibrariesWithFolderWatchingEnabled,
       percentOfLibrariesIncludedInSearch:
@@ -2363,8 +2419,12 @@ class $Mappr implements _i1.AutoMapprInterface {
           model.percentOfLibrariesIncludedInRecommended,
       percentOfLibrariesIncludedInDashboard:
           model.percentOfLibrariesIncludedInDashboard,
-      totalReadingHours: model.totalReadingHours,
-      encodeMediaAs: model.encodeMediaAs,
+      totalReadingHours: model.totalReadingHours == null
+          ? null
+          : (_i28.ReaderMode(model.totalReadingHours!) as int?),
+      encodeMediaAs: model.encodeMediaAs == null
+          ? null
+          : (_i28.ReaderMode(model.encodeMediaAs!) as _i38.EncodeFormat?),
       lastReadTime: model.lastReadTime,
     );
   }
@@ -2436,7 +2496,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       extension: model.extension,
       format: model.format == null
           ? null
-          : (_i30.MangaFormat(model.format!) as _i30.MangaFormat?),
+          : (_i39.MangaFormat(model.format!) as _i39.MangaFormat?),
     );
   }
 
@@ -2462,12 +2522,12 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<DeviceDto, DeviceDto> to handle null values during mapping.');
     }
     return _i16.DeviceDto(
-      id: model.id == null ? null : (_i31.DevicePlatform(model.id!) as int?),
+      id: model.id == null ? null : (_i40.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
       platform: model.platform == null
           ? null
-          : (_i31.DevicePlatform(model.platform!) as _i31.DevicePlatform?),
+          : (_i40.DevicePlatform(model.platform!) as _i40.DevicePlatform?),
     );
   }
 
@@ -2494,44 +2554,44 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<SeriesDto, SeriesDto> to handle null values during mapping.');
     }
     return _i24.SeriesDto(
-      id: model.id == null ? null : (_i30.MangaFormat(model.id!) as int?),
+      id: model.id == null ? null : (_i39.MangaFormat(model.id!) as int?),
       name: model.name,
       originalName: model.originalName,
       localizedName: model.localizedName,
       sortName: model.sortName,
       pages:
-          model.pages == null ? null : (_i30.MangaFormat(model.pages!) as int?),
+          model.pages == null ? null : (_i39.MangaFormat(model.pages!) as int?),
       coverImageLocked: model.coverImageLocked,
       pagesRead: model.pagesRead == null
           ? null
-          : (_i30.MangaFormat(model.pagesRead!) as int?),
+          : (_i39.MangaFormat(model.pagesRead!) as int?),
       latestReadDate: model.latestReadDate,
       lastChapterAdded: model.lastChapterAdded,
       userRating: model.userRating,
       hasUserRated: model.hasUserRated,
       format: model.format == null
           ? null
-          : (_i30.MangaFormat(model.format!) as _i30.MangaFormat?),
+          : (_i39.MangaFormat(model.format!) as _i39.MangaFormat?),
       created: model.created,
       nameLocked: model.nameLocked,
       sortNameLocked: model.sortNameLocked,
       localizedNameLocked: model.localizedNameLocked,
       wordCount: model.wordCount == null
           ? null
-          : (_i30.MangaFormat(model.wordCount!) as int?),
+          : (_i39.MangaFormat(model.wordCount!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i30.MangaFormat(model.libraryId!) as int?),
+          : (_i39.MangaFormat(model.libraryId!) as int?),
       libraryName: model.libraryName,
       minHoursToRead: model.minHoursToRead == null
           ? null
-          : (_i30.MangaFormat(model.minHoursToRead!) as int?),
+          : (_i39.MangaFormat(model.minHoursToRead!) as int?),
       maxHoursToRead: model.maxHoursToRead == null
           ? null
-          : (_i30.MangaFormat(model.maxHoursToRead!) as int?),
+          : (_i39.MangaFormat(model.maxHoursToRead!) as int?),
       avgHoursToRead: model.avgHoursToRead == null
           ? null
-          : (_i30.MangaFormat(model.avgHoursToRead!) as int?),
+          : (_i39.MangaFormat(model.avgHoursToRead!) as int?),
       folderPath: model.folderPath,
       lastFolderScanned: model.lastFolderScanned,
     );
@@ -2764,13 +2824,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i21.RatingDto(
       averageScore: model.averageScore == null
           ? null
-          : (_i32.ScrobbleProvider(model.averageScore!) as int?),
+          : (_i41.ScrobbleProvider(model.averageScore!) as int?),
       favoriteCount: model.favoriteCount == null
           ? null
-          : (_i32.ScrobbleProvider(model.favoriteCount!) as int?),
+          : (_i41.ScrobbleProvider(model.favoriteCount!) as int?),
       provider: model.provider == null
           ? null
-          : (_i32.ScrobbleProvider(model.provider!) as _i32.ScrobbleProvider?),
+          : (_i41.ScrobbleProvider(model.provider!) as _i41.ScrobbleProvider?),
       providerUrl: model.providerUrl,
     );
   }
@@ -2875,33 +2935,33 @@ class $Mappr implements _i1.AutoMapprInterface {
       volumeNumber: model.volumeNumber,
       volumeId: model.volumeId == null
           ? null
-          : (_i33.LibraryType(model.volumeId!) as int?),
+          : (_i42.LibraryType(model.volumeId!) as int?),
       seriesName: model.seriesName,
       seriesFormat: model.seriesFormat == null
           ? null
-          : (_i33.LibraryType(model.seriesFormat!) as _i30.MangaFormat?),
+          : (_i42.LibraryType(model.seriesFormat!) as _i39.MangaFormat?),
       seriesId: model.seriesId == null
           ? null
-          : (_i33.LibraryType(model.seriesId!) as int?),
+          : (_i42.LibraryType(model.seriesId!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i33.LibraryType(model.libraryId!) as int?),
+          : (_i42.LibraryType(model.libraryId!) as int?),
       libraryType: model.libraryType == null
           ? null
-          : (_i33.LibraryType(model.libraryType!) as _i33.LibraryType?),
+          : (_i42.LibraryType(model.libraryType!) as _i42.LibraryType?),
       chapterTitle: model.chapterTitle,
       pages:
-          model.pages == null ? null : (_i33.LibraryType(model.pages!) as int?),
+          model.pages == null ? null : (_i42.LibraryType(model.pages!) as int?),
       fileName: model.fileName,
       isSpecial: model.isSpecial,
       subtitle: model.subtitle,
       title: model.title,
       seriesTotalPages: model.seriesTotalPages == null
           ? null
-          : (_i33.LibraryType(model.seriesTotalPages!) as int?),
+          : (_i42.LibraryType(model.seriesTotalPages!) as int?),
       seriesTotalPagesRead: model.seriesTotalPagesRead == null
           ? null
-          : (_i33.LibraryType(model.seriesTotalPagesRead!) as int?),
+          : (_i42.LibraryType(model.seriesTotalPagesRead!) as int?),
       pageDimensions: model.pageDimensions
           ?.map<_i17.FileDimensionDto>((value) =>
               _map__i4$FileDimensionDto_To__i17$FileDimensionDto(value))
@@ -3020,7 +3080,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i6.AgeRestrictionDto(
       ageRating: model.ageRating == null
           ? null
-          : (_i28.AgeRating(model.ageRating!) as _i28.AgeRating?),
+          : (_i31.AgeRating(model.ageRating!) as _i31.AgeRating?),
       includeUnknowns: model.includeUnknowns,
     );
   }
@@ -3046,28 +3106,39 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i7.UserPreferencesDto(
-      readingDirection: model.readingDirection,
-      scalingOption: model.scalingOption,
-      pageSplitOption: model.pageSplitOption,
-      readerMode: model.readerMode,
-      layoutMode: model.layoutMode,
+      readingDirection: (_i32.ReadingDirection(model.readingDirection)
+          as _i32.ReadingDirection),
+      scalingOption:
+          (_i32.ReadingDirection(model.scalingOption) as _i33.ScalingOption),
+      pageSplitOption: (_i32.ReadingDirection(model.pageSplitOption)
+          as _i29.PageSplitOption),
+      readerMode: (_i32.ReadingDirection(model.readerMode) as _i28.ReaderMode),
+      layoutMode: (_i32.ReadingDirection(model.layoutMode) as _i30.LayoutMode),
       emulateBook: model.emulateBook,
       backgroundColor: model.backgroundColor,
       swipeToPaginate: model.swipeToPaginate,
       autoCloseMenu: model.autoCloseMenu,
       showScreenHints: model.showScreenHints,
-      bookReaderMargin: model.bookReaderMargin,
-      bookReaderLineSpacing: model.bookReaderLineSpacing,
-      bookReaderFontSize: model.bookReaderFontSize,
+      bookReaderMargin: (_i32.ReadingDirection(model.bookReaderMargin) as int),
+      bookReaderLineSpacing:
+          (_i32.ReadingDirection(model.bookReaderLineSpacing) as int),
+      bookReaderFontSize:
+          (_i32.ReadingDirection(model.bookReaderFontSize) as int),
       bookReaderFontFamily: model.bookReaderFontFamily,
       bookReaderTapToPaginate: model.bookReaderTapToPaginate,
-      bookReaderReadingDirection: model.bookReaderReadingDirection,
-      bookReaderWritingStyle: model.bookReaderWritingStyle,
+      bookReaderReadingDirection:
+          (_i32.ReadingDirection(model.bookReaderReadingDirection)
+              as _i32.ReadingDirection),
+      bookReaderWritingStyle:
+          (_i32.ReadingDirection(model.bookReaderWritingStyle)
+              as _i34.WritingStyle),
       theme: _map__i4$SiteTheme_To__i8$SiteTheme(model.theme),
       bookReaderThemeName: model.bookReaderThemeName,
-      bookReaderLayoutMode: model.bookReaderLayoutMode,
+      bookReaderLayoutMode: (_i32.ReadingDirection(model.bookReaderLayoutMode)
+          as _i35.BookPageLayoutMode),
       bookReaderImmersiveMode: model.bookReaderImmersiveMode,
-      globalPageLayoutMode: model.globalPageLayoutMode,
+      globalPageLayoutMode: (_i32.ReadingDirection(model.globalPageLayoutMode)
+          as _i36.PageLayoutMode),
       blurUnreadSummaries: model.blurUnreadSummaries,
       promptForDownloadSize: model.promptForDownloadSize,
       noTransitions: model.noTransitions,
@@ -3123,14 +3194,14 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i8.SiteTheme(
-      id: model.id == null ? null : (_i29.ThemeProvider(model.id!) as int?),
+      id: model.id == null ? null : (_i37.ThemeProvider(model.id!) as int?),
       name: model.name,
       normalizedName: model.normalizedName,
       fileName: model.fileName,
       isDefault: model.isDefault,
       provider: model.provider == null
           ? null
-          : (_i29.ThemeProvider(model.provider!) as _i29.ThemeProvider?),
+          : (_i37.ThemeProvider(model.provider!) as _i37.ThemeProvider?),
       created: model.created,
       lastModified: model.lastModified,
       createdUtc: model.createdUtc,
@@ -3243,33 +3314,69 @@ class $Mappr implements _i1.AutoMapprInterface {
       isDocker: model.isDocker,
       dotnetVersion: model.dotnetVersion,
       kavitaVersion: model.kavitaVersion,
-      numOfCores: model.numOfCores,
-      numberOfLibraries: model.numberOfLibraries,
+      numOfCores: model.numOfCores == null
+          ? null
+          : (_i28.ReaderMode(model.numOfCores!) as int?),
+      numberOfLibraries: model.numberOfLibraries == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfLibraries!) as int?),
       hasBookmarks: model.hasBookmarks,
       activeSiteTheme: model.activeSiteTheme,
-      mangaReaderMode: model.mangaReaderMode,
-      numberOfUsers: model.numberOfUsers,
-      numberOfCollections: model.numberOfCollections,
-      numberOfReadingLists: model.numberOfReadingLists,
+      mangaReaderMode: model.mangaReaderMode == null
+          ? null
+          : (_i28.ReaderMode(model.mangaReaderMode!) as _i28.ReaderMode?),
+      numberOfUsers: model.numberOfUsers == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfUsers!) as int?),
+      numberOfCollections: model.numberOfCollections == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfCollections!) as int?),
+      numberOfReadingLists: model.numberOfReadingLists == null
+          ? null
+          : (_i28.ReaderMode(model.numberOfReadingLists!) as int?),
       opdsEnabled: model.opdsEnabled,
-      totalFiles: model.totalFiles,
-      totalGenres: model.totalGenres,
-      totalPeople: model.totalPeople,
-      usersOnCardLayout: model.usersOnCardLayout,
-      usersOnListLayout: model.usersOnListLayout,
-      maxSeriesInALibrary: model.maxSeriesInALibrary,
-      maxVolumesInASeries: model.maxVolumesInASeries,
-      maxChaptersInASeries: model.maxChaptersInASeries,
+      totalFiles: model.totalFiles == null
+          ? null
+          : (_i28.ReaderMode(model.totalFiles!) as int?),
+      totalGenres: model.totalGenres == null
+          ? null
+          : (_i28.ReaderMode(model.totalGenres!) as int?),
+      totalPeople: model.totalPeople == null
+          ? null
+          : (_i28.ReaderMode(model.totalPeople!) as int?),
+      usersOnCardLayout: model.usersOnCardLayout == null
+          ? null
+          : (_i28.ReaderMode(model.usersOnCardLayout!) as int?),
+      usersOnListLayout: model.usersOnListLayout == null
+          ? null
+          : (_i28.ReaderMode(model.usersOnListLayout!) as int?),
+      maxSeriesInALibrary: model.maxSeriesInALibrary == null
+          ? null
+          : (_i28.ReaderMode(model.maxSeriesInALibrary!) as int?),
+      maxVolumesInASeries: model.maxVolumesInASeries == null
+          ? null
+          : (_i28.ReaderMode(model.maxVolumesInASeries!) as int?),
+      maxChaptersInASeries: model.maxChaptersInASeries == null
+          ? null
+          : (_i28.ReaderMode(model.maxChaptersInASeries!) as int?),
       usingSeriesRelationships: model.usingSeriesRelationships,
       mangaReaderBackgroundColors: model.mangaReaderBackgroundColors,
-      mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes,
-      mangaReaderLayoutModes: model.mangaReaderLayoutModes,
+      mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes
+          ?.map<_i29.PageSplitOption>(
+              (value) => (_i28.ReaderMode(value) as _i29.PageSplitOption))
+          .toList(),
+      mangaReaderLayoutModes: model.mangaReaderLayoutModes
+          ?.map<_i30.LayoutMode>(
+              (value) => (_i28.ReaderMode(value) as _i30.LayoutMode))
+          .toList(),
       fileFormats: model.fileFormats
           ?.map<_i15.FileFormatDto>(
               (value) => _map__i4$FileFormatDto_To__i15$FileFormatDto(value))
           .toList(),
       usingRestrictedProfiles: model.usingRestrictedProfiles,
-      usersWithEmulateComicBook: model.usersWithEmulateComicBook,
+      usersWithEmulateComicBook: model.usersWithEmulateComicBook == null
+          ? null
+          : (_i28.ReaderMode(model.usersWithEmulateComicBook!) as int?),
       percentOfLibrariesWithFolderWatchingEnabled:
           model.percentOfLibrariesWithFolderWatchingEnabled,
       percentOfLibrariesIncludedInSearch:
@@ -3278,8 +3385,12 @@ class $Mappr implements _i1.AutoMapprInterface {
           model.percentOfLibrariesIncludedInRecommended,
       percentOfLibrariesIncludedInDashboard:
           model.percentOfLibrariesIncludedInDashboard,
-      totalReadingHours: model.totalReadingHours,
-      encodeMediaAs: model.encodeMediaAs,
+      totalReadingHours: model.totalReadingHours == null
+          ? null
+          : (_i28.ReaderMode(model.totalReadingHours!) as int?),
+      encodeMediaAs: model.encodeMediaAs == null
+          ? null
+          : (_i28.ReaderMode(model.encodeMediaAs!) as _i38.EncodeFormat?),
       lastReadTime: model.lastReadTime,
     );
   }
@@ -3294,7 +3405,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       extension: model.extension,
       format: model.format == null
           ? null
-          : (_i30.MangaFormat(model.format!) as _i30.MangaFormat?),
+          : (_i39.MangaFormat(model.format!) as _i39.MangaFormat?),
     );
   }
 
@@ -3305,12 +3416,12 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i16.DeviceDto(
-      id: model.id == null ? null : (_i31.DevicePlatform(model.id!) as int?),
+      id: model.id == null ? null : (_i40.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
       platform: model.platform == null
           ? null
-          : (_i31.DevicePlatform(model.platform!) as _i31.DevicePlatform?),
+          : (_i40.DevicePlatform(model.platform!) as _i40.DevicePlatform?),
     );
   }
 
@@ -3321,44 +3432,44 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i24.SeriesDto(
-      id: model.id == null ? null : (_i30.MangaFormat(model.id!) as int?),
+      id: model.id == null ? null : (_i39.MangaFormat(model.id!) as int?),
       name: model.name,
       originalName: model.originalName,
       localizedName: model.localizedName,
       sortName: model.sortName,
       pages:
-          model.pages == null ? null : (_i30.MangaFormat(model.pages!) as int?),
+          model.pages == null ? null : (_i39.MangaFormat(model.pages!) as int?),
       coverImageLocked: model.coverImageLocked,
       pagesRead: model.pagesRead == null
           ? null
-          : (_i30.MangaFormat(model.pagesRead!) as int?),
+          : (_i39.MangaFormat(model.pagesRead!) as int?),
       latestReadDate: model.latestReadDate,
       lastChapterAdded: model.lastChapterAdded,
       userRating: model.userRating,
       hasUserRated: model.hasUserRated,
       format: model.format == null
           ? null
-          : (_i30.MangaFormat(model.format!) as _i30.MangaFormat?),
+          : (_i39.MangaFormat(model.format!) as _i39.MangaFormat?),
       created: model.created,
       nameLocked: model.nameLocked,
       sortNameLocked: model.sortNameLocked,
       localizedNameLocked: model.localizedNameLocked,
       wordCount: model.wordCount == null
           ? null
-          : (_i30.MangaFormat(model.wordCount!) as int?),
+          : (_i39.MangaFormat(model.wordCount!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i30.MangaFormat(model.libraryId!) as int?),
+          : (_i39.MangaFormat(model.libraryId!) as int?),
       libraryName: model.libraryName,
       minHoursToRead: model.minHoursToRead == null
           ? null
-          : (_i30.MangaFormat(model.minHoursToRead!) as int?),
+          : (_i39.MangaFormat(model.minHoursToRead!) as int?),
       maxHoursToRead: model.maxHoursToRead == null
           ? null
-          : (_i30.MangaFormat(model.maxHoursToRead!) as int?),
+          : (_i39.MangaFormat(model.maxHoursToRead!) as int?),
       avgHoursToRead: model.avgHoursToRead == null
           ? null
-          : (_i30.MangaFormat(model.avgHoursToRead!) as int?),
+          : (_i39.MangaFormat(model.avgHoursToRead!) as int?),
       folderPath: model.folderPath,
       lastFolderScanned: model.lastFolderScanned,
     );
@@ -3459,13 +3570,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i21.RatingDto(
       averageScore: model.averageScore == null
           ? null
-          : (_i32.ScrobbleProvider(model.averageScore!) as int?),
+          : (_i41.ScrobbleProvider(model.averageScore!) as int?),
       favoriteCount: model.favoriteCount == null
           ? null
-          : (_i32.ScrobbleProvider(model.favoriteCount!) as int?),
+          : (_i41.ScrobbleProvider(model.favoriteCount!) as int?),
       provider: model.provider == null
           ? null
-          : (_i32.ScrobbleProvider(model.provider!) as _i32.ScrobbleProvider?),
+          : (_i41.ScrobbleProvider(model.provider!) as _i41.ScrobbleProvider?),
       providerUrl: model.providerUrl,
     );
   }
@@ -3498,33 +3609,33 @@ class $Mappr implements _i1.AutoMapprInterface {
       volumeNumber: model.volumeNumber,
       volumeId: model.volumeId == null
           ? null
-          : (_i33.LibraryType(model.volumeId!) as int?),
+          : (_i42.LibraryType(model.volumeId!) as int?),
       seriesName: model.seriesName,
       seriesFormat: model.seriesFormat == null
           ? null
-          : (_i33.LibraryType(model.seriesFormat!) as _i30.MangaFormat?),
+          : (_i42.LibraryType(model.seriesFormat!) as _i39.MangaFormat?),
       seriesId: model.seriesId == null
           ? null
-          : (_i33.LibraryType(model.seriesId!) as int?),
+          : (_i42.LibraryType(model.seriesId!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i33.LibraryType(model.libraryId!) as int?),
+          : (_i42.LibraryType(model.libraryId!) as int?),
       libraryType: model.libraryType == null
           ? null
-          : (_i33.LibraryType(model.libraryType!) as _i33.LibraryType?),
+          : (_i42.LibraryType(model.libraryType!) as _i42.LibraryType?),
       chapterTitle: model.chapterTitle,
       pages:
-          model.pages == null ? null : (_i33.LibraryType(model.pages!) as int?),
+          model.pages == null ? null : (_i42.LibraryType(model.pages!) as int?),
       fileName: model.fileName,
       isSpecial: model.isSpecial,
       subtitle: model.subtitle,
       title: model.title,
       seriesTotalPages: model.seriesTotalPages == null
           ? null
-          : (_i33.LibraryType(model.seriesTotalPages!) as int?),
+          : (_i42.LibraryType(model.seriesTotalPages!) as int?),
       seriesTotalPagesRead: model.seriesTotalPagesRead == null
           ? null
-          : (_i33.LibraryType(model.seriesTotalPagesRead!) as int?),
+          : (_i42.LibraryType(model.seriesTotalPagesRead!) as int?),
       pageDimensions: model.pageDimensions
           ?.map<_i17.FileDimensionDto>((value) =>
               _map__i4$FileDimensionDto_To__i17$FileDimensionDto(value))

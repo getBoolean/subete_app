@@ -49,7 +49,17 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
     TypeConverter<int, AgeRating>(AgeRating.new),
   ]),
   MapType<AgeRestrictionDto, raw.AgeRestrictionDto>(),
-  MapType<raw.UserPreferencesDto, UserPreferencesDto>(reverse: true),
+  MapType<raw.UserPreferencesDto, UserPreferencesDto>(converters: [
+    TypeConverter<int, ReadingDirection>(ReadingDirection.new),
+    TypeConverter<int, ScalingOption>(ScalingOption.new),
+    TypeConverter<int, PageSplitOption>(PageSplitOption.new),
+    TypeConverter<int, ReaderMode>(ReaderMode.new),
+    TypeConverter<int, LayoutMode>(LayoutMode.new),
+    TypeConverter<int, WritingStyle>(WritingStyle.new),
+    TypeConverter<int, BookPageLayoutMode>(BookPageLayoutMode.new),
+    TypeConverter<int, PageLayoutMode>(PageLayoutMode.new),
+  ]),
+  MapType<UserPreferencesDto, raw.UserPreferencesDto>(),
   MapType<raw.SiteTheme, SiteTheme>(converters: [
     TypeConverter<int, ThemeProvider>(ThemeProvider.new),
   ]),
@@ -65,7 +75,13 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
     TypeConverter<int, CblImportReason>(CblImportReason.new),
   ]),
   MapType<CblBookResult, raw.CblBookResult>(),
-  MapType<raw.ServerInfoDto, ServerInfoDto>(reverse: true),
+  MapType<raw.ServerInfoDto, ServerInfoDto>(converters: [
+    TypeConverter<int, ReaderMode>(ReaderMode.new),
+    TypeConverter<int, EncodeFormat>(EncodeFormat.new),
+    TypeConverter<int, LayoutMode>(LayoutMode.new),
+    TypeConverter<int, PageSplitOption>(PageSplitOption.new),
+  ]),
+  MapType<ServerInfoDto, raw.ServerInfoDto>(),
   MapType<raw.FileFormatDto, FileFormatDto>(converters: [
     TypeConverter<int, MangaFormat>(MangaFormat.new),
   ]),
