@@ -22,6 +22,5 @@ final api = KavitaApi(baseUrl: baseUrl);
 await api.account.login(
     username: 'Username',
     password: 'Password',
-    baseUrl: 'http://localhost:5000',
 );
 ```
