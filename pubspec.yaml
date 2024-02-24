@@ -101,3 +101,5 @@ patrol:
     package_name: com.getboolean.subete
   ios:
     bundle_id: com.getboolean.subete
+  macos:
+    bundle_id: com.getboolean.subete
