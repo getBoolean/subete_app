@@ -7,14 +7,16 @@ class FilterStatementDto with FilterStatementDtoMappable {
   const FilterStatementDto({
     this.comparison,
     this.field,
-    this.$value,
+    this.value,
   });
 
   final FilterComparison? comparison;
 
   /// Represents the field which will dictate the value type and the Extension used for filtering
   final FilterField? field;
-  final String? $value;
+
+  @MappableField(key: r'$value')
+  final String? value;
 
   static const fromMap = FilterStatementDtoMapper.fromMap;
   static const fromJson = FilterStatementDtoMapper.fromJson;

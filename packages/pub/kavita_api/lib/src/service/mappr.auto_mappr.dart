@@ -2626,7 +2626,6 @@ class $Mappr implements _i1.AutoMapprInterface {
       field: model.field == null
           ? null
           : (_i26.FilterComparison(model.field!) as _i26.FilterField?),
-      $value: model.$value,
     );
   }
 
@@ -2641,7 +2640,6 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i4.FilterStatementDto(
       comparison: model.comparison,
       field: model.field,
-      $value: model.$value,
     );
   }
 

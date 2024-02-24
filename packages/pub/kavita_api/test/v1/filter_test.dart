@@ -36,7 +36,7 @@ void main() {
           FilterStatementDto(
             comparison: FilterComparison.greaterThan,
             field: FilterField.seriesName,
-            $value: 'Test',
+            value: 'Test',
           ),
         ],
         combination: FilterCombination.and,
@@ -109,7 +109,7 @@ void main() {
           FilterStatementDto(
             comparison: FilterComparison.greaterThan,
             field: FilterField.seriesName,
-            $value: 'Test',
+            value: 'Test',
           ),
         ],
         combination: FilterCombination.and,
@@ -155,7 +155,7 @@ void main() {
           FilterStatementDto(
             comparison: FilterComparison.greaterThan,
             field: FilterField.seriesName,
-            $value: 'Test',
+            value: 'Test',
           ),
         ],
         combination: FilterCombination.and,
