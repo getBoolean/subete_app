@@ -19,7 +19,7 @@ An unofficial Dart package for Kavita API generated using [swagger_dart_code_gen
 
 ```dart
 final api = KavitaApi(baseUrl: baseUrl);
-await api.v1.account.login(
+await api.account.login(
     username: 'Username',
     password: 'Password',
     baseUrl: 'http://localhost:5000',
