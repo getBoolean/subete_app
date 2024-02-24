@@ -23,8 +23,8 @@ class FileFormatDtoMapper extends ClassMapperBase<FileFormatDto> {
   static String? _$extension(FileFormatDto v) => v.extension;
   static const Field<FileFormatDto, String> _f$extension =
       Field('extension', _$extension, opt: true);
-  static int? _$format(FileFormatDto v) => v.format;
-  static const Field<FileFormatDto, int> _f$format =
+  static MangaFormat? _$format(FileFormatDto v) => v.format;
+  static const Field<FileFormatDto, MangaFormat> _f$format =
       Field('format', _$format, opt: true);
 
   @override
@@ -93,7 +93,7 @@ extension FileFormatDtoValueCopy<$R, $Out>
 
 abstract class FileFormatDtoCopyWith<$R, $In extends FileFormatDto, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? extension, int? format});
+  $R call({String? extension, MangaFormat? format});
   FileFormatDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 

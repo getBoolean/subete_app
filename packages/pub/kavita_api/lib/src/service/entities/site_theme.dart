@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/entities/enums/theme_provider.dart';
 
 part 'site_theme.mapper.dart';
 
@@ -34,9 +35,7 @@ class SiteTheme with SiteThemeMappable {
   final bool? isDefault;
 
   /// Where did the theme come from
-  ///
-  /// TODO: Identify [ 1, 2 ], and create extension type
-  final int? provider;
+  final ThemeProvider? provider;
   final DateTime? created;
   final DateTime? lastModified;
   final DateTime? createdUtc;

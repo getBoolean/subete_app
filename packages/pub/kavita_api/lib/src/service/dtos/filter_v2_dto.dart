@@ -24,8 +24,7 @@ class FilterV2Dto with FilterV2DtoMappable {
   final String? name;
   final List<FilterStatementDto>? statements;
 
-  /// TODO: Identify [ 0, 1 ], and create extension type
-  final int? combination;
+  final FilterCombination? combination;
   final SortOptions? sortOptions;
 
   /// Limit the number of rows returned. Defaults to not applying a limit (aka 0)
@@ -33,4 +32,9 @@ class FilterV2Dto with FilterV2DtoMappable {
 
   static const fromMap = FilterV2DtoMapper.fromMap;
   static const fromJson = FilterV2DtoMapper.fromJson;
+}
+
+extension type const FilterCombination(int value) implements int {
+  static const FilterCombination or = FilterCombination(0);
+  static const FilterCombination and = FilterCombination(1);
 }

@@ -55,8 +55,8 @@ class SeriesDtoMapper extends ClassMapperBase<SeriesDto> {
   static bool? _$hasUserRated(SeriesDto v) => v.hasUserRated;
   static const Field<SeriesDto, bool> _f$hasUserRated =
       Field('hasUserRated', _$hasUserRated, opt: true);
-  static int? _$format(SeriesDto v) => v.format;
-  static const Field<SeriesDto, int> _f$format =
+  static MangaFormat? _$format(SeriesDto v) => v.format;
+  static const Field<SeriesDto, MangaFormat> _f$format =
       Field('format', _$format, opt: true);
   static DateTime? _$created(SeriesDto v) => v.created;
   static const Field<SeriesDto, DateTime> _f$created =
@@ -218,7 +218,7 @@ abstract class SeriesDtoCopyWith<$R, $In extends SeriesDto, $Out>
       DateTime? lastChapterAdded,
       double? userRating,
       bool? hasUserRated,
-      int? format,
+      MangaFormat? format,
       DateTime? created,
       bool? nameLocked,
       bool? sortNameLocked,

@@ -26,8 +26,8 @@ class RatingDtoMapper extends ClassMapperBase<RatingDto> {
   static int? _$favoriteCount(RatingDto v) => v.favoriteCount;
   static const Field<RatingDto, int> _f$favoriteCount =
       Field('favoriteCount', _$favoriteCount, opt: true);
-  static int? _$provider(RatingDto v) => v.provider;
-  static const Field<RatingDto, int> _f$provider =
+  static ScrobbleProvider? _$provider(RatingDto v) => v.provider;
+  static const Field<RatingDto, ScrobbleProvider> _f$provider =
       Field('provider', _$provider, opt: true);
   static String? _$providerUrl(RatingDto v) => v.providerUrl;
   static const Field<RatingDto, String> _f$providerUrl =
@@ -104,7 +104,7 @@ abstract class RatingDtoCopyWith<$R, $In extends RatingDto, $Out>
   $R call(
       {int? averageScore,
       int? favoriteCount,
-      int? provider,
+      ScrobbleProvider? provider,
       String? providerUrl});
   RatingDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }

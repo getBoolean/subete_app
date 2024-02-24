@@ -21,10 +21,29 @@ class CblImportSummaryDto with CblImportSummaryDtoMappable {
   final String? fileName;
   final List<CblBookResult>? results;
 
-  /// TODO: Identify [ 0, 1, 2 ], convert to extension type
-  final int? success;
+  final CblImportResult? success;
   final List<CblBookResult>? successfulInserts;
 
   static const fromMap = CblImportSummaryDtoMapper.fromMap;
   static const fromJson = CblImportSummaryDtoMapper.fromJson;
+}
+
+extension type const CblImportResult(int value) implements int {
+  /// There was an issue which prevented processing
+  static const CblImportResult fail = CblImportResult(0);
+
+  /// Some items were added, but not all
+  static const CblImportResult partial = CblImportResult(1);
+
+  /// Everything was imported correctly
+  static const CblImportResult success = CblImportResult(2);
+
+  String? get description {
+    return switch (value) {
+      CblImportResult.fail => 'Fail',
+      CblImportResult.partial => 'Partial',
+      CblImportResult.success => 'Success',
+      _ => null,
+    };
+  }
 }

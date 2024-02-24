@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/entities/enums/manga_format.dart';
 
 part 'file_format_dto.mapper.dart';
 
@@ -13,9 +14,7 @@ class FileFormatDto with FileFormatDtoMappable {
   final String? extension;
 
   /// Format of extension
-  ///
-  /// TODO: Identify [ 0, 1, 2, 3, 4 ], and create extension type
-  final int? format;
+  final MangaFormat? format;
 
   static const fromMap = FileFormatDtoMapper.fromMap;
   static const fromJson = FileFormatDtoMapper.fromJson;

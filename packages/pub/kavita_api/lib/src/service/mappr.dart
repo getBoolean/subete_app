@@ -50,30 +50,62 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   ]),
   MapType<AgeRestrictionDto, raw.AgeRestrictionDto>(),
   MapType<raw.UserPreferencesDto, UserPreferencesDto>(reverse: true),
-  MapType<raw.SiteTheme, SiteTheme>(reverse: true),
+  MapType<raw.SiteTheme, SiteTheme>(converters: [
+    TypeConverter<int, ThemeProvider>(ThemeProvider.new),
+  ]),
+  MapType<SiteTheme, raw.SiteTheme>(),
   MapType<raw.TokenRequestDto, TokenRequestDto>(reverse: true),
   MapType<raw.InviteUserResponse, InviteUserResponse>(reverse: true),
   MapType<raw.CollectionTagDto, CollectionTagDto>(reverse: true),
-  MapType<raw.CblImportSummaryDto, CblImportSummaryDto>(reverse: true),
-  MapType<raw.CblBookResult, CblBookResult>(reverse: true),
+  MapType<raw.CblImportSummaryDto, CblImportSummaryDto>(converters: [
+    TypeConverter<int, CblImportResult>(CblImportResult.new),
+  ]),
+  MapType<CblImportSummaryDto, raw.CblImportSummaryDto>(),
+  MapType<raw.CblBookResult, CblBookResult>(converters: [
+    TypeConverter<int, CblImportReason>(CblImportReason.new),
+  ]),
+  MapType<CblBookResult, raw.CblBookResult>(),
   MapType<raw.ServerInfoDto, ServerInfoDto>(reverse: true),
-  MapType<raw.FileFormatDto, FileFormatDto>(reverse: true),
+  MapType<raw.FileFormatDto, FileFormatDto>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<FileFormatDto, raw.FileFormatDto>(),
   MapType<raw.DeviceDto, DeviceDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
     // but works since DevicePlatform is also an int
     TypeConverter<int, DevicePlatform>(DevicePlatform.new),
   ]),
   MapType<DeviceDto, raw.DeviceDto>(),
-  MapType<raw.SeriesDto, SeriesDto>(reverse: true),
+  MapType<raw.SeriesDto, SeriesDto>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<SeriesDto, raw.SeriesDto>(),
   MapType<raw.BookmarkDto, BookmarkDto>(reverse: true),
-  MapType<raw.FilterStatementDto, FilterStatementDto>(reverse: true),
-  MapType<raw.SortOptions, SortOptions>(reverse: true),
-  MapType<raw.FilterV2Dto, FilterV2Dto>(reverse: true),
+  MapType<raw.FilterStatementDto, FilterStatementDto>(converters: [
+    TypeConverter<int, FilterComparison>(FilterComparison.new),
+    TypeConverter<int, FilterField>(FilterField.new),
+  ]),
+  MapType<FilterStatementDto, raw.FilterStatementDto>(),
+  MapType<raw.SortOptions, SortOptions>(converters: [
+    TypeConverter<int, SortField>(SortField.new),
+  ]),
+  MapType<SortOptions, raw.SortOptions>(),
+  MapType<raw.FilterV2Dto, FilterV2Dto>(converters: [
+    TypeConverter<int, FilterCombination>(FilterCombination.new),
+  ]),
+  MapType<FilterV2Dto, raw.FilterV2Dto>(),
   MapType<raw.SmartFilterDto, SmartFilterDto>(reverse: true),
-  MapType<raw.RatingDto, RatingDto>(reverse: true),
+  MapType<raw.RatingDto, RatingDto>(converters: [
+    TypeConverter<int, ScrobbleProvider>(ScrobbleProvider.new),
+  ]),
+  MapType<RatingDto, raw.RatingDto>(),
   MapType<raw.ProgressDto, ProgressDto>(reverse: true),
   MapType<raw.FileDimensionDto, FileDimensionDto>(reverse: true),
-  MapType<raw.ChapterInfoDto, ChapterInfoDto>(reverse: true),
+  MapType<raw.ChapterInfoDto, ChapterInfoDto>(converters: [
+    TypeConverter<int, LibraryType>(LibraryType.new),
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<ChapterInfoDto, raw.ChapterInfoDto>(),
   MapType<raw.BookmarkInfoDto, BookmarkInfoDto>(reverse: true),
 ])
 class Mappr extends $Mappr {

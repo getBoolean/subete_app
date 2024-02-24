@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:kavita_api/src/service/dtos/file_dimension_dto.dart';
+import 'package:kavita_api/src/service/entities/enums/library_type.dart';
+import 'package:kavita_api/src/service/entities/enums/manga_format.dart';
 
 part 'chapter_info_dto.mapper.dart';
 
@@ -41,9 +43,7 @@ class ChapterInfoDto with ChapterInfoDtoMappable {
   final String? seriesName;
 
   /// Series Format
-  ///
-  /// TODO: Identify [ 0, 1, 2, 3, 4 ], create extension type
-  final int? seriesFormat;
+  final MangaFormat? seriesFormat;
 
   /// Series entity Id
   final int? seriesId;
@@ -52,9 +52,7 @@ class ChapterInfoDto with ChapterInfoDtoMappable {
   final int? libraryId;
 
   /// Library type
-  ///
-  /// TODO: Identify [ 0, 1, 2, 3, 4 ], create extension type
-  final int? libraryType;
+  final LibraryType? libraryType;
 
   /// Chapter's title if set via ComicInfo.xml (Title field)
   final String? chapterTitle;

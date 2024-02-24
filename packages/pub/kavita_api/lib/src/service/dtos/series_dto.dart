@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/entities/enums/manga_format.dart';
 
 part 'series_dto.mapper.dart';
 
@@ -56,9 +57,7 @@ class SeriesDto with SeriesDtoMappable {
   final bool? hasUserRated;
 
   /// Represents the format of the file
-  ///
-  /// TODO: Identify out [0, 1, 2, 3, 4], convert to extension type
-  final int? format;
+  final MangaFormat? format;
 
   final DateTime? created;
   final bool? nameLocked;

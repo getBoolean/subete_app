@@ -30,8 +30,8 @@ class CblImportSummaryDtoMapper extends ClassMapperBase<CblImportSummaryDto> {
   static List<CblBookResult>? _$results(CblImportSummaryDto v) => v.results;
   static const Field<CblImportSummaryDto, List<CblBookResult>> _f$results =
       Field('results', _$results, opt: true);
-  static int? _$success(CblImportSummaryDto v) => v.success;
-  static const Field<CblImportSummaryDto, int> _f$success =
+  static CblImportResult? _$success(CblImportSummaryDto v) => v.success;
+  static const Field<CblImportSummaryDto, CblImportResult> _f$success =
       Field('success', _$success, opt: true);
   static List<CblBookResult>? _$successfulInserts(CblImportSummaryDto v) =>
       v.successfulInserts;
@@ -123,7 +123,7 @@ abstract class CblImportSummaryDtoCopyWith<$R, $In extends CblImportSummaryDto,
       {String? cblName,
       String? fileName,
       List<CblBookResult>? results,
-      int? success,
+      CblImportResult? success,
       List<CblBookResult>? successfulInserts});
   CblImportSummaryDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);

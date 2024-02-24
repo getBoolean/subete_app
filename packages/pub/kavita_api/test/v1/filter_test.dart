@@ -34,14 +34,14 @@ void main() {
         name: 'Test Filter',
         statements: [
           FilterStatementDto(
-            comparison: 1,
-            field: 1,
+            comparison: FilterComparison.greaterThan,
+            field: FilterField.seriesName,
             $value: 'Test',
           ),
         ],
-        combination: 1,
+        combination: FilterCombination.and,
         sortOptions: SortOptions(
-          sortField: 1,
+          sortField: SortField.sortName,
           isAscending: true,
         ),
         limitTo: 10,
@@ -107,14 +107,14 @@ void main() {
         name: 'Test Filter',
         statements: [
           FilterStatementDto(
-            comparison: 1,
-            field: 1,
+            comparison: FilterComparison.greaterThan,
+            field: FilterField.seriesName,
             $value: 'Test',
           ),
         ],
-        combination: 1,
+        combination: FilterCombination.and,
         sortOptions: SortOptions(
-          sortField: 1,
+          sortField: SortField.sortName,
           isAscending: true,
         ),
         limitTo: 10,
@@ -153,14 +153,14 @@ void main() {
         name: 'Test Filter',
         statements: [
           FilterStatementDto(
-            comparison: 1,
-            field: 1,
+            comparison: FilterComparison.greaterThan,
+            field: FilterField.seriesName,
             $value: 'Test',
           ),
         ],
-        combination: 1,
+        combination: FilterCombination.and,
         sortOptions: SortOptions(
-          sortField: 1,
+          sortField: SortField.sortName,
           isAscending: true,
         ),
         limitTo: 10,

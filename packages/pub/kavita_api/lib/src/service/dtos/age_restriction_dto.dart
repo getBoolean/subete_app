@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/entities/age_rating.dart';
+import 'package:kavita_api/src/service/entities/enums/age_rating.dart';
 
 part 'age_restriction_dto.mapper.dart';
 
@@ -11,8 +11,6 @@ class AgeRestrictionDto with AgeRestrictionDtoMappable {
   });
 
   /// The maximum age rating a user has access to. -1 if not applicable
-  ///
-  /// TODO: [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, -1 ]
   final AgeRating? ageRating;
 
   /// Are Unknowns explicitly allowed against age rating

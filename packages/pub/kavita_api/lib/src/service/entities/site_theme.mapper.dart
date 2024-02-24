@@ -34,8 +34,8 @@ class SiteThemeMapper extends ClassMapperBase<SiteTheme> {
   static bool? _$isDefault(SiteTheme v) => v.isDefault;
   static const Field<SiteTheme, bool> _f$isDefault =
       Field('isDefault', _$isDefault, opt: true);
-  static int? _$provider(SiteTheme v) => v.provider;
-  static const Field<SiteTheme, int> _f$provider =
+  static ThemeProvider? _$provider(SiteTheme v) => v.provider;
+  static const Field<SiteTheme, ThemeProvider> _f$provider =
       Field('provider', _$provider, opt: true);
   static DateTime? _$created(SiteTheme v) => v.created;
   static const Field<SiteTheme, DateTime> _f$created =
@@ -136,7 +136,7 @@ abstract class SiteThemeCopyWith<$R, $In extends SiteTheme, $Out>
       String? normalizedName,
       String? fileName,
       bool? isDefault,
-      int? provider,
+      ThemeProvider? provider,
       DateTime? created,
       DateTime? lastModified,
       DateTime? createdUtc,

@@ -20,11 +20,11 @@ class FilterStatementDtoMapper extends ClassMapperBase<FilterStatementDto> {
   @override
   final String id = 'FilterStatementDto';
 
-  static int? _$comparison(FilterStatementDto v) => v.comparison;
-  static const Field<FilterStatementDto, int> _f$comparison =
+  static FilterComparison? _$comparison(FilterStatementDto v) => v.comparison;
+  static const Field<FilterStatementDto, FilterComparison> _f$comparison =
       Field('comparison', _$comparison, opt: true);
-  static int? _$field(FilterStatementDto v) => v.field;
-  static const Field<FilterStatementDto, int> _f$field =
+  static FilterField? _$field(FilterStatementDto v) => v.field;
+  static const Field<FilterStatementDto, FilterField> _f$field =
       Field('field', _$field, opt: true);
   static String? _$$value(FilterStatementDto v) => v.$value;
   static const Field<FilterStatementDto, String> _f$$value =
@@ -101,7 +101,7 @@ extension FilterStatementDtoValueCopy<$R, $Out>
 
 abstract class FilterStatementDtoCopyWith<$R, $In extends FilterStatementDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? comparison, int? field, String? $value});
+  $R call({FilterComparison? comparison, FilterField? field, String? $value});
   FilterStatementDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }

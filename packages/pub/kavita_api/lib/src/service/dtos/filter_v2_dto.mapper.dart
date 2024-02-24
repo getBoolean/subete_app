@@ -30,8 +30,8 @@ class FilterV2DtoMapper extends ClassMapperBase<FilterV2Dto> {
   static List<FilterStatementDto>? _$statements(FilterV2Dto v) => v.statements;
   static const Field<FilterV2Dto, List<FilterStatementDto>> _f$statements =
       Field('statements', _$statements, opt: true);
-  static int? _$combination(FilterV2Dto v) => v.combination;
-  static const Field<FilterV2Dto, int> _f$combination =
+  static FilterCombination? _$combination(FilterV2Dto v) => v.combination;
+  static const Field<FilterV2Dto, FilterCombination> _f$combination =
       Field('combination', _$combination, opt: true);
   static SortOptions? _$sortOptions(FilterV2Dto v) => v.sortOptions;
   static const Field<FilterV2Dto, SortOptions> _f$sortOptions =
@@ -123,7 +123,7 @@ abstract class FilterV2DtoCopyWith<$R, $In extends FilterV2Dto, $Out>
       {int? id,
       String? name,
       List<FilterStatementDto>? statements,
-      int? combination,
+      FilterCombination? combination,
       SortOptions? sortOptions,
       int? limitTo});
   FilterV2DtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);

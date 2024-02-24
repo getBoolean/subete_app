@@ -41,8 +41,8 @@ class CblBookResultMapper extends ClassMapperBase<CblBookResult> {
   static String? _$readingListName(CblBookResult v) => v.readingListName;
   static const Field<CblBookResult, String> _f$readingListName =
       Field('readingListName', _$readingListName, opt: true);
-  static int? _$reason(CblBookResult v) => v.reason;
-  static const Field<CblBookResult, int> _f$reason =
+  static CblImportReason? _$reason(CblBookResult v) => v.reason;
+  static const Field<CblBookResult, CblImportReason> _f$reason =
       Field('reason', _$reason, opt: true);
 
   @override
@@ -132,7 +132,7 @@ abstract class CblBookResultCopyWith<$R, $In extends CblBookResult, $Out>
       int? libraryId,
       int? seriesId,
       String? readingListName,
-      int? reason});
+      CblImportReason? reason});
   CblBookResultCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 

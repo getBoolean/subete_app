@@ -33,8 +33,8 @@ class ChapterInfoDtoMapper extends ClassMapperBase<ChapterInfoDto> {
   static String? _$seriesName(ChapterInfoDto v) => v.seriesName;
   static const Field<ChapterInfoDto, String> _f$seriesName =
       Field('seriesName', _$seriesName, opt: true);
-  static int? _$seriesFormat(ChapterInfoDto v) => v.seriesFormat;
-  static const Field<ChapterInfoDto, int> _f$seriesFormat =
+  static MangaFormat? _$seriesFormat(ChapterInfoDto v) => v.seriesFormat;
+  static const Field<ChapterInfoDto, MangaFormat> _f$seriesFormat =
       Field('seriesFormat', _$seriesFormat, opt: true);
   static int? _$seriesId(ChapterInfoDto v) => v.seriesId;
   static const Field<ChapterInfoDto, int> _f$seriesId =
@@ -42,8 +42,8 @@ class ChapterInfoDtoMapper extends ClassMapperBase<ChapterInfoDto> {
   static int? _$libraryId(ChapterInfoDto v) => v.libraryId;
   static const Field<ChapterInfoDto, int> _f$libraryId =
       Field('libraryId', _$libraryId, opt: true);
-  static int? _$libraryType(ChapterInfoDto v) => v.libraryType;
-  static const Field<ChapterInfoDto, int> _f$libraryType =
+  static LibraryType? _$libraryType(ChapterInfoDto v) => v.libraryType;
+  static const Field<ChapterInfoDto, LibraryType> _f$libraryType =
       Field('libraryType', _$libraryType, opt: true);
   static String? _$chapterTitle(ChapterInfoDto v) => v.chapterTitle;
   static const Field<ChapterInfoDto, String> _f$chapterTitle =
@@ -187,10 +187,10 @@ abstract class ChapterInfoDtoCopyWith<$R, $In extends ChapterInfoDto, $Out>
       String? volumeNumber,
       int? volumeId,
       String? seriesName,
-      int? seriesFormat,
+      MangaFormat? seriesFormat,
       int? seriesId,
       int? libraryId,
-      int? libraryType,
+      LibraryType? libraryType,
       String? chapterTitle,
       int? pages,
       String? fileName,

@@ -20,8 +20,8 @@ class SortOptionsMapper extends ClassMapperBase<SortOptions> {
   @override
   final String id = 'SortOptions';
 
-  static int? _$sortField(SortOptions v) => v.sortField;
-  static const Field<SortOptions, int> _f$sortField =
+  static SortField? _$sortField(SortOptions v) => v.sortField;
+  static const Field<SortOptions, SortField> _f$sortField =
       Field('sortField', _$sortField, opt: true);
   static bool? _$isAscending(SortOptions v) => v.isAscending;
   static const Field<SortOptions, bool> _f$isAscending =
@@ -92,7 +92,7 @@ extension SortOptionsValueCopy<$R, $Out>
 
 abstract class SortOptionsCopyWith<$R, $In extends SortOptions, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? sortField, bool? isAscending});
+  $R call({SortField? sortField, bool? isAscending});
   SortOptionsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
