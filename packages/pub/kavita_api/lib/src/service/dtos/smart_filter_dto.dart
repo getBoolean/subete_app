@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/entities/filter_v2_dto.dart';
+import 'package:kavita_api/src/service/dtos/filter_v2_dto.dart';
 
 part 'smart_filter_dto.mapper.dart';
 

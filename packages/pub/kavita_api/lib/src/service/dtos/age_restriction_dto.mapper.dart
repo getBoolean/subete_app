@@ -20,8 +20,8 @@ class AgeRestrictionDtoMapper extends ClassMapperBase<AgeRestrictionDto> {
   @override
   final String id = 'AgeRestrictionDto';
 
-  static int? _$ageRating(AgeRestrictionDto v) => v.ageRating;
-  static const Field<AgeRestrictionDto, int> _f$ageRating =
+  static AgeRating? _$ageRating(AgeRestrictionDto v) => v.ageRating;
+  static const Field<AgeRestrictionDto, AgeRating> _f$ageRating =
       Field('ageRating', _$ageRating, opt: true);
   static bool? _$includeUnknowns(AgeRestrictionDto v) => v.includeUnknowns;
   static const Field<AgeRestrictionDto, bool> _f$includeUnknowns =
@@ -96,7 +96,7 @@ extension AgeRestrictionDtoValueCopy<$R, $Out>
 
 abstract class AgeRestrictionDtoCopyWith<$R, $In extends AgeRestrictionDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({int? ageRating, bool? includeUnknowns});
+  $R call({AgeRating? ageRating, bool? includeUnknowns});
   AgeRestrictionDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }

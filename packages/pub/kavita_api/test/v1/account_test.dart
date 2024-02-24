@@ -307,7 +307,7 @@ void main() {
         roles: [],
         libraries: [],
         ageRestriction: const AgeRestrictionDto(
-          ageRating: 0,
+          ageRating: AgeRating(0),
           includeUnknowns: false,
         ),
       );
@@ -342,7 +342,7 @@ void main() {
         roles: [],
         libraries: [],
         ageRestriction: const AgeRestrictionDto(
-          ageRating: 0,
+          ageRating: AgeRating(0),
           includeUnknowns: false,
         ),
       );

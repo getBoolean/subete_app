@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/entities/file_dimension_dto.dart';
+import 'package:kavita_api/src/service/dtos/file_dimension_dto.dart';
 
 part 'bookmark_info_dto.mapper.dart';
 

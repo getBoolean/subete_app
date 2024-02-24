@@ -10,34 +10,35 @@
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart' as _i1;
 import 'package:chopper/src/response.dart' as _i2;
 
-import '../../core/kavita_response.dart' as _i3;
-import '../openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
-import 'age_restriction_dto.dart' as _i6;
-import 'bookmark_dto.dart' as _i25;
-import 'bookmark_info_dto.dart' as _i23;
-import 'cbl_book_result.dart' as _i13;
-import 'cbl_import_summary_dto.dart' as _i12;
-import 'chapter_info_dto.dart' as _i22;
-import 'collection_tag_dto.dart' as _i11;
-import 'device_dto.dart' as _i16;
-import 'device_platform.dart' as _i28;
-import 'file_dimension_dto.dart' as _i17;
-import 'file_format_dto.dart' as _i15;
-import 'filter_statement_dto.dart' as _i26;
-import 'filter_v2_dto.dart' as _i19;
-import 'invite_user_response.dart' as _i10;
-import 'progress_dto.dart' as _i20;
-import 'rating_dto.dart' as _i21;
-import 'series_dto.dart' as _i24;
-import 'server_info_dto.dart' as _i14;
-import 'site_theme.dart' as _i8;
-import 'smart_filter_dto.dart' as _i18;
-import 'sort_options.dart' as _i27;
-import 'token_request_dto.dart' as _i9;
-import 'user_dto.dart' as _i5;
-import 'user_preferences_dto.dart' as _i7;
+import '../core/kavita_response.dart' as _i3;
+import 'dtos/age_restriction_dto.dart' as _i6;
+import 'dtos/bookmark_dto.dart' as _i25;
+import 'dtos/bookmark_info_dto.dart' as _i23;
+import 'dtos/cbl_import_summary_dto.dart' as _i12;
+import 'dtos/chapter_info_dto.dart' as _i22;
+import 'dtos/collection_tag_dto.dart' as _i11;
+import 'dtos/device_dto.dart' as _i16;
+import 'dtos/file_dimension_dto.dart' as _i17;
+import 'dtos/file_format_dto.dart' as _i15;
+import 'dtos/filter_statement_dto.dart' as _i26;
+import 'dtos/filter_v2_dto.dart' as _i19;
+import 'dtos/progress_dto.dart' as _i20;
+import 'dtos/rating_dto.dart' as _i21;
+import 'dtos/series_dto.dart' as _i24;
+import 'dtos/server_info_dto.dart' as _i14;
+import 'dtos/smart_filter_dto.dart' as _i18;
+import 'dtos/token_request_dto.dart' as _i9;
+import 'dtos/user_dto.dart' as _i5;
+import 'dtos/user_preferences_dto.dart' as _i7;
+import 'entities/age_rating.dart' as _i28;
+import 'entities/cbl_book_result.dart' as _i13;
+import 'entities/device_platform.dart' as _i29;
+import 'entities/invite_user_response.dart' as _i10;
+import 'entities/site_theme.dart' as _i8;
+import 'entities/sort_options.dart' as _i27;
+import 'openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 
-/// {@template package:kavita_api/src/service/entities/mappr.dart}
+/// {@template package:kavita_api/src/service/mappr.dart}
 /// Available mappings:
 /// - `Response<dynamic>` → `KavitaResponse<dynamic>`.
 /// - `Response<int>` → `KavitaResponse<int>`.
@@ -120,7 +121,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   List<_i1.AutoMapprInterface> get _delegates => const [];
 
   /// {@macro AutoMapprInterface:canConvert}
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   bool canConvert<SOURCE, TARGET>({bool recursive = true}) {
     final sourceTypeOf = _typeOf<SOURCE>();
@@ -593,7 +594,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convert}
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   TARGET convert<SOURCE, TARGET>(SOURCE? model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -609,7 +610,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:tryConvert}
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   TARGET? tryConvert<SOURCE, TARGET>(SOURCE? model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -628,7 +629,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convertIterable}
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   Iterable<TARGET> convertIterable<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -647,7 +648,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   ///
   /// When an item in the source iterable is null, uses `whenSourceIsNull` if defined or null
   ///
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   Iterable<TARGET?> tryConvertIterable<SOURCE, TARGET>(
       Iterable<SOURCE?> model) {
@@ -664,7 +665,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convertList}
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   List<TARGET> convertList<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -683,7 +684,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   ///
   /// When an item in the source iterable is null, uses `whenSourceIsNull` if defined or null
   ///
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   List<TARGET?> tryConvertList<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -699,7 +700,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   /// {@macro AutoMapprInterface:convertSet}
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   Set<TARGET> convertSet<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -718,7 +719,7 @@ class $Mappr implements _i1.AutoMapprInterface {
   ///
   /// When an item in the source iterable is null, uses `whenSourceIsNull` if defined or null
   ///
-  /// {@macro package:kavita_api/src/service/entities/mappr.dart}
+  /// {@macro package:kavita_api/src/service/mappr.dart}
   @override
   Set<TARGET?> tryConvertSet<SOURCE, TARGET>(Iterable<SOURCE?> model) {
     if (canConvert<SOURCE, TARGET>(recursive: false)) {
@@ -1971,7 +1972,9 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<AgeRestrictionDto, AgeRestrictionDto> to handle null values during mapping.');
     }
     return _i6.AgeRestrictionDto(
-      ageRating: model.ageRating,
+      ageRating: model.ageRating == null
+          ? null
+          : (_i28.AgeRating(model.ageRating!) as _i28.AgeRating?),
       includeUnknowns: model.includeUnknowns,
     );
   }
@@ -2441,12 +2444,12 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<DeviceDto, DeviceDto> to handle null values during mapping.');
     }
     return _i16.DeviceDto(
-      id: model.id == null ? null : (_i28.DevicePlatform(model.id!) as int?),
+      id: model.id == null ? null : (_i29.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
       platform: model.platform == null
           ? null
-          : (_i28.DevicePlatform(model.platform!) as _i28.DevicePlatform?),
+          : (_i29.DevicePlatform(model.platform!) as _i29.DevicePlatform?),
     );
   }
 
@@ -2949,7 +2952,9 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i6.AgeRestrictionDto(
-      ageRating: model.ageRating,
+      ageRating: model.ageRating == null
+          ? null
+          : (_i28.AgeRating(model.ageRating!) as _i28.AgeRating?),
       includeUnknowns: model.includeUnknowns,
     );
   }
@@ -3220,12 +3225,12 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i16.DeviceDto(
-      id: model.id == null ? null : (_i28.DevicePlatform(model.id!) as int?),
+      id: model.id == null ? null : (_i29.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
       platform: model.platform == null
           ? null
-          : (_i28.DevicePlatform(model.platform!) as _i28.DevicePlatform?),
+          : (_i29.DevicePlatform(model.platform!) as _i29.DevicePlatform?),
     );
   }
 

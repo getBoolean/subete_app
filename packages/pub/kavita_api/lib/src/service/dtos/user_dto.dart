@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/entities/age_restriction_dto.dart';
-import 'package:kavita_api/src/service/entities/user_preferences_dto.dart';
+import 'package:kavita_api/src/service/dtos/age_restriction_dto.dart';
+import 'package:kavita_api/src/service/dtos/user_preferences_dto.dart';
 
 part 'user_dto.mapper.dart';
 

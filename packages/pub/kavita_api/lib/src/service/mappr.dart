@@ -1,8 +1,9 @@
 import 'package:auto_mappr_annotation/auto_mappr_annotation.dart';
 import 'package:chopper/chopper.dart' as ch;
 import 'package:kavita_api/src/core/kavita_response.dart';
+import 'package:kavita_api/src/service/dtos.dart';
 import 'package:kavita_api/src/service/entities.dart';
-import 'package:kavita_api/src/service/entities/mappr.auto_mappr.dart';
+import 'package:kavita_api/src/service/mappr.auto_mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
 
@@ -42,7 +43,12 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.ChapterInfoDto>, KavitaResponse<ChapterInfoDto>>(),
   MapType<ch.Response<raw.BookmarkInfoDto>, KavitaResponse<BookmarkInfoDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
-  MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(reverse: true),
+  MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
+    // Also applied to DeviceDto.id. Not ideal,
+    // but works since DevicePlatform is also an int
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<AgeRestrictionDto, raw.AgeRestrictionDto>(),
   MapType<raw.UserPreferencesDto, UserPreferencesDto>(reverse: true),
   MapType<raw.SiteTheme, SiteTheme>(reverse: true),
   MapType<raw.TokenRequestDto, TokenRequestDto>(reverse: true),
