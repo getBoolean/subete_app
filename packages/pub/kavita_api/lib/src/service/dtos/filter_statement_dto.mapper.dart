@@ -26,22 +26,22 @@ class FilterStatementDtoMapper extends ClassMapperBase<FilterStatementDto> {
   static FilterField? _$field(FilterStatementDto v) => v.field;
   static const Field<FilterStatementDto, FilterField> _f$field =
       Field('field', _$field, opt: true);
-  static String? _$value(FilterStatementDto v) => v.value;
-  static const Field<FilterStatementDto, String> _f$value =
-      Field('value', _$value, key: '$value', opt: true);
+  static String? _$$value(FilterStatementDto v) => v.$value;
+  static const Field<FilterStatementDto, String> _f$$value =
+      Field('\$value', _$$value, opt: true);
 
   @override
   final MappableFields<FilterStatementDto> fields = const {
     #comparison: _f$comparison,
     #field: _f$field,
-    #value: _f$value,
+    #$value: _f$$value,
   };
 
   static FilterStatementDto _instantiate(DecodingData data) {
     return FilterStatementDto(
         comparison: data.dec(_f$comparison),
         field: data.dec(_f$field),
-        value: data.dec(_f$value));
+        $value: data.dec(_f$$value));
   }
 
   @override
@@ -101,7 +101,7 @@ extension FilterStatementDtoValueCopy<$R, $Out>
 
 abstract class FilterStatementDtoCopyWith<$R, $In extends FilterStatementDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({FilterComparison? comparison, FilterField? field, String? value});
+  $R call({FilterComparison? comparison, FilterField? field, String? $value});
   FilterStatementDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -118,17 +118,17 @@ class _FilterStatementDtoCopyWithImpl<$R, $Out>
   $R call(
           {Object? comparison = $none,
           Object? field = $none,
-          Object? value = $none}) =>
+          Object? $value = $none}) =>
       $apply(FieldCopyWithData({
         if (comparison != $none) #comparison: comparison,
         if (field != $none) #field: field,
-        if (value != $none) #value: value
+        if ($value != $none) #$value: $value
       }));
   @override
   FilterStatementDto $make(CopyWithData data) => FilterStatementDto(
       comparison: data.get(#comparison, or: $value.comparison),
       field: data.get(#field, or: $value.field),
-      value: data.get(#value, or: $value.value));
+      $value: data.get(#$value, or: $value.$value));
 
   @override
   FilterStatementDtoCopyWith<$R2, FilterStatementDto, $Out2> $chain<$R2, $Out2>(
