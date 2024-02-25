@@ -1,3 +1,5 @@
+import 'package:kavita_api/raw_api.dart' as raw;
+
 import '../tests.dart';
 
 void main() {
@@ -6,10 +8,38 @@ void main() {
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Tachiyomi', () {
-    // TODO: Tachiyomi
+    test('Test Get Latest Chapter', () async {
+      when(() => kavita.rawApi.apiTachiyomiLatestChapterGet(
+            seriesId: 1,
+          )).thenResponse(
+        const raw.ChapterDto(
+          id: 1,
+          title: 'Test',
+        ),
+      );
+      const expected = ChapterDto(
+        id: 1,
+        title: 'Test',
+      );
+      final res = await kavita.underTest.tachiyomi.getLatestChapter(
+        seriesId: 1,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // latest chapter
-
-    // mark chapter until as read
+    test('Test Mark Chapter Until As Read', () async {
+      when(
+        () => kavita.rawApi.apiTachiyomiMarkChapterUntilAsReadPost(
+          seriesId: 1,
+          chapterNumber: 1,
+        ),
+      ).thenResponse(null);
+      final res = await kavita.underTest.tachiyomi.markChapterUntilAsRead(
+        seriesId: 1,
+        chapterNumber: 1,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
   });
 }

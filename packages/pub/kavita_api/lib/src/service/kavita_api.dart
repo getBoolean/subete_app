@@ -1897,11 +1897,33 @@ class KavitaApiTachiyomi extends KavitaApi {
   KavitaApiTachiyomi._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO: Tachiyomi
+  /// Given the series Id, this should return the latest chapter that has been fully read.
+  Future<KavitaResponse<ChapterDto>> getLatestChapter({
+    required int seriesId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.ChapterDto>, KavitaResponse<ChapterDto>>(
+          await context.api.apiTachiyomiLatestChapterGet(
+            seriesId: seriesId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // latest chapter
-
-  // mark chapter until as read
+  /// Marks every chapter that is sorted below the passed number as Read. This will not mark any specials as read.
+  Future<KavitaResponse<void>> markChapterUntilAsRead({
+    required int seriesId,
+    required int chapterNumber,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiTachiyomiMarkChapterUntilAsReadPost(
+            seriesId: seriesId,
+            chapterNumber: chapterNumber,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All APIs related to uploading entities to the system.
