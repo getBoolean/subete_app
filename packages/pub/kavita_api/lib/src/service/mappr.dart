@@ -47,6 +47,10 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
       KavitaResponse<List<BookmarkDto>>>(),
   MapType<ch.Response<raw.HourEstimateRangeDto>,
       KavitaResponse<HourEstimateRangeDto>>(),
+  MapType<ch.Response<raw.LibraryDto>, KavitaResponse<LibraryDto>>(),
+  MapType<ch.Response<raw.SearchResultGroupDto>,
+      KavitaResponse<SearchResultGroupDto>>(),
+  MapType<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -137,6 +141,24 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   ]),
   MapType<MangaFileDto, raw.MangaFileDto>(),
   MapType<raw.HourEstimateRangeDto, HourEstimateRangeDto>(reverse: true),
+  MapType<raw.LibraryDto, LibraryDto>(converters: [
+    TypeConverter<int, LibraryType>(LibraryType.new),
+    TypeConverter<int, FileTypeGroup>(FileTypeGroup.new),
+  ]),
+  MapType<LibraryDto, raw.LibraryDto>(),
+  MapType<raw.SearchResultGroupDto, SearchResultGroupDto>(reverse: true),
+  MapType<raw.SearchResultDto, SearchResultDto>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<SearchResultDto, raw.SearchResultDto>(),
+  MapType<raw.ReadingListDto, ReadingListDto>(reverse: true),
+  MapType<raw.GenreTagDto, GenreTagDto>(reverse: true),
+  MapType<raw.PersonDto, PersonDto>(converters: [
+    TypeConverter<int, PersonRole>(PersonRole.new),
+  ]),
+  MapType<PersonDto, raw.PersonDto>(),
+  MapType<raw.TagDto, TagDto>(reverse: true),
+  MapType<raw.BookmarkSearchResultDto, BookmarkSearchResultDto>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();

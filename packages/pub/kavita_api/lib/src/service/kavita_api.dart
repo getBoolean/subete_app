@@ -1808,6 +1808,48 @@ class KavitaApiSearch extends KavitaApi {
       : super.fromContext(context);
 
   // TODO!: Search
+
+  /// Returns the series for the MangaFile id. If the user does not have access
+  /// (shouldn't happen by the UI), then null is returned
+  Future<KavitaResponse<SeriesDto>> getSeriesForMangaFile({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(
+          await context.api.apiSearchSeriesForMangafileGet(
+            mangaFileId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
+
+  /// Returns the series for the Chapter id. If the user does not have access
+  /// (shouldn't happen by the UI), then null is returned
+  Future<KavitaResponse<SeriesDto>> getSeriesForChapter({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(
+          await context.api.apiSearchSeriesForChapterGet(
+            chapterId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
+
+  /// Search
+  Future<KavitaResponse<SearchResultGroupDto>> searchFor(
+    String queryString,
+  ) async {
+    return _mappr
+        .convert<ch.Response<raw.SearchResultGroupDto>,
+            KavitaResponse<SearchResultGroupDto>>(
+          await context.api.apiSearchSearchGet(
+            queryString: queryString,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// Responsible for anything that deals with Streams (SmartFilters,
