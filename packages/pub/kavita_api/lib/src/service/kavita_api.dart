@@ -2129,9 +2129,13 @@ class KavitaApiLocale extends KavitaApi {
   KavitaApiLocale._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO: Locale
-
-  // locale
+  Future<KavitaResponse<List<String>>> getLocale() async {
+    return _mappr
+        .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
+          await context.api.apiLocaleGet(),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All Metadata related APIs
