@@ -51,6 +51,9 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.SearchResultGroupDto>,
       KavitaResponse<SearchResultGroupDto>>(),
   MapType<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(),
+  MapType<ch.Response<raw.BookInfoDto>, KavitaResponse<BookInfoDto>>(),
+  MapType<ch.Response<List<raw.BookChapterItem>>,
+      KavitaResponse<List<BookChapterItem>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -159,6 +162,11 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<PersonDto, raw.PersonDto>(),
   MapType<raw.TagDto, TagDto>(reverse: true),
   MapType<raw.BookmarkSearchResultDto, BookmarkSearchResultDto>(reverse: true),
+  MapType<raw.BookInfoDto, BookInfoDto>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<BookInfoDto, raw.BookInfoDto>(),
+  MapType<raw.BookChapterItem, BookChapterItem>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();

@@ -1,4 +1,6 @@
 export 'dtos/age_restriction_dto.dart';
+export 'dtos/book_chapter_item.dart';
+export 'dtos/book_info_dto.dart';
 export 'dtos/bookmark_dto.dart';
 export 'dtos/bookmark_info_dto.dart';
 export 'dtos/bookmark_search_result_dto.dart';

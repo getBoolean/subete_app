@@ -1965,15 +1965,69 @@ class KavitaApiBook extends KavitaApi {
   KavitaApiBook._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO!: Book
+  /// Retrieves information for the PDF and Epub reader
+  ///
+  /// This only applies to Epub or PDF files
+  Future<KavitaResponse<BookInfoDto>> getBookInfo({
+    required int chapterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.BookInfoDto>, KavitaResponse<BookInfoDto>>(
+          await context.api.apiBookChapterIdBookInfoGet(
+            chapterId: chapterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // chapter-id book info
+  /// This is an entry point to fetch resources from within an epub
+  /// chapter/book.
+  Future<KavitaResponse<String>> getBookResources({
+    required int chapterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiBookChapterIdBookResourcesGet(
+            chapterId: chapterId,
+          ),
+        )
+        .throwOnHttpErrors
+        .cast();
+  }
 
-  // chapter-id book resources
+  /// This will return a list of mappings from ID -> page num.
+  /// ID will be the xhtml key and page num will be the reading
+  /// order this is used to rewrite anchors in the book text so
+  /// that we always load properly in our reader.
+  ///
+  /// This is essentially building the table of contents
+  Future<KavitaResponse<List<BookChapterItem>>> getChapters({
+    required int chapterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.BookChapterItem>>,
+            KavitaResponse<List<BookChapterItem>>>(
+          await context.api.apiBookChapterIdChaptersGet(
+            chapterId: chapterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // chapter-id chapters
-
-  // chapter-id book page
+  /// This returns a single page within the epub book. All html will be rewritten to be scoped within our reader, all css is scoped, etc.
+  Future<KavitaResponse<String>> getBookPage({
+    required int chapterId,
+    required int page,
+  }) async {
+    return _mappr
+        .convert<ch.Response<String>, KavitaResponse<String>>(
+          await context.api.apiBookChapterIdBookPageGet(
+            chapterId: chapterId,
+            page: page,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All Health related APIs
