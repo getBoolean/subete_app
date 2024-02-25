@@ -1864,35 +1864,241 @@ class KavitaApiStream extends KavitaApi {
   KavitaApiStream._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO!: Stream
+  /// Returns the layout of the user's dashboard
+  Future<KavitaResponse<List<DashboardStreamDto>>> getDashboard({
+    bool visibleOnly = true,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.DashboardStreamDto>>,
+            KavitaResponse<List<DashboardStreamDto>>>(
+          await context.api.apiStreamDashboardGet(visibleOnly: visibleOnly),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // dashboard
+  /// Return's the user's side nav
+  Future<KavitaResponse<List<SideNavStreamDto>>> getSideNav() async {
+    return _mappr
+        .convert<ch.Response<List<raw.SideNavStreamDto>>,
+            KavitaResponse<List<SideNavStreamDto>>>(
+          await context.api.apiStreamSidenavGet(),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // sidenav
+  /// Return's the user's external sources
+  Future<KavitaResponse<List<ExternalSourceDto>>> getExternalSources() async {
+    return _mappr
+        .convert<ch.Response<List<raw.ExternalSourceDto>>,
+            KavitaResponse<List<ExternalSourceDto>>>(
+          await context.api.apiStreamExternalSourcesGet(),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // external sources
+  /// Create an external Source
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<ExternalSourceDto>> createExternalSource({
+    required String name,
+    required String host,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.ExternalSourceDto>,
+            KavitaResponse<ExternalSourceDto>>(
+          await context.api.apiStreamCreateExternalSourcePost(
+            body: raw.ExternalSourceDto(
+              name: name,
+              host: host,
+              apiKey: context.apiKey,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // create external source
+  /// Updates an existing external source
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<void>> updateExternalSource({
+    required int id,
+    required String name,
+    required String host,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamUpdateExternalSourcePost(
+            body: raw.ExternalSourceDto(
+              id: id,
+              name: name,
+              host: host,
+              apiKey: context.apiKey,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // update external source
+  /// Validates the external source by host is unique (for this user)
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<bool>> externalSourceExists({
+    required String host,
+    required String name,
+  }) async {
+    return _mappr
+        .convert<ch.Response<bool>, KavitaResponse<bool>>(
+          await context.api.apiStreamExternalSourceExistsGet(
+            host: host,
+            name: name,
+            apiKey: context.apiKey,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // external source exists
+  /// Delete's the external source
+  Future<KavitaResponse<void>> deleteExternalSource({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamDeleteExternalSourceDelete(
+            externalSourceId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // delete external source
+  /// Creates a Dashboard Stream from a SmartFilter and adds it to the user's dashboard as visible
+  Future<KavitaResponse<void>> addDashboardStream({
+    required int smartFilterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamAddDashboardStreamPost(
+            smartFilterId: smartFilterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // add dashboard stream
+  /// Updates the visibility of a dashboard stream
+  Future<KavitaResponse<void>> updateDashboardStream(
+    DashboardStreamDto dashboardStream,
+  ) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamUpdateDashboardStreamPost(
+            body: _mappr.convert<DashboardStreamDto, raw.DashboardStreamDto>(
+              dashboardStream,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // update dashboard stream
+  /// Updates the position of a dashboard stream
+  Future<KavitaResponse<void>> updateDashboardPosition({
+    required int fromPosition,
+    required int toPosition,
+    required int id,
+    String? streamName,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamUpdateDashboardPositionPost(
+            body: raw.UpdateStreamPositionDto(
+              id: id,
+              streamName: streamName,
+              fromPosition: fromPosition,
+              toPosition: toPosition,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // add sidenav stream
+  /// Creates a SideNav Stream from a SmartFilter and adds it to the user's sidenav as visible
+  Future<KavitaResponse<SideNavStreamDto>> addSideNavStream({
+    required int smartFilterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.SideNavStreamDto>,
+            KavitaResponse<SideNavStreamDto>>(
+          await context.api.apiStreamAddSidenavStreamPost(
+            smartFilterId: smartFilterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // add sidenav stream from external source
+  /// Creates a SideNav Stream from a SmartFilter and adds it to the user's sidenav as visible
+  Future<KavitaResponse<SideNavStreamDto>> addSideNavStreamFromExternalSource({
+    required int externalSourceId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.SideNavStreamDto>,
+            KavitaResponse<SideNavStreamDto>>(
+          await context.api.apiStreamAddSidenavStreamFromExternalSourcePost(
+            externalSourceId: externalSourceId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // update sidenav stream
+  /// Updates the visibility of a dashboard stream
+  Future<KavitaResponse<void>> updateSideNavStream(
+    SideNavStreamDto sideNavStream,
+  ) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamUpdateSidenavStreamPost(
+            body: _mappr.convert<SideNavStreamDto, raw.SideNavStreamDto>(
+              sideNavStream,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // update sidenav position
+  /// Updates the position of a dashboard stream
+  Future<KavitaResponse<void>> updateSideNavPosition({
+    required int fromPosition,
+    required int toPosition,
+    required int id,
+    String? streamName,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamUpdateSidenavPositionPost(
+            body: raw.UpdateStreamPositionDto(
+              id: id,
+              streamName: streamName,
+              fromPosition: fromPosition,
+              toPosition: toPosition,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // bulk sidenav stream visibility
+  /// Updates the visibility of multiple dashboard streams
+  Future<KavitaResponse<void>> bulkSideNavStreamVisibility({
+    required List<int> ids,
+    required bool visibility,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiStreamBulkSidenavStreamVisibilityPost(
+            body: raw.BulkUpdateSideNavStreamVisibilityDto(
+              ids: ids,
+              visibility: visibility,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All APIs are for Tachiyomi extension and app. They have hacks for

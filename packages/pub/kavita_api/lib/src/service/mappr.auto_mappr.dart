@@ -16,54 +16,59 @@ import 'dtos/book_chapter_item.dart' as _i31;
 import 'dtos/book_info_dto.dart' as _i30;
 import 'dtos/bookmark_dto.dart' as _i25;
 import 'dtos/bookmark_info_dto.dart' as _i23;
-import 'dtos/bookmark_search_result_dto.dart' as _i40;
+import 'dtos/bookmark_search_result_dto.dart' as _i43;
 import 'dtos/cbl_import_summary_dto.dart' as _i12;
 import 'dtos/chapter_dto.dart' as _i24;
 import 'dtos/chapter_info_dto.dart' as _i22;
 import 'dtos/collection_tag_dto.dart' as _i11;
+import 'dtos/dashboard_stream_dto.dart' as _i32;
 import 'dtos/device_dto.dart' as _i16;
+import 'dtos/external_source_dto.dart' as _i34;
 import 'dtos/file_dimension_dto.dart' as _i17;
 import 'dtos/file_format_dto.dart' as _i15;
-import 'dtos/filter_statement_dto.dart' as _i32;
+import 'dtos/filter_statement_dto.dart' as _i35;
 import 'dtos/filter_v2_dto.dart' as _i19;
-import 'dtos/genre_tag_dto.dart' as _i37;
+import 'dtos/genre_tag_dto.dart' as _i40;
 import 'dtos/hour_estimate_range_dto.dart' as _i26;
 import 'dtos/library_dto.dart' as _i27;
-import 'dtos/manga_file_dto.dart' as _i34;
-import 'dtos/person_dto.dart' as _i38;
+import 'dtos/manga_file_dto.dart' as _i37;
+import 'dtos/person_dto.dart' as _i41;
 import 'dtos/progress_dto.dart' as _i20;
 import 'dtos/rating_dto.dart' as _i21;
-import 'dtos/reading_list_dto.dart' as _i36;
-import 'dtos/search_result_dto.dart' as _i35;
+import 'dtos/reading_list_dto.dart' as _i39;
+import 'dtos/search_result_dto.dart' as _i38;
 import 'dtos/search_result_group_dto.dart' as _i28;
 import 'dtos/series_dto.dart' as _i29;
 import 'dtos/server_info_dto.dart' as _i14;
+import 'dtos/side_nav_stream_dto.dart' as _i33;
 import 'dtos/smart_filter_dto.dart' as _i18;
-import 'dtos/tag_dto.dart' as _i39;
+import 'dtos/tag_dto.dart' as _i42;
 import 'dtos/token_request_dto.dart' as _i9;
 import 'dtos/user_dto.dart' as _i5;
 import 'dtos/user_preferences_dto.dart' as _i7;
 import 'entities/cbl_book_result.dart' as _i13;
-import 'entities/device_platform.dart' as _i55;
-import 'entities/enums/age_rating.dart' as _i46;
-import 'entities/enums/book_page_layout_mode.dart' as _i50;
-import 'entities/enums/encode_format.dart' as _i53;
-import 'entities/enums/file_type_group.dart' as _i45;
-import 'entities/enums/layout_mode.dart' as _i43;
-import 'entities/enums/library_type.dart' as _i44;
-import 'entities/enums/manga_format.dart' as _i54;
-import 'entities/enums/page_layout_mode.dart' as _i51;
-import 'entities/enums/page_split_option.dart' as _i42;
-import 'entities/enums/person_role.dart' as _i57;
-import 'entities/enums/reader_mode.dart' as _i41;
-import 'entities/enums/reading_direction.dart' as _i47;
-import 'entities/enums/scaling_option.dart' as _i48;
-import 'entities/enums/scrobble_provider.dart' as _i56;
-import 'entities/enums/theme_provider.dart' as _i52;
-import 'entities/enums/writing_style.dart' as _i49;
+import 'entities/device_platform.dart' as _i58;
+import 'entities/enums/age_rating.dart' as _i49;
+import 'entities/enums/book_page_layout_mode.dart' as _i53;
+import 'entities/enums/dashboard_stream_type.dart' as _i61;
+import 'entities/enums/encode_format.dart' as _i56;
+import 'entities/enums/file_type_group.dart' as _i48;
+import 'entities/enums/layout_mode.dart' as _i46;
+import 'entities/enums/library_type.dart' as _i47;
+import 'entities/enums/manga_format.dart' as _i57;
+import 'entities/enums/page_layout_mode.dart' as _i54;
+import 'entities/enums/page_split_option.dart' as _i45;
+import 'entities/enums/person_role.dart' as _i60;
+import 'entities/enums/reader_mode.dart' as _i44;
+import 'entities/enums/reading_direction.dart' as _i50;
+import 'entities/enums/scaling_option.dart' as _i51;
+import 'entities/enums/scrobble_provider.dart' as _i59;
+import 'entities/enums/side_nav_stream_type.dart' as _i62;
+import 'entities/enums/theme_provider.dart' as _i55;
+import 'entities/enums/writing_style.dart' as _i52;
 import 'entities/invite_user_response.dart' as _i10;
 import 'entities/site_theme.dart' as _i8;
-import 'entities/sort_options.dart' as _i33;
+import 'entities/sort_options.dart' as _i36;
 import 'openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 
 /// {@template package:kavita_api/src/service/mappr.dart}
@@ -102,6 +107,11 @@ import 'openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 /// - `Response<SeriesDto>` → `KavitaResponse<SeriesDto>`.
 /// - `Response<BookInfoDto>` → `KavitaResponse<BookInfoDto>`.
 /// - `Response<List<BookChapterItem>>` → `KavitaResponse<List<BookChapterItem>>`.
+/// - `Response<List<DashboardStreamDto>>` → `KavitaResponse<List<DashboardStreamDto>>`.
+/// - `Response<List<SideNavStreamDto>>` → `KavitaResponse<List<SideNavStreamDto>>`.
+/// - `Response<SideNavStreamDto>` → `KavitaResponse<SideNavStreamDto>`.
+/// - `Response<List<ExternalSourceDto>>` → `KavitaResponse<List<ExternalSourceDto>>`.
+/// - `Response<ExternalSourceDto>` → `KavitaResponse<ExternalSourceDto>`.
 /// - `UserDto` → `UserDto`.
 /// - `UserDto` → `UserDto`.
 /// - `AgeRestrictionDto` → `AgeRestrictionDto`.
@@ -174,6 +184,12 @@ import 'openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 /// - `BookInfoDto` → `BookInfoDto`.
 /// - `BookChapterItem` → `BookChapterItem`.
 /// - `BookChapterItem` → `BookChapterItem`.
+/// - `DashboardStreamDto` → `DashboardStreamDto`.
+/// - `DashboardStreamDto` → `DashboardStreamDto`.
+/// - `SideNavStreamDto` → `SideNavStreamDto`.
+/// - `SideNavStreamDto` → `SideNavStreamDto`.
+/// - `ExternalSourceDto` → `ExternalSourceDto`.
+/// - `ExternalSourceDto` → `ExternalSourceDto`.
 /// {@endtemplate}
 class $Mappr implements _i1.AutoMapprInterface {
   const $Mappr();
@@ -428,6 +444,50 @@ class $Mappr implements _i1.AutoMapprInterface {
                 _typeOf<_i3.KavitaResponse<List<_i31.BookChapterItem>>?>())) {
       return true;
     }
+    if ((sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.DashboardStreamDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.DashboardStreamDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i32.DashboardStreamDto>>>() ||
+            targetTypeOf ==
+                _typeOf<
+                    _i3.KavitaResponse<List<_i32.DashboardStreamDto>>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.SideNavStreamDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.SideNavStreamDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i33.SideNavStreamDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i33.SideNavStreamDto>>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.SideNavStreamDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.SideNavStreamDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i33.SideNavStreamDto>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i33.SideNavStreamDto>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.ExternalSourceDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.ExternalSourceDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i34.ExternalSourceDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i34.ExternalSourceDto>>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ExternalSourceDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.ExternalSourceDto>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i34.ExternalSourceDto>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i34.ExternalSourceDto>?>())) {
+      return true;
+    }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
         (targetTypeOf == _typeOf<_i5.UserDto>() ||
@@ -598,24 +658,24 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             sourceTypeOf == _typeOf<_i4.FilterStatementDto?>()) &&
-        (targetTypeOf == _typeOf<_i32.FilterStatementDto>() ||
-            targetTypeOf == _typeOf<_i32.FilterStatementDto?>())) {
+        (targetTypeOf == _typeOf<_i35.FilterStatementDto>() ||
+            targetTypeOf == _typeOf<_i35.FilterStatementDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i32.FilterStatementDto>() ||
-            sourceTypeOf == _typeOf<_i32.FilterStatementDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i35.FilterStatementDto>() ||
+            sourceTypeOf == _typeOf<_i35.FilterStatementDto?>()) &&
         (targetTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             targetTypeOf == _typeOf<_i4.FilterStatementDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.SortOptions>() ||
             sourceTypeOf == _typeOf<_i4.SortOptions?>()) &&
-        (targetTypeOf == _typeOf<_i33.SortOptions>() ||
-            targetTypeOf == _typeOf<_i33.SortOptions?>())) {
+        (targetTypeOf == _typeOf<_i36.SortOptions>() ||
+            targetTypeOf == _typeOf<_i36.SortOptions?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i33.SortOptions>() ||
-            sourceTypeOf == _typeOf<_i33.SortOptions?>()) &&
+    if ((sourceTypeOf == _typeOf<_i36.SortOptions>() ||
+            sourceTypeOf == _typeOf<_i36.SortOptions?>()) &&
         (targetTypeOf == _typeOf<_i4.SortOptions>() ||
             targetTypeOf == _typeOf<_i4.SortOptions?>())) {
       return true;
@@ -718,12 +778,12 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.MangaFileDto>() ||
             sourceTypeOf == _typeOf<_i4.MangaFileDto?>()) &&
-        (targetTypeOf == _typeOf<_i34.MangaFileDto>() ||
-            targetTypeOf == _typeOf<_i34.MangaFileDto?>())) {
+        (targetTypeOf == _typeOf<_i37.MangaFileDto>() ||
+            targetTypeOf == _typeOf<_i37.MangaFileDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i34.MangaFileDto>() ||
-            sourceTypeOf == _typeOf<_i34.MangaFileDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i37.MangaFileDto>() ||
+            sourceTypeOf == _typeOf<_i37.MangaFileDto?>()) &&
         (targetTypeOf == _typeOf<_i4.MangaFileDto>() ||
             targetTypeOf == _typeOf<_i4.MangaFileDto?>())) {
       return true;
@@ -766,72 +826,72 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.SearchResultDto>() ||
             sourceTypeOf == _typeOf<_i4.SearchResultDto?>()) &&
-        (targetTypeOf == _typeOf<_i35.SearchResultDto>() ||
-            targetTypeOf == _typeOf<_i35.SearchResultDto?>())) {
+        (targetTypeOf == _typeOf<_i38.SearchResultDto>() ||
+            targetTypeOf == _typeOf<_i38.SearchResultDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i35.SearchResultDto>() ||
-            sourceTypeOf == _typeOf<_i35.SearchResultDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i38.SearchResultDto>() ||
+            sourceTypeOf == _typeOf<_i38.SearchResultDto?>()) &&
         (targetTypeOf == _typeOf<_i4.SearchResultDto>() ||
             targetTypeOf == _typeOf<_i4.SearchResultDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.ReadingListDto>() ||
             sourceTypeOf == _typeOf<_i4.ReadingListDto?>()) &&
-        (targetTypeOf == _typeOf<_i36.ReadingListDto>() ||
-            targetTypeOf == _typeOf<_i36.ReadingListDto?>())) {
+        (targetTypeOf == _typeOf<_i39.ReadingListDto>() ||
+            targetTypeOf == _typeOf<_i39.ReadingListDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i36.ReadingListDto>() ||
-            sourceTypeOf == _typeOf<_i36.ReadingListDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i39.ReadingListDto>() ||
+            sourceTypeOf == _typeOf<_i39.ReadingListDto?>()) &&
         (targetTypeOf == _typeOf<_i4.ReadingListDto>() ||
             targetTypeOf == _typeOf<_i4.ReadingListDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.GenreTagDto>() ||
             sourceTypeOf == _typeOf<_i4.GenreTagDto?>()) &&
-        (targetTypeOf == _typeOf<_i37.GenreTagDto>() ||
-            targetTypeOf == _typeOf<_i37.GenreTagDto?>())) {
+        (targetTypeOf == _typeOf<_i40.GenreTagDto>() ||
+            targetTypeOf == _typeOf<_i40.GenreTagDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i37.GenreTagDto>() ||
-            sourceTypeOf == _typeOf<_i37.GenreTagDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i40.GenreTagDto>() ||
+            sourceTypeOf == _typeOf<_i40.GenreTagDto?>()) &&
         (targetTypeOf == _typeOf<_i4.GenreTagDto>() ||
             targetTypeOf == _typeOf<_i4.GenreTagDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.PersonDto>() ||
             sourceTypeOf == _typeOf<_i4.PersonDto?>()) &&
-        (targetTypeOf == _typeOf<_i38.PersonDto>() ||
-            targetTypeOf == _typeOf<_i38.PersonDto?>())) {
+        (targetTypeOf == _typeOf<_i41.PersonDto>() ||
+            targetTypeOf == _typeOf<_i41.PersonDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i38.PersonDto>() ||
-            sourceTypeOf == _typeOf<_i38.PersonDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i41.PersonDto>() ||
+            sourceTypeOf == _typeOf<_i41.PersonDto?>()) &&
         (targetTypeOf == _typeOf<_i4.PersonDto>() ||
             targetTypeOf == _typeOf<_i4.PersonDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.TagDto>() ||
             sourceTypeOf == _typeOf<_i4.TagDto?>()) &&
-        (targetTypeOf == _typeOf<_i39.TagDto>() ||
-            targetTypeOf == _typeOf<_i39.TagDto?>())) {
+        (targetTypeOf == _typeOf<_i42.TagDto>() ||
+            targetTypeOf == _typeOf<_i42.TagDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i39.TagDto>() ||
-            sourceTypeOf == _typeOf<_i39.TagDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i42.TagDto>() ||
+            sourceTypeOf == _typeOf<_i42.TagDto?>()) &&
         (targetTypeOf == _typeOf<_i4.TagDto>() ||
             targetTypeOf == _typeOf<_i4.TagDto?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.BookmarkSearchResultDto>() ||
             sourceTypeOf == _typeOf<_i4.BookmarkSearchResultDto?>()) &&
-        (targetTypeOf == _typeOf<_i40.BookmarkSearchResultDto>() ||
-            targetTypeOf == _typeOf<_i40.BookmarkSearchResultDto?>())) {
+        (targetTypeOf == _typeOf<_i43.BookmarkSearchResultDto>() ||
+            targetTypeOf == _typeOf<_i43.BookmarkSearchResultDto?>())) {
       return true;
     }
-    if ((sourceTypeOf == _typeOf<_i40.BookmarkSearchResultDto>() ||
-            sourceTypeOf == _typeOf<_i40.BookmarkSearchResultDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i43.BookmarkSearchResultDto>() ||
+            sourceTypeOf == _typeOf<_i43.BookmarkSearchResultDto?>()) &&
         (targetTypeOf == _typeOf<_i4.BookmarkSearchResultDto>() ||
             targetTypeOf == _typeOf<_i4.BookmarkSearchResultDto?>())) {
       return true;
@@ -858,6 +918,42 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i31.BookChapterItem?>()) &&
         (targetTypeOf == _typeOf<_i4.BookChapterItem>() ||
             targetTypeOf == _typeOf<_i4.BookChapterItem?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i4.DashboardStreamDto>() ||
+            sourceTypeOf == _typeOf<_i4.DashboardStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i32.DashboardStreamDto>() ||
+            targetTypeOf == _typeOf<_i32.DashboardStreamDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i32.DashboardStreamDto>() ||
+            sourceTypeOf == _typeOf<_i32.DashboardStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i4.DashboardStreamDto>() ||
+            targetTypeOf == _typeOf<_i4.DashboardStreamDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i4.SideNavStreamDto>() ||
+            sourceTypeOf == _typeOf<_i4.SideNavStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i33.SideNavStreamDto>() ||
+            targetTypeOf == _typeOf<_i33.SideNavStreamDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i33.SideNavStreamDto>() ||
+            sourceTypeOf == _typeOf<_i33.SideNavStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i4.SideNavStreamDto>() ||
+            targetTypeOf == _typeOf<_i4.SideNavStreamDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i4.ExternalSourceDto>() ||
+            sourceTypeOf == _typeOf<_i4.ExternalSourceDto?>()) &&
+        (targetTypeOf == _typeOf<_i34.ExternalSourceDto>() ||
+            targetTypeOf == _typeOf<_i34.ExternalSourceDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i34.ExternalSourceDto>() ||
+            sourceTypeOf == _typeOf<_i34.ExternalSourceDto?>()) &&
+        (targetTypeOf == _typeOf<_i4.ExternalSourceDto>() ||
+            targetTypeOf == _typeOf<_i4.ExternalSourceDto?>())) {
       return true;
     }
     if (recursive) {
@@ -1393,6 +1489,70 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$Response$List$_i4$BookChapterItem$$_To__i3$KavitaResponse$List$_i31$BookChapterItem$$(
           (model as _i2.Response<List<_i4.BookChapterItem>>?)) as TARGET);
     }
+    if ((sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.DashboardStreamDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.DashboardStreamDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i32.DashboardStreamDto>>>() ||
+            targetTypeOf ==
+                _typeOf<
+                    _i3.KavitaResponse<List<_i32.DashboardStreamDto>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$DashboardStreamDto$$_To__i3$KavitaResponse$List$_i32$DashboardStreamDto$$(
+          (model as _i2.Response<List<_i4.DashboardStreamDto>>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.SideNavStreamDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.SideNavStreamDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i33.SideNavStreamDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i33.SideNavStreamDto>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$SideNavStreamDto$$_To__i3$KavitaResponse$List$_i33$SideNavStreamDto$$(
+          (model as _i2.Response<List<_i4.SideNavStreamDto>>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.SideNavStreamDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.SideNavStreamDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i33.SideNavStreamDto>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i33.SideNavStreamDto>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$_i4$SideNavStreamDto$_To__i3$KavitaResponse$_i33$SideNavStreamDto$(
+          (model as _i2.Response<_i4.SideNavStreamDto>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.ExternalSourceDto>>>() ||
+            sourceTypeOf ==
+                _typeOf<_i2.Response<List<_i4.ExternalSourceDto>>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i34.ExternalSourceDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i34.ExternalSourceDto>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$ExternalSourceDto$$_To__i3$KavitaResponse$List$_i34$ExternalSourceDto$$(
+          (model as _i2.Response<List<_i4.ExternalSourceDto>>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ExternalSourceDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.ExternalSourceDto>?>()) &&
+        (targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i34.ExternalSourceDto>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i34.ExternalSourceDto>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$_i4$ExternalSourceDto$_To__i3$KavitaResponse$_i34$ExternalSourceDto$(
+          (model as _i2.Response<_i4.ExternalSourceDto>?)) as TARGET);
+    }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
         (targetTypeOf == _typeOf<_i5.UserDto>() ||
@@ -1675,43 +1835,43 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             sourceTypeOf == _typeOf<_i4.FilterStatementDto?>()) &&
-        (targetTypeOf == _typeOf<_i32.FilterStatementDto>() ||
-            targetTypeOf == _typeOf<_i32.FilterStatementDto?>())) {
+        (targetTypeOf == _typeOf<_i35.FilterStatementDto>() ||
+            targetTypeOf == _typeOf<_i35.FilterStatementDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$FilterStatementDto_To__i32$FilterStatementDto(
+      return (_map__i4$FilterStatementDto_To__i35$FilterStatementDto(
           (model as _i4.FilterStatementDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i32.FilterStatementDto>() ||
-            sourceTypeOf == _typeOf<_i32.FilterStatementDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i35.FilterStatementDto>() ||
+            sourceTypeOf == _typeOf<_i35.FilterStatementDto?>()) &&
         (targetTypeOf == _typeOf<_i4.FilterStatementDto>() ||
             targetTypeOf == _typeOf<_i4.FilterStatementDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i32$FilterStatementDto_To__i4$FilterStatementDto(
-          (model as _i32.FilterStatementDto?)) as TARGET);
+      return (_map__i35$FilterStatementDto_To__i4$FilterStatementDto(
+          (model as _i35.FilterStatementDto?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.SortOptions>() ||
             sourceTypeOf == _typeOf<_i4.SortOptions?>()) &&
-        (targetTypeOf == _typeOf<_i33.SortOptions>() ||
-            targetTypeOf == _typeOf<_i33.SortOptions?>())) {
+        (targetTypeOf == _typeOf<_i36.SortOptions>() ||
+            targetTypeOf == _typeOf<_i36.SortOptions?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$SortOptions_To__i33$SortOptions(
+      return (_map__i4$SortOptions_To__i36$SortOptions(
           (model as _i4.SortOptions?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i33.SortOptions>() ||
-            sourceTypeOf == _typeOf<_i33.SortOptions?>()) &&
+    if ((sourceTypeOf == _typeOf<_i36.SortOptions>() ||
+            sourceTypeOf == _typeOf<_i36.SortOptions?>()) &&
         (targetTypeOf == _typeOf<_i4.SortOptions>() ||
             targetTypeOf == _typeOf<_i4.SortOptions?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i33$SortOptions_To__i4$SortOptions(
-          (model as _i33.SortOptions?)) as TARGET);
+      return (_map__i36$SortOptions_To__i4$SortOptions(
+          (model as _i36.SortOptions?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.FilterV2Dto>() ||
             sourceTypeOf == _typeOf<_i4.FilterV2Dto?>()) &&
@@ -1875,23 +2035,23 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.MangaFileDto>() ||
             sourceTypeOf == _typeOf<_i4.MangaFileDto?>()) &&
-        (targetTypeOf == _typeOf<_i34.MangaFileDto>() ||
-            targetTypeOf == _typeOf<_i34.MangaFileDto?>())) {
+        (targetTypeOf == _typeOf<_i37.MangaFileDto>() ||
+            targetTypeOf == _typeOf<_i37.MangaFileDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$MangaFileDto_To__i34$MangaFileDto(
+      return (_map__i4$MangaFileDto_To__i37$MangaFileDto(
           (model as _i4.MangaFileDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i34.MangaFileDto>() ||
-            sourceTypeOf == _typeOf<_i34.MangaFileDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i37.MangaFileDto>() ||
+            sourceTypeOf == _typeOf<_i37.MangaFileDto?>()) &&
         (targetTypeOf == _typeOf<_i4.MangaFileDto>() ||
             targetTypeOf == _typeOf<_i4.MangaFileDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i34$MangaFileDto_To__i4$MangaFileDto(
-          (model as _i34.MangaFileDto?)) as TARGET);
+      return (_map__i37$MangaFileDto_To__i4$MangaFileDto(
+          (model as _i37.MangaFileDto?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.HourEstimateRangeDto>() ||
             sourceTypeOf == _typeOf<_i4.HourEstimateRangeDto?>()) &&
@@ -1955,122 +2115,122 @@ class $Mappr implements _i1.AutoMapprInterface {
     }
     if ((sourceTypeOf == _typeOf<_i4.SearchResultDto>() ||
             sourceTypeOf == _typeOf<_i4.SearchResultDto?>()) &&
-        (targetTypeOf == _typeOf<_i35.SearchResultDto>() ||
-            targetTypeOf == _typeOf<_i35.SearchResultDto?>())) {
+        (targetTypeOf == _typeOf<_i38.SearchResultDto>() ||
+            targetTypeOf == _typeOf<_i38.SearchResultDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$SearchResultDto_To__i35$SearchResultDto(
+      return (_map__i4$SearchResultDto_To__i38$SearchResultDto(
           (model as _i4.SearchResultDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i35.SearchResultDto>() ||
-            sourceTypeOf == _typeOf<_i35.SearchResultDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i38.SearchResultDto>() ||
+            sourceTypeOf == _typeOf<_i38.SearchResultDto?>()) &&
         (targetTypeOf == _typeOf<_i4.SearchResultDto>() ||
             targetTypeOf == _typeOf<_i4.SearchResultDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i35$SearchResultDto_To__i4$SearchResultDto(
-          (model as _i35.SearchResultDto?)) as TARGET);
+      return (_map__i38$SearchResultDto_To__i4$SearchResultDto(
+          (model as _i38.SearchResultDto?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.ReadingListDto>() ||
             sourceTypeOf == _typeOf<_i4.ReadingListDto?>()) &&
-        (targetTypeOf == _typeOf<_i36.ReadingListDto>() ||
-            targetTypeOf == _typeOf<_i36.ReadingListDto?>())) {
+        (targetTypeOf == _typeOf<_i39.ReadingListDto>() ||
+            targetTypeOf == _typeOf<_i39.ReadingListDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$ReadingListDto_To__i36$ReadingListDto(
+      return (_map__i4$ReadingListDto_To__i39$ReadingListDto(
           (model as _i4.ReadingListDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i36.ReadingListDto>() ||
-            sourceTypeOf == _typeOf<_i36.ReadingListDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i39.ReadingListDto>() ||
+            sourceTypeOf == _typeOf<_i39.ReadingListDto?>()) &&
         (targetTypeOf == _typeOf<_i4.ReadingListDto>() ||
             targetTypeOf == _typeOf<_i4.ReadingListDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i36$ReadingListDto_To__i4$ReadingListDto(
-          (model as _i36.ReadingListDto?)) as TARGET);
+      return (_map__i39$ReadingListDto_To__i4$ReadingListDto(
+          (model as _i39.ReadingListDto?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.GenreTagDto>() ||
             sourceTypeOf == _typeOf<_i4.GenreTagDto?>()) &&
-        (targetTypeOf == _typeOf<_i37.GenreTagDto>() ||
-            targetTypeOf == _typeOf<_i37.GenreTagDto?>())) {
+        (targetTypeOf == _typeOf<_i40.GenreTagDto>() ||
+            targetTypeOf == _typeOf<_i40.GenreTagDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$GenreTagDto_To__i37$GenreTagDto(
+      return (_map__i4$GenreTagDto_To__i40$GenreTagDto(
           (model as _i4.GenreTagDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i37.GenreTagDto>() ||
-            sourceTypeOf == _typeOf<_i37.GenreTagDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i40.GenreTagDto>() ||
+            sourceTypeOf == _typeOf<_i40.GenreTagDto?>()) &&
         (targetTypeOf == _typeOf<_i4.GenreTagDto>() ||
             targetTypeOf == _typeOf<_i4.GenreTagDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i37$GenreTagDto_To__i4$GenreTagDto(
-          (model as _i37.GenreTagDto?)) as TARGET);
+      return (_map__i40$GenreTagDto_To__i4$GenreTagDto(
+          (model as _i40.GenreTagDto?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.PersonDto>() ||
             sourceTypeOf == _typeOf<_i4.PersonDto?>()) &&
-        (targetTypeOf == _typeOf<_i38.PersonDto>() ||
-            targetTypeOf == _typeOf<_i38.PersonDto?>())) {
+        (targetTypeOf == _typeOf<_i41.PersonDto>() ||
+            targetTypeOf == _typeOf<_i41.PersonDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$PersonDto_To__i38$PersonDto((model as _i4.PersonDto?))
+      return (_map__i4$PersonDto_To__i41$PersonDto((model as _i4.PersonDto?))
           as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i38.PersonDto>() ||
-            sourceTypeOf == _typeOf<_i38.PersonDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i41.PersonDto>() ||
+            sourceTypeOf == _typeOf<_i41.PersonDto?>()) &&
         (targetTypeOf == _typeOf<_i4.PersonDto>() ||
             targetTypeOf == _typeOf<_i4.PersonDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i38$PersonDto_To__i4$PersonDto((model as _i38.PersonDto?))
+      return (_map__i41$PersonDto_To__i4$PersonDto((model as _i41.PersonDto?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.TagDto>() ||
             sourceTypeOf == _typeOf<_i4.TagDto?>()) &&
-        (targetTypeOf == _typeOf<_i39.TagDto>() ||
-            targetTypeOf == _typeOf<_i39.TagDto?>())) {
+        (targetTypeOf == _typeOf<_i42.TagDto>() ||
+            targetTypeOf == _typeOf<_i42.TagDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$TagDto_To__i39$TagDto((model as _i4.TagDto?)) as TARGET);
+      return (_map__i4$TagDto_To__i42$TagDto((model as _i4.TagDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i39.TagDto>() ||
-            sourceTypeOf == _typeOf<_i39.TagDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i42.TagDto>() ||
+            sourceTypeOf == _typeOf<_i42.TagDto?>()) &&
         (targetTypeOf == _typeOf<_i4.TagDto>() ||
             targetTypeOf == _typeOf<_i4.TagDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i39$TagDto_To__i4$TagDto((model as _i39.TagDto?))
+      return (_map__i42$TagDto_To__i4$TagDto((model as _i42.TagDto?))
           as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.BookmarkSearchResultDto>() ||
             sourceTypeOf == _typeOf<_i4.BookmarkSearchResultDto?>()) &&
-        (targetTypeOf == _typeOf<_i40.BookmarkSearchResultDto>() ||
-            targetTypeOf == _typeOf<_i40.BookmarkSearchResultDto?>())) {
+        (targetTypeOf == _typeOf<_i43.BookmarkSearchResultDto>() ||
+            targetTypeOf == _typeOf<_i43.BookmarkSearchResultDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i4$BookmarkSearchResultDto_To__i40$BookmarkSearchResultDto(
+      return (_map__i4$BookmarkSearchResultDto_To__i43$BookmarkSearchResultDto(
           (model as _i4.BookmarkSearchResultDto?)) as TARGET);
     }
-    if ((sourceTypeOf == _typeOf<_i40.BookmarkSearchResultDto>() ||
-            sourceTypeOf == _typeOf<_i40.BookmarkSearchResultDto?>()) &&
+    if ((sourceTypeOf == _typeOf<_i43.BookmarkSearchResultDto>() ||
+            sourceTypeOf == _typeOf<_i43.BookmarkSearchResultDto?>()) &&
         (targetTypeOf == _typeOf<_i4.BookmarkSearchResultDto>() ||
             targetTypeOf == _typeOf<_i4.BookmarkSearchResultDto?>())) {
       if (canReturnNull && model == null) {
         return null;
       }
-      return (_map__i40$BookmarkSearchResultDto_To__i4$BookmarkSearchResultDto(
-          (model as _i40.BookmarkSearchResultDto?)) as TARGET);
+      return (_map__i43$BookmarkSearchResultDto_To__i4$BookmarkSearchResultDto(
+          (model as _i43.BookmarkSearchResultDto?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.BookInfoDto>() ||
             sourceTypeOf == _typeOf<_i4.BookInfoDto?>()) &&
@@ -2111,6 +2271,66 @@ class $Mappr implements _i1.AutoMapprInterface {
       }
       return (_map__i31$BookChapterItem_To__i4$BookChapterItem(
           (model as _i31.BookChapterItem?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i4.DashboardStreamDto>() ||
+            sourceTypeOf == _typeOf<_i4.DashboardStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i32.DashboardStreamDto>() ||
+            targetTypeOf == _typeOf<_i32.DashboardStreamDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$DashboardStreamDto_To__i32$DashboardStreamDto(
+          (model as _i4.DashboardStreamDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i32.DashboardStreamDto>() ||
+            sourceTypeOf == _typeOf<_i32.DashboardStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i4.DashboardStreamDto>() ||
+            targetTypeOf == _typeOf<_i4.DashboardStreamDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i32$DashboardStreamDto_To__i4$DashboardStreamDto(
+          (model as _i32.DashboardStreamDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i4.SideNavStreamDto>() ||
+            sourceTypeOf == _typeOf<_i4.SideNavStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i33.SideNavStreamDto>() ||
+            targetTypeOf == _typeOf<_i33.SideNavStreamDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$SideNavStreamDto_To__i33$SideNavStreamDto(
+          (model as _i4.SideNavStreamDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i33.SideNavStreamDto>() ||
+            sourceTypeOf == _typeOf<_i33.SideNavStreamDto?>()) &&
+        (targetTypeOf == _typeOf<_i4.SideNavStreamDto>() ||
+            targetTypeOf == _typeOf<_i4.SideNavStreamDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i33$SideNavStreamDto_To__i4$SideNavStreamDto(
+          (model as _i33.SideNavStreamDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i4.ExternalSourceDto>() ||
+            sourceTypeOf == _typeOf<_i4.ExternalSourceDto?>()) &&
+        (targetTypeOf == _typeOf<_i34.ExternalSourceDto>() ||
+            targetTypeOf == _typeOf<_i34.ExternalSourceDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i4$ExternalSourceDto_To__i34$ExternalSourceDto(
+          (model as _i4.ExternalSourceDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i34.ExternalSourceDto>() ||
+            sourceTypeOf == _typeOf<_i34.ExternalSourceDto?>()) &&
+        (targetTypeOf == _typeOf<_i4.ExternalSourceDto>() ||
+            targetTypeOf == _typeOf<_i4.ExternalSourceDto?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i34$ExternalSourceDto_To__i4$ExternalSourceDto(
+          (model as _i34.ExternalSourceDto?)) as TARGET);
     }
     throw Exception('No ${model.runtimeType} -> $targetTypeOf mapping.');
   }
@@ -2680,6 +2900,95 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
+  _i3.KavitaResponse<List<_i32.DashboardStreamDto>>
+      _map__i2$Response$List$_i4$DashboardStreamDto$$_To__i3$KavitaResponse$List$_i32$DashboardStreamDto$$(
+          _i2.Response<List<_i4.DashboardStreamDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<DashboardStreamDto>> → KavitaResponse<List<DashboardStreamDto>> failed because Response<List<DashboardStreamDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<DashboardStreamDto>>, KavitaResponse<List<DashboardStreamDto>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i32.DashboardStreamDto>((value) =>
+              _map__i4$DashboardStreamDto_To__i32$DashboardStreamDto(value))
+          .toList(),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<List<_i33.SideNavStreamDto>>
+      _map__i2$Response$List$_i4$SideNavStreamDto$$_To__i3$KavitaResponse$List$_i33$SideNavStreamDto$$(
+          _i2.Response<List<_i4.SideNavStreamDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<SideNavStreamDto>> → KavitaResponse<List<SideNavStreamDto>> failed because Response<List<SideNavStreamDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<SideNavStreamDto>>, KavitaResponse<List<SideNavStreamDto>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i33.SideNavStreamDto>((value) =>
+              _map__i4$SideNavStreamDto_To__i33$SideNavStreamDto(value))
+          .toList(),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<_i33.SideNavStreamDto>
+      _map__i2$Response$_i4$SideNavStreamDto$_To__i3$KavitaResponse$_i33$SideNavStreamDto$(
+          _i2.Response<_i4.SideNavStreamDto>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<SideNavStreamDto> → KavitaResponse<SideNavStreamDto> failed because Response<SideNavStreamDto> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<SideNavStreamDto>, KavitaResponse<SideNavStreamDto>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      _map__i4$SideNavStreamDto_To__i33$SideNavStreamDto_Nullable(model.body),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<List<_i34.ExternalSourceDto>>
+      _map__i2$Response$List$_i4$ExternalSourceDto$$_To__i3$KavitaResponse$List$_i34$ExternalSourceDto$$(
+          _i2.Response<List<_i4.ExternalSourceDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<ExternalSourceDto>> → KavitaResponse<List<ExternalSourceDto>> failed because Response<List<ExternalSourceDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<ExternalSourceDto>>, KavitaResponse<List<ExternalSourceDto>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i34.ExternalSourceDto>((value) =>
+              _map__i4$ExternalSourceDto_To__i34$ExternalSourceDto(value))
+          .toList(),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<_i34.ExternalSourceDto>
+      _map__i2$Response$_i4$ExternalSourceDto$_To__i3$KavitaResponse$_i34$ExternalSourceDto$(
+          _i2.Response<_i4.ExternalSourceDto>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<ExternalSourceDto> → KavitaResponse<ExternalSourceDto> failed because Response<ExternalSourceDto> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<ExternalSourceDto>, KavitaResponse<ExternalSourceDto>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      _map__i4$ExternalSourceDto_To__i34$ExternalSourceDto_Nullable(model.body),
+      error: model.error,
+    );
+  }
+
   _i5.UserDto _map__i4$UserDto_To__i5$UserDto(_i4.UserDto? input) {
     final model = input;
     if (model == null) {
@@ -2737,7 +3046,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i6.AgeRestrictionDto(
       ageRating: model.ageRating == null
           ? null
-          : (_i46.AgeRating(model.ageRating!) as _i46.AgeRating?),
+          : (_i49.AgeRating(model.ageRating!) as _i49.AgeRating?),
       includeUnknowns: model.includeUnknowns,
     );
   }
@@ -2765,39 +3074,39 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<UserPreferencesDto, UserPreferencesDto> to handle null values during mapping.');
     }
     return _i7.UserPreferencesDto(
-      readingDirection: (_i47.ReadingDirection(model.readingDirection)
-          as _i47.ReadingDirection),
+      readingDirection: (_i50.ReadingDirection(model.readingDirection)
+          as _i50.ReadingDirection),
       scalingOption:
-          (_i47.ReadingDirection(model.scalingOption) as _i48.ScalingOption),
-      pageSplitOption: (_i47.ReadingDirection(model.pageSplitOption)
-          as _i42.PageSplitOption),
-      readerMode: (_i47.ReadingDirection(model.readerMode) as _i41.ReaderMode),
-      layoutMode: (_i47.ReadingDirection(model.layoutMode) as _i43.LayoutMode),
+          (_i50.ReadingDirection(model.scalingOption) as _i51.ScalingOption),
+      pageSplitOption: (_i50.ReadingDirection(model.pageSplitOption)
+          as _i45.PageSplitOption),
+      readerMode: (_i50.ReadingDirection(model.readerMode) as _i44.ReaderMode),
+      layoutMode: (_i50.ReadingDirection(model.layoutMode) as _i46.LayoutMode),
       emulateBook: model.emulateBook,
       backgroundColor: model.backgroundColor,
       swipeToPaginate: model.swipeToPaginate,
       autoCloseMenu: model.autoCloseMenu,
       showScreenHints: model.showScreenHints,
-      bookReaderMargin: (_i47.ReadingDirection(model.bookReaderMargin) as int),
+      bookReaderMargin: (_i50.ReadingDirection(model.bookReaderMargin) as int),
       bookReaderLineSpacing:
-          (_i47.ReadingDirection(model.bookReaderLineSpacing) as int),
+          (_i50.ReadingDirection(model.bookReaderLineSpacing) as int),
       bookReaderFontSize:
-          (_i47.ReadingDirection(model.bookReaderFontSize) as int),
+          (_i50.ReadingDirection(model.bookReaderFontSize) as int),
       bookReaderFontFamily: model.bookReaderFontFamily,
       bookReaderTapToPaginate: model.bookReaderTapToPaginate,
       bookReaderReadingDirection:
-          (_i47.ReadingDirection(model.bookReaderReadingDirection)
-              as _i47.ReadingDirection),
+          (_i50.ReadingDirection(model.bookReaderReadingDirection)
+              as _i50.ReadingDirection),
       bookReaderWritingStyle:
-          (_i47.ReadingDirection(model.bookReaderWritingStyle)
-              as _i49.WritingStyle),
+          (_i50.ReadingDirection(model.bookReaderWritingStyle)
+              as _i52.WritingStyle),
       theme: _map__i4$SiteTheme_To__i8$SiteTheme(model.theme),
       bookReaderThemeName: model.bookReaderThemeName,
-      bookReaderLayoutMode: (_i47.ReadingDirection(model.bookReaderLayoutMode)
-          as _i50.BookPageLayoutMode),
+      bookReaderLayoutMode: (_i50.ReadingDirection(model.bookReaderLayoutMode)
+          as _i53.BookPageLayoutMode),
       bookReaderImmersiveMode: model.bookReaderImmersiveMode,
-      globalPageLayoutMode: (_i47.ReadingDirection(model.globalPageLayoutMode)
-          as _i51.PageLayoutMode),
+      globalPageLayoutMode: (_i50.ReadingDirection(model.globalPageLayoutMode)
+          as _i54.PageLayoutMode),
       blurUnreadSummaries: model.blurUnreadSummaries,
       promptForDownloadSize: model.promptForDownloadSize,
       noTransitions: model.noTransitions,
@@ -2855,14 +3164,14 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<SiteTheme, SiteTheme> to handle null values during mapping.');
     }
     return _i8.SiteTheme(
-      id: model.id == null ? null : (_i52.ThemeProvider(model.id!) as int?),
+      id: model.id == null ? null : (_i55.ThemeProvider(model.id!) as int?),
       name: model.name,
       normalizedName: model.normalizedName,
       fileName: model.fileName,
       isDefault: model.isDefault,
       provider: model.provider == null
           ? null
-          : (_i52.ThemeProvider(model.provider!) as _i52.ThemeProvider?),
+          : (_i55.ThemeProvider(model.provider!) as _i55.ThemeProvider?),
       created: model.created,
       lastModified: model.lastModified,
       createdUtc: model.createdUtc,
@@ -3100,58 +3409,58 @@ class $Mappr implements _i1.AutoMapprInterface {
       kavitaVersion: model.kavitaVersion,
       numOfCores: model.numOfCores == null
           ? null
-          : (_i41.ReaderMode(model.numOfCores!) as int?),
+          : (_i44.ReaderMode(model.numOfCores!) as int?),
       numberOfLibraries: model.numberOfLibraries == null
           ? null
-          : (_i41.ReaderMode(model.numberOfLibraries!) as int?),
+          : (_i44.ReaderMode(model.numberOfLibraries!) as int?),
       hasBookmarks: model.hasBookmarks,
       activeSiteTheme: model.activeSiteTheme,
       mangaReaderMode: model.mangaReaderMode == null
           ? null
-          : (_i41.ReaderMode(model.mangaReaderMode!) as _i41.ReaderMode?),
+          : (_i44.ReaderMode(model.mangaReaderMode!) as _i44.ReaderMode?),
       numberOfUsers: model.numberOfUsers == null
           ? null
-          : (_i41.ReaderMode(model.numberOfUsers!) as int?),
+          : (_i44.ReaderMode(model.numberOfUsers!) as int?),
       numberOfCollections: model.numberOfCollections == null
           ? null
-          : (_i41.ReaderMode(model.numberOfCollections!) as int?),
+          : (_i44.ReaderMode(model.numberOfCollections!) as int?),
       numberOfReadingLists: model.numberOfReadingLists == null
           ? null
-          : (_i41.ReaderMode(model.numberOfReadingLists!) as int?),
+          : (_i44.ReaderMode(model.numberOfReadingLists!) as int?),
       opdsEnabled: model.opdsEnabled,
       totalFiles: model.totalFiles == null
           ? null
-          : (_i41.ReaderMode(model.totalFiles!) as int?),
+          : (_i44.ReaderMode(model.totalFiles!) as int?),
       totalGenres: model.totalGenres == null
           ? null
-          : (_i41.ReaderMode(model.totalGenres!) as int?),
+          : (_i44.ReaderMode(model.totalGenres!) as int?),
       totalPeople: model.totalPeople == null
           ? null
-          : (_i41.ReaderMode(model.totalPeople!) as int?),
+          : (_i44.ReaderMode(model.totalPeople!) as int?),
       usersOnCardLayout: model.usersOnCardLayout == null
           ? null
-          : (_i41.ReaderMode(model.usersOnCardLayout!) as int?),
+          : (_i44.ReaderMode(model.usersOnCardLayout!) as int?),
       usersOnListLayout: model.usersOnListLayout == null
           ? null
-          : (_i41.ReaderMode(model.usersOnListLayout!) as int?),
+          : (_i44.ReaderMode(model.usersOnListLayout!) as int?),
       maxSeriesInALibrary: model.maxSeriesInALibrary == null
           ? null
-          : (_i41.ReaderMode(model.maxSeriesInALibrary!) as int?),
+          : (_i44.ReaderMode(model.maxSeriesInALibrary!) as int?),
       maxVolumesInASeries: model.maxVolumesInASeries == null
           ? null
-          : (_i41.ReaderMode(model.maxVolumesInASeries!) as int?),
+          : (_i44.ReaderMode(model.maxVolumesInASeries!) as int?),
       maxChaptersInASeries: model.maxChaptersInASeries == null
           ? null
-          : (_i41.ReaderMode(model.maxChaptersInASeries!) as int?),
+          : (_i44.ReaderMode(model.maxChaptersInASeries!) as int?),
       usingSeriesRelationships: model.usingSeriesRelationships,
       mangaReaderBackgroundColors: model.mangaReaderBackgroundColors,
       mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes
-          ?.map<_i42.PageSplitOption>(
-              (value) => (_i41.ReaderMode(value) as _i42.PageSplitOption))
+          ?.map<_i45.PageSplitOption>(
+              (value) => (_i44.ReaderMode(value) as _i45.PageSplitOption))
           .toList(),
       mangaReaderLayoutModes: model.mangaReaderLayoutModes
-          ?.map<_i43.LayoutMode>(
-              (value) => (_i41.ReaderMode(value) as _i43.LayoutMode))
+          ?.map<_i46.LayoutMode>(
+              (value) => (_i44.ReaderMode(value) as _i46.LayoutMode))
           .toList(),
       fileFormats: model.fileFormats
           ?.map<_i15.FileFormatDto>(
@@ -3160,7 +3469,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       usingRestrictedProfiles: model.usingRestrictedProfiles,
       usersWithEmulateComicBook: model.usersWithEmulateComicBook == null
           ? null
-          : (_i41.ReaderMode(model.usersWithEmulateComicBook!) as int?),
+          : (_i44.ReaderMode(model.usersWithEmulateComicBook!) as int?),
       percentOfLibrariesWithFolderWatchingEnabled:
           model.percentOfLibrariesWithFolderWatchingEnabled,
       percentOfLibrariesIncludedInSearch:
@@ -3171,10 +3480,10 @@ class $Mappr implements _i1.AutoMapprInterface {
           model.percentOfLibrariesIncludedInDashboard,
       totalReadingHours: model.totalReadingHours == null
           ? null
-          : (_i41.ReaderMode(model.totalReadingHours!) as int?),
+          : (_i44.ReaderMode(model.totalReadingHours!) as int?),
       encodeMediaAs: model.encodeMediaAs == null
           ? null
-          : (_i41.ReaderMode(model.encodeMediaAs!) as _i53.EncodeFormat?),
+          : (_i44.ReaderMode(model.encodeMediaAs!) as _i56.EncodeFormat?),
       lastReadTime: model.lastReadTime,
     );
   }
@@ -3246,7 +3555,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       extension: model.extension,
       format: model.format == null
           ? null
-          : (_i54.MangaFormat(model.format!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.format!) as _i57.MangaFormat?),
     );
   }
 
@@ -3272,12 +3581,12 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<DeviceDto, DeviceDto> to handle null values during mapping.');
     }
     return _i16.DeviceDto(
-      id: model.id == null ? null : (_i55.DevicePlatform(model.id!) as int?),
+      id: model.id == null ? null : (_i58.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
       platform: model.platform == null
           ? null
-          : (_i55.DevicePlatform(model.platform!) as _i55.DevicePlatform?),
+          : (_i58.DevicePlatform(model.platform!) as _i58.DevicePlatform?),
     );
   }
 
@@ -3304,44 +3613,44 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<SeriesDto, SeriesDto> to handle null values during mapping.');
     }
     return _i29.SeriesDto(
-      id: model.id == null ? null : (_i54.MangaFormat(model.id!) as int?),
+      id: model.id == null ? null : (_i57.MangaFormat(model.id!) as int?),
       name: model.name,
       originalName: model.originalName,
       localizedName: model.localizedName,
       sortName: model.sortName,
       pages:
-          model.pages == null ? null : (_i54.MangaFormat(model.pages!) as int?),
+          model.pages == null ? null : (_i57.MangaFormat(model.pages!) as int?),
       coverImageLocked: model.coverImageLocked,
       pagesRead: model.pagesRead == null
           ? null
-          : (_i54.MangaFormat(model.pagesRead!) as int?),
+          : (_i57.MangaFormat(model.pagesRead!) as int?),
       latestReadDate: model.latestReadDate,
       lastChapterAdded: model.lastChapterAdded,
       userRating: model.userRating,
       hasUserRated: model.hasUserRated,
       format: model.format == null
           ? null
-          : (_i54.MangaFormat(model.format!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.format!) as _i57.MangaFormat?),
       created: model.created,
       nameLocked: model.nameLocked,
       sortNameLocked: model.sortNameLocked,
       localizedNameLocked: model.localizedNameLocked,
       wordCount: model.wordCount == null
           ? null
-          : (_i54.MangaFormat(model.wordCount!) as int?),
+          : (_i57.MangaFormat(model.wordCount!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i54.MangaFormat(model.libraryId!) as int?),
+          : (_i57.MangaFormat(model.libraryId!) as int?),
       libraryName: model.libraryName,
       minHoursToRead: model.minHoursToRead == null
           ? null
-          : (_i54.MangaFormat(model.minHoursToRead!) as int?),
+          : (_i57.MangaFormat(model.minHoursToRead!) as int?),
       maxHoursToRead: model.maxHoursToRead == null
           ? null
-          : (_i54.MangaFormat(model.maxHoursToRead!) as int?),
+          : (_i57.MangaFormat(model.maxHoursToRead!) as int?),
       avgHoursToRead: model.avgHoursToRead == null
           ? null
-          : (_i54.MangaFormat(model.avgHoursToRead!) as int?),
+          : (_i57.MangaFormat(model.avgHoursToRead!) as int?),
       folderPath: model.folderPath,
       lastFolderScanned: model.lastFolderScanned,
     );
@@ -3419,8 +3728,8 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i32.FilterStatementDto
-      _map__i4$FilterStatementDto_To__i32$FilterStatementDto(
+  _i35.FilterStatementDto
+      _map__i4$FilterStatementDto_To__i35$FilterStatementDto(
           _i4.FilterStatementDto? input) {
     final model = input;
     if (model == null) {
@@ -3428,20 +3737,20 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping FilterStatementDto → FilterStatementDto failed because FilterStatementDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<FilterStatementDto, FilterStatementDto> to handle null values during mapping.');
     }
-    return _i32.FilterStatementDto(
+    return _i35.FilterStatementDto(
       comparison: model.comparison == null
           ? null
-          : (_i32.FilterComparison(model.comparison!)
-              as _i32.FilterComparison?),
+          : (_i35.FilterComparison(model.comparison!)
+              as _i35.FilterComparison?),
       field: model.field == null
           ? null
-          : (_i32.FilterComparison(model.field!) as _i32.FilterField?),
+          : (_i35.FilterComparison(model.field!) as _i35.FilterField?),
       $value: model.$value,
     );
   }
 
-  _i4.FilterStatementDto _map__i32$FilterStatementDto_To__i4$FilterStatementDto(
-      _i32.FilterStatementDto? input) {
+  _i4.FilterStatementDto _map__i35$FilterStatementDto_To__i4$FilterStatementDto(
+      _i35.FilterStatementDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -3455,7 +3764,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i33.SortOptions _map__i4$SortOptions_To__i33$SortOptions(
+  _i36.SortOptions _map__i4$SortOptions_To__i36$SortOptions(
       _i4.SortOptions? input) {
     final model = input;
     if (model == null) {
@@ -3463,16 +3772,16 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping SortOptions → SortOptions failed because SortOptions was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<SortOptions, SortOptions> to handle null values during mapping.');
     }
-    return _i33.SortOptions(
+    return _i36.SortOptions(
       sortField: model.sortField == null
           ? null
-          : (_i33.SortField(model.sortField!) as _i33.SortField?),
+          : (_i36.SortField(model.sortField!) as _i36.SortField?),
       isAscending: model.isAscending,
     );
   }
 
-  _i4.SortOptions _map__i33$SortOptions_To__i4$SortOptions(
-      _i33.SortOptions? input) {
+  _i4.SortOptions _map__i36$SortOptions_To__i4$SortOptions(
+      _i36.SortOptions? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -3497,15 +3806,15 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id == null ? null : (_i19.FilterCombination(model.id!) as int?),
       name: model.name,
       statements: model.statements
-          ?.map<_i32.FilterStatementDto>((value) =>
-              _map__i4$FilterStatementDto_To__i32$FilterStatementDto(value))
+          ?.map<_i35.FilterStatementDto>((value) =>
+              _map__i4$FilterStatementDto_To__i35$FilterStatementDto(value))
           .toList(),
       combination: model.combination == null
           ? null
           : (_i19.FilterCombination(model.combination!)
               as _i19.FilterCombination?),
       sortOptions:
-          _map__i4$SortOptions_To__i33$SortOptions_Nullable(model.sortOptions),
+          _map__i4$SortOptions_To__i36$SortOptions_Nullable(model.sortOptions),
       limitTo: model.limitTo == null
           ? null
           : (_i19.FilterCombination(model.limitTo!) as int?),
@@ -3525,11 +3834,11 @@ class $Mappr implements _i1.AutoMapprInterface {
       name: model.name,
       statements: model.statements
           ?.map<_i4.FilterStatementDto>((value) =>
-              _map__i32$FilterStatementDto_To__i4$FilterStatementDto(value))
+              _map__i35$FilterStatementDto_To__i4$FilterStatementDto(value))
           .toList(),
       combination: model.combination,
       sortOptions:
-          _map__i33$SortOptions_To__i4$SortOptions_Nullable(model.sortOptions),
+          _map__i36$SortOptions_To__i4$SortOptions_Nullable(model.sortOptions),
       limitTo: model.limitTo,
     );
   }
@@ -3574,13 +3883,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i21.RatingDto(
       averageScore: model.averageScore == null
           ? null
-          : (_i56.ScrobbleProvider(model.averageScore!) as int?),
+          : (_i59.ScrobbleProvider(model.averageScore!) as int?),
       favoriteCount: model.favoriteCount == null
           ? null
-          : (_i56.ScrobbleProvider(model.favoriteCount!) as int?),
+          : (_i59.ScrobbleProvider(model.favoriteCount!) as int?),
       provider: model.provider == null
           ? null
-          : (_i56.ScrobbleProvider(model.provider!) as _i56.ScrobbleProvider?),
+          : (_i59.ScrobbleProvider(model.provider!) as _i59.ScrobbleProvider?),
       providerUrl: model.providerUrl,
     );
   }
@@ -3685,33 +3994,33 @@ class $Mappr implements _i1.AutoMapprInterface {
       volumeNumber: model.volumeNumber,
       volumeId: model.volumeId == null
           ? null
-          : (_i44.LibraryType(model.volumeId!) as int?),
+          : (_i47.LibraryType(model.volumeId!) as int?),
       seriesName: model.seriesName,
       seriesFormat: model.seriesFormat == null
           ? null
-          : (_i44.LibraryType(model.seriesFormat!) as _i54.MangaFormat?),
+          : (_i47.LibraryType(model.seriesFormat!) as _i57.MangaFormat?),
       seriesId: model.seriesId == null
           ? null
-          : (_i44.LibraryType(model.seriesId!) as int?),
+          : (_i47.LibraryType(model.seriesId!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i44.LibraryType(model.libraryId!) as int?),
+          : (_i47.LibraryType(model.libraryId!) as int?),
       libraryType: model.libraryType == null
           ? null
-          : (_i44.LibraryType(model.libraryType!) as _i44.LibraryType?),
+          : (_i47.LibraryType(model.libraryType!) as _i47.LibraryType?),
       chapterTitle: model.chapterTitle,
       pages:
-          model.pages == null ? null : (_i44.LibraryType(model.pages!) as int?),
+          model.pages == null ? null : (_i47.LibraryType(model.pages!) as int?),
       fileName: model.fileName,
       isSpecial: model.isSpecial,
       subtitle: model.subtitle,
       title: model.title,
       seriesTotalPages: model.seriesTotalPages == null
           ? null
-          : (_i44.LibraryType(model.seriesTotalPages!) as int?),
+          : (_i47.LibraryType(model.seriesTotalPages!) as int?),
       seriesTotalPagesRead: model.seriesTotalPagesRead == null
           ? null
-          : (_i44.LibraryType(model.seriesTotalPagesRead!) as int?),
+          : (_i47.LibraryType(model.seriesTotalPagesRead!) as int?),
       pageDimensions: model.pageDimensions
           ?.map<_i17.FileDimensionDto>((value) =>
               _map__i4$FileDimensionDto_To__i17$FileDimensionDto(value))
@@ -3808,26 +4117,26 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<ChapterDto, ChapterDto> to handle null values during mapping.');
     }
     return _i24.ChapterDto(
-      id: model.id == null ? null : (_i46.AgeRating(model.id!) as int?),
+      id: model.id == null ? null : (_i49.AgeRating(model.id!) as int?),
       range: model.range,
       number: model.number,
       pages:
-          model.pages == null ? null : (_i46.AgeRating(model.pages!) as int?),
+          model.pages == null ? null : (_i49.AgeRating(model.pages!) as int?),
       isSpecial: model.isSpecial,
       title: model.title,
       files: model.files
-          ?.map<_i34.MangaFileDto>(
-              (value) => _map__i4$MangaFileDto_To__i34$MangaFileDto(value))
+          ?.map<_i37.MangaFileDto>(
+              (value) => _map__i4$MangaFileDto_To__i37$MangaFileDto(value))
           .toList(),
       pagesRead: model.pagesRead == null
           ? null
-          : (_i46.AgeRating(model.pagesRead!) as int?),
+          : (_i49.AgeRating(model.pagesRead!) as int?),
       lastReadingProgressUtc: model.lastReadingProgressUtc,
       lastReadingProgress: model.lastReadingProgress,
       coverImageLocked: model.coverImageLocked,
       volumeId: model.volumeId == null
           ? null
-          : (_i46.AgeRating(model.volumeId!) as int?),
+          : (_i49.AgeRating(model.volumeId!) as int?),
       createdUtc: model.createdUtc,
       lastModifiedUtc: model.lastModifiedUtc,
       created: model.created,
@@ -3836,20 +4145,20 @@ class $Mappr implements _i1.AutoMapprInterface {
       summary: model.summary,
       ageRating: model.ageRating == null
           ? null
-          : (_i46.AgeRating(model.ageRating!) as _i46.AgeRating?),
+          : (_i49.AgeRating(model.ageRating!) as _i49.AgeRating?),
       wordCount: model.wordCount == null
           ? null
-          : (_i46.AgeRating(model.wordCount!) as int?),
+          : (_i49.AgeRating(model.wordCount!) as int?),
       volumeTitle: model.volumeTitle,
       minHoursToRead: model.minHoursToRead == null
           ? null
-          : (_i46.AgeRating(model.minHoursToRead!) as int?),
+          : (_i49.AgeRating(model.minHoursToRead!) as int?),
       maxHoursToRead: model.maxHoursToRead == null
           ? null
-          : (_i46.AgeRating(model.maxHoursToRead!) as int?),
+          : (_i49.AgeRating(model.maxHoursToRead!) as int?),
       avgHoursToRead: model.avgHoursToRead == null
           ? null
-          : (_i46.AgeRating(model.avgHoursToRead!) as int?),
+          : (_i49.AgeRating(model.avgHoursToRead!) as int?),
       webLinks: model.webLinks,
       isbn: model.isbn,
     );
@@ -3872,7 +4181,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       title: model.title,
       files: model.files
           ?.map<_i4.MangaFileDto>(
-              (value) => _map__i34$MangaFileDto_To__i4$MangaFileDto(value))
+              (value) => _map__i37$MangaFileDto_To__i4$MangaFileDto(value))
           .toList(),
       pagesRead: model.pagesRead,
       lastReadingProgressUtc: model.lastReadingProgressUtc,
@@ -3896,7 +4205,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i34.MangaFileDto _map__i4$MangaFileDto_To__i34$MangaFileDto(
+  _i37.MangaFileDto _map__i4$MangaFileDto_To__i37$MangaFileDto(
       _i4.MangaFileDto? input) {
     final model = input;
     if (model == null) {
@@ -3904,22 +4213,22 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping MangaFileDto → MangaFileDto failed because MangaFileDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<MangaFileDto, MangaFileDto> to handle null values during mapping.');
     }
-    return _i34.MangaFileDto(
-      id: model.id == null ? null : (_i54.MangaFormat(model.id!) as int?),
+    return _i37.MangaFileDto(
+      id: model.id == null ? null : (_i57.MangaFormat(model.id!) as int?),
       filePath: model.filePath,
       pages:
-          model.pages == null ? null : (_i54.MangaFormat(model.pages!) as int?),
+          model.pages == null ? null : (_i57.MangaFormat(model.pages!) as int?),
       bytes:
-          model.bytes == null ? null : (_i54.MangaFormat(model.bytes!) as int?),
+          model.bytes == null ? null : (_i57.MangaFormat(model.bytes!) as int?),
       format: model.format == null
           ? null
-          : (_i54.MangaFormat(model.format!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.format!) as _i57.MangaFormat?),
       created: model.created,
     );
   }
 
-  _i4.MangaFileDto _map__i34$MangaFileDto_To__i4$MangaFileDto(
-      _i34.MangaFileDto? input) {
+  _i4.MangaFileDto _map__i37$MangaFileDto_To__i4$MangaFileDto(
+      _i37.MangaFileDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -3977,12 +4286,12 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Consider setting the whenSourceIsNull parameter on the MapType<LibraryDto, LibraryDto> to handle null values during mapping.');
     }
     return _i27.LibraryDto(
-      id: model.id == null ? null : (_i44.LibraryType(model.id!) as int?),
+      id: model.id == null ? null : (_i47.LibraryType(model.id!) as int?),
       name: model.name,
       lastScanned: model.lastScanned,
       type: model.type == null
           ? null
-          : (_i44.LibraryType(model.type!) as _i44.LibraryType?),
+          : (_i47.LibraryType(model.type!) as _i47.LibraryType?),
       coverImage: model.coverImage,
       folderWatching: model.folderWatching,
       includeInDashboard: model.includeInDashboard,
@@ -3994,8 +4303,8 @@ class $Mappr implements _i1.AutoMapprInterface {
       folders: model.folders,
       collapseSeriesRelationships: model.collapseSeriesRelationships,
       libraryFileTypes: model.libraryFileTypes
-          ?.map<_i45.FileTypeGroup>(
-              (value) => (_i44.LibraryType(value) as _i45.FileTypeGroup))
+          ?.map<_i48.FileTypeGroup>(
+              (value) => (_i47.LibraryType(value) as _i48.FileTypeGroup))
           .toList(),
       excludePatterns: model.excludePatterns,
     );
@@ -4044,39 +4353,39 @@ class $Mappr implements _i1.AutoMapprInterface {
               (value) => _map__i4$LibraryDto_To__i27$LibraryDto(value))
           .toList(),
       series: model.series
-          ?.map<_i35.SearchResultDto>((value) =>
-              _map__i4$SearchResultDto_To__i35$SearchResultDto(value))
+          ?.map<_i38.SearchResultDto>((value) =>
+              _map__i4$SearchResultDto_To__i38$SearchResultDto(value))
           .toList(),
       collections: model.collections
           ?.map<_i11.CollectionTagDto>((value) =>
               _map__i4$CollectionTagDto_To__i11$CollectionTagDto(value))
           .toList(),
       readingLists: model.readingLists
-          ?.map<_i36.ReadingListDto>(
-              (value) => _map__i4$ReadingListDto_To__i36$ReadingListDto(value))
+          ?.map<_i39.ReadingListDto>(
+              (value) => _map__i4$ReadingListDto_To__i39$ReadingListDto(value))
           .toList(),
       persons: model.persons
-          ?.map<_i38.PersonDto>(
-              (value) => _map__i4$PersonDto_To__i38$PersonDto(value))
+          ?.map<_i41.PersonDto>(
+              (value) => _map__i4$PersonDto_To__i41$PersonDto(value))
           .toList(),
       genres: model.genres
-          ?.map<_i37.GenreTagDto>(
-              (value) => _map__i4$GenreTagDto_To__i37$GenreTagDto(value))
+          ?.map<_i40.GenreTagDto>(
+              (value) => _map__i4$GenreTagDto_To__i40$GenreTagDto(value))
           .toList(),
       tags: model.tags
-          ?.map<_i39.TagDto>((value) => _map__i4$TagDto_To__i39$TagDto(value))
+          ?.map<_i42.TagDto>((value) => _map__i4$TagDto_To__i42$TagDto(value))
           .toList(),
       files: model.files
-          ?.map<_i34.MangaFileDto>(
-              (value) => _map__i4$MangaFileDto_To__i34$MangaFileDto(value))
+          ?.map<_i37.MangaFileDto>(
+              (value) => _map__i4$MangaFileDto_To__i37$MangaFileDto(value))
           .toList(),
       chapters: model.chapters
           ?.map<_i24.ChapterDto>(
               (value) => _map__i4$ChapterDto_To__i24$ChapterDto(value))
           .toList(),
       bookmarks: model.bookmarks
-          ?.map<_i40.BookmarkSearchResultDto>((value) =>
-              _map__i4$BookmarkSearchResultDto_To__i40$BookmarkSearchResultDto(
+          ?.map<_i43.BookmarkSearchResultDto>((value) =>
+              _map__i4$BookmarkSearchResultDto_To__i43$BookmarkSearchResultDto(
                   value))
           .toList(),
     );
@@ -4098,7 +4407,7 @@ class $Mappr implements _i1.AutoMapprInterface {
           .toList(),
       series: model.series
           ?.map<_i4.SearchResultDto>((value) =>
-              _map__i35$SearchResultDto_To__i4$SearchResultDto(value))
+              _map__i38$SearchResultDto_To__i4$SearchResultDto(value))
           .toList(),
       collections: model.collections
           ?.map<_i4.CollectionTagDto>((value) =>
@@ -4106,22 +4415,22 @@ class $Mappr implements _i1.AutoMapprInterface {
           .toList(),
       readingLists: model.readingLists
           ?.map<_i4.ReadingListDto>(
-              (value) => _map__i36$ReadingListDto_To__i4$ReadingListDto(value))
+              (value) => _map__i39$ReadingListDto_To__i4$ReadingListDto(value))
           .toList(),
       persons: model.persons
           ?.map<_i4.PersonDto>(
-              (value) => _map__i38$PersonDto_To__i4$PersonDto(value))
+              (value) => _map__i41$PersonDto_To__i4$PersonDto(value))
           .toList(),
       genres: model.genres
           ?.map<_i4.GenreTagDto>(
-              (value) => _map__i37$GenreTagDto_To__i4$GenreTagDto(value))
+              (value) => _map__i40$GenreTagDto_To__i4$GenreTagDto(value))
           .toList(),
       tags: model.tags
-          ?.map<_i4.TagDto>((value) => _map__i39$TagDto_To__i4$TagDto(value))
+          ?.map<_i4.TagDto>((value) => _map__i42$TagDto_To__i4$TagDto(value))
           .toList(),
       files: model.files
           ?.map<_i4.MangaFileDto>(
-              (value) => _map__i34$MangaFileDto_To__i4$MangaFileDto(value))
+              (value) => _map__i37$MangaFileDto_To__i4$MangaFileDto(value))
           .toList(),
       chapters: model.chapters
           ?.map<_i4.ChapterDto>(
@@ -4129,13 +4438,13 @@ class $Mappr implements _i1.AutoMapprInterface {
           .toList(),
       bookmarks: model.bookmarks
           ?.map<_i4.BookmarkSearchResultDto>((value) =>
-              _map__i40$BookmarkSearchResultDto_To__i4$BookmarkSearchResultDto(
+              _map__i43$BookmarkSearchResultDto_To__i4$BookmarkSearchResultDto(
                   value))
           .toList(),
     );
   }
 
-  _i35.SearchResultDto _map__i4$SearchResultDto_To__i35$SearchResultDto(
+  _i38.SearchResultDto _map__i4$SearchResultDto_To__i38$SearchResultDto(
       _i4.SearchResultDto? input) {
     final model = input;
     if (model == null) {
@@ -4143,26 +4452,26 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping SearchResultDto → SearchResultDto failed because SearchResultDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<SearchResultDto, SearchResultDto> to handle null values during mapping.');
     }
-    return _i35.SearchResultDto(
+    return _i38.SearchResultDto(
       seriesId: model.seriesId == null
           ? null
-          : (_i54.MangaFormat(model.seriesId!) as int?),
+          : (_i57.MangaFormat(model.seriesId!) as int?),
       name: model.name,
       originalName: model.originalName,
       sortName: model.sortName,
       localizedName: model.localizedName,
       format: model.format == null
           ? null
-          : (_i54.MangaFormat(model.format!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.format!) as _i57.MangaFormat?),
       libraryName: model.libraryName,
       libraryId: model.libraryId == null
           ? null
-          : (_i54.MangaFormat(model.libraryId!) as int?),
+          : (_i57.MangaFormat(model.libraryId!) as int?),
     );
   }
 
-  _i4.SearchResultDto _map__i35$SearchResultDto_To__i4$SearchResultDto(
-      _i35.SearchResultDto? input) {
+  _i4.SearchResultDto _map__i38$SearchResultDto_To__i4$SearchResultDto(
+      _i38.SearchResultDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -4181,7 +4490,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i36.ReadingListDto _map__i4$ReadingListDto_To__i36$ReadingListDto(
+  _i39.ReadingListDto _map__i4$ReadingListDto_To__i39$ReadingListDto(
       _i4.ReadingListDto? input) {
     final model = input;
     if (model == null) {
@@ -4189,7 +4498,7 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping ReadingListDto → ReadingListDto failed because ReadingListDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<ReadingListDto, ReadingListDto> to handle null values during mapping.');
     }
-    return _i36.ReadingListDto(
+    return _i39.ReadingListDto(
       id: model.id,
       title: model.title,
       summary: model.summary,
@@ -4203,8 +4512,8 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i4.ReadingListDto _map__i36$ReadingListDto_To__i4$ReadingListDto(
-      _i36.ReadingListDto? input) {
+  _i4.ReadingListDto _map__i39$ReadingListDto_To__i4$ReadingListDto(
+      _i39.ReadingListDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -4225,7 +4534,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i37.GenreTagDto _map__i4$GenreTagDto_To__i37$GenreTagDto(
+  _i40.GenreTagDto _map__i4$GenreTagDto_To__i40$GenreTagDto(
       _i4.GenreTagDto? input) {
     final model = input;
     if (model == null) {
@@ -4233,14 +4542,14 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping GenreTagDto → GenreTagDto failed because GenreTagDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<GenreTagDto, GenreTagDto> to handle null values during mapping.');
     }
-    return _i37.GenreTagDto(
+    return _i40.GenreTagDto(
       id: model.id,
       title: model.title,
     );
   }
 
-  _i4.GenreTagDto _map__i37$GenreTagDto_To__i4$GenreTagDto(
-      _i37.GenreTagDto? input) {
+  _i4.GenreTagDto _map__i40$GenreTagDto_To__i4$GenreTagDto(
+      _i40.GenreTagDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -4253,23 +4562,23 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i38.PersonDto _map__i4$PersonDto_To__i38$PersonDto(_i4.PersonDto? input) {
+  _i41.PersonDto _map__i4$PersonDto_To__i41$PersonDto(_i4.PersonDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping PersonDto → PersonDto failed because PersonDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<PersonDto, PersonDto> to handle null values during mapping.');
     }
-    return _i38.PersonDto(
-      id: model.id == null ? null : (_i57.PersonRole(model.id!) as int?),
+    return _i41.PersonDto(
+      id: model.id == null ? null : (_i60.PersonRole(model.id!) as int?),
       name: model.name,
       role: model.role == null
           ? null
-          : (_i57.PersonRole(model.role!) as _i57.PersonRole?),
+          : (_i60.PersonRole(model.role!) as _i60.PersonRole?),
     );
   }
 
-  _i4.PersonDto _map__i38$PersonDto_To__i4$PersonDto(_i38.PersonDto? input) {
+  _i4.PersonDto _map__i41$PersonDto_To__i4$PersonDto(_i41.PersonDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -4283,20 +4592,20 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i39.TagDto _map__i4$TagDto_To__i39$TagDto(_i4.TagDto? input) {
+  _i42.TagDto _map__i4$TagDto_To__i42$TagDto(_i4.TagDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
           r'Mapping TagDto → TagDto failed because TagDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<TagDto, TagDto> to handle null values during mapping.');
     }
-    return _i39.TagDto(
+    return _i42.TagDto(
       id: model.id,
       title: model.title,
     );
   }
 
-  _i4.TagDto _map__i39$TagDto_To__i4$TagDto(_i39.TagDto? input) {
+  _i4.TagDto _map__i42$TagDto_To__i4$TagDto(_i42.TagDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -4309,8 +4618,8 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i40.BookmarkSearchResultDto
-      _map__i4$BookmarkSearchResultDto_To__i40$BookmarkSearchResultDto(
+  _i43.BookmarkSearchResultDto
+      _map__i4$BookmarkSearchResultDto_To__i43$BookmarkSearchResultDto(
           _i4.BookmarkSearchResultDto? input) {
     final model = input;
     if (model == null) {
@@ -4318,7 +4627,7 @@ class $Mappr implements _i1.AutoMapprInterface {
           r'Mapping BookmarkSearchResultDto → BookmarkSearchResultDto failed because BookmarkSearchResultDto was null, and no default value was provided. '
           r'Consider setting the whenSourceIsNull parameter on the MapType<BookmarkSearchResultDto, BookmarkSearchResultDto> to handle null values during mapping.');
     }
-    return _i40.BookmarkSearchResultDto(
+    return _i43.BookmarkSearchResultDto(
       libraryId: model.libraryId,
       volumeId: model.volumeId,
       seriesId: model.seriesId,
@@ -4329,8 +4638,8 @@ class $Mappr implements _i1.AutoMapprInterface {
   }
 
   _i4.BookmarkSearchResultDto
-      _map__i40$BookmarkSearchResultDto_To__i4$BookmarkSearchResultDto(
-          _i40.BookmarkSearchResultDto? input) {
+      _map__i43$BookmarkSearchResultDto_To__i4$BookmarkSearchResultDto(
+          _i43.BookmarkSearchResultDto? input) {
     final model = input;
     if (model == null) {
       throw Exception(
@@ -4359,21 +4668,21 @@ class $Mappr implements _i1.AutoMapprInterface {
       bookTitle: model.bookTitle,
       seriesId: model.seriesId == null
           ? null
-          : (_i54.MangaFormat(model.seriesId!) as int?),
+          : (_i57.MangaFormat(model.seriesId!) as int?),
       volumeId: model.volumeId == null
           ? null
-          : (_i54.MangaFormat(model.volumeId!) as int?),
+          : (_i57.MangaFormat(model.volumeId!) as int?),
       seriesFormat: model.seriesFormat == null
           ? null
-          : (_i54.MangaFormat(model.seriesFormat!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.seriesFormat!) as _i57.MangaFormat?),
       seriesName: model.seriesName,
       chapterNumber: model.chapterNumber,
       volumeNumber: model.volumeNumber,
       libraryId: model.libraryId == null
           ? null
-          : (_i54.MangaFormat(model.libraryId!) as int?),
+          : (_i57.MangaFormat(model.libraryId!) as int?),
       pages:
-          model.pages == null ? null : (_i54.MangaFormat(model.pages!) as int?),
+          model.pages == null ? null : (_i57.MangaFormat(model.pages!) as int?),
       isSpecial: model.isSpecial,
       chapterTitle: model.chapterTitle,
     );
@@ -4440,6 +4749,151 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
+  _i32.DashboardStreamDto
+      _map__i4$DashboardStreamDto_To__i32$DashboardStreamDto(
+          _i4.DashboardStreamDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping DashboardStreamDto → DashboardStreamDto failed because DashboardStreamDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<DashboardStreamDto, DashboardStreamDto> to handle null values during mapping.');
+    }
+    return _i32.DashboardStreamDto(
+      id: model.id == null
+          ? null
+          : (_i61.DashboardStreamType(model.id!) as int?),
+      name: model.name,
+      isProvided: model.isProvided,
+      order: model.order == null
+          ? null
+          : (_i61.DashboardStreamType(model.order!) as int?),
+      smartFilterEncoded: model.smartFilterEncoded,
+      smartFilterId: model.smartFilterId == null
+          ? null
+          : (_i61.DashboardStreamType(model.smartFilterId!) as int?),
+      streamType: model.streamType == null
+          ? null
+          : (_i61.DashboardStreamType(model.streamType!)
+              as _i61.DashboardStreamType?),
+      visible: model.visible,
+    );
+  }
+
+  _i4.DashboardStreamDto _map__i32$DashboardStreamDto_To__i4$DashboardStreamDto(
+      _i32.DashboardStreamDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping DashboardStreamDto → DashboardStreamDto failed because DashboardStreamDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<DashboardStreamDto, DashboardStreamDto> to handle null values during mapping.');
+    }
+    return _i4.DashboardStreamDto(
+      id: model.id,
+      name: model.name,
+      isProvided: model.isProvided,
+      order: model.order,
+      smartFilterEncoded: model.smartFilterEncoded,
+      smartFilterId: model.smartFilterId,
+      streamType: model.streamType,
+      visible: model.visible,
+    );
+  }
+
+  _i33.SideNavStreamDto _map__i4$SideNavStreamDto_To__i33$SideNavStreamDto(
+      _i4.SideNavStreamDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping SideNavStreamDto → SideNavStreamDto failed because SideNavStreamDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<SideNavStreamDto, SideNavStreamDto> to handle null values during mapping.');
+    }
+    return _i33.SideNavStreamDto(
+      id: model.id == null ? null : (_i62.SideNavStreamType(model.id!) as int?),
+      name: model.name,
+      isProvided: model.isProvided,
+      order: model.order == null
+          ? null
+          : (_i62.SideNavStreamType(model.order!) as int?),
+      smartFilterEncoded: model.smartFilterEncoded,
+      smartFilterId: model.smartFilterId == null
+          ? null
+          : (_i62.SideNavStreamType(model.smartFilterId!) as int?),
+      externalSourceId: model.externalSourceId == null
+          ? null
+          : (_i62.SideNavStreamType(model.externalSourceId!) as int?),
+      externalSource:
+          _map__i4$ExternalSourceDto_To__i34$ExternalSourceDto_Nullable(
+              model.externalSource),
+      streamType: model.streamType == null
+          ? null
+          : (_i62.SideNavStreamType(model.streamType!) as int?),
+      visible: model.visible,
+      libraryId: model.libraryId == null
+          ? null
+          : (_i62.SideNavStreamType(model.libraryId!)
+              as _i62.SideNavStreamType?),
+      $library: _map__i4$LibraryDto_To__i27$LibraryDto_Nullable(model.$library),
+    );
+  }
+
+  _i4.SideNavStreamDto _map__i33$SideNavStreamDto_To__i4$SideNavStreamDto(
+      _i33.SideNavStreamDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping SideNavStreamDto → SideNavStreamDto failed because SideNavStreamDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<SideNavStreamDto, SideNavStreamDto> to handle null values during mapping.');
+    }
+    return _i4.SideNavStreamDto(
+      id: model.id,
+      name: model.name,
+      isProvided: model.isProvided,
+      order: model.order,
+      smartFilterEncoded: model.smartFilterEncoded,
+      smartFilterId: model.smartFilterId,
+      externalSourceId: model.externalSourceId,
+      externalSource:
+          _map__i34$ExternalSourceDto_To__i4$ExternalSourceDto_Nullable(
+              model.externalSource),
+      streamType: model.streamType,
+      visible: model.visible,
+      libraryId: model.libraryId,
+      $library: _map__i27$LibraryDto_To__i4$LibraryDto_Nullable(model.$library),
+    );
+  }
+
+  _i34.ExternalSourceDto _map__i4$ExternalSourceDto_To__i34$ExternalSourceDto(
+      _i4.ExternalSourceDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping ExternalSourceDto → ExternalSourceDto failed because ExternalSourceDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<ExternalSourceDto, ExternalSourceDto> to handle null values during mapping.');
+    }
+    return _i34.ExternalSourceDto(
+      id: model.id,
+      name: model.name,
+      host: model.host,
+      apiKey: model.apiKey,
+    );
+  }
+
+  _i4.ExternalSourceDto _map__i34$ExternalSourceDto_To__i4$ExternalSourceDto(
+      _i34.ExternalSourceDto? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping ExternalSourceDto → ExternalSourceDto failed because ExternalSourceDto was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<ExternalSourceDto, ExternalSourceDto> to handle null values during mapping.');
+    }
+    return _i4.ExternalSourceDto(
+      id: model.id,
+      name: model.name,
+      host: model.host,
+      apiKey: model.apiKey,
+    );
+  }
+
   _i5.UserDto? _map__i4$UserDto_To__i5$UserDto_Nullable(_i4.UserDto? input) {
     final model = input;
     if (model == null) {
@@ -4471,7 +4925,7 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i6.AgeRestrictionDto(
       ageRating: model.ageRating == null
           ? null
-          : (_i46.AgeRating(model.ageRating!) as _i46.AgeRating?),
+          : (_i49.AgeRating(model.ageRating!) as _i49.AgeRating?),
       includeUnknowns: model.includeUnknowns,
     );
   }
@@ -4497,39 +4951,39 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i7.UserPreferencesDto(
-      readingDirection: (_i47.ReadingDirection(model.readingDirection)
-          as _i47.ReadingDirection),
+      readingDirection: (_i50.ReadingDirection(model.readingDirection)
+          as _i50.ReadingDirection),
       scalingOption:
-          (_i47.ReadingDirection(model.scalingOption) as _i48.ScalingOption),
-      pageSplitOption: (_i47.ReadingDirection(model.pageSplitOption)
-          as _i42.PageSplitOption),
-      readerMode: (_i47.ReadingDirection(model.readerMode) as _i41.ReaderMode),
-      layoutMode: (_i47.ReadingDirection(model.layoutMode) as _i43.LayoutMode),
+          (_i50.ReadingDirection(model.scalingOption) as _i51.ScalingOption),
+      pageSplitOption: (_i50.ReadingDirection(model.pageSplitOption)
+          as _i45.PageSplitOption),
+      readerMode: (_i50.ReadingDirection(model.readerMode) as _i44.ReaderMode),
+      layoutMode: (_i50.ReadingDirection(model.layoutMode) as _i46.LayoutMode),
       emulateBook: model.emulateBook,
       backgroundColor: model.backgroundColor,
       swipeToPaginate: model.swipeToPaginate,
       autoCloseMenu: model.autoCloseMenu,
       showScreenHints: model.showScreenHints,
-      bookReaderMargin: (_i47.ReadingDirection(model.bookReaderMargin) as int),
+      bookReaderMargin: (_i50.ReadingDirection(model.bookReaderMargin) as int),
       bookReaderLineSpacing:
-          (_i47.ReadingDirection(model.bookReaderLineSpacing) as int),
+          (_i50.ReadingDirection(model.bookReaderLineSpacing) as int),
       bookReaderFontSize:
-          (_i47.ReadingDirection(model.bookReaderFontSize) as int),
+          (_i50.ReadingDirection(model.bookReaderFontSize) as int),
       bookReaderFontFamily: model.bookReaderFontFamily,
       bookReaderTapToPaginate: model.bookReaderTapToPaginate,
       bookReaderReadingDirection:
-          (_i47.ReadingDirection(model.bookReaderReadingDirection)
-              as _i47.ReadingDirection),
+          (_i50.ReadingDirection(model.bookReaderReadingDirection)
+              as _i50.ReadingDirection),
       bookReaderWritingStyle:
-          (_i47.ReadingDirection(model.bookReaderWritingStyle)
-              as _i49.WritingStyle),
+          (_i50.ReadingDirection(model.bookReaderWritingStyle)
+              as _i52.WritingStyle),
       theme: _map__i4$SiteTheme_To__i8$SiteTheme(model.theme),
       bookReaderThemeName: model.bookReaderThemeName,
-      bookReaderLayoutMode: (_i47.ReadingDirection(model.bookReaderLayoutMode)
-          as _i50.BookPageLayoutMode),
+      bookReaderLayoutMode: (_i50.ReadingDirection(model.bookReaderLayoutMode)
+          as _i53.BookPageLayoutMode),
       bookReaderImmersiveMode: model.bookReaderImmersiveMode,
-      globalPageLayoutMode: (_i47.ReadingDirection(model.globalPageLayoutMode)
-          as _i51.PageLayoutMode),
+      globalPageLayoutMode: (_i50.ReadingDirection(model.globalPageLayoutMode)
+          as _i54.PageLayoutMode),
       blurUnreadSummaries: model.blurUnreadSummaries,
       promptForDownloadSize: model.promptForDownloadSize,
       noTransitions: model.noTransitions,
@@ -4585,14 +5039,14 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i8.SiteTheme(
-      id: model.id == null ? null : (_i52.ThemeProvider(model.id!) as int?),
+      id: model.id == null ? null : (_i55.ThemeProvider(model.id!) as int?),
       name: model.name,
       normalizedName: model.normalizedName,
       fileName: model.fileName,
       isDefault: model.isDefault,
       provider: model.provider == null
           ? null
-          : (_i52.ThemeProvider(model.provider!) as _i52.ThemeProvider?),
+          : (_i55.ThemeProvider(model.provider!) as _i55.ThemeProvider?),
       created: model.created,
       lastModified: model.lastModified,
       createdUtc: model.createdUtc,
@@ -4707,58 +5161,58 @@ class $Mappr implements _i1.AutoMapprInterface {
       kavitaVersion: model.kavitaVersion,
       numOfCores: model.numOfCores == null
           ? null
-          : (_i41.ReaderMode(model.numOfCores!) as int?),
+          : (_i44.ReaderMode(model.numOfCores!) as int?),
       numberOfLibraries: model.numberOfLibraries == null
           ? null
-          : (_i41.ReaderMode(model.numberOfLibraries!) as int?),
+          : (_i44.ReaderMode(model.numberOfLibraries!) as int?),
       hasBookmarks: model.hasBookmarks,
       activeSiteTheme: model.activeSiteTheme,
       mangaReaderMode: model.mangaReaderMode == null
           ? null
-          : (_i41.ReaderMode(model.mangaReaderMode!) as _i41.ReaderMode?),
+          : (_i44.ReaderMode(model.mangaReaderMode!) as _i44.ReaderMode?),
       numberOfUsers: model.numberOfUsers == null
           ? null
-          : (_i41.ReaderMode(model.numberOfUsers!) as int?),
+          : (_i44.ReaderMode(model.numberOfUsers!) as int?),
       numberOfCollections: model.numberOfCollections == null
           ? null
-          : (_i41.ReaderMode(model.numberOfCollections!) as int?),
+          : (_i44.ReaderMode(model.numberOfCollections!) as int?),
       numberOfReadingLists: model.numberOfReadingLists == null
           ? null
-          : (_i41.ReaderMode(model.numberOfReadingLists!) as int?),
+          : (_i44.ReaderMode(model.numberOfReadingLists!) as int?),
       opdsEnabled: model.opdsEnabled,
       totalFiles: model.totalFiles == null
           ? null
-          : (_i41.ReaderMode(model.totalFiles!) as int?),
+          : (_i44.ReaderMode(model.totalFiles!) as int?),
       totalGenres: model.totalGenres == null
           ? null
-          : (_i41.ReaderMode(model.totalGenres!) as int?),
+          : (_i44.ReaderMode(model.totalGenres!) as int?),
       totalPeople: model.totalPeople == null
           ? null
-          : (_i41.ReaderMode(model.totalPeople!) as int?),
+          : (_i44.ReaderMode(model.totalPeople!) as int?),
       usersOnCardLayout: model.usersOnCardLayout == null
           ? null
-          : (_i41.ReaderMode(model.usersOnCardLayout!) as int?),
+          : (_i44.ReaderMode(model.usersOnCardLayout!) as int?),
       usersOnListLayout: model.usersOnListLayout == null
           ? null
-          : (_i41.ReaderMode(model.usersOnListLayout!) as int?),
+          : (_i44.ReaderMode(model.usersOnListLayout!) as int?),
       maxSeriesInALibrary: model.maxSeriesInALibrary == null
           ? null
-          : (_i41.ReaderMode(model.maxSeriesInALibrary!) as int?),
+          : (_i44.ReaderMode(model.maxSeriesInALibrary!) as int?),
       maxVolumesInASeries: model.maxVolumesInASeries == null
           ? null
-          : (_i41.ReaderMode(model.maxVolumesInASeries!) as int?),
+          : (_i44.ReaderMode(model.maxVolumesInASeries!) as int?),
       maxChaptersInASeries: model.maxChaptersInASeries == null
           ? null
-          : (_i41.ReaderMode(model.maxChaptersInASeries!) as int?),
+          : (_i44.ReaderMode(model.maxChaptersInASeries!) as int?),
       usingSeriesRelationships: model.usingSeriesRelationships,
       mangaReaderBackgroundColors: model.mangaReaderBackgroundColors,
       mangaReaderPageSplittingModes: model.mangaReaderPageSplittingModes
-          ?.map<_i42.PageSplitOption>(
-              (value) => (_i41.ReaderMode(value) as _i42.PageSplitOption))
+          ?.map<_i45.PageSplitOption>(
+              (value) => (_i44.ReaderMode(value) as _i45.PageSplitOption))
           .toList(),
       mangaReaderLayoutModes: model.mangaReaderLayoutModes
-          ?.map<_i43.LayoutMode>(
-              (value) => (_i41.ReaderMode(value) as _i43.LayoutMode))
+          ?.map<_i46.LayoutMode>(
+              (value) => (_i44.ReaderMode(value) as _i46.LayoutMode))
           .toList(),
       fileFormats: model.fileFormats
           ?.map<_i15.FileFormatDto>(
@@ -4767,7 +5221,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       usingRestrictedProfiles: model.usingRestrictedProfiles,
       usersWithEmulateComicBook: model.usersWithEmulateComicBook == null
           ? null
-          : (_i41.ReaderMode(model.usersWithEmulateComicBook!) as int?),
+          : (_i44.ReaderMode(model.usersWithEmulateComicBook!) as int?),
       percentOfLibrariesWithFolderWatchingEnabled:
           model.percentOfLibrariesWithFolderWatchingEnabled,
       percentOfLibrariesIncludedInSearch:
@@ -4778,10 +5232,10 @@ class $Mappr implements _i1.AutoMapprInterface {
           model.percentOfLibrariesIncludedInDashboard,
       totalReadingHours: model.totalReadingHours == null
           ? null
-          : (_i41.ReaderMode(model.totalReadingHours!) as int?),
+          : (_i44.ReaderMode(model.totalReadingHours!) as int?),
       encodeMediaAs: model.encodeMediaAs == null
           ? null
-          : (_i41.ReaderMode(model.encodeMediaAs!) as _i53.EncodeFormat?),
+          : (_i44.ReaderMode(model.encodeMediaAs!) as _i56.EncodeFormat?),
       lastReadTime: model.lastReadTime,
     );
   }
@@ -4796,7 +5250,7 @@ class $Mappr implements _i1.AutoMapprInterface {
       extension: model.extension,
       format: model.format == null
           ? null
-          : (_i54.MangaFormat(model.format!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.format!) as _i57.MangaFormat?),
     );
   }
 
@@ -4807,12 +5261,12 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i16.DeviceDto(
-      id: model.id == null ? null : (_i55.DevicePlatform(model.id!) as int?),
+      id: model.id == null ? null : (_i58.DevicePlatform(model.id!) as int?),
       name: model.name,
       emailAddress: model.emailAddress,
       platform: model.platform == null
           ? null
-          : (_i55.DevicePlatform(model.platform!) as _i55.DevicePlatform?),
+          : (_i58.DevicePlatform(model.platform!) as _i58.DevicePlatform?),
     );
   }
 
@@ -4823,44 +5277,44 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i29.SeriesDto(
-      id: model.id == null ? null : (_i54.MangaFormat(model.id!) as int?),
+      id: model.id == null ? null : (_i57.MangaFormat(model.id!) as int?),
       name: model.name,
       originalName: model.originalName,
       localizedName: model.localizedName,
       sortName: model.sortName,
       pages:
-          model.pages == null ? null : (_i54.MangaFormat(model.pages!) as int?),
+          model.pages == null ? null : (_i57.MangaFormat(model.pages!) as int?),
       coverImageLocked: model.coverImageLocked,
       pagesRead: model.pagesRead == null
           ? null
-          : (_i54.MangaFormat(model.pagesRead!) as int?),
+          : (_i57.MangaFormat(model.pagesRead!) as int?),
       latestReadDate: model.latestReadDate,
       lastChapterAdded: model.lastChapterAdded,
       userRating: model.userRating,
       hasUserRated: model.hasUserRated,
       format: model.format == null
           ? null
-          : (_i54.MangaFormat(model.format!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.format!) as _i57.MangaFormat?),
       created: model.created,
       nameLocked: model.nameLocked,
       sortNameLocked: model.sortNameLocked,
       localizedNameLocked: model.localizedNameLocked,
       wordCount: model.wordCount == null
           ? null
-          : (_i54.MangaFormat(model.wordCount!) as int?),
+          : (_i57.MangaFormat(model.wordCount!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i54.MangaFormat(model.libraryId!) as int?),
+          : (_i57.MangaFormat(model.libraryId!) as int?),
       libraryName: model.libraryName,
       minHoursToRead: model.minHoursToRead == null
           ? null
-          : (_i54.MangaFormat(model.minHoursToRead!) as int?),
+          : (_i57.MangaFormat(model.minHoursToRead!) as int?),
       maxHoursToRead: model.maxHoursToRead == null
           ? null
-          : (_i54.MangaFormat(model.maxHoursToRead!) as int?),
+          : (_i57.MangaFormat(model.maxHoursToRead!) as int?),
       avgHoursToRead: model.avgHoursToRead == null
           ? null
-          : (_i54.MangaFormat(model.avgHoursToRead!) as int?),
+          : (_i57.MangaFormat(model.avgHoursToRead!) as int?),
       folderPath: model.folderPath,
       lastFolderScanned: model.lastFolderScanned,
     );
@@ -4901,22 +5355,22 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
-  _i33.SortOptions? _map__i4$SortOptions_To__i33$SortOptions_Nullable(
+  _i36.SortOptions? _map__i4$SortOptions_To__i36$SortOptions_Nullable(
       _i4.SortOptions? input) {
     final model = input;
     if (model == null) {
       return null;
     }
-    return _i33.SortOptions(
+    return _i36.SortOptions(
       sortField: model.sortField == null
           ? null
-          : (_i33.SortField(model.sortField!) as _i33.SortField?),
+          : (_i36.SortField(model.sortField!) as _i36.SortField?),
       isAscending: model.isAscending,
     );
   }
 
-  _i4.SortOptions? _map__i33$SortOptions_To__i4$SortOptions_Nullable(
-      _i33.SortOptions? input) {
+  _i4.SortOptions? _map__i36$SortOptions_To__i4$SortOptions_Nullable(
+      _i36.SortOptions? input) {
     final model = input;
     if (model == null) {
       return null;
@@ -4937,15 +5391,15 @@ class $Mappr implements _i1.AutoMapprInterface {
       id: model.id == null ? null : (_i19.FilterCombination(model.id!) as int?),
       name: model.name,
       statements: model.statements
-          ?.map<_i32.FilterStatementDto>((value) =>
-              _map__i4$FilterStatementDto_To__i32$FilterStatementDto(value))
+          ?.map<_i35.FilterStatementDto>((value) =>
+              _map__i4$FilterStatementDto_To__i35$FilterStatementDto(value))
           .toList(),
       combination: model.combination == null
           ? null
           : (_i19.FilterCombination(model.combination!)
               as _i19.FilterCombination?),
       sortOptions:
-          _map__i4$SortOptions_To__i33$SortOptions_Nullable(model.sortOptions),
+          _map__i4$SortOptions_To__i36$SortOptions_Nullable(model.sortOptions),
       limitTo: model.limitTo == null
           ? null
           : (_i19.FilterCombination(model.limitTo!) as int?),
@@ -4961,13 +5415,13 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i21.RatingDto(
       averageScore: model.averageScore == null
           ? null
-          : (_i56.ScrobbleProvider(model.averageScore!) as int?),
+          : (_i59.ScrobbleProvider(model.averageScore!) as int?),
       favoriteCount: model.favoriteCount == null
           ? null
-          : (_i56.ScrobbleProvider(model.favoriteCount!) as int?),
+          : (_i59.ScrobbleProvider(model.favoriteCount!) as int?),
       provider: model.provider == null
           ? null
-          : (_i56.ScrobbleProvider(model.provider!) as _i56.ScrobbleProvider?),
+          : (_i59.ScrobbleProvider(model.provider!) as _i59.ScrobbleProvider?),
       providerUrl: model.providerUrl,
     );
   }
@@ -5000,33 +5454,33 @@ class $Mappr implements _i1.AutoMapprInterface {
       volumeNumber: model.volumeNumber,
       volumeId: model.volumeId == null
           ? null
-          : (_i44.LibraryType(model.volumeId!) as int?),
+          : (_i47.LibraryType(model.volumeId!) as int?),
       seriesName: model.seriesName,
       seriesFormat: model.seriesFormat == null
           ? null
-          : (_i44.LibraryType(model.seriesFormat!) as _i54.MangaFormat?),
+          : (_i47.LibraryType(model.seriesFormat!) as _i57.MangaFormat?),
       seriesId: model.seriesId == null
           ? null
-          : (_i44.LibraryType(model.seriesId!) as int?),
+          : (_i47.LibraryType(model.seriesId!) as int?),
       libraryId: model.libraryId == null
           ? null
-          : (_i44.LibraryType(model.libraryId!) as int?),
+          : (_i47.LibraryType(model.libraryId!) as int?),
       libraryType: model.libraryType == null
           ? null
-          : (_i44.LibraryType(model.libraryType!) as _i44.LibraryType?),
+          : (_i47.LibraryType(model.libraryType!) as _i47.LibraryType?),
       chapterTitle: model.chapterTitle,
       pages:
-          model.pages == null ? null : (_i44.LibraryType(model.pages!) as int?),
+          model.pages == null ? null : (_i47.LibraryType(model.pages!) as int?),
       fileName: model.fileName,
       isSpecial: model.isSpecial,
       subtitle: model.subtitle,
       title: model.title,
       seriesTotalPages: model.seriesTotalPages == null
           ? null
-          : (_i44.LibraryType(model.seriesTotalPages!) as int?),
+          : (_i47.LibraryType(model.seriesTotalPages!) as int?),
       seriesTotalPagesRead: model.seriesTotalPagesRead == null
           ? null
-          : (_i44.LibraryType(model.seriesTotalPagesRead!) as int?),
+          : (_i47.LibraryType(model.seriesTotalPagesRead!) as int?),
       pageDimensions: model.pageDimensions
           ?.map<_i17.FileDimensionDto>((value) =>
               _map__i4$FileDimensionDto_To__i17$FileDimensionDto(value))
@@ -5064,26 +5518,26 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i24.ChapterDto(
-      id: model.id == null ? null : (_i46.AgeRating(model.id!) as int?),
+      id: model.id == null ? null : (_i49.AgeRating(model.id!) as int?),
       range: model.range,
       number: model.number,
       pages:
-          model.pages == null ? null : (_i46.AgeRating(model.pages!) as int?),
+          model.pages == null ? null : (_i49.AgeRating(model.pages!) as int?),
       isSpecial: model.isSpecial,
       title: model.title,
       files: model.files
-          ?.map<_i34.MangaFileDto>(
-              (value) => _map__i4$MangaFileDto_To__i34$MangaFileDto(value))
+          ?.map<_i37.MangaFileDto>(
+              (value) => _map__i4$MangaFileDto_To__i37$MangaFileDto(value))
           .toList(),
       pagesRead: model.pagesRead == null
           ? null
-          : (_i46.AgeRating(model.pagesRead!) as int?),
+          : (_i49.AgeRating(model.pagesRead!) as int?),
       lastReadingProgressUtc: model.lastReadingProgressUtc,
       lastReadingProgress: model.lastReadingProgress,
       coverImageLocked: model.coverImageLocked,
       volumeId: model.volumeId == null
           ? null
-          : (_i46.AgeRating(model.volumeId!) as int?),
+          : (_i49.AgeRating(model.volumeId!) as int?),
       createdUtc: model.createdUtc,
       lastModifiedUtc: model.lastModifiedUtc,
       created: model.created,
@@ -5092,20 +5546,20 @@ class $Mappr implements _i1.AutoMapprInterface {
       summary: model.summary,
       ageRating: model.ageRating == null
           ? null
-          : (_i46.AgeRating(model.ageRating!) as _i46.AgeRating?),
+          : (_i49.AgeRating(model.ageRating!) as _i49.AgeRating?),
       wordCount: model.wordCount == null
           ? null
-          : (_i46.AgeRating(model.wordCount!) as int?),
+          : (_i49.AgeRating(model.wordCount!) as int?),
       volumeTitle: model.volumeTitle,
       minHoursToRead: model.minHoursToRead == null
           ? null
-          : (_i46.AgeRating(model.minHoursToRead!) as int?),
+          : (_i49.AgeRating(model.minHoursToRead!) as int?),
       maxHoursToRead: model.maxHoursToRead == null
           ? null
-          : (_i46.AgeRating(model.maxHoursToRead!) as int?),
+          : (_i49.AgeRating(model.maxHoursToRead!) as int?),
       avgHoursToRead: model.avgHoursToRead == null
           ? null
-          : (_i46.AgeRating(model.avgHoursToRead!) as int?),
+          : (_i49.AgeRating(model.avgHoursToRead!) as int?),
       webLinks: model.webLinks,
       isbn: model.isbn,
     );
@@ -5132,12 +5586,12 @@ class $Mappr implements _i1.AutoMapprInterface {
       return null;
     }
     return _i27.LibraryDto(
-      id: model.id == null ? null : (_i44.LibraryType(model.id!) as int?),
+      id: model.id == null ? null : (_i47.LibraryType(model.id!) as int?),
       name: model.name,
       lastScanned: model.lastScanned,
       type: model.type == null
           ? null
-          : (_i44.LibraryType(model.type!) as _i44.LibraryType?),
+          : (_i47.LibraryType(model.type!) as _i47.LibraryType?),
       coverImage: model.coverImage,
       folderWatching: model.folderWatching,
       includeInDashboard: model.includeInDashboard,
@@ -5149,9 +5603,35 @@ class $Mappr implements _i1.AutoMapprInterface {
       folders: model.folders,
       collapseSeriesRelationships: model.collapseSeriesRelationships,
       libraryFileTypes: model.libraryFileTypes
-          ?.map<_i45.FileTypeGroup>(
-              (value) => (_i44.LibraryType(value) as _i45.FileTypeGroup))
+          ?.map<_i48.FileTypeGroup>(
+              (value) => (_i47.LibraryType(value) as _i48.FileTypeGroup))
           .toList(),
+      excludePatterns: model.excludePatterns,
+    );
+  }
+
+  _i4.LibraryDto? _map__i27$LibraryDto_To__i4$LibraryDto_Nullable(
+      _i27.LibraryDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i4.LibraryDto(
+      id: model.id,
+      name: model.name,
+      lastScanned: model.lastScanned,
+      type: model.type,
+      coverImage: model.coverImage,
+      folderWatching: model.folderWatching,
+      includeInDashboard: model.includeInDashboard,
+      includeInRecommended: model.includeInRecommended,
+      manageCollections: model.manageCollections,
+      manageReadingLists: model.manageReadingLists,
+      includeInSearch: model.includeInSearch,
+      allowScrobbling: model.allowScrobbling,
+      folders: model.folders,
+      collapseSeriesRelationships: model.collapseSeriesRelationships,
+      libraryFileTypes: model.libraryFileTypes,
       excludePatterns: model.excludePatterns,
     );
   }
@@ -5169,39 +5649,39 @@ class $Mappr implements _i1.AutoMapprInterface {
               (value) => _map__i4$LibraryDto_To__i27$LibraryDto(value))
           .toList(),
       series: model.series
-          ?.map<_i35.SearchResultDto>((value) =>
-              _map__i4$SearchResultDto_To__i35$SearchResultDto(value))
+          ?.map<_i38.SearchResultDto>((value) =>
+              _map__i4$SearchResultDto_To__i38$SearchResultDto(value))
           .toList(),
       collections: model.collections
           ?.map<_i11.CollectionTagDto>((value) =>
               _map__i4$CollectionTagDto_To__i11$CollectionTagDto(value))
           .toList(),
       readingLists: model.readingLists
-          ?.map<_i36.ReadingListDto>(
-              (value) => _map__i4$ReadingListDto_To__i36$ReadingListDto(value))
+          ?.map<_i39.ReadingListDto>(
+              (value) => _map__i4$ReadingListDto_To__i39$ReadingListDto(value))
           .toList(),
       persons: model.persons
-          ?.map<_i38.PersonDto>(
-              (value) => _map__i4$PersonDto_To__i38$PersonDto(value))
+          ?.map<_i41.PersonDto>(
+              (value) => _map__i4$PersonDto_To__i41$PersonDto(value))
           .toList(),
       genres: model.genres
-          ?.map<_i37.GenreTagDto>(
-              (value) => _map__i4$GenreTagDto_To__i37$GenreTagDto(value))
+          ?.map<_i40.GenreTagDto>(
+              (value) => _map__i4$GenreTagDto_To__i40$GenreTagDto(value))
           .toList(),
       tags: model.tags
-          ?.map<_i39.TagDto>((value) => _map__i4$TagDto_To__i39$TagDto(value))
+          ?.map<_i42.TagDto>((value) => _map__i4$TagDto_To__i42$TagDto(value))
           .toList(),
       files: model.files
-          ?.map<_i34.MangaFileDto>(
-              (value) => _map__i4$MangaFileDto_To__i34$MangaFileDto(value))
+          ?.map<_i37.MangaFileDto>(
+              (value) => _map__i4$MangaFileDto_To__i37$MangaFileDto(value))
           .toList(),
       chapters: model.chapters
           ?.map<_i24.ChapterDto>(
               (value) => _map__i4$ChapterDto_To__i24$ChapterDto(value))
           .toList(),
       bookmarks: model.bookmarks
-          ?.map<_i40.BookmarkSearchResultDto>((value) =>
-              _map__i4$BookmarkSearchResultDto_To__i40$BookmarkSearchResultDto(
+          ?.map<_i43.BookmarkSearchResultDto>((value) =>
+              _map__i4$BookmarkSearchResultDto_To__i43$BookmarkSearchResultDto(
                   value))
           .toList(),
     );
@@ -5217,23 +5697,89 @@ class $Mappr implements _i1.AutoMapprInterface {
       bookTitle: model.bookTitle,
       seriesId: model.seriesId == null
           ? null
-          : (_i54.MangaFormat(model.seriesId!) as int?),
+          : (_i57.MangaFormat(model.seriesId!) as int?),
       volumeId: model.volumeId == null
           ? null
-          : (_i54.MangaFormat(model.volumeId!) as int?),
+          : (_i57.MangaFormat(model.volumeId!) as int?),
       seriesFormat: model.seriesFormat == null
           ? null
-          : (_i54.MangaFormat(model.seriesFormat!) as _i54.MangaFormat?),
+          : (_i57.MangaFormat(model.seriesFormat!) as _i57.MangaFormat?),
       seriesName: model.seriesName,
       chapterNumber: model.chapterNumber,
       volumeNumber: model.volumeNumber,
       libraryId: model.libraryId == null
           ? null
-          : (_i54.MangaFormat(model.libraryId!) as int?),
+          : (_i57.MangaFormat(model.libraryId!) as int?),
       pages:
-          model.pages == null ? null : (_i54.MangaFormat(model.pages!) as int?),
+          model.pages == null ? null : (_i57.MangaFormat(model.pages!) as int?),
       isSpecial: model.isSpecial,
       chapterTitle: model.chapterTitle,
+    );
+  }
+
+  _i33.SideNavStreamDto?
+      _map__i4$SideNavStreamDto_To__i33$SideNavStreamDto_Nullable(
+          _i4.SideNavStreamDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i33.SideNavStreamDto(
+      id: model.id == null ? null : (_i62.SideNavStreamType(model.id!) as int?),
+      name: model.name,
+      isProvided: model.isProvided,
+      order: model.order == null
+          ? null
+          : (_i62.SideNavStreamType(model.order!) as int?),
+      smartFilterEncoded: model.smartFilterEncoded,
+      smartFilterId: model.smartFilterId == null
+          ? null
+          : (_i62.SideNavStreamType(model.smartFilterId!) as int?),
+      externalSourceId: model.externalSourceId == null
+          ? null
+          : (_i62.SideNavStreamType(model.externalSourceId!) as int?),
+      externalSource:
+          _map__i4$ExternalSourceDto_To__i34$ExternalSourceDto_Nullable(
+              model.externalSource),
+      streamType: model.streamType == null
+          ? null
+          : (_i62.SideNavStreamType(model.streamType!) as int?),
+      visible: model.visible,
+      libraryId: model.libraryId == null
+          ? null
+          : (_i62.SideNavStreamType(model.libraryId!)
+              as _i62.SideNavStreamType?),
+      $library: _map__i4$LibraryDto_To__i27$LibraryDto_Nullable(model.$library),
+    );
+  }
+
+  _i34.ExternalSourceDto?
+      _map__i4$ExternalSourceDto_To__i34$ExternalSourceDto_Nullable(
+          _i4.ExternalSourceDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i34.ExternalSourceDto(
+      id: model.id,
+      name: model.name,
+      host: model.host,
+      apiKey: model.apiKey,
+    );
+  }
+
+  _i4.ExternalSourceDto?
+      _map__i34$ExternalSourceDto_To__i4$ExternalSourceDto_Nullable(
+          _i34.ExternalSourceDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i4.ExternalSourceDto(
+      id: model.id,
+      name: model.name,
+      host: model.host,
+      apiKey: model.apiKey,
     );
   }
 }

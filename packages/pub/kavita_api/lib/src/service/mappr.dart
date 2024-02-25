@@ -55,6 +55,16 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.BookInfoDto>, KavitaResponse<BookInfoDto>>(),
   MapType<ch.Response<List<raw.BookChapterItem>>,
       KavitaResponse<List<BookChapterItem>>>(),
+  MapType<ch.Response<List<raw.DashboardStreamDto>>,
+      KavitaResponse<List<DashboardStreamDto>>>(),
+  MapType<ch.Response<List<raw.SideNavStreamDto>>,
+      KavitaResponse<List<SideNavStreamDto>>>(),
+  MapType<ch.Response<raw.SideNavStreamDto>,
+      KavitaResponse<SideNavStreamDto>>(),
+  MapType<ch.Response<List<raw.ExternalSourceDto>>,
+      KavitaResponse<List<ExternalSourceDto>>>(),
+  MapType<ch.Response<raw.ExternalSourceDto>,
+      KavitaResponse<ExternalSourceDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -168,6 +178,15 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   ]),
   MapType<BookInfoDto, raw.BookInfoDto>(),
   MapType<raw.BookChapterItem, BookChapterItem>(reverse: true),
+  MapType<raw.DashboardStreamDto, DashboardStreamDto>(converters: [
+    TypeConverter<int, DashboardStreamType>(DashboardStreamType.new),
+  ]),
+  MapType<DashboardStreamDto, raw.DashboardStreamDto>(),
+  MapType<raw.SideNavStreamDto, SideNavStreamDto>(converters: [
+    TypeConverter<int, SideNavStreamType>(SideNavStreamType.new),
+  ]),
+  MapType<SideNavStreamDto, raw.SideNavStreamDto>(),
+  MapType<raw.ExternalSourceDto, ExternalSourceDto>(reverse: true),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
