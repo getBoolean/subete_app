@@ -1263,8 +1263,6 @@ class KavitaApiReader extends KavitaApi {
   KavitaApiReader._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO!: Reader
-
   /// Returns the PDF for the chapterId.
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
