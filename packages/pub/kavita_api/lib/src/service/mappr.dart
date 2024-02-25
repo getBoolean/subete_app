@@ -42,6 +42,11 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.RatingDto>, KavitaResponse<RatingDto>>(),
   MapType<ch.Response<raw.ChapterInfoDto>, KavitaResponse<ChapterInfoDto>>(),
   MapType<ch.Response<raw.BookmarkInfoDto>, KavitaResponse<BookmarkInfoDto>>(),
+  MapType<ch.Response<raw.ChapterDto>, KavitaResponse<ChapterDto>>(),
+  MapType<ch.Response<List<raw.BookmarkDto>>,
+      KavitaResponse<List<BookmarkDto>>>(),
+  MapType<ch.Response<raw.HourEstimateRangeDto>,
+      KavitaResponse<HourEstimateRangeDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -123,6 +128,15 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   ]),
   MapType<ChapterInfoDto, raw.ChapterInfoDto>(),
   MapType<raw.BookmarkInfoDto, BookmarkInfoDto>(reverse: true),
+  MapType<raw.ChapterDto, ChapterDto>(converters: [
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<ChapterDto, raw.ChapterDto>(),
+  MapType<raw.MangaFileDto, MangaFileDto>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<MangaFileDto, raw.MangaFileDto>(),
+  MapType<raw.HourEstimateRangeDto, HourEstimateRangeDto>(reverse: true),
 ])
 class Mappr extends $Mappr {
   const Mappr();

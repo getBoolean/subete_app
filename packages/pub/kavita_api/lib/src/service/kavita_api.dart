@@ -230,7 +230,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Register the first user (admin) on the server. Will not do anything if an admin is already confirmed
@@ -249,7 +249,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -273,7 +273,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -291,7 +291,7 @@ class KavitaApiAccount extends KavitaApi {
         .convert<ch.Response<raw.UserDto>, KavitaResponse<UserDto>>(
           await context.api.apiAccountRefreshAccountGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -314,7 +314,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Get All Roles back. See API.Constants.PolicyConstants
@@ -323,7 +323,7 @@ class KavitaApiAccount extends KavitaApi {
         .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
           await context.api.apiAccountRolesGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Resets the API Key assigned with a user
@@ -332,7 +332,7 @@ class KavitaApiAccount extends KavitaApi {
         .convert<ch.Response<String>, KavitaResponse<String>>(
           await context.api.apiAccountResetApiKeyPost(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Initiates the flow to update a user's email address. If email is not setup,
@@ -352,7 +352,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Update age restriction settings
@@ -369,7 +369,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
 
     await refreshAccount();
     return res;
@@ -398,7 +398,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
 
     await refreshAccount();
     return res;
@@ -416,7 +416,7 @@ class KavitaApiAccount extends KavitaApi {
             withBaseUrl: withBaseUrl,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Invites a user to the server. Will generate a setup link for continuing setup.
@@ -441,7 +441,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Last step in authentication flow, confirms the email token for email
@@ -462,7 +462,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -486,7 +486,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Will send user a link to update their password to their email or prompt them if not accessible
@@ -499,7 +499,7 @@ class KavitaApiAccount extends KavitaApi {
             email: email,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Email is confirmed
@@ -508,7 +508,7 @@ class KavitaApiAccount extends KavitaApi {
         .convert<ch.Response<bool>, KavitaResponse<bool>>(
           await context.api.apiAccountEmailConfirmedGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Confirm migration email
@@ -525,7 +525,7 @@ class KavitaApiAccount extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
     if (user.isSuccessful && user.body != null) {
       context.setCurrentUser(user.body!);
     }
@@ -544,7 +544,7 @@ class KavitaApiAccount extends KavitaApi {
             userId: userId,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Returns the OPDS url for this user
@@ -553,7 +553,7 @@ class KavitaApiAccount extends KavitaApi {
         .convert<ch.Response<String>, KavitaResponse<String>>(
           await context.api.apiAccountOpdsUrlGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Is the user's current email valid or not
@@ -562,7 +562,7 @@ class KavitaApiAccount extends KavitaApi {
         .convert<ch.Response<bool>, KavitaResponse<bool>>(
           await context.api.apiAccountIsEmailValidGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 }
 
@@ -595,7 +595,7 @@ class KavitaApiCbl extends KavitaApi {
             fileName: fileName,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Performs the actual import (assuming [dryRun] = false)
@@ -621,7 +621,7 @@ class KavitaApiCbl extends KavitaApi {
             dryRun: dryRun,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 }
 
@@ -638,7 +638,7 @@ class KavitaApiCollection extends KavitaApi {
             KavitaResponse<List<CollectionTagDto>>>(
           await context.api.apiCollectionGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Removes the collection tag from all Series it was attached to
@@ -651,7 +651,7 @@ class KavitaApiCollection extends KavitaApi {
             tagId: id,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Searches against the collection tags on the DB and returns matches
@@ -668,7 +668,7 @@ class KavitaApiCollection extends KavitaApi {
             queryString: queryString,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Checks if a collection exists with the [title]
@@ -681,7 +681,7 @@ class KavitaApiCollection extends KavitaApi {
             name: title,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Updates an existing tag with a new title, promotion status,
@@ -703,7 +703,7 @@ class KavitaApiCollection extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Creates and adds collection tag onto multiple Series.
@@ -732,7 +732,7 @@ class KavitaApiCollection extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// For a given tag, update the summary if summary has changed
@@ -754,7 +754,7 @@ class KavitaApiCollection extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 }
 
@@ -782,7 +782,7 @@ class KavitaApiDevice extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Update a device
@@ -803,7 +803,7 @@ class KavitaApiDevice extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Deletes the device from the user
@@ -816,7 +816,7 @@ class KavitaApiDevice extends KavitaApi {
             deviceId: id,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Returns a list of all devices for the user
@@ -826,7 +826,7 @@ class KavitaApiDevice extends KavitaApi {
             KavitaResponse<List<DeviceDto>>>(
           await context.api.apiDeviceGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Sends a collection of chapters to the user's device
@@ -843,7 +843,7 @@ class KavitaApiDevice extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Sends a series to the user's device
@@ -860,7 +860,7 @@ class KavitaApiDevice extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 }
 
@@ -884,7 +884,7 @@ class KavitaApiDownload extends KavitaApi {
             volumeId: id,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// For a given chapter, return the size in bytes
@@ -897,7 +897,7 @@ class KavitaApiDownload extends KavitaApi {
             chapterId: id,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// For a series, return the size in bytes
@@ -910,7 +910,7 @@ class KavitaApiDownload extends KavitaApi {
             seriesId: id,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Downloads all chapters within a volume.
@@ -925,7 +925,7 @@ class KavitaApiDownload extends KavitaApi {
             volumeId: id,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -954,7 +954,7 @@ class KavitaApiDownload extends KavitaApi {
             seriesId: id,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -972,7 +972,7 @@ class KavitaApiDownload extends KavitaApi {
             ),
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 }
@@ -991,7 +991,7 @@ class KavitaApiFilter extends KavitaApi {
             body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Returns the user's current filter
@@ -1001,7 +1001,7 @@ class KavitaApiFilter extends KavitaApi {
             KavitaResponse<List<SmartFilterDto>>>(
           await context.api.apiFilterGet(),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Deletes the filter
@@ -1010,7 +1010,7 @@ class KavitaApiFilter extends KavitaApi {
         .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
           await context.api.apiFilterDelete(filterId: id),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Encode the filter
@@ -1021,7 +1021,7 @@ class KavitaApiFilter extends KavitaApi {
             body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Decode the filter
@@ -1032,7 +1032,7 @@ class KavitaApiFilter extends KavitaApi {
             body: raw.DecodeFilterDto(encodedFilter: filter),
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 }
 
@@ -1055,7 +1055,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1072,7 +1072,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1089,7 +1089,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1106,7 +1106,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1123,7 +1123,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1140,7 +1140,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1159,7 +1159,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1176,7 +1176,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1193,7 +1193,7 @@ class KavitaApiImage extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 }
@@ -1215,7 +1215,7 @@ class KavitaApiPanels extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Gets the Progress of a given chapter
@@ -1231,7 +1231,7 @@ class KavitaApiPanels extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 }
 
@@ -1251,7 +1251,7 @@ class KavitaApiRating extends KavitaApi {
             seriesId: seriesId,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 }
 
@@ -1278,7 +1278,7 @@ class KavitaApiReader extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1303,7 +1303,7 @@ class KavitaApiReader extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1322,7 +1322,7 @@ class KavitaApiReader extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1342,7 +1342,7 @@ class KavitaApiReader extends KavitaApi {
             apiKey: context.apiKey,
           ),
         )
-        .throwOnErrors
+        .throwOnHttpErrors
         .cast();
   }
 
@@ -1360,7 +1360,7 @@ class KavitaApiReader extends KavitaApi {
             extractPdf: extractPdf,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Returns various information about a Chapter. Side effect: This will cache
@@ -1379,7 +1379,7 @@ class KavitaApiReader extends KavitaApi {
             extractPdf: extractPdf,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
   /// Returns various information about all bookmark files for a Series.
@@ -1396,60 +1396,411 @@ class KavitaApiReader extends KavitaApi {
             includeDimensions: includeDimensions,
           ),
         )
-        .throwOnErrors;
+        .throwOnHttpErrors;
   }
 
-  // mark read
+  /// Marks a Series as read. All volumes and chapters will be marked as read during this process.
+  Future<KavitaResponse<void>> markRead({
+    required int seriesId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkReadPost(
+            body: raw.MarkReadDto(
+              seriesId: seriesId,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // mark unread
+  /// Marks a Series as Unread. All volumes and chapters will be marked as unread during this process.
+  Future<KavitaResponse<void>> markUnread({
+    required int seriesId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkUnreadPost(
+            body: raw.MarkReadDto(
+              seriesId: seriesId,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // mark volume unread
+  /// Marks all chapters within a volume as unread
+  Future<KavitaResponse<void>> markVolumeUnread({
+    required int volumeId,
+    required int seriesId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkVolumeUnreadPost(
+            body: raw.MarkVolumeReadDto(
+              seriesId: seriesId,
+              volumeId: volumeId,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // mark volume read
+  /// Marks all chapters within a volume as Read
+  Future<KavitaResponse<void>> markVolumeRead({
+    required int volumeId,
+    required int seriesId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkVolumeReadPost(
+            body: raw.MarkVolumeReadDto(
+              seriesId: seriesId,
+              volumeId: volumeId,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // mark multiple read
+  /// Marks all chapters within a list of volumes as Read.
+  /// All volumes must belong to the same Series.
+  Future<KavitaResponse<void>> markMultipleRead({
+    required int seriesId,
+    required List<int> volumeIds,
+    List<int>? chapterIds,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkMultipleReadPost(
+            body: raw.MarkVolumesReadDto(
+              seriesId: seriesId,
+              volumeIds: volumeIds,
+              chapterIds: chapterIds,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // mark multiple unread
+  /// Marks all chapters within a list of volumes as Unread.
+  /// All volumes must belong to the same Series.
+  Future<KavitaResponse<void>> markMultipleUnread({
+    required int seriesId,
+    required List<int> volumeIds,
+    List<int>? chapterIds,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkMultipleUnreadPost(
+            body: raw.MarkVolumesReadDto(
+              seriesId: seriesId,
+              volumeIds: volumeIds,
+              chapterIds: chapterIds,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // mark multiple series read
+  /// Marks all chapters within a list of series as Read.
+  Future<KavitaResponse<void>> markMultipleSeriesRead({
+    required List<int> ids,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkMultipleSeriesReadPost(
+            body: raw.MarkMultipleSeriesAsReadDto(
+              seriesIds: ids,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // mark multiple series unread
+  /// Marks all chapters within a list of series as Unread.
+  Future<KavitaResponse<void>> markMultipleSeriesUnread({
+    required List<int> ids,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderMarkMultipleSeriesUnreadPost(
+            body: raw.MarkMultipleSeriesAsReadDto(
+              seriesIds: ids,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // get progress
+  /// Returns Progress (page number) for a chapter for the logged in user
+  Future<KavitaResponse<ProgressDto>> getProgressForChapter({
+    required int chapterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.ProgressDto>, KavitaResponse<ProgressDto>>(
+          await context.api.apiReaderGetProgressGet(
+            chapterId: chapterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // save progress
+  /// Save page against Chapter for logged in user
+  Future<KavitaResponse<void>> saveProgressForChapter(
+    ProgressDto progress,
+  ) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderProgressPost(
+            body: _mappr.convert<ProgressDto, raw.ProgressDto>(progress),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // continue point
+  /// Continue point is the chapter which you should start reading again from.
+  ///
+  /// - If there is no progress on a series, then the first chapter will be
+  /// returned (non-special unless only specials).
+  /// - Otherwise, loop through the chapters and volumes in order to findthe
+  /// next chapter which has progress.
+  Future<KavitaResponse<ChapterDto>> getContinuePointForSeries({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.ChapterDto>, KavitaResponse<ChapterDto>>(
+          await context.api.apiReaderContinuePointGet(
+            seriesId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // has progress
+  /// Returns if the user has reading progress on the Series
+  Future<KavitaResponse<bool>> hasProgressForSeries({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<bool>, KavitaResponse<bool>>(
+          await context.api.apiReaderHasProgressGet(
+            seriesId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // chapter bookmarks
+  /// Returns a list of bookmarked pages for a given Chapter
+  Future<KavitaResponse<List<BookmarkDto>>> getChapterBookmarks({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.BookmarkDto>>,
+            KavitaResponse<List<BookmarkDto>>>(
+          await context.api.apiReaderChapterBookmarksGet(
+            chapterId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // all bookmarks
+  /// Returns a list of all bookmarked pages for a User
+  Future<KavitaResponse<List<BookmarkDto>>> getAllBookmarks({
+    required FilterV2Dto filter,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.BookmarkDto>>,
+            KavitaResponse<List<BookmarkDto>>>(
+          await context.api.apiReaderAllBookmarksPost(
+            body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // remove bookmarks
+  /// Removes all bookmarks for all chapters linked to a Series
+  Future<KavitaResponse<void>> removeBookmarksForSeries({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderRemoveBookmarksPost(
+            body: raw.RemoveBookmarkForSeriesDto(
+              seriesId: id,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // bulk remove bookmarks
+  /// Removes all bookmarks for all chapters linked to a Series
+  Future<KavitaResponse<void>> bulkRemoveBookmarksForSeries({
+    required List<int> ids,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderBulkRemoveBookmarksPost(
+            body: raw.BulkRemoveBookmarkForSeriesDto(
+              seriesIds: ids,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // volume bookmarks
+  /// Returns all bookmarked pages for a given volume
+  Future<KavitaResponse<List<BookmarkDto>>> getVolumeBookmarks({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.BookmarkDto>>,
+            KavitaResponse<List<BookmarkDto>>>(
+          await context.api.apiReaderVolumeBookmarksGet(
+            volumeId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // series bookmarks
+  /// Returns all bookmarked pages for a given series
+  Future<KavitaResponse<List<BookmarkDto>>> getSeriesBookmarks({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.BookmarkDto>>,
+            KavitaResponse<List<BookmarkDto>>>(
+          await context.api.apiReaderSeriesBookmarksGet(
+            seriesId: id,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // bookmark page
+  /// Bookmarks a page against a Chapter
+  Future<KavitaResponse<void>> bookmarkPage(BookmarkDto bookmark) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderBookmarkPost(
+            body: _mappr.convert<BookmarkDto, raw.BookmarkDto>(bookmark),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // unbookmark page
+  /// Removes a bookmarked page for a Chapter
+  Future<KavitaResponse<void>> unbookmarkPage(BookmarkDto bookmark) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderUnbookmarkPost(
+            body: _mappr.convert<BookmarkDto, raw.BookmarkDto>(bookmark),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // next chapter in series
+  /// Returns the next logical chapter from the series.
+  Future<KavitaResponse<int>> getNextChapter({
+    required int seriesId,
+    required int volumeId,
+    required int currentChapterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<int>, KavitaResponse<int>>(
+          await context.api.apiReaderNextChapterGet(
+            seriesId: seriesId,
+            volumeId: volumeId,
+            currentChapterId: currentChapterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // previous chapter in series
+  /// Returns the previous logical chapter from the series.
+  Future<KavitaResponse<int>> getPreviousChapter({
+    required int seriesId,
+    required int volumeId,
+    required int currentChapterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<int>, KavitaResponse<int>>(
+          await context.api.apiReaderPrevChapterGet(
+            seriesId: seriesId,
+            volumeId: volumeId,
+            currentChapterId: currentChapterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // time left
+  /// For the current user, returns an estimate on how long it would take to finish reading the series.
+  Future<KavitaResponse<HourEstimateRangeDto>> getTimeLeft({
+    required int seriesId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.HourEstimateRangeDto>,
+            KavitaResponse<HourEstimateRangeDto>>(
+          await context.api.apiReaderTimeLeftGet(
+            seriesId: seriesId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // ptoc (personal table of contents)
+  /// Returns the user's personal table of contents for the given chapter
+  Future<KavitaResponse<void>> getPersonalTableOfContents({
+    required int chapterId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderPtocGet(
+            chapterId: chapterId,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // delete ptoc (personal table of contents)
+  /// Deletes the user's personal table of contents for the given chapter
+  Future<KavitaResponse<void>> deletePersonalTableOfContents({
+    required int chapterId,
+    required int pageNum,
+    required String title,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderPtocDelete(
+            chapterId: chapterId,
+            pageNum: pageNum,
+            title: title,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // create ptoc (personal table of contents)
+  /// Creates the user's personal table of contents for the given chapter
+  Future<KavitaResponse<void>> createPersonalTableOfContents({
+    required int chapterId,
+    required int volumeId,
+    required int seriesId,
+    required int libraryId,
+    required int pageNumber,
+    String? title,
+    String? bookScrollId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiReaderCreatePtocPost(
+              body: raw.CreatePersonalToCDto(
+            chapterId: chapterId,
+            volumeId: volumeId,
+            seriesId: seriesId,
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            title: title,
+            bookScrollId: bookScrollId,
+          )),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// Responsible for hte Search interface from the UI

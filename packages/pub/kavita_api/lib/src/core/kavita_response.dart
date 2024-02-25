@@ -82,7 +82,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
   }
 
   @internal
-  KavitaResponse<BodyType> get throwOnErrors => _checkResponse(this);
+  KavitaResponse<BodyType> get throwOnHttpErrors => _checkResponse(this);
 
   KavitaResponse<BodyType> _checkResponse(
     KavitaResponse<BodyType> response,
