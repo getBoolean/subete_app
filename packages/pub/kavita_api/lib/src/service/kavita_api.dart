@@ -2036,9 +2036,13 @@ class KavitaApiHealth extends KavitaApi {
   KavitaApiHealth._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO*: Health
-
-  // health get
+  Future<KavitaResponse<void>> getHealth() async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiHealthGet(),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All Library related APIs
