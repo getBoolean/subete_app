@@ -1807,8 +1807,6 @@ class KavitaApiSearch extends KavitaApi {
   KavitaApiSearch._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO!: Search
-
   /// Returns the series for the MangaFile id. If the user does not have access
   /// (shouldn't happen by the UI), then null is returned
   Future<KavitaResponse<SeriesDto>> getSeriesForMangaFile({
