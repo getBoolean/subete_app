@@ -2144,8 +2144,6 @@ class KavitaApiPlugin extends KavitaApi {
   KavitaApiPlugin._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO!: Plugin (Log in with Api Key)
-
   /// Authenticate with the Server given an apiKey. This will log you in by returning the user object and the JWT token
   ///
   /// This API is not fully built out and may require more information in later releases
