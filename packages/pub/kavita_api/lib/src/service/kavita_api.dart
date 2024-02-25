@@ -2104,23 +2104,78 @@ class KavitaApiLibrary extends KavitaApi {
   // type
 }
 
-/// All License related APIs
+/// All License related APIs for Kavita+
 class KavitaApiLicense extends KavitaApi {
   /// All License related APIs
   KavitaApiLicense._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO: License
+  /// Checks if the user's license is valid or not
+  Future<KavitaResponse<bool>> isValidLicense({
+    bool forceCheck = false,
+  }) async {
+    return _mappr
+        .convert<ch.Response<bool>, KavitaResponse<bool>>(
+          await context.api.apiLicenseValidLicenseGet(
+            forceCheck: forceCheck,
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // valid license
+  /// Has any license
+  Future<KavitaResponse<bool>> getLicense() async {
+    return _mappr
+        .convert<ch.Response<bool>, KavitaResponse<bool>>(
+          await context.api.apiLicenseHasLicenseGet(),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // license
+  /// Delete license
+  Future<KavitaResponse<void>> deleteLicense() async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiLicenseDelete(),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // delete license
+  /// Updates server license
+  Future<KavitaResponse<void>> updateLicense({
+    String? license,
+    String? email,
+    String? discordId,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiLicensePost(
+            body: raw.UpdateLicenseDto(
+              license: license,
+              email: email,
+              discordId: discordId,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 
-  // update license
-
-  // reset
+  /// Reset license
+  Future<KavitaResponse<void>> resetLicense({
+    String? license,
+    String? email,
+  }) async {
+    return _mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiLicenseResetPost(
+            body: raw.UpdateLicenseDto(
+              license: license,
+              email: email,
+            ),
+          ),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All Locale related APIs
