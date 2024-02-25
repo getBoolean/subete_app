@@ -1950,9 +1950,13 @@ class KavitaApiAdmin extends KavitaApi {
   KavitaApiAdmin._({required KavitaContext context})
       : super.fromContext(context);
 
-  // TODO*: Admin
-
-  // exists
+  Future<KavitaResponse<bool>> exists() async {
+    return _mappr
+        .convert<ch.Response<bool>, KavitaResponse<bool>>(
+          await context.api.apiAdminExistsGet(),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All Book related APIs
