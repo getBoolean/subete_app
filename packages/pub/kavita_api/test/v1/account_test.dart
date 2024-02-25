@@ -3,7 +3,7 @@ import 'package:kavita_api/raw_api.dart' as raw;
 import '../tests.dart';
 
 void main() {
-  const userDto = raw.UserDto(
+  const rawUserDto = raw.UserDto(
     username: 'test',
     email: 'test',
     apiKey: 'test',
@@ -14,6 +14,18 @@ void main() {
       ageRating: 0,
       includeUnknowns: false,
     ),
+  );
+  const userDto = UserDto(
+    username: 'test',
+    email: 'test',
+    token: 'test',
+    refreshToken: 'test',
+    apiKey: 'test',
+    ageRestriction: AgeRestrictionDto(
+      ageRating: AgeRating.unknown,
+      includeUnknowns: false,
+    ),
+    kavitaVersion: '1.0.0',
   );
   late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
   setUp(() async => kavita = await setUpKavita());
@@ -73,30 +85,35 @@ void main() {
             email: '',
           ),
         ),
-      ).thenResponse(userDto);
+      ).thenResponse(rawUserDto);
       final res = await kavita.underTest.account.registerFirstUser(
         username: '',
         password: '',
         email: '',
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(userDto));
+      expect(kavita.underTest.context.currentUser, equals(userDto),
+          reason: 'Current user is not updated');
     });
 
     test('Test Login', () async {
       when(
         () => kavita.rawApi.apiAccountLoginPost(
           body: const raw.LoginDto(
-            username: '',
-            password: '',
+            username: 'test',
+            password: 'test',
           ),
         ),
-      ).thenResponse(userDto);
+      ).thenResponse(rawUserDto);
       final res = await kavita.underTest.account.login(
-        username: '',
-        password: '',
+        username: 'test',
+        password: 'test',
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      expect(res.body, isNotNull, reason: 'Expected response to be not null');
+      expect(res.body, equals(userDto));
+      expect(kavita.underTest.context.currentUser, equals(userDto),
+          reason: 'Current user is not updated');
     });
 
     test('Test Logout', () async {
@@ -109,9 +126,12 @@ void main() {
     });
 
     test('Test Refresh Account', () async {
-      when(kavita.rawApi.apiAccountRefreshAccountGet).thenResponse(userDto);
+      when(kavita.rawApi.apiAccountRefreshAccountGet).thenResponse(rawUserDto);
       final res = await kavita.underTest.account.refreshAccount();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(userDto));
+      expect(kavita.underTest.context.currentUser, equals(userDto),
+          reason: 'Current user is not updated');
     });
 
     test('Test Refresh Token', () async {
@@ -197,7 +217,7 @@ void main() {
             username: '',
           ),
         ),
-      ).thenResponse(userDto);
+      ).thenResponse(rawUserDto);
       final res = await kavita.underTest.account.confirmEmail(
         token: '',
         email: '',
@@ -216,7 +236,7 @@ void main() {
             email: '',
           ),
         ),
-      ).thenResponse(userDto);
+      ).thenResponse(rawUserDto);
       final res = await kavita.underTest.account.confirmMigrationEmail(
         token: '',
         email: '',

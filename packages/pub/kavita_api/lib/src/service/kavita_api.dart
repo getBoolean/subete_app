@@ -2146,9 +2146,42 @@ class KavitaApiPlugin extends KavitaApi {
 
   // TODO!: Plugin (Log in with Api Key)
 
-  // authenticate
+  /// Authenticate with the Server given an apiKey. This will log you in by returning the user object and the JWT token
+  ///
+  /// This API is not fully built out and may require more information in later releases
+  ///
+  /// Arguments:
+  /// - `apiKey` API key which will be used to authenticate and return a valid user token back
+  /// - `pluginName` Name of the Plugin
+  Future<KavitaResponse<UserDto>> authenticate({
+    required String apiKey,
+    required String pluginName,
+  }) async {
+    final user = _mappr
+        .convert<ch.Response<raw.UserDto>, KavitaResponse<UserDto>>(
+          await context.api.apiPluginAuthenticatePost(
+            apiKey: apiKey,
+            pluginName: pluginName,
+          ),
+        )
+        .throwOnHttpErrors;
+    if (user.isSuccessful && user.body != null) {
+      context.setCurrentUser(user.body!);
+    }
 
-  // version
+    return user;
+  }
+
+  /// Returns the version of the Kavita install
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  Future<KavitaResponse<String>> version() async {
+    return _mappr
+        .convert<ch.Response<String>, KavitaResponse<String>>(
+          await context.api.apiPluginVersionGet(apiKey: context.apiKey),
+        )
+        .throwOnHttpErrors;
+  }
 }
 
 /// All ReadingList related APIs

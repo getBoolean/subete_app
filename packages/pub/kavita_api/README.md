@@ -19,8 +19,22 @@ An unofficial Dart package for Kavita API generated using [swagger_dart_code_gen
 
 ```dart
 final api = KavitaApi(baseUrl: baseUrl);
+```
+
+### Authentication
+
+Most API methods require an authenticated user. There are two ways to authenticate with the server:
+
+```dart
+// 1. Normal login with a username and password
 await api.account.login(
     username: 'Username',
     password: 'Password',
+);
+
+// 2. Authenticate with the Server given a User's apiKey.
+await api.plugin.authenticate(
+    apiKey: 'YOUR_API_KEY_HERE',
+    pluginName: 'YOUR_APP_NAME_HERE',
 );
 ```
