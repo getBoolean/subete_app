@@ -1,4 +1,6 @@
+/// Device platform used to send books to
 extension type const DevicePlatform(int value) implements int {
+  /// Custom device platform
   static const DevicePlatform custom = DevicePlatform(0);
 
   /// PocketBook device, email ends in @pbsync.com
@@ -10,6 +12,7 @@ extension type const DevicePlatform(int value) implements int {
   /// Kobo device,
   static const DevicePlatform kobo = DevicePlatform(3);
 
+  /// Device platform description
   String? get description {
     return switch (value) {
       DevicePlatform.custom => 'Custom',

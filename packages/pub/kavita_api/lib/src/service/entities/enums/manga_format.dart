@@ -40,6 +40,7 @@ extension type const MangaFormat(int value) implements int {
   /// Extension: `.pdf`
   static const MangaFormat pdf = MangaFormat(4);
 
+  /// Manga format description
   String? get description {
     return switch (value) {
       MangaFormat.image => 'Image',

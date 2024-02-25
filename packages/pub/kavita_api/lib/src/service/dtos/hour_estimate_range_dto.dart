@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'hour_estimate_range_dto.mapper.dart';
@@ -5,6 +7,7 @@ part 'hour_estimate_range_dto.mapper.dart';
 /// A range of time to read a selection (series, chapter, etc)
 @MappableClass()
 class HourEstimateRangeDto with HourEstimateRangeDtoMappable {
+  /// A range of time to read a selection (series, chapter, etc)
   const HourEstimateRangeDto({
     this.minHours,
     this.maxHours,

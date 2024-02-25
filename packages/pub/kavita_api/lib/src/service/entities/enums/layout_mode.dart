@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 extension type const LayoutMode(int value) implements int {
   static const LayoutMode single = LayoutMode(1);
   static const LayoutMode double = LayoutMode(2);

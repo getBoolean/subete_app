@@ -1,3 +1,4 @@
+/// The type of content in the library
 extension type const LibraryType(int value) implements int {
   /// Uses Manga regex for filename parsing
   static const LibraryType manga = LibraryType(0);

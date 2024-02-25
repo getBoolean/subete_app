@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 extension type const PageSplitOption(int value) implements int {
   static const PageSplitOption splitLeftToRight = PageSplitOption(0);
   static const PageSplitOption splitRightToLeft = PageSplitOption(1);

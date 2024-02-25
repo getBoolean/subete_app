@@ -4,15 +4,16 @@ import 'package:chopper/chopper.dart' as ch show Request;
 import 'package:kavita_api/src/core/kavita_exception.dart';
 import 'package:kavita_api/src/service/dtos.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
-    as client show KavitaApiV1;
+    as raw show KavitaApiV1;
 import 'package:meta/meta.dart';
 
+/// The Kavita API client context, which holds the current user and the API client
 class KavitaContext {
-  client.KavitaApiV1 _api;
+  raw.KavitaApiV1 _api;
 
   /// The raw generated Kavita API client
   @internal
-  client.KavitaApiV1 get api => _api;
+  raw.KavitaApiV1 get api => _api;
 
   UserDto? _currentUser;
 
@@ -39,13 +40,14 @@ class KavitaContext {
     return _currentUser!.apiKey!;
   }
 
+  /// The Kavita API client context, which holds the current user and the API client
   @internal
   KavitaContext({
     required Uri baseUrl,
     UserDto? currentUser,
   })  : _baseUrl = baseUrl,
         _currentUser = currentUser,
-        _api = client.KavitaApiV1.create(
+        _api = raw.KavitaApiV1.create(
           baseUrl: baseUrl,
           interceptors: currentUser == null
               ? null
@@ -60,19 +62,21 @@ class KavitaContext {
                 ],
         );
 
-  @internal
+  /// Creates a new [KavitaContext] with a custom [UserDto] and [raw.KavitaApiV1]
+  @visibleForTesting
   KavitaContext.fromApi(
-    client.KavitaApiV1 api, {
+    raw.KavitaApiV1 api, {
     UserDto? currentUser,
   })  : _api = api,
         _currentUser = currentUser,
         _baseUrl = api.client.baseUrl;
 
+  /// Update the current user and push it to the [onUserChange] stream
   @internal
   void setCurrentUser(UserDto user) {
     _currentUser = user;
 
-    _api = _api = client.KavitaApiV1.create(
+    _api = _api = raw.KavitaApiV1.create(
       baseUrl: _baseUrl,
       interceptors: [
         (ch.Request request) async => request.copyWith(
@@ -86,12 +90,16 @@ class KavitaContext {
     _userChangeController.add(user);
   }
 
+  /// Clears the current user, resets the API client, and pushes a null user to the [onUserChange] stream
   void clearCurrentUser() {
     _currentUser = null;
-    _api = client.KavitaApiV1.create(baseUrl: _baseUrl);
+    _api = raw.KavitaApiV1.create(baseUrl: _baseUrl);
     _userChangeController.add(null);
   }
 
+  /// A stream of user changes, such as login and logout
+  ///
+  /// Does not get updated if the user token expires
   Stream<UserDto?> get onUserChange => _userChangeController.stream;
 
   final _userChangeController = StreamController<UserDto?>.broadcast();

@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 /// Represents Age Rating for content.
 ///
 /// Based on [ComicInfo.xml v2.1](https://github.com/anansi-project/comicinfo/blob/main/drafts/v2.1/ComicInfo.xsd)

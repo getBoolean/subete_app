@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 extension type const BookPageLayoutMode(int value) implements int {
   static const BookPageLayoutMode $default = BookPageLayoutMode(0);
   static const BookPageLayoutMode column1 = BookPageLayoutMode(1);

@@ -7,6 +7,7 @@ import 'package:kavita_api/src/service/mappr.auto_mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
 
+/// Maps raw types to the package equivalents
 @AutoMappr([
   MapType<ch.Response<dynamic>, KavitaResponse<dynamic>>(),
   MapType<ch.Response<int>, KavitaResponse<int>>(),
@@ -168,8 +169,7 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<BookInfoDto, raw.BookInfoDto>(),
   MapType<raw.BookChapterItem, BookChapterItem>(reverse: true),
 ])
-class Mappr extends $Mappr {
+final class Mappr extends $Mappr {
+  /// Creates a new [Mappr] instance
   const Mappr();
-
-  static int convertDevicePlatformToInt(DevicePlatform value) => value.value;
 }

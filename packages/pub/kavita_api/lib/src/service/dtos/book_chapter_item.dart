@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:dart_mappable/dart_mappable.dart';
 
 part 'book_chapter_item.mapper.dart';

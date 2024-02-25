@@ -38,6 +38,7 @@ analyzer:
     - "**/*.chopper.dart"
     - "**/*.swagger.dart"
     # - "**/*.auto_mappr.dart"
+    - "**/client_mapping.dart"
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -76,8 +77,7 @@ linter:
     prefer_asserts_with_message: true
     # require_trailing_commas: false
     unnecessary_null_aware_operator_on_extension_on_nullable: true
-    # while important, it is not a priority for an app
-    public_member_api_docs: false
+    public_member_api_docs: true
     lines_longer_than_80_chars: false
     avoid_print: false
 

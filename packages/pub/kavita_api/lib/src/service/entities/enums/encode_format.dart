@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 extension type const EncodeFormat(int value) implements int {
   static const EncodeFormat png = EncodeFormat(0);
   static const EncodeFormat webp = EncodeFormat(1);

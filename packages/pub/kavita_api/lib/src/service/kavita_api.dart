@@ -7,11 +7,14 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
     as raw;
 import 'package:meta/meta.dart';
 
+/// The Kavita API client
 class KavitaApi {
+  /// The client context which holds the current user and the API client
   final KavitaContext context;
 
   Mappr get _mappr => const Mappr();
 
+  /// Creates a new unauthenticated [KavitaApi]
   factory KavitaApi({
     required Uri baseUrl,
   }) {
@@ -20,9 +23,11 @@ class KavitaApi {
     );
   }
 
+  /// Creates a new [KavitaApi] with a custom [KavitaContext]
   @internal
   const KavitaApi.fromContext(this.context);
 
+  /// Creates a new authenticated [KavitaApi] with a previously saved [UserDto]
   factory KavitaApi.fromUser(
     UserDto user, {
     required Uri baseUrl,
@@ -281,6 +286,7 @@ class KavitaApiAccount extends KavitaApi {
     return user;
   }
 
+  /// Logout the current user
   void logout() {
     context.clearCurrentUser();
   }
@@ -375,7 +381,7 @@ class KavitaApiAccount extends KavitaApi {
     return res;
   }
 
-  // Update the user account. This can only affect Username, Email (will require confirming), Roles, and Library access.
+  /// Update the user account. This can only affect Username, Email (will require confirming), Roles, and Library access.
   Future<KavitaResponse<void>> updateUser({
     required int userId,
     String? username,
@@ -1241,7 +1247,7 @@ class KavitaApiRating extends KavitaApi {
   KavitaApiRating._({required KavitaContext context})
       : super.fromContext(context);
 
-  // overall rating
+  /// Get overall rating for a series
   Future<KavitaResponse<RatingDto>> getOverallRating({
     required int seriesId,
   }) async {
@@ -1972,6 +1978,7 @@ class KavitaApiAdmin extends KavitaApi {
   KavitaApiAdmin._({required KavitaContext context})
       : super.fromContext(context);
 
+  /// Check if an admin account exists
   Future<KavitaResponse<bool>> exists() async {
     return _mappr
         .convert<ch.Response<bool>, KavitaResponse<bool>>(
@@ -2058,6 +2065,7 @@ class KavitaApiHealth extends KavitaApi {
   KavitaApiHealth._({required KavitaContext context})
       : super.fromContext(context);
 
+  /// Check the server is accessible
   Future<KavitaResponse<void>> getHealth() async {
     return _mappr
         .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
@@ -2184,6 +2192,7 @@ class KavitaApiLocale extends KavitaApi {
   KavitaApiLocale._({required KavitaContext context})
       : super.fromContext(context);
 
+  /// Get the locales on the server
   Future<KavitaResponse<List<String>>> getLocale() async {
     return _mappr
         .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
@@ -2518,6 +2527,7 @@ class KavitaApiServer extends KavitaApi {
 
   // analyze files
 
+  /// Returns non-sensitive information about the current system
   Future<KavitaResponse<ServerInfoDto>> getServerInfo() async {
     return _mappr
         .convert<ch.Response<raw.ServerInfoDto>, KavitaResponse<ServerInfoDto>>(

@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 /// Represents a set of file types that can be scanned
 extension type const FileTypeGroup(int value) implements int {
   static const FileTypeGroup archive = FileTypeGroup(1);

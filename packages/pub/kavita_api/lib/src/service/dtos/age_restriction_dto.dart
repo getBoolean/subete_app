@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:kavita_api/src/service/entities/enums/age_rating.dart';
 
@@ -16,6 +18,9 @@ class AgeRestrictionDto with AgeRestrictionDtoMappable {
   /// Are Unknowns explicitly allowed against age rating
   final bool? includeUnknowns;
 
+  /// Creates a new [AgeRestrictionDto] from a [Map]
   static const fromMap = AgeRestrictionDtoMapper.fromMap;
+
+  /// Creates a new [AgeRestrictionDto] from a `json` string
   static const fromJson = AgeRestrictionDtoMapper.fromJson;
 }

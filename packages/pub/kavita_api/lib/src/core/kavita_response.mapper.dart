@@ -47,31 +47,9 @@ class KavitaResponseMapper extends ClassMapperBase<KavitaResponse> {
 
   @override
   final Function instantiate = _instantiate;
-
-  static KavitaResponse<BodyType> fromMap<BodyType>(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<KavitaResponse<BodyType>>(map);
-  }
-
-  static KavitaResponse<BodyType> fromJson<BodyType>(String json) {
-    return ensureInitialized().decodeJson<KavitaResponse<BodyType>>(json);
-  }
 }
 
 mixin KavitaResponseMappable<BodyType> {
-  String toJson() {
-    return KavitaResponseMapper.ensureInitialized()
-        .encodeJson<KavitaResponse<BodyType>>(this as KavitaResponse<BodyType>);
-  }
-
-  Map<String, dynamic> toMap() {
-    return KavitaResponseMapper.ensureInitialized()
-        .encodeMap<KavitaResponse<BodyType>>(this as KavitaResponse<BodyType>);
-  }
-
-  KavitaResponseCopyWith<KavitaResponse<BodyType>, KavitaResponse<BodyType>,
-          KavitaResponse<BodyType>, BodyType>
-      get copyWith => _KavitaResponseCopyWithImpl(
-          this as KavitaResponse<BodyType>, $identity, $identity);
   @override
   String toString() {
     return KavitaResponseMapper.ensureInitialized()
@@ -91,48 +69,4 @@ mixin KavitaResponseMappable<BodyType> {
     return KavitaResponseMapper.ensureInitialized()
         .hashValue(this as KavitaResponse<BodyType>);
   }
-}
-
-extension KavitaResponseValueCopy<$R, $Out, BodyType>
-    on ObjectCopyWith<$R, KavitaResponse<BodyType>, $Out> {
-  KavitaResponseCopyWith<$R, KavitaResponse<BodyType>, $Out, BodyType>
-      get $asKavitaResponse =>
-          $base.as((v, t, t2) => _KavitaResponseCopyWithImpl(v, t, t2));
-}
-
-abstract class KavitaResponseCopyWith<$R, $In extends KavitaResponse<BodyType>,
-    $Out, BodyType> implements ClassCopyWith<$R, $In, $Out> {
-  $R call({http.BaseResponse? base, BodyType? body, Object? error});
-  KavitaResponseCopyWith<$R2, $In, $Out2, BodyType> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
-}
-
-class _KavitaResponseCopyWithImpl<$R, $Out, BodyType>
-    extends ClassCopyWithBase<$R, KavitaResponse<BodyType>, $Out>
-    implements
-        KavitaResponseCopyWith<$R, KavitaResponse<BodyType>, $Out, BodyType> {
-  _KavitaResponseCopyWithImpl(super.value, super.then, super.then2);
-
-  @override
-  late final ClassMapperBase<KavitaResponse> $mapper =
-      KavitaResponseMapper.ensureInitialized();
-  @override
-  $R call(
-          {http.BaseResponse? base,
-          Object? body = $none,
-          Object? error = $none}) =>
-      $apply(FieldCopyWithData({
-        if (base != null) #base: base,
-        if (body != $none) #body: body,
-        if (error != $none) #error: error
-      }));
-  @override
-  KavitaResponse<BodyType> $make(CopyWithData data) => KavitaResponse(
-      data.get(#base, or: $value.base), data.get(#body, or: $value.body),
-      error: data.get(#error, or: $value.error));
-
-  @override
-  KavitaResponseCopyWith<$R2, KavitaResponse<BodyType>, $Out2, BodyType>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _KavitaResponseCopyWithImpl($value, $cast, t);
 }

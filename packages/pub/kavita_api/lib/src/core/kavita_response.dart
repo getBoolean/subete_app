@@ -8,7 +8,10 @@ import 'package:meta/meta.dart';
 
 part 'kavita_response.mapper.dart';
 
-@MappableClass()
+/// A response from a Kavita API call
+@MappableClass(
+  generateMethods: GenerateMethods.equals | GenerateMethods.stringify,
+)
 final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
   /// The [http.BaseResponse] from `package:http` that this [KavitaResponse] wraps.
   final http.BaseResponse base;
@@ -72,6 +75,10 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
     }
   }
 
+  /// Casts the response body to [NewBodyType]
+  ///
+  /// This is only used internally to cast Response<dynamic> to Response<String>
+  /// from download API methods.
   @internal
   KavitaResponse<NewBodyType> cast<NewBodyType>() {
     return KavitaResponse<NewBodyType>(
@@ -81,6 +88,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
     );
   }
 
+  /// Checks for an error code in the response and throws a [KavitaHttpException] if one is found
   @internal
   KavitaResponse<BodyType> get throwOnHttpErrors => _checkResponse(this);
 
@@ -136,7 +144,4 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
 
     return response;
   }
-
-  static const fromMap = KavitaResponseMapper.fromMap;
-  static const fromJson = KavitaResponseMapper.fromJson;
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs
+
 /// Misleading name but is the source of data (like a review coming from AniList)
 extension type const ScrobbleProvider(int value) implements int {
   /// For now, this means data comes from within this instance of Kavita
