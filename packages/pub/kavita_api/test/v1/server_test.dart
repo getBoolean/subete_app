@@ -7,6 +7,37 @@ void main() {
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Server', () {
+    // TODO: Server
+
+    // clear cache
+
+    // cleanup want to read
+
+    // backup db
+
+    // analyze files
+
+    // server info slim
+
+    // convert media
+
+    // logs
+
+    // check for updates
+
+    // check update
+
+    // check out of date
+
+    // changelog
+
+    // jobs
+
+    // media errors
+
+    // clear media alerts
+
+    // byst kavitaplus cache
     test('Test Server Info', () async {
       // Given
       when(kavita.rawApi.apiServerServerInfoGet)

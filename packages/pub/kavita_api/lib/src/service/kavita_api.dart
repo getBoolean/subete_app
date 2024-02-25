@@ -1859,6 +1859,34 @@ class KavitaApiStream extends KavitaApi {
       : super.fromContext(context);
 
   // TODO!: Stream
+
+  // dashboard
+
+  // sidenav
+
+  // external sources
+
+  // create external source
+
+  // update external source
+
+  // external source exists
+
+  // delete external source
+
+  // add dashboard stream
+
+  // update dashboard stream
+
+  // add sidenav stream
+
+  // add sidenav stream from external source
+
+  // update sidenav stream
+
+  // update sidenav position
+
+  // bulk sidenav stream visibility
 }
 
 /// All APIs are for Tachiyomi extension and app. They have hacks for
@@ -1870,6 +1898,10 @@ class KavitaApiTachiyomi extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Tachiyomi
+
+  // latest chapter
+
+  // mark chapter until as read
 }
 
 /// All APIs related to uploading entities to the system.
@@ -1879,6 +1911,20 @@ class KavitaApiUpload extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Upload
+
+  // upload by url
+
+  // series
+
+  // collection
+
+  // reading list
+
+  // chapter
+
+  // library
+
+  // reset chapter lock
 }
 
 /// Responsible for all things Want To Read
@@ -1888,6 +1934,14 @@ class KavitaApiWantToRead extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Want To Read
+
+  // want to read get
+
+  // want to read v2 post
+
+  // add series
+
+  // remove series
 }
 
 /// All Admin APIs
@@ -1897,6 +1951,8 @@ class KavitaApiAdmin extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Admin
+
+  // exists
 }
 
 /// All Book related APIs
@@ -1906,6 +1962,14 @@ class KavitaApiBook extends KavitaApi {
       : super.fromContext(context);
 
   // TODO!: Book
+
+  // chapter-id book info
+
+  // chapter-id book resources
+
+  // chapter-id chapters
+
+  // chapter-id book page
 }
 
 /// All Health related APIs
@@ -1915,6 +1979,8 @@ class KavitaApiHealth extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Health
+
+  // health get
 }
 
 /// All Library related APIs
@@ -1924,6 +1990,34 @@ class KavitaApiLibrary extends KavitaApi {
       : super.fromContext(context);
 
   // TODO!: Library
+
+  // create
+
+  // list
+
+  // all
+
+  // jump bar
+
+  // grand access
+
+  // scan
+
+  // scan all
+
+  // refresh metadata
+
+  // analyze
+
+  // scan folder
+
+  // delete
+
+  // name exists
+
+  // update
+
+  // type
 }
 
 /// All License related APIs
@@ -1933,6 +2027,16 @@ class KavitaApiLicense extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: License
+
+  // valid license
+
+  // license
+
+  // delete license
+
+  // update license
+
+  // reset
 }
 
 /// All Locale related APIs
@@ -1942,6 +2046,8 @@ class KavitaApiLocale extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Locale
+
+  // locale
 }
 
 /// All Metadata related APIs
@@ -1951,6 +2057,28 @@ class KavitaApiMetadata extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Metadata
+
+  // genres
+
+  // people by role
+
+  // people
+
+  // tags
+
+  // age ratings
+
+  // publication status
+
+  // languages
+
+  // all languages
+
+  // chapter summary
+
+  // force refresh
+
+  // series detail plus
 }
 
 /// All OPDS related APIs
@@ -1960,6 +2088,54 @@ class KavitaApiOpds extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Opds (maybe delegate to separate package)
+
+  // post opds
+
+  // get opds
+
+  // smart-filter/filterId
+
+  // smart-filters
+
+  // external-sources
+
+  // libraries
+
+  // want to read
+
+  // collections
+
+  // collections/collectionId
+
+  // reading list
+
+  // reading list/readingListId
+
+  // libraries/libraryId
+
+  // recently added
+
+  // more in genre
+
+  // recently updated
+
+  // on deck
+
+  // series
+
+  // search
+
+  // series/seriesId
+
+  // series/seriesId/volume/volumeId
+
+  // series/seriesId/volume/volumeId/chapter/chapterId
+
+  // series/seriesId/volume/volumeId/chapter/chapterId/download/filename
+
+  // image
+
+  // favicon
 }
 
 /// All Plugin related APIs
@@ -1969,6 +2145,10 @@ class KavitaApiPlugin extends KavitaApi {
       : super.fromContext(context);
 
   // TODO!: Plugin (Log in with Api Key)
+
+  // authenticate
+
+  // version
 }
 
 /// All ReadingList related APIs
@@ -1978,6 +2158,44 @@ class KavitaApiReadingList extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Reading List
+
+  // get
+
+  // delete
+
+  // lists
+
+  // lists for series
+
+  // items
+
+  // update position
+
+  // delete item
+
+  // remove read
+
+  // create
+
+  // update
+
+  // update by series
+
+  // update by multiple
+
+  // update by multiple series
+
+  // update by volume
+
+  // update by chapter
+
+  // characters
+
+  // next chapter
+
+  // prev chapter
+
+  // name exists
 }
 
 /// All Recommended related APIs
@@ -1987,6 +2205,16 @@ class KavitaApiRecommended extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Recommended
+
+  // quick reads
+
+  // quick catchup reads
+
+  // highly rated
+
+  // more in
+
+  // rediscover
 }
 
 /// All Review related APIs
@@ -1996,6 +2224,10 @@ class KavitaApiReview extends KavitaApi {
       : super.fromContext(context);
 
   // TODO*: Review
+
+  // post
+
+  // delete
 }
 
 /// All Scrobbling related APIs
@@ -2005,6 +2237,28 @@ class KavitaApiScrobbling extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Scrobbling
+
+  // anilist token
+
+  // update anilist token
+
+  // token expired
+
+  // scrobble errors
+
+  // clear errors
+
+  // scrobble events
+
+  // holds
+
+  // has hold
+
+  // library allows scrobbling
+
+  // add hold
+
+  // remove hold
 }
 
 /// All Series related APIs
@@ -2014,6 +2268,64 @@ class KavitaApiSeries extends KavitaApi {
       : super.fromContext(context);
 
   // TODO!: Series
+
+  // get v2
+
+  // get seriesId
+
+  // delete seriesId
+
+  // delete multiple
+
+  // volumes
+
+  // volume
+
+  // chapter
+
+  // chapter metadata
+
+  // update rating
+
+  // update
+
+  // recently added v2
+
+  // recently updated series
+
+  // add v2
+
+  // on deck
+
+  // remove from on deck
+
+  // refresh metadata
+
+  // scan
+
+  // analyze
+
+  // get metadata
+
+  // post metadata
+
+  // series by collection
+
+  // series by ids
+
+  // age rating
+
+  // series detail
+
+  // related
+
+  // all related
+
+  // update related
+
+  // external series detail
+
+  // next expected
 }
 
 /// All Server related APIs
@@ -2024,11 +2336,41 @@ class KavitaApiServer extends KavitaApi {
 
   // TODO: Server
 
+  // clear cache
+
+  // cleanup want to read
+
+  // backup db
+
+  // analyze files
+
   Future<KavitaResponse<ServerInfoDto>> getServerInfo() async {
     return _mappr
         .convert<ch.Response<raw.ServerInfoDto>, KavitaResponse<ServerInfoDto>>(
             await context.api.apiServerServerInfoGet());
   }
+
+  // server info slim
+
+  // convert media
+
+  // logs
+
+  // check for updates
+
+  // check update
+
+  // check out of date
+
+  // changelog
+
+  // jobs
+
+  // media errors
+
+  // clear media alerts
+
+  // byst kavitaplus cache
 }
 
 /// All Settings related APIs
@@ -2038,6 +2380,32 @@ class KavitaApiSettings extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Settings
+
+  // base url
+
+  // get settings
+
+  // post settings
+
+  // reset
+
+  // reset ip addresses
+
+  // reset base url
+
+  // is email setup
+
+  // task frequencies
+
+  // library types
+
+  // log levels
+
+  // opds enabled
+
+  // is valid cron
+
+  // test email url
 }
 
 /// All Stats related APIs
@@ -2047,6 +2415,32 @@ class KavitaApiStats extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Stats
+
+  // user/userId/read
+
+  // server stats
+
+  // server count year
+
+  // server count publication status
+
+  // server count manga format
+
+  // server top years
+
+  // server top users
+
+  // server filebreakdown
+
+  // reading count by day
+
+  // day breakdown
+
+  // user reading history
+
+  // pages per year
+
+  // words per year
 }
 
 /// All Theme related APIs
@@ -2056,6 +2450,14 @@ class KavitaApiTheme extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Theme
+
+  // get theme
+
+  // scan
+
+  // update default
+
+  // download content
 }
 
 /// All Users related APIs
@@ -2065,4 +2467,20 @@ class KavitaApiUsers extends KavitaApi {
       : super.fromContext(context);
 
   // TODO: Users
+
+  // delete user
+
+  // get users
+
+  // myself
+
+  // has reading progress
+
+  // has library access
+
+  // update preferences
+
+  // get preferences
+
+  // names
 }
