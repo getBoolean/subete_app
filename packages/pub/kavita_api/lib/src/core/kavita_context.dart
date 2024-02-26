@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:chopper/chopper.dart' as ch show Request, Response;
@@ -26,6 +27,9 @@ class KavitaContext {
   UserDto? get currentUser => _currentUser;
 
   final Uri _baseUrl;
+
+  /// The maximum number of times to retry a request
+  final int maxRetryCount;
 
   /// The base URL of the Kavita server
   Uri get baseUrl => _baseUrl;
@@ -79,7 +83,7 @@ class KavitaContext {
   KavitaContext({
     required Uri baseUrl,
     UserDto? currentUser,
-    int maxRetryCount = 5,
+    this.maxRetryCount = 5,
   })  : _baseUrl = baseUrl,
         _currentUser = currentUser {
     _httpClient = RetryClient(
@@ -134,6 +138,7 @@ class KavitaContext {
     raw.KavitaApiV1 api, {
     required Uri baseUrl,
     UserDto? currentUser,
+    this.maxRetryCount = 5,
   })  : _api = api,
         _currentUser = currentUser,
         _baseUrl = baseUrl,
@@ -240,4 +245,34 @@ class KavitaContext {
 
     return response;
   }
+
+  /// Converts the context to a map
+  Map<String, dynamic> toMap() {
+    return {
+      'baseUrl': baseUrl.toString(),
+      'currentUser': currentUser?.toMap(),
+      'maxRetryCount': maxRetryCount,
+    };
+  }
+
+  /// Converts the context to a JSON string
+  String toJson() => json.encode(toMap());
+
+  /// Creates a new [KavitaContext] from a Map
+  factory KavitaContext.fromMap(Map<String, dynamic> map) {
+    if (map['baseUrl'] == null) {
+      throw ArgumentError('baseUrl is required');
+    }
+    return KavitaContext(
+      baseUrl: Uri.parse(map['baseUrl'] as String),
+      currentUser: map['currentUser'] != null
+          ? UserDto.fromMap(map['currentUser'] as Map<String, dynamic>)
+          : null,
+      maxRetryCount: map['maxRetryCount'] as int? ?? 5,
+    );
+  }
+
+  /// Creates a new [KavitaContext] from a JSON string
+  factory KavitaContext.fromJson(String json) =>
+      KavitaContext.fromMap(jsonDecode(json) as Map<String, dynamic>);
 }
