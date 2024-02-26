@@ -1,8 +1,10 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/dtos/volume_dto.dart';
 import 'package:kavita_api/src/service/entities/chapter.dart';
 import 'package:kavita_api/src/service/entities/interfaces/entity_date.dart';
 import 'package:kavita_api/src/service/entities/interfaces/has_read_time_estimate.dart';
 import 'package:kavita_api/src/service/entities/series.dart';
+import 'package:kavita_api/src/service/mappr.dart';
 
 part 'volume.mapper.dart';
 
@@ -79,4 +81,7 @@ class Volume with VolumeMappable implements IEntityDate, IHasReadTimeEstimate {
   static const fromMap = VolumeMapper.fromMap;
   // ignore: public_member_api_docs
   static const fromJson = VolumeMapper.fromJson;
+
+  /// Converts the volume to a [VolumeDto]
+  VolumeDto toDto() => const Mappr().convert<Volume, VolumeDto>(this);
 }

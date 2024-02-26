@@ -2625,7 +2625,7 @@ class KavitaApiSeries extends KavitaApi {
   /// - [filter]
   /// - [pageNumber]
   /// - [pageSize] - If set to 0, will set as MaxInt
-  Future<KavitaResponse<List<Series>>> getSeriesV2({
+  Future<KavitaResponse<List<Series>>> getSeriesByFilter({
     required FilterV2Dto filter,
     required int pageNumber,
     required int pageSize,
@@ -2640,19 +2640,69 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  // get seriesId
+  /// Fetches a Series for a given [id]
+  Future<KavitaResponse<SeriesDto>> getSeries({required int id}) async {
+    return _mappr
+        .convert<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(
+      await context.api.apiSeriesSeriesIdGet(seriesId: id),
+    );
+  }
 
-  // delete seriesId
+  /// Deletes a series from Kavita
+  Future<KavitaResponse<bool>> deleteSeries({required int id}) async {
+    return _mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiSeriesSeriesIdDelete(seriesId: id),
+    );
+  }
 
-  // delete multiple
+  /// Delete multiple series from Kavita
+  Future<KavitaResponse<void>> deleteSeriesMultiple({
+    required List<int> ids,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSeriesDeleteMultiplePost(
+        body: raw.DeleteSeriesDto(seriesIds: ids),
+      ),
+    );
+  }
 
-  // volumes
+  /// Returns All volumes for a series with progress information and Chapters
+  Future<KavitaResponse<List<VolumeDto>>> getVolumes({
+    required int id,
+  }) async {
+    return _mappr.convert<ch.Response<List<raw.VolumeDto>>,
+        KavitaResponse<List<VolumeDto>>>(
+      await context.api.apiSeriesVolumesGet(seriesId: id),
+    );
+  }
 
-  // volume
+  /// Returns a volume by its id
+  Future<KavitaResponse<VolumeDto>> getVolume({required int id}) async {
+    return _mappr
+        .convert<ch.Response<raw.VolumeDto>, KavitaResponse<VolumeDto>>(
+      await context.api.apiSeriesVolumeGet(volumeId: id),
+    );
+  }
 
-  // chapter
+  /// Returns a chapter by its id
+  Future<KavitaResponse<ChapterDto>> getChapter({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.ChapterDto>, KavitaResponse<ChapterDto>>(
+      await context.api.apiSeriesChapterGet(chapterId: id),
+    );
+  }
 
-  // chapter metadata
+  /// Returns metadata for a chapter
+  Future<KavitaResponse<ChapterMetadataDto>> getChapterMetadata({
+    required int chapterId,
+  }) async {
+    return _mappr.convert<ch.Response<raw.ChapterMetadataDto>,
+        KavitaResponse<ChapterMetadataDto>>(
+      await context.api.apiSeriesChapterMetadataGet(chapterId: chapterId),
+    );
+  }
 
   // update rating
 

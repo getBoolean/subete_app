@@ -73,6 +73,8 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
       KavitaResponse<List<JumpKeyDto>>>(),
   MapType<ch.Response<raw.MemberDto>, KavitaResponse<MemberDto>>(),
   MapType<ch.Response<List<raw.Series>>, KavitaResponse<List<Series>>>(),
+  MapType<ch.Response<List<raw.VolumeDto>>, KavitaResponse<List<VolumeDto>>>(),
+  MapType<ch.Response<raw.VolumeDto>, KavitaResponse<VolumeDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -293,6 +295,11 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   ]),
   MapType<AppUserSideNavStream, raw.AppUserSideNavStream>(),
   MapType<raw.AppUserExternalSource, AppUserExternalSource>(reverse: true),
+  MapType<raw.VolumeDto, VolumeDto>(reverse: true),
+  MapType<Volume, VolumeDto>(reverse: true),
+  MapType<Chapter, ChapterDto>(reverse: true),
+  MapType<MangaFile, MangaFileDto>(reverse: true),
+  MapType<raw.ChapterMetadataDto, ChapterMetadataDto>(reverse: true),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
