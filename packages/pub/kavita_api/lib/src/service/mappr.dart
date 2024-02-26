@@ -49,6 +49,8 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.HourEstimateRangeDto>,
       KavitaResponse<HourEstimateRangeDto>>(),
   MapType<ch.Response<raw.LibraryDto>, KavitaResponse<LibraryDto>>(),
+  MapType<ch.Response<List<raw.LibraryDto>>,
+      KavitaResponse<List<LibraryDto>>>(),
   MapType<ch.Response<raw.SearchResultGroupDto>,
       KavitaResponse<SearchResultGroupDto>>(),
   MapType<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(),
@@ -65,6 +67,11 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
       KavitaResponse<List<ExternalSourceDto>>>(),
   MapType<ch.Response<raw.ExternalSourceDto>,
       KavitaResponse<ExternalSourceDto>>(),
+  MapType<ch.Response<List<raw.DirectoryDto>>,
+      KavitaResponse<List<DirectoryDto>>>(),
+  MapType<ch.Response<List<raw.JumpKeyDto>>,
+      KavitaResponse<List<JumpKeyDto>>>(),
+  MapType<ch.Response<raw.MemberDto>, KavitaResponse<MemberDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -187,6 +194,9 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   ]),
   MapType<SideNavStreamDto, raw.SideNavStreamDto>(),
   MapType<raw.ExternalSourceDto, ExternalSourceDto>(reverse: true),
+  MapType<raw.DirectoryDto, DirectoryDto>(reverse: true),
+  MapType<raw.JumpKeyDto, JumpKeyDto>(reverse: true),
+  MapType<raw.MemberDto, MemberDto>(reverse: true),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance

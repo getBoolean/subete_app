@@ -2078,35 +2078,231 @@ class KavitaApiLibrary extends KavitaApi {
   /// All Library related APIs
   const KavitaApiLibrary.fromContext(super.context) : super.fromContext();
 
-  // TODO!: Library
+  /// Creates a new Library. Upon library creation, adds new library to all Admin accounts.
+  Future<KavitaResponse<void>> createLibrary({
+    required int id,
+    required String name,
+    required LibraryType type,
+    required List<String> folders,
+    required bool folderWatching,
+    required bool includeInDashboard,
+    required bool includeInRecommended,
+    required bool includeInSearch,
+    required bool manageCollections,
+    required bool manageReadingLists,
+    required bool allowScrobbling,
+    required List<FileTypeGroup> fileGroupTypes,
+    List<String>? excludePatterns,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiLibraryCreatePost(
+        body: raw.UpdateLibraryDto(
+          id: id,
+          name: name,
+          type: type,
+          folders: folders,
+          folderWatching: folderWatching,
+          includeInDashboard: includeInDashboard,
+          includeInRecommended: includeInRecommended,
+          includeInSearch: includeInSearch,
+          manageCollections: manageCollections,
+          manageReadingLists: manageReadingLists,
+          allowScrobbling: allowScrobbling,
+          fileGroupTypes: fileGroupTypes,
+          excludePatterns: excludePatterns,
+        ),
+      ),
+    );
+  }
 
-  // create
+  /// Returns a list of directories for a given path. If path is empty, returns root drives.
+  Future<KavitaResponse<List<DirectoryDto>>> listDirectories({
+    String path = '',
+  }) async {
+    return _mappr.convert<ch.Response<List<raw.DirectoryDto>>,
+        KavitaResponse<List<DirectoryDto>>>(
+      await context.api.apiLibraryListGet(path: path),
+    );
+  }
 
-  // list
+  /// Return all libraries in the Server
+  Future<KavitaResponse<List<LibraryDto>>> getAllLibraries() async {
+    return _mappr.convert<ch.Response<List<raw.LibraryDto>>,
+        KavitaResponse<List<LibraryDto>>>(
+      await context.api.apiLibraryGet(),
+    );
+  }
 
-  // all
+  /// For a given library, generate the jump bar information
+  Future<KavitaResponse<List<JumpKeyDto>>> getJumpBar({
+    required int libraryId,
+  }) async {
+    return _mappr.convert<ch.Response<List<raw.JumpKeyDto>>,
+        KavitaResponse<List<JumpKeyDto>>>(
+      await context.api.apiLibraryJumpBarGet(libraryId: libraryId),
+    );
+  }
 
-  // jump bar
+  /// Grants a user account access to a Library
+  Future<KavitaResponse<MemberDto>> getGrantAccessLibraries({
+    required String username,
+    required List<LibraryDto> selectedLibraries,
+  }) async {
+    return _mappr
+        .convert<ch.Response<raw.MemberDto>, KavitaResponse<MemberDto>>(
+      await context.api.apiLibraryGrantAccessPost(
+        body: raw.UpdateLibraryForUserDto(
+          username: username,
+          selectedLibraries: _mappr.convertList<LibraryDto, raw.LibraryDto>(
+            selectedLibraries,
+          ),
+        ),
+      ),
+    );
+  }
 
-  // grand access
+  /// Scans a given library for file changes.
+  ///
+  /// Arguments:
+  /// - [libraryId]
+  /// - [force] - If true, will ignore any optimizations to avoid file I/O
+  ///   and will treat similar to a first scan
+  Future<KavitaResponse<void>> scanLibrary({
+    required int libraryId,
+    bool force = false,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiLibraryScanPost(
+        libraryId: libraryId,
+        force: force,
+      ),
+    );
+  }
 
-  // scan
+  /// Scans a given library for file changes. If another scan task is in
+  /// progress, will reschedule the invocation for 3 hours in future.
+  ///
+  /// Arguments:
+  /// - [force] - If true, will ignore any optimizations to avoid file I/O
+  ///   and will treat similar to a first scan
+  Future<KavitaResponse<void>> scanAllLibraries({
+    bool force = false,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiLibraryScanAllPost(force: force),
+    );
+  }
 
-  // scan all
+  /// Refresh library metadata
+  Future<KavitaResponse<void>> refreshMetadata({
+    required int libraryId,
+    bool force = true,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiLibraryRefreshMetadataPost(
+        libraryId: libraryId,
+        force: force,
+      ),
+    );
+  }
 
-  // refresh metadata
+  /// Analyze library
+  Future<KavitaResponse<void>> analyzeLibrary({
+    required int libraryId,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiLibraryAnalyzePost(libraryId: libraryId),
+    );
+  }
 
-  // analyze
+  /// Given a valid path, will invoke either a Scan Series or Scan Library.
+  /// If the folder does not exist within Kavita, the request will be ignored
+  Future<KavitaResponse<void>> scanFolder({
+    required Uri folder,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiLibraryScanFolderPost(
+        body: raw.ScanFolderDto(
+          folderPath: folder.toString(),
+          apiKey: context.apiKey,
+        ),
+      ),
+    );
+  }
 
-  // scan folder
+  /// Delete library
+  ///
+  /// If empty, will return true as that is invalid
+  Future<KavitaResponse<bool>> deleteLibrary({
+    required int libraryId,
+  }) async {
+    return _mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiLibraryDeleteDelete(libraryId: libraryId),
+    );
+  }
 
-  // delete
+  /// Checks if the library name exists or not
+  Future<KavitaResponse<bool>> nameExists({
+    required String name,
+  }) async {
+    return _mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiLibraryNameExistsGet(
+        name: name,
+      ),
+    );
+  }
 
-  // name exists
+  /// Updates an existing Library with new name, folders, and/or type.
+  ///
+  /// Any folder or type change will invoke a scan.
+  Future<KavitaResponse<void>> updateLibrary({
+    required int id,
+    required String name,
+    required int type,
+    required List<String> folders,
+    required bool folderWatching,
+    required bool includeInDashboard,
+    required bool includeInRecommended,
+    required bool includeInSearch,
+    required bool manageCollections,
+    required bool manageReadingLists,
+    required bool allowScrobbling,
+    required List<int> fileGroupTypes,
+    List<String>? excludePatterns,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiLibraryUpdatePost(
+        body: raw.UpdateLibraryDto(
+          id: id,
+          name: name,
+          type: type,
+          folders: folders,
+          folderWatching: folderWatching,
+          includeInDashboard: includeInDashboard,
+          includeInRecommended: includeInRecommended,
+          includeInSearch: includeInSearch,
+          manageCollections: manageCollections,
+          manageReadingLists: manageReadingLists,
+          allowScrobbling: allowScrobbling,
+          fileGroupTypes: fileGroupTypes,
+          excludePatterns: excludePatterns,
+        ),
+      ),
+    );
+  }
 
-  // update
-
-  // type
+  /// Returns the type of the underlying library
+  Future<KavitaResponse<LibraryType>> getLibraryType({
+    required int id,
+  }) async {
+    return _mappr
+        .convert<ch.Response<int>, KavitaResponse<int>>(
+          await context.api.apiLibraryTypeGet(
+            libraryId: id,
+          ),
+        )
+        .cast();
+  }
 }
 
 /// All License related APIs for Kavita+
@@ -2282,8 +2478,8 @@ class KavitaApiPlugin extends KavitaApi {
   /// This API is not fully built out and may require more information in later releases
   ///
   /// Arguments:
-  /// - `apiKey` API key which will be used to authenticate and return a valid user token back
-  /// - `pluginName` Name of the Plugin
+  /// - [apiKey] API key which will be used to authenticate and return a valid user token back
+  /// - [pluginName] Name of the Plugin
   Future<KavitaResponse<UserDto>> authenticate({
     required String apiKey,
     required String pluginName,
