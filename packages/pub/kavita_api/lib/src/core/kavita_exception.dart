@@ -1,8 +1,10 @@
 import 'package:http/http.dart' as http;
 import 'package:kavita_api/src/core.dart';
 import 'package:kavita_api/src/service/kavita_api.dart';
+import 'package:meta/meta.dart';
 
 /// Base class for all [KavitaApi] exceptions
+@immutable
 sealed class KavitaException implements Exception {
   /// Exception message
   final String message;

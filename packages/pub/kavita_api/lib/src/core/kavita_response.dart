@@ -12,6 +12,7 @@ part 'kavita_response.mapper.dart';
 @MappableClass(
   generateMethods: GenerateMethods.equals | GenerateMethods.stringify,
 )
+@immutable
 final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
   /// The [http.BaseResponse] from `package:http` that this [KavitaResponse] wraps.
   final http.BaseResponse base;
@@ -86,62 +87,5 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
       body as NewBodyType?,
       error: error,
     );
-  }
-
-  /// Checks for an error code in the response and throws a [KavitaHttpException] if one is found
-  @internal
-  KavitaResponse<BodyType> get throwOnHttpErrors => _checkResponse(this);
-
-  KavitaResponse<BodyType> _checkResponse(
-    KavitaResponse<BodyType> response,
-  ) {
-    if (response.statusCode == 204) {
-      return response;
-    }
-
-    if (response.statusCode == 200 && response.body != null) {
-      return response;
-    }
-
-    if (response.statusCode == 401) {
-      throw KavitaUnauthorizedException(
-        'The specified access token is invalid.',
-        response,
-      );
-    }
-
-    if (response.statusCode == 403) {
-      throw KavitaUnauthorizedException(
-        'Your request is forbidden.',
-        response,
-      );
-    }
-
-    if (response.statusCode == 404) {
-      throw KavitaDataNotFoundException(
-        'There is no data associated with request.',
-        response,
-      );
-    }
-
-    if (response.statusCode == 429) {
-      throw KavitaRateLimitExceededException(
-        'Rate limit exceeded.',
-        response,
-      );
-    }
-
-    if (response.statusCode == 206) {
-      throw KavitaPendingException('Still being processed.', response);
-    }
-
-    if (response.statusCode >= 400 && response.statusCode < 500) {
-      throw KavitaHttpException(
-        'Required parameter is missing or improperly formatted.',
-        response,
-      );
-    }
-
-    return response;
   }
 }

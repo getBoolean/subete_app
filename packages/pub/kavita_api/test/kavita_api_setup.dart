@@ -36,6 +36,7 @@ Future<({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey})>
       KavitaContext.fromApi(
         rawApi,
         currentUser: userDto,
+        baseUrl: baseUri,
       ),
     ),
     rawApi: rawApi,
@@ -43,7 +44,8 @@ Future<({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey})>
   );
 }
 
-Future<KavitaApi> setUpRealKavita() async {
+Future<({KavitaApi underTest, raw.KavitaApiV1 rawApi, String apiKey})>
+    setUpRealKavita() async {
   final env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
 
   final baseUrl = Uri.parse(
@@ -56,19 +58,23 @@ Future<KavitaApi> setUpRealKavita() async {
     );
   }
   final kavitaApi = KavitaApi(baseUrl: baseUrl);
-  await kavitaApi.account.login(
+  final user = await kavitaApi.account.login(
     username: env['KAVITA_USERNAME']!,
     password: env['KAVITA_PASSWORD']!,
   );
 
-  return kavitaApi;
+  return (
+    underTest: kavitaApi,
+    rawApi: kavitaApi.context.api,
+    apiKey: user.body!.apiKey!,
+  );
 }
 
 extension ReponseExtension<T> on When<Future<ch.Response<T>>> {
   void thenResponse(T? body, {Object? error, int statusCode = 200}) {
     return thenAnswer(
       (_) async => ch.Response(
-        http.Response(body.toString(), statusCode),
+        http.Response(body?.toString() ?? '', statusCode),
         body,
         error: error,
       ),

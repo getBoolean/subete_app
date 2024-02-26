@@ -138,30 +138,27 @@ void main() {
       when(
         () => kavita.rawApi.apiAccountRefreshTokenPost(
           body: const raw.TokenRequestDto(
-            token: 'token',
-            refreshToken: 'refreshToken',
+            token: 'test',
+            refreshToken: 'test',
           ),
         ),
       ).thenResponse(
         const raw.TokenRequestDto(
-          token: 'token2',
-          refreshToken: 'refreshToken2',
+          token: 'test',
+          refreshToken: 'test',
         ),
       );
-      final res = await kavita.underTest.account.refreshToken(
-        token: 'token',
-        refreshToken: 'refreshToken',
-      );
+      final res = await kavita.underTest.account.refreshToken();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, isNotNull, reason: 'Expected response to be not null');
       expect(
         res.body!.token,
-        'token2',
+        'test',
         reason: 'Expected response token to be "token2"',
       );
       expect(
         res.body!.refreshToken,
-        'refreshToken2',
+        'test',
         reason: 'Expected response refresh token to be "refreshToken2"',
       );
     });
