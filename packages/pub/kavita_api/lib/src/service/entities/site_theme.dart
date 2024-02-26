@@ -2,12 +2,13 @@
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:kavita_api/src/service/entities/enums/theme_provider.dart';
+import 'package:kavita_api/src/service/entities/interfaces/entity_date.dart';
 
 part 'site_theme.mapper.dart';
 
 /// Represents a set of css overrides the user can upload to Kavita and will load into webui
 @MappableClass()
-class SiteTheme with SiteThemeMappable {
+class SiteTheme with SiteThemeMappable implements IEntityDate {
   /// Represents a set of css overrides the user can upload to Kavita and will load into webui
   const SiteTheme({
     this.id,
@@ -38,9 +39,13 @@ class SiteTheme with SiteThemeMappable {
 
   /// Where did the theme come from
   final ThemeProvider? provider;
+  @override
   final DateTime? created;
+  @override
   final DateTime? lastModified;
+  @override
   final DateTime? createdUtc;
+  @override
   final DateTime? lastModifiedUtc;
 
   static const fromMap = SiteThemeMapper.fromMap;

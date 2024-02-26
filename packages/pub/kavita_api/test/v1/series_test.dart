@@ -1,3 +1,5 @@
+import 'package:kavita_api/raw_api.dart' as raw;
+
 import '../tests.dart';
 
 void main() {
@@ -6,9 +8,25 @@ void main() {
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Series', () {
-    // TODO!: Series
-
-    // get v2
+    test('Test Get Series', () async {
+      when(() => kavita.rawApi.apiSeriesV2Post(
+          pageNumber: 1,
+          pageSize: 1,
+          body: const raw.FilterV2Dto(
+            id: 1,
+            name: 'test',
+          ))).thenResponse([const raw.Series(id: 1, name: 'test')]);
+      const expected = [Series(id: 1, name: 'test')];
+      final res = await kavita.underTest.series.getSeriesV2(
+          pageNumber: 1,
+          pageSize: 1,
+          filter: const FilterV2Dto(
+            id: 1,
+            name: 'test',
+          ));
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
     // get seriesId
 

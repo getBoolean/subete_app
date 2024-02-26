@@ -72,6 +72,7 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<List<raw.JumpKeyDto>>,
       KavitaResponse<List<JumpKeyDto>>>(),
   MapType<ch.Response<raw.MemberDto>, KavitaResponse<MemberDto>>(),
+  MapType<ch.Response<List<raw.Series>>, KavitaResponse<List<Series>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -197,6 +198,101 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<raw.DirectoryDto, DirectoryDto>(reverse: true),
   MapType<raw.JumpKeyDto, JumpKeyDto>(reverse: true),
   MapType<raw.MemberDto, MemberDto>(reverse: true),
+  MapType<raw.Series, Series>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<Series, raw.Series>(),
+  MapType<Series, SeriesDto>(),
+  MapType<raw.SeriesMetadata, SeriesMetadata>(converters: [
+    TypeConverter<int, PublicationStatus>(PublicationStatus.new),
+  ]),
+  MapType<SeriesMetadata, raw.SeriesMetadata>(),
+  MapType<raw.Person, Person>(converters: [
+    TypeConverter<int, PersonRole>(PersonRole.new),
+  ]),
+  MapType<Person, raw.Person>(),
+  MapType<raw.Chapter, Chapter>(converters: [
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<Chapter, raw.Chapter>(),
+  MapType<raw.MangaFile, MangaFile>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<MangaFile, raw.MangaFile>(),
+  MapType<raw.CollectionTag, CollectionTag>(reverse: true),
+  MapType<raw.Genre, Genre>(reverse: true),
+  MapType<raw.Tag, Tag>(reverse: true),
+  MapType<raw.ExternalSeriesMetadata, ExternalSeriesMetadata>(reverse: true),
+  MapType<raw.ExternalRecommendation, ExternalRecommendation>(converters: [
+    TypeConverter<int, ScrobbleProvider>(ScrobbleProvider.new),
+  ]),
+  MapType<ExternalRecommendation, raw.ExternalRecommendation>(),
+  MapType<raw.ExternalRating, ExternalRating>(converters: [
+    TypeConverter<int, ScrobbleProvider>(ScrobbleProvider.new),
+  ]),
+  MapType<ExternalRating, raw.ExternalRating>(),
+  MapType<raw.ExternalReview, ExternalReview>(converters: [
+    TypeConverter<int, ScrobbleProvider>(ScrobbleProvider.new),
+  ]),
+  MapType<ExternalReview, raw.ExternalReview>(),
+  MapType<raw.AppUserRating, AppUserRating>(reverse: true),
+  MapType<raw.AppUser, AppUser>(converters: [
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<AppUser, raw.AppUser>(),
+  MapType<raw.AppUserRole, AppUserRole>(reverse: true),
+  MapType<raw.AppRole, AppRole>(reverse: true),
+  MapType<raw.AppUserProgress, AppUserProgress>(reverse: true),
+  MapType<raw.AppUserPreferences, AppUserPreferences>(converters: [
+    TypeConverter<int, ReadingDirection>(ReadingDirection.new),
+    TypeConverter<int, ScalingOption>(ScalingOption.new),
+    TypeConverter<int, PageSplitOption>(PageSplitOption.new),
+    TypeConverter<int, ReaderMode>(ReaderMode.new),
+    TypeConverter<int, LayoutMode>(LayoutMode.new),
+    TypeConverter<int, WritingStyle>(WritingStyle.new),
+    TypeConverter<int, BookPageLayoutMode>(BookPageLayoutMode.new),
+    TypeConverter<int, PageLayoutMode>(PageLayoutMode.new),
+  ]),
+  MapType<AppUserPreferences, raw.AppUserPreferences>(),
+  MapType<raw.AppUserBookmark, AppUserBookmark>(reverse: true),
+  MapType<raw.AppUserWantToRead, AppUserWantToRead>(reverse: true),
+  MapType<raw.ReadingList, ReadingList>(converters: [
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<ReadingList, raw.ReadingList>(),
+  MapType<raw.ReadingListItem, ReadingListItem>(reverse: true),
+  MapType<raw.Volume, Volume>(reverse: true),
+  MapType<TagDto, Tag>(reverse: true),
+  MapType<raw.Device, Device>(converters: [
+    TypeConverter<int, DevicePlatform>(DevicePlatform.new),
+  ]),
+  MapType<Device, raw.Device>(),
+  MapType<raw.AppUserTableOfContent, AppUserTableOfContent>(reverse: true),
+  MapType<raw.ScrobbleHold, ScrobbleHold>(reverse: true),
+  MapType<raw.Library, Library>(converters: [
+    TypeConverter<int, LibraryType>(LibraryType.new),
+  ]),
+  MapType<Library, raw.Library>(),
+  MapType<raw.FolderPath, FolderPath>(reverse: true),
+  MapType<raw.LibraryFileTypeGroup, LibraryFileTypeGroup>(converters: [
+    TypeConverter<int, FileTypeGroup>(FileTypeGroup.new),
+  ]),
+  MapType<LibraryFileTypeGroup, raw.LibraryFileTypeGroup>(),
+  MapType<raw.LibraryExcludePattern, LibraryExcludePattern>(reverse: true),
+  MapType<raw.SeriesRelation, SeriesRelation>(converters: [
+    TypeConverter<int, RelationKind>(RelationKind.new),
+  ]),
+  MapType<SeriesRelation, raw.SeriesRelation>(),
+  MapType<raw.AppUserSmartFilter, AppUserSmartFilter>(reverse: true),
+  MapType<raw.AppUserDashboardStream, AppUserDashboardStream>(converters: [
+    TypeConverter<int, DashboardStreamType>(DashboardStreamType.new),
+  ]),
+  MapType<AppUserDashboardStream, raw.AppUserDashboardStream>(),
+  MapType<raw.AppUserSideNavStream, AppUserSideNavStream>(converters: [
+    TypeConverter<int, SideNavStreamType>(SideNavStreamType.new),
+  ]),
+  MapType<AppUserSideNavStream, raw.AppUserSideNavStream>(),
+  MapType<raw.AppUserExternalSource, AppUserExternalSource>(reverse: true),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance

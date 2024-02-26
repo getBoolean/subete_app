@@ -2619,9 +2619,26 @@ class KavitaApiSeries extends KavitaApi {
   /// All Series related APIs
   const KavitaApiSeries.fromContext(super.context) : super.fromContext();
 
-  // TODO!: Series
-
-  // get v2
+  /// Gets series with the applied Filter
+  ///
+  /// Arguments:
+  /// - [filter]
+  /// - [pageNumber]
+  /// - [pageSize] - If set to 0, will set as MaxInt
+  Future<KavitaResponse<List<Series>>> getSeriesV2({
+    required FilterV2Dto filter,
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    return _mappr
+        .convert<ch.Response<List<raw.Series>>, KavitaResponse<List<Series>>>(
+      await context.api.apiSeriesV2Post(
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+      ),
+    );
+  }
 
   // get seriesId
 
