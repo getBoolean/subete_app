@@ -90,13 +90,16 @@ class KavitaContext {
       http.Client(),
       retries: maxRetryCount,
       when: (response) {
-        return response.statusCode == 401 ||
+        return (response.statusCode == 401 && _currentUser != null) ||
             response.statusCode == 503 ||
             response.statusCode == 206;
       },
       delay: (retryCount) => Duration(seconds: math.pow(2, retryCount).toInt()),
       onRetry: (request, response, count) async {
         if (response?.statusCode == 401) {
+          if (_currentUser == null) {
+            return;
+          }
           // we dont want this token refresh to retry, otherwise it causes infinite loop
           // so a new client is created for it
           final tokenResponse = await raw.KavitaApiV1.create(
@@ -118,8 +121,15 @@ class KavitaContext {
               kavitaResponse,
             );
           }
+          if (_currentUser == null) {
+            return;
+          }
           request.headers.update('Authorization',
               (value) => 'Bearer ${tokenResponse.body!.token!}');
+          setCurrentUser(currentUser!.copyWith(
+            token: tokenResponse.body!.token,
+            refreshToken: tokenResponse.body!.refreshToken,
+          ));
         }
       },
     );
