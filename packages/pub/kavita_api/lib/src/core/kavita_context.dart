@@ -100,8 +100,9 @@ class KavitaContext {
           if (_currentUser == null) {
             return;
           }
-          // we dont want this token refresh to retry, otherwise it causes infinite loop
-          // so a new client is created for it
+
+          // Create new client because we dont want this token refresh to retry
+          // on error, causing an infinite loop.
           final tokenResponse = await raw.KavitaApiV1.create(
             baseUrl: _baseUrl,
           ).apiAccountRefreshTokenPost(
