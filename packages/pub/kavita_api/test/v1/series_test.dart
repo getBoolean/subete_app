@@ -70,9 +70,22 @@ void main() {
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
-    // chapter
+    test('Test Get Chapter', () async {
+      when(() => kavita.rawApi.apiSeriesChapterGet(chapterId: 1))
+          .thenResponse(const raw.ChapterDto(id: 1, title: 'test'));
+      final res = await kavita.underTest.series.getChapter(id: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, isNotNull, reason: 'No data received');
+    });
 
-    // chapter metadata
+    test('Test Get Chapter Metadata', () async {
+      when(() => kavita.rawApi.apiSeriesChapterMetadataGet(chapterId: 1))
+          .thenResponse(const raw.ChapterMetadataDto());
+      final res =
+          await kavita.underTest.series.getChapterMetadata(chapterId: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, isNotNull, reason: 'No data received');
+    });
 
     // update rating
 

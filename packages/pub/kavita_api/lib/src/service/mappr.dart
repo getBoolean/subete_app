@@ -75,6 +75,8 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<List<raw.Series>>, KavitaResponse<List<Series>>>(),
   MapType<ch.Response<List<raw.VolumeDto>>, KavitaResponse<List<VolumeDto>>>(),
   MapType<ch.Response<raw.VolumeDto>, KavitaResponse<VolumeDto>>(),
+  MapType<ch.Response<raw.ChapterMetadataDto>,
+      KavitaResponse<ChapterMetadataDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
