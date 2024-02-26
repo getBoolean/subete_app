@@ -130,6 +130,7 @@ class KavitaContext {
       interceptors:
           currentUser == null ? null : _createInterceptors(currentUser),
     );
+    _userChangeController.add(currentUser);
   }
 
   /// Creates a new [KavitaContext] with a custom [UserDto] and [raw.KavitaApiV1]
@@ -142,7 +143,9 @@ class KavitaContext {
   })  : _api = api,
         _currentUser = currentUser,
         _baseUrl = baseUrl,
-        _httpClient = api.client.httpClient;
+        _httpClient = api.client.httpClient {
+    _userChangeController.add(currentUser);
+  }
 
   /// Update the current user and push it to the [onUserChange] stream
   void setCurrentUser(UserDto user) {
