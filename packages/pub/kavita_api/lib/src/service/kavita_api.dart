@@ -1968,15 +1968,59 @@ class KavitaApiWantToRead extends KavitaApi {
   /// Responsible for all things Want To Read
   const KavitaApiWantToRead.fromContext(super.context) : super.fromContext();
 
-  // TODO*: Want To Read
+  /// Returns true if the user has marked the series as Want To Read
+  Future<KavitaResponse<bool>> isSeriesWantToRead({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiWantToReadGet(),
+    );
+  }
 
-  // want to read get
+  /// Return all Series that are in the current logged in user's Want to Read
+  /// list, filtered
+  Future<KavitaResponse<List<SeriesDto>>> getAllWantToRead({
+    required int pageNumber,
+    required int pageSize,
+    required FilterV2Dto filter,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiWantToReadV2Post(
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+      ),
+    );
+  }
 
-  // want to read v2 post
+  /// Given a list of Series Ids, add them to the current logged in user's
+  /// Want To Read list
+  Future<KavitaResponse<void>> addSeriesToWantToRead({
+    required List<int> ids,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiWantToReadAddSeriesPost(
+        body: raw.UpdateWantToReadDto(
+          seriesIds: ids,
+        ),
+      ),
+    );
+  }
 
-  // add series
-
-  // remove series
+  /// Given a list of Series Ids, remove them to the current logged in user's
+  /// Want To Read list
+  Future<KavitaResponse<void>> removeSeriesToWantToRead({
+    required List<int> ids,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiWantToReadRemoveSeriesPost(
+        body: raw.UpdateWantToReadDto(
+          seriesIds: ids,
+        ),
+      ),
+    );
+  }
 }
 
 /// All Admin APIs
