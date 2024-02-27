@@ -2382,7 +2382,7 @@ class KavitaApiMetadata extends KavitaApi {
   /// All Metadata related APIs
   const KavitaApiMetadata.fromContext(super.context) : super.fromContext();
 
-  // TODO*: Metadata
+  // TODO: Metadata
 
   // genres
 
@@ -2572,7 +2572,7 @@ class KavitaApiReview extends KavitaApi {
   /// All Review related APIs
   const KavitaApiReview.fromContext(super.context) : super.fromContext();
 
-  // TODO*: Review
+  // TODO: Review
 
   // post
 
