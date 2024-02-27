@@ -27,5 +27,5 @@ class Tag with TagMappable {
   static const fromMap = TagMapper.fromMap;
   static const fromJson = TagMapper.fromJson;
 
-  TagDto toDto() => const Mappr().convert<Tag, TagDto>(this);
+  TagDto toDto() => mappr.convert<Tag, TagDto>(this);
 }

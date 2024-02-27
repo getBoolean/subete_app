@@ -1,35 +1,38 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/dtos/series_metadata_dto.dart';
-import 'package:kavita_api/src/service/entities/collection_tag.dart';
+import 'package:kavita_api/src/service/dtos/collection_tag_dto.dart';
+import 'package:kavita_api/src/service/dtos/genre_tag_dto.dart';
+import 'package:kavita_api/src/service/dtos/person_dto.dart';
+import 'package:kavita_api/src/service/dtos/tag_dto.dart';
 import 'package:kavita_api/src/service/entities/enums/age_rating.dart';
 import 'package:kavita_api/src/service/entities/enums/publication_status.dart';
-import 'package:kavita_api/src/service/entities/genre.dart';
-import 'package:kavita_api/src/service/entities/interfaces/has_concurrency_token.dart';
-import 'package:kavita_api/src/service/entities/person.dart';
-import 'package:kavita_api/src/service/entities/series.dart';
-import 'package:kavita_api/src/service/entities/tag.dart';
-import 'package:kavita_api/src/service/mappr.dart';
 
-part 'series_metadata.mapper.dart';
+part 'series_metadata_dto.mapper.dart';
 
 @MappableClass()
-class SeriesMetadata
-    with SeriesMetadataMappable
-    implements IHasConcurrencyToken {
-  const SeriesMetadata({
+class SeriesMetadataDto with SeriesMetadataDtoMappable {
+  const SeriesMetadataDto({
     this.id,
     this.summary,
     this.collectionTags,
     this.genres,
     this.tags,
-    this.people,
+    this.writers,
+    this.coverArtists,
+    this.publishers,
+    this.characters,
+    this.pencillers,
+    this.inkers,
+    this.colorists,
+    this.letterers,
+    this.editors,
+    this.translators,
     this.ageRating,
     this.releaseYear,
     this.language,
-    this.totalCount,
     this.maxCount,
+    this.totalCount,
     this.publicationStatus,
     this.webLinks,
     this.languageLocked,
@@ -49,21 +52,30 @@ class SeriesMetadata
     this.translatorLocked,
     this.coverArtistLocked,
     this.releaseYearLocked,
-    this.series,
     this.seriesId,
-    this.rowVersion,
   });
 
   final int? id;
   final String? summary;
 
-  final List<CollectionTag>? collectionTags;
+  /// Collections the Series belongs to
+  final List<CollectionTagDto>? collectionTags;
 
-  final List<Genre>? genres;
-  final List<Tag>? tags;
+  /// Genres for the Series
+  final List<GenreTagDto>? genres;
 
-  /// All people attached at a Series level.
-  final List<Person>? people;
+  /// Collection of all Tags from underlying chapters for a Series
+  final List<TagDto>? tags;
+  final List<PersonDto>? writers;
+  final List<PersonDto>? coverArtists;
+  final List<PersonDto>? publishers;
+  final List<PersonDto>? characters;
+  final List<PersonDto>? pencillers;
+  final List<PersonDto>? inkers;
+  final List<PersonDto>? colorists;
+  final List<PersonDto>? letterers;
+  final List<PersonDto>? editors;
+  final List<PersonDto>? translators;
 
   /// Highest Age Rating from all Chapters
   final AgeRating? ageRating;
@@ -74,22 +86,24 @@ class SeriesMetadata
   /// Language of the content (BCP-47 code)
   final String? language;
 
-  /// Total expected number of issues/volumes in the series from ComicInfo.xml
+  /// Max number of issues/volumes in the series (Max of Volume/Issue field in ComicInfo)
+  final int? maxCount;
+
+  /// Total number of issues/volumes for the series
   final int? totalCount;
 
-  /// Max number of issues/volumes in the series (Max of Volume/Number field in ComicInfo)
-  final int? maxCount;
+  /// Publication status of the Series
   final PublicationStatus? publicationStatus;
 
-  /// A Comma-separated list of strings representing links from the series
+  /// A comma-separated list of Urls
   final String? webLinks;
   final bool? languageLocked;
   final bool? summaryLocked;
 
-  /// Locked by user so metadata updates from scan loop will not override [ageRating]
+  /// Locked by user so metadata updates from scan loop will not override AgeRating
   final bool? ageRatingLocked;
 
-  /// Locked by user so metadata updates from scan loop will not override [publicationStatus]
+  /// Locked by user so metadata updates from scan loop will not override PublicationStatus
   final bool? publicationStatusLocked;
   final bool? genresLocked;
   final bool? tagsLocked;
@@ -104,14 +118,8 @@ class SeriesMetadata
   final bool? translatorLocked;
   final bool? coverArtistLocked;
   final bool? releaseYearLocked;
-  final Series? series;
   final int? seriesId;
-  @override
-  final int? rowVersion;
 
-  static const fromMap = SeriesMetadataMapper.fromMap;
-  static const fromJson = SeriesMetadataMapper.fromJson;
-
-  SeriesMetadataDto toDto() =>
-      mappr.convert<SeriesMetadata, SeriesMetadataDto>(this);
+  static const fromMap = SeriesMetadataDtoMapper.fromMap;
+  static const fromJson = SeriesMetadataDtoMapper.fromJson;
 }

@@ -83,5 +83,5 @@ class Volume with VolumeMappable implements IEntityDate, IHasReadTimeEstimate {
   static const fromJson = VolumeMapper.fromJson;
 
   /// Converts the volume to a [VolumeDto]
-  VolumeDto toDto() => const Mappr().convert<Volume, VolumeDto>(this);
+  VolumeDto toDto() => mappr.convert<Volume, VolumeDto>(this);
 }

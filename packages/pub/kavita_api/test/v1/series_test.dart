@@ -243,15 +243,81 @@ void main() {
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
-    // refresh metadata
+    test('Test Refresh Metadata', () async {
+      when(() => kavita.rawApi.apiSeriesRefreshMetadataPost(
+              body: const raw.RefreshSeriesDto(
+            libraryId: 1,
+            seriesId: 1,
+            forceUpdate: true,
+          ))).thenResponse(null);
+      final res = await kavita.underTest.series.refreshMetadata(
+        libraryId: 1,
+        seriesId: 1,
+        forceUpdate: true,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
-    // scan
+    test('Test Scan Series', () async {
+      when(() => kavita.rawApi.apiSeriesScanPost(
+              body: const raw.RefreshSeriesDto(
+            libraryId: 1,
+            seriesId: 1,
+            forceUpdate: true,
+          ))).thenResponse(null);
+      final res = await kavita.underTest.series.scanSeries(
+        libraryId: 1,
+        seriesId: 1,
+        forceUpdate: true,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
-    // analyze
+    test('Test Analyze Series', () async {
+      when(() => kavita.rawApi.apiSeriesAnalyzePost(
+              body: const raw.RefreshSeriesDto(
+            libraryId: 1,
+            seriesId: 1,
+            forceUpdate: true,
+          ))).thenResponse(null);
+      final res = await kavita.underTest.series.analyzeSeries(
+        libraryId: 1,
+        seriesId: 1,
+        forceUpdate: true,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
-    // get metadata
+    test('Test Get Series Metadata', () async {
+      when(() => kavita.rawApi.apiSeriesMetadataGet(seriesId: 1))
+          .thenResponse(const raw.SeriesMetadataDto());
+      final expected = SeriesMetadataDto();
+      final res = await kavita.underTest.series.getSeriesMetadata(id: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // post metadata
+    test('Test Update Series Metadata', () async {
+      when(() => kavita.rawApi.apiSeriesUpdatePost(
+            body: const raw.UpdateSeriesDto(
+              id: 1,
+              localizedName: '',
+              sortName: '',
+              coverImageLocked: true,
+              sortNameLocked: true,
+              localizedNameLocked: true,
+            ),
+          )).thenResponse(null);
+      final res = await kavita.underTest.series.updateSeriesMetadata(
+        id: 1,
+        localizedName: '',
+        sortName: '',
+        coverImageLocked: true,
+        sortNameLocked: true,
+        localizedNameLocked: true,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
     // series by collection
 

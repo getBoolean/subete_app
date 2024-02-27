@@ -36,7 +36,6 @@ class KavitaContext {
 
   /// Whether a user is currently logged in
   bool get isLoggedIn => _currentUser != null;
-  static const _mappr = Mappr();
 
   late final http.Client _httpClient;
 
@@ -112,7 +111,7 @@ class KavitaContext {
             ),
           );
           final kavitaResponse =
-              _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+              mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
                   tokenResponse);
           if (!tokenResponse.isSuccessful ||
               tokenResponse.body == null ||
@@ -216,7 +215,7 @@ class KavitaContext {
     }
 
     final kavitaResponse =
-        _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(response);
+        mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(response);
 
     if (response.statusCode == 401) {
       throw KavitaUnauthorizedException(

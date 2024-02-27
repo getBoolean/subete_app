@@ -139,5 +139,5 @@ class Series with SeriesMappable implements IEntityDate, IHasReadTimeEstimate {
   static const fromMap = SeriesMapper.fromMap;
   static const fromJson = SeriesMapper.fromJson;
 
-  SeriesDto toDto() => const Mappr().convert<Series, SeriesDto>(this);
+  SeriesDto toDto() => mappr.convert<Series, SeriesDto>(this);
 }

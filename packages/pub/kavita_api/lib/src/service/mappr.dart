@@ -6,6 +6,7 @@ import 'package:kavita_api/src/service/entities.dart';
 import 'package:kavita_api/src/service/mappr.auto_mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
+import 'package:meta/meta.dart';
 
 /// Maps raw types to the package equivalents
 @AutoMappr([
@@ -80,6 +81,15 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
       KavitaResponse<ChapterMetadataDto>>(),
   MapType<ch.Response<List<raw.RecentlyAddedItemDto>>,
       KavitaResponse<List<RecentlyAddedItemDto>>>(),
+  MapType<ch.Response<raw.SeriesDetailDto>, KavitaResponse<SeriesDetailDto>>(),
+  MapType<ch.Response<raw.RelatedSeriesDto>,
+      KavitaResponse<RelatedSeriesDto>>(),
+  MapType<ch.Response<raw.ExternalSeriesDto>,
+      KavitaResponse<ExternalSeriesDto>>(),
+  MapType<ch.Response<raw.NextExpectedChapterDto>,
+      KavitaResponse<NextExpectedChapterDto>>(),
+  MapType<ch.Response<raw.SeriesMetadataDto>,
+      KavitaResponse<SeriesMetadataDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -310,8 +320,21 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
     TypeConverter<int, LibraryType>(LibraryType.new),
   ]),
   MapType<RecentlyAddedItemDto, raw.RecentlyAddedItemDto>(),
+  MapType<raw.SeriesDetailDto, SeriesDetailDto>(reverse: true),
+  MapType<raw.RelatedSeriesDto, RelatedSeriesDto>(reverse: true),
+  MapType<raw.ExternalSeriesDto, ExternalSeriesDto>(reverse: true),
+  MapType<raw.NextExpectedChapterDto, NextExpectedChapterDto>(reverse: true),
+  MapType<raw.SeriesMetadataDto, SeriesMetadataDto>(converters: [
+    TypeConverter<int, PublicationStatus>(PublicationStatus.new),
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<SeriesMetadataDto, raw.SeriesMetadataDto>(),
 ])
+@internal
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
   const Mappr();
 }
+
+/// A global [Mappr] instance
+const Mappr mappr = Mappr();
