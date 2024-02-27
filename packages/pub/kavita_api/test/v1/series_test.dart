@@ -291,7 +291,7 @@ void main() {
     test('Test Get Series Metadata', () async {
       when(() => kavita.rawApi.apiSeriesMetadataGet(seriesId: 1))
           .thenResponse(const raw.SeriesMetadataDto());
-      final expected = SeriesMetadataDto();
+      const expected = SeriesMetadataDto();
       final res = await kavita.underTest.series.getSeriesMetadata(id: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, equals(expected));
@@ -319,22 +319,145 @@ void main() {
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 
-    // series by collection
+    test('Test Get Series By Collection', () async {
+      when(() => kavita.rawApi.apiSeriesSeriesByCollectionGet(
+            collectionId: 1,
+          )).thenResponse([
+        const raw.SeriesDto(id: 1, name: 'test'),
+      ]);
+      final expected = [
+        const SeriesDto(id: 1, name: 'test'),
+      ];
+      final res = await kavita.underTest.series.getSeriesByCollection(id: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // series by ids
+    test('Test Get Series By Ids', () async {
+      when(() => kavita.rawApi.apiSeriesSeriesByIdsPost(
+            body: const raw.SeriesByIdsDto(
+              seriesIds: [1],
+            ),
+          )).thenResponse([
+        const raw.SeriesDto(id: 1, name: 'test'),
+      ]);
+      final expected = [
+        const SeriesDto(id: 1, name: 'test'),
+      ];
+      final res = await kavita.underTest.series.getSeriesByIds(ids: [1]);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // age rating
+    test('Test Get Age Rating', () async {
+      when(() => kavita.rawApi.apiSeriesAgeRatingGet(ageRating: 1))
+          .thenResponse('Value');
+      const expected = 'Value';
+      final res = await kavita.underTest.series
+          .getAgeRatingName(ageRating: const AgeRating(1));
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // series detail
+    test('Test Get Series', () async {
+      when(() => kavita.rawApi.apiSeriesSeriesIdGet(seriesId: 1))
+          .thenResponse(const raw.SeriesDto(id: 1, name: 'test'));
+      const expected = SeriesDto(id: 1, name: 'test');
+      final res = await kavita.underTest.series.getSeries(id: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // related
+    test('Test Get All Related Series', () async {
+      when(() => kavita.rawApi.apiSeriesRelatedGet(
+          seriesId: 1,
+          relation: raw.ApiSeriesRelatedGetRelation.value_1)).thenResponse([
+        const raw.SeriesDto(),
+      ]);
+      final expected = [
+        const SeriesDto(),
+      ];
+      final res = await kavita.underTest.series.getRelatedSeries(
+        id: 1,
+        relation: RelationKind.prequel,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // all related
+    test('Test Get All Related Series', () async {
+      when(() => kavita.rawApi.apiSeriesAllRelatedGet(seriesId: 1))
+          .thenResponse(
+        const raw.RelatedSeriesDto(),
+      );
+      const expected = RelatedSeriesDto();
+      final res = await kavita.underTest.series.getAllRelatedSeries(id: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // update related
+    test('Test Update Related Series', () async {
+      when(() => kavita.rawApi.apiSeriesUpdateRelatedPost(
+            body: const raw.UpdateRelatedSeriesDto(
+              seriesId: 1,
+              adaptations: [1],
+              characters: [1],
+              contains: [1],
+              others: [1],
+              prequels: [1],
+              sequels: [1],
+              sideStories: [1],
+              spinOffs: [1],
+              alternativeSettings: [1],
+              alternativeVersions: [1],
+              doujinshis: [1],
+              editions: [1],
+            ),
+          )).thenResponse(null);
+      final res = await kavita.underTest.series.updateRelatedSeries(
+        id: 1,
+        adaptations: [1],
+        characters: [1],
+        contains: [1],
+        others: [1],
+        prequels: [1],
+        sequels: [1],
+        sideStories: [1],
+        spinOffs: [1],
+        alternativeSettings: [1],
+        alternativeVersions: [1],
+        doujinshis: [1],
+        editions: [1],
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
-    // external series detail
+    test('Test Get External Series Detail', () async {
+      when(() => kavita.rawApi.apiSeriesExternalSeriesDetailGet(
+            seriesId: 1,
+            aniListId: 1,
+            malId: 1,
+          )).thenResponse(const raw.ExternalSeriesDto());
+      const expected = ExternalSeriesDto();
+      final res = await kavita.underTest.series.getExternalSeriesDetail(
+        seriesId: 1,
+        aniListId: 1,
+        malId: 1,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // next expected
+    test('Test Get Next Expected Chapter', () async {
+      when(() => kavita.rawApi.apiSeriesNextExpectedGet(
+            seriesId: 1,
+          )).thenResponse(const raw.NextExpectedChapterDto());
+      const expected = NextExpectedChapterDto();
+      final res = await kavita.underTest.series.getNextExpectedChapter(
+        seriesId: 1,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
   });
 }

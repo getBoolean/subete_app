@@ -6,7 +6,6 @@ import 'package:kavita_api/src/service/entities.dart';
 import 'package:kavita_api/src/service/mappr.auto_mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
-import 'package:meta/meta.dart';
 
 /// Maps raw types to the package equivalents
 @AutoMappr([
@@ -330,7 +329,6 @@ import 'package:meta/meta.dart';
   ]),
   MapType<SeriesMetadataDto, raw.SeriesMetadataDto>(),
 ])
-@internal
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
   const Mappr();

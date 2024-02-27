@@ -2892,14 +2892,14 @@ class KavitaApiSeries extends KavitaApi {
 
   /// Returns all [Series] grouped by the passed Collection Id with Pagination.
   Future<KavitaResponse<List<SeriesDto>>> getSeriesByCollection({
-    int? collectionId,
+    int? id,
     int? pageNumber,
     int? pageSize,
   }) async {
     return mappr.convert<ch.Response<List<raw.SeriesDto>>,
         KavitaResponse<List<SeriesDto>>>(
       await context.api.apiSeriesSeriesByCollectionGet(
-        collectionId: collectionId,
+        collectionId: id,
         pageNumber: pageNumber,
         pageSize: pageSize,
       ),
@@ -2909,13 +2909,13 @@ class KavitaApiSeries extends KavitaApi {
   /// Fetches [Series] for a set of Ids. This will check User for permission access
   /// and filter out any Ids that don't exist or the user does not have access to.
   Future<KavitaResponse<List<SeriesDto>>> getSeriesByIds({
-    required List<int> seriesIds,
+    required List<int> ids,
   }) async {
     return mappr.convert<ch.Response<List<raw.SeriesDto>>,
         KavitaResponse<List<SeriesDto>>>(
       await context.api.apiSeriesSeriesByIdsPost(
         body: raw.SeriesByIdsDto(
-          seriesIds: seriesIds,
+          seriesIds: ids,
         ),
       ),
     );
@@ -2941,14 +2941,14 @@ class KavitaApiSeries extends KavitaApi {
   }
 
   /// Fetches the related [Series] for a given series
-  Future<KavitaResponse<List<SeriesDto>>> getSeriesRelated({
-    required int seriesId,
+  Future<KavitaResponse<List<SeriesDto>>> getRelatedSeries({
+    required int id,
     required RelationKind relation,
   }) async {
     return mappr.convert<ch.Response<List<raw.SeriesDto>>,
         KavitaResponse<List<SeriesDto>>>(
       await context.api.apiSeriesRelatedGet(
-        seriesId: seriesId,
+        seriesId: id,
         relation: raw.ApiSeriesRelatedGetRelation.values.firstWhereOrNull(
               (r) => r.value == relation,
             ) ??
@@ -2958,21 +2958,21 @@ class KavitaApiSeries extends KavitaApi {
   }
 
   /// Returns all [RelatedSeriesDto] against the passed [Series] Id
-  Future<KavitaResponse<RelatedSeriesDto>> getAllSeriesRelated({
-    required int seriesId,
+  Future<KavitaResponse<RelatedSeriesDto>> getAllRelatedSeries({
+    required int id,
   }) async {
     return mappr.convert<ch.Response<raw.RelatedSeriesDto>,
         KavitaResponse<RelatedSeriesDto>>(
-      await context.api.apiSeriesAllRelatedGet(seriesId: seriesId),
+      await context.api.apiSeriesAllRelatedGet(seriesId: id),
     );
   }
 
-  /// Update the relations attached to the Series. Does not generate associated
+  /// Update the relations attached to the [Series]. Does not generate associated
   /// Sequel/Prequel pairs on target series.
   ///
   /// [RelatedSeriesDto.parent] is also ignored.
-  Future<KavitaResponse<void>> updateSeriesRelated({
-    required int seriesId,
+  Future<KavitaResponse<void>> updateRelatedSeries({
+    required int id,
     List<int>? adaptations,
     List<int>? characters,
     List<int>? contains,
@@ -2989,7 +2989,7 @@ class KavitaApiSeries extends KavitaApi {
     return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
       await context.api.apiSeriesUpdateRelatedPost(
         body: raw.UpdateRelatedSeriesDto(
-          seriesId: seriesId,
+          seriesId: id,
           adaptations: adaptations,
           characters: characters,
           contains: contains,
@@ -3007,7 +3007,7 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  /// Get external series detail
+  /// Get [ExternalSeriesDto] for a given [Series]
   Future<KavitaResponse<ExternalSeriesDto>> getExternalSeriesDetail({
     required int seriesId,
     int? aniListId,
