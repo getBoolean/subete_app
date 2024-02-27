@@ -87,19 +87,161 @@ void main() {
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
-    // update rating
+    test('Test Update Rating', () async {
+      when(() => kavita.rawApi.apiSeriesUpdateRatingPost(
+            body: const raw.UpdateSeriesRatingDto(
+              seriesId: 1,
+              userRating: 1.0,
+            ),
+          )).thenResponse(null);
+      final res = await kavita.underTest.series.updateRating(
+        seriesId: 1,
+        userRating: 1.0,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
-    // update
+    test('Test Update Series', () async {
+      when(() => kavita.rawApi.apiSeriesUpdatePost(
+            body: const raw.UpdateSeriesDto(
+              id: 1,
+              localizedName: '',
+              sortName: '',
+              coverImageLocked: true,
+              sortNameLocked: true,
+              localizedNameLocked: true,
+            ),
+          )).thenResponse(null);
+      final res = await kavita.underTest.series.updateSeries(
+        id: 1,
+        localizedName: '',
+        sortName: '',
+        coverImageLocked: true,
+        sortNameLocked: true,
+        localizedNameLocked: true,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
-    // recently added v2
+    test('Test Get Recently Added Series', () async {
+      when(() => kavita.rawApi.apiSeriesRecentlyAddedV2Post(
+            pageNumber: 1,
+            pageSize: 1,
+            body: const raw.FilterV2Dto(
+              id: 0,
+              name: 'All',
+            ),
+          )).thenResponse([
+        const raw.SeriesDto(
+          id: 1,
+          name: 'Test',
+        ),
+      ]);
+      final expected = [
+        const SeriesDto(
+          id: 1,
+          name: 'Test',
+        ),
+      ];
+      final res = await kavita.underTest.series.getRecentlyAddedSeries(
+        pageNumber: 1,
+        pageSize: 1,
+        filter: const FilterV2Dto(
+          id: 0,
+          name: 'All',
+        ),
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // recently updated series
+    test('Test Get Recently Updated Series', () async {
+      when(() => kavita.rawApi.apiSeriesRecentlyUpdatedSeriesPost())
+          .thenResponse([
+        const raw.RecentlyAddedItemDto(
+          seriesName: 'Test',
+          seriesId: 1,
+        ),
+      ]);
+      final expected = [
+        const RecentlyAddedItemDto(
+          seriesName: 'Test',
+          seriesId: 1,
+        ),
+      ];
+      final res = await kavita.underTest.series.getRecentlyUpdatedSeries();
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // add v2
+    test('Test Get All Series', () async {
+      when(() => kavita.rawApi.apiSeriesAllV2Post(
+          pageNumber: 1,
+          pageSize: 1,
+          libraryId: 1,
+          body: const raw.FilterV2Dto(
+            id: 0,
+            name: 'All',
+          ))).thenResponse([
+        const raw.SeriesDto(
+          id: 1,
+          name: 'Test',
+        ),
+      ]);
+      final expected = [
+        const SeriesDto(
+          id: 1,
+          name: 'Test',
+        ),
+      ];
+      final res = await kavita.underTest.series.getAllSeries(
+        libraryId: 1,
+        pageNumber: 1,
+        pageSize: 1,
+        filter: const FilterV2Dto(
+          id: 0,
+          name: 'All',
+        ),
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // on deck
+    test('Test Get On Deck Series', () async {
+      when(() => kavita.rawApi.apiSeriesOnDeckPost(
+            pageNumber: 1,
+            pageSize: 1,
+            libraryId: 1,
+          )).thenResponse([
+        const raw.SeriesDto(
+          id: 1,
+          name: 'Test',
+        ),
+      ]);
+      final expected = [
+        const SeriesDto(
+          id: 1,
+          name: 'Test',
+        ),
+      ];
+      final res = await kavita.underTest.series.getOnDeckSeries(
+        libraryId: 1,
+        pageNumber: 1,
+        pageSize: 1,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
-    // remove from on deck
+    test('Test Remove From On Deck Series', () async {
+      when(() => kavita.rawApi.apiSeriesRemoveFromOnDeckPost(
+            seriesId: 1,
+          )).thenResponse(null);
+      final res = await kavita.underTest.series.removeSeriesFromOnDeck(
+        id: 1,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
 
     // refresh metadata
 

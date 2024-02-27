@@ -54,6 +54,7 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.SearchResultGroupDto>,
       KavitaResponse<SearchResultGroupDto>>(),
   MapType<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(),
+  MapType<ch.Response<List<raw.SeriesDto>>, KavitaResponse<List<SeriesDto>>>(),
   MapType<ch.Response<raw.BookInfoDto>, KavitaResponse<BookInfoDto>>(),
   MapType<ch.Response<List<raw.BookChapterItem>>,
       KavitaResponse<List<BookChapterItem>>>(),
@@ -77,6 +78,8 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.VolumeDto>, KavitaResponse<VolumeDto>>(),
   MapType<ch.Response<raw.ChapterMetadataDto>,
       KavitaResponse<ChapterMetadataDto>>(),
+  MapType<ch.Response<List<raw.RecentlyAddedItemDto>>,
+      KavitaResponse<List<RecentlyAddedItemDto>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -302,6 +305,11 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<Chapter, ChapterDto>(reverse: true),
   MapType<MangaFile, MangaFileDto>(reverse: true),
   MapType<raw.ChapterMetadataDto, ChapterMetadataDto>(reverse: true),
+  MapType<raw.RecentlyAddedItemDto, RecentlyAddedItemDto>(converters: [
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+    TypeConverter<int, LibraryType>(LibraryType.new),
+  ]),
+  MapType<RecentlyAddedItemDto, raw.RecentlyAddedItemDto>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance

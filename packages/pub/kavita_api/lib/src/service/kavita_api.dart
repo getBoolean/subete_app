@@ -2614,12 +2614,12 @@ class KavitaApiScrobbling extends KavitaApi {
   // remove hold
 }
 
-/// All Series related APIs
+/// All [Series] related APIs
 class KavitaApiSeries extends KavitaApi {
   /// All Series related APIs
   const KavitaApiSeries.fromContext(super.context) : super.fromContext();
 
-  /// Gets series with the applied Filter
+  /// Finds [Series] with the applied Filter
   ///
   /// Arguments:
   /// - [filter]
@@ -2640,7 +2640,7 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  /// Fetches a Series for a given [id]
+  /// Fetches a [Series] for a given [id]
   Future<KavitaResponse<SeriesDto>> getSeries({required int id}) async {
     return _mappr
         .convert<ch.Response<raw.SeriesDto>, KavitaResponse<SeriesDto>>(
@@ -2648,14 +2648,14 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  /// Deletes a series from Kavita
+  /// Deletes a [Series] from Kavita
   Future<KavitaResponse<bool>> deleteSeries({required int id}) async {
     return _mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
       await context.api.apiSeriesSeriesIdDelete(seriesId: id),
     );
   }
 
-  /// Delete multiple series from Kavita
+  /// Delete multiple [Series] from Kavita
   Future<KavitaResponse<void>> deleteSeriesMultiple({
     required List<int> ids,
   }) async {
@@ -2666,7 +2666,7 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  /// Returns All volumes for a series with progress information and Chapters
+  /// Returns All [Volume]s for a [Series] with progress information and [Chapter]s
   Future<KavitaResponse<List<VolumeDto>>> getVolumes({
     required int id,
   }) async {
@@ -2676,7 +2676,7 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  /// Returns a volume by its id
+  /// Returns a [Volume] by its id
   Future<KavitaResponse<VolumeDto>> getVolume({required int id}) async {
     return _mappr
         .convert<ch.Response<raw.VolumeDto>, KavitaResponse<VolumeDto>>(
@@ -2684,7 +2684,7 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  /// Returns a chapter by its id
+  /// Returns a [Chapter] by its id
   Future<KavitaResponse<ChapterDto>> getChapter({
     required int id,
   }) async {
@@ -2694,7 +2694,7 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  /// Returns metadata for a chapter
+  /// Returns metadata for a [Chapter]
   Future<KavitaResponse<ChapterMetadataDto>> getChapterMetadata({
     required int chapterId,
   }) async {
@@ -2704,27 +2704,174 @@ class KavitaApiSeries extends KavitaApi {
     );
   }
 
-  // update rating
+  /// Update the user rating for the given [Series]
+  Future<KavitaResponse<void>> updateRating({
+    required int seriesId,
+    required double userRating,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSeriesUpdateRatingPost(
+        body: raw.UpdateSeriesRatingDto(
+          seriesId: seriesId,
+          userRating: userRating,
+        ),
+      ),
+    );
+  }
 
-  // update
+  /// Updates the [Series]
+  Future<KavitaResponse<void>> updateSeries({
+    required int? id,
+    String? localizedName,
+    String? sortName,
+    bool? coverImageLocked,
+    bool? sortNameLocked,
+    bool? localizedNameLocked,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSeriesUpdatePost(
+        body: raw.UpdateSeriesDto(
+          id: id,
+          localizedName: localizedName,
+          sortName: sortName,
+          coverImageLocked: coverImageLocked,
+          sortNameLocked: sortNameLocked,
+          localizedNameLocked: localizedNameLocked,
+        ),
+      ),
+    );
+  }
 
-  // recently added v2
+  /// Gets all recently added [Series]
+  Future<KavitaResponse<List<SeriesDto>>> getRecentlyAddedSeries({
+    required int pageNumber,
+    required int pageSize,
+    required FilterV2Dto filter,
+  }) async {
+    return _mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiSeriesRecentlyAddedV2Post(
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+      ),
+    );
+  }
 
-  // recently updated series
+  /// Returns [Series] that were recently updated, like adding or removing a chapter
+  Future<KavitaResponse<List<RecentlyAddedItemDto>>>
+      getRecentlyUpdatedSeries() async {
+    return _mappr.convert<ch.Response<List<raw.RecentlyAddedItemDto>>,
+        KavitaResponse<List<RecentlyAddedItemDto>>>(
+      await context.api.apiSeriesRecentlyUpdatedSeriesPost(),
+    );
+  }
 
-  // add v2
+  /// Returns all [Series] for the library
+  Future<KavitaResponse<List<SeriesDto>>> getAllSeries({
+    required int libraryId,
+    required int pageNumber,
+    required int pageSize,
+    required FilterV2Dto filter,
+  }) async {
+    return _mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiSeriesAllV2Post(
+        libraryId: libraryId,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        body: _mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+      ),
+    );
+  }
 
-  // on deck
+  /// Fetches [Series] that are on deck aka have progress on them.
+  Future<KavitaResponse<List<SeriesDto>>> getOnDeckSeries({
+    required int libraryId,
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    return _mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiSeriesOnDeckPost(
+        libraryId: libraryId,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      ),
+    );
+  }
 
-  // remove from on deck
+  /// Removes a [Series] from displaying on deck until the next read event on that series
+  Future<KavitaResponse<void>> removeSeriesFromOnDeck({
+    required int id,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSeriesRemoveFromOnDeckPost(
+        seriesId: id,
+      ),
+    );
+  }
 
-  // refresh metadata
+  /// Runs a Cover Image Generation task
+  ///
+  /// - [forceUpdate] - Should the task force opening/re-calculation.
+  Future<KavitaResponse<void>> refreshMetadata({
+    required int libraryId,
+    required int seriesId,
+    bool? forceUpdate,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSeriesRefreshMetadataPost(
+          body: raw.RefreshSeriesDto(
+        libraryId: libraryId,
+        seriesId: seriesId,
+        forceUpdate: forceUpdate,
+      )),
+    );
+  }
 
-  // scan
+  /// Scan a [Series] and force each file to be updated. This should be invoked via the User, hence why we force.
+  Future<KavitaResponse<void>> scanSeries({
+    required int seriesId,
+    required int libraryId,
+    bool? forceUpdate,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSeriesScanPost(
+        body: raw.RefreshSeriesDto(
+          libraryId: libraryId,
+          seriesId: seriesId,
+          forceUpdate: forceUpdate,
+        ),
+      ),
+    );
+  }
 
-  // analyze
+  /// Run a file analysis on the [Series].
+  Future<KavitaResponse<void>> analyzeSeries({
+    required int seriesId,
+    required int libraryId,
+    bool? forceUpdate,
+  }) async {
+    return _mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSeriesAnalyzePost(
+          body: raw.RefreshSeriesDto(
+        libraryId: libraryId,
+        seriesId: seriesId,
+        forceUpdate: forceUpdate,
+      )),
+    );
+  }
 
-  // get metadata
+  /// Returns metadata for a given series
+  Future<KavitaResponse<SeriesMetadata>> getSeriesMetadata({
+    required int id,
+  }) async {
+    return _mappr.convert<ch.Response<raw.SeriesMetadataDto>,
+        KavitaResponse<SeriesMetadata>>(
+      await context.api.apiSeriesMetadataGet(seriesId: id),
+    );
+  }
 
   // post metadata
 

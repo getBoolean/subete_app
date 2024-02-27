@@ -27,6 +27,7 @@ export 'dtos/person_dto.dart';
 export 'dtos/progress_dto.dart';
 export 'dtos/rating_dto.dart';
 export 'dtos/reading_list_dto.dart';
+export 'dtos/recently_added_item_dto.dart';
 export 'dtos/search_result_dto.dart';
 export 'dtos/search_result_group_dto.dart';
 export 'dtos/series_dto.dart';
