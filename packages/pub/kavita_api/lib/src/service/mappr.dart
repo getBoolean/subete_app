@@ -89,6 +89,7 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
       KavitaResponse<NextExpectedChapterDto>>(),
   MapType<ch.Response<raw.SeriesMetadataDto>,
       KavitaResponse<SeriesMetadataDto>>(),
+  MapType<ch.Response<raw.UserReviewDto>, KavitaResponse<UserReviewDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -328,6 +329,10 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
     TypeConverter<int, AgeRating>(AgeRating.new),
   ]),
   MapType<SeriesMetadataDto, raw.SeriesMetadataDto>(),
+  MapType<raw.UserReviewDto, UserReviewDto>(converters: [
+    TypeConverter<int, ScrobbleProvider>(ScrobbleProvider.new),
+  ]),
+  MapType<UserReviewDto, raw.UserReviewDto>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance

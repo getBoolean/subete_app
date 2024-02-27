@@ -2687,11 +2687,29 @@ class KavitaApiReview extends KavitaApi {
   /// All Review related APIs
   const KavitaApiReview.fromContext(super.context) : super.fromContext();
 
-  // TODO: Review
+  /// Updates the review for a given series
+  Future<KavitaResponse<UserReviewDto>> postReview({
+    required int seriesId,
+    required String body,
+  }) async {
+    return mappr
+        .convert<ch.Response<raw.UserReviewDto>, KavitaResponse<UserReviewDto>>(
+      await context.api.apiReviewPost(
+        body: raw.UpdateUserReviewDto(body: body, seriesId: seriesId),
+      ),
+    );
+  }
 
-  // post
-
-  // delete
+  /// Deletes the user's review for the given series
+  Future<KavitaResponse<void>> deleteReview({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReviewDelete(
+        seriesId: seriesId,
+      ),
+    );
+  }
 }
 
 /// All Scrobbling related APIs

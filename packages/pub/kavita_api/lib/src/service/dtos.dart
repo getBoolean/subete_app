@@ -43,4 +43,5 @@ export 'dtos/tag_dto.dart';
 export 'dtos/token_request_dto.dart';
 export 'dtos/user_dto.dart';
 export 'dtos/user_preferences_dto.dart';
+export 'dtos/user_review_dto.dart';
 export 'dtos/volume_dto.dart';
