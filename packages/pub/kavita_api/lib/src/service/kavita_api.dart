@@ -2598,17 +2598,88 @@ class KavitaApiRecommended extends KavitaApi {
   /// All Recommended related APIs
   const KavitaApiRecommended.fromContext(super.context) : super.fromContext();
 
-  // TODO*: Recommended
+  /// Quick Reads are series that should be readable in less than 10 in total
+  /// and are not Ongoing in release.
+  Future<KavitaResponse<List<SeriesDto>>> getQuickReads({
+    required int libraryId,
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiRecommendedQuickReadsGet(
+        libraryId: libraryId,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      ),
+    );
+  }
 
-  // quick reads
+  /// Quick Catchup Reads are series that should be readable in less than 10
+  /// in total and are Ongoing in release.
+  Future<KavitaResponse<List<SeriesDto>>> getQuickCatchupReads({
+    required int libraryId,
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiRecommendedQuickCatchupReadsGet(
+        libraryId: libraryId,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      ),
+    );
+  }
 
-  // quick catchup reads
+  /// Highly Rated based on other users ratings. Will pull series with ratings > 4.0,
+  /// weighted by count of other users.
+  Future<KavitaResponse<List<SeriesDto>>> getHighlyRated({
+    required int libraryId,
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiRecommendedHighlyRatedGet(
+        libraryId: libraryId,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      ),
+    );
+  }
 
-  // highly rated
+  /// Chooses a random genre and shows series that are in that without reading progress
+  Future<KavitaResponse<List<SeriesDto>>> getMoreIn({
+    required int libraryId,
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiRecommendedMoreInGet(
+        libraryId: libraryId,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      ),
+    );
+  }
 
-  // more in
-
-  // rediscover
+  /// Series that are fully read by the user in no particular order
+  Future<KavitaResponse<List<SeriesDto>>> getRediscover({
+    required int libraryId,
+    required int pageNumber,
+    required int pageSize,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
+        KavitaResponse<List<SeriesDto>>>(
+      await context.api.apiRecommendedRediscoverGet(
+        libraryId: libraryId,
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      ),
+    );
+  }
 }
 
 /// All Review related APIs
