@@ -1946,21 +1946,108 @@ class KavitaApiUpload extends KavitaApi {
   /// All APIs related to uploading entities to the system.
   const KavitaApiUpload.fromContext(super.context) : super.fromContext();
 
-  // TODO*: Upload
+  /// This stores a file (image) in temp directory for use in a cover image replacement flow. This is automatically cleaned up.
+  Future<KavitaResponse<void>> uploadByUrl({
+    required Uri url,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUploadUploadByUrlPost(
+        body: raw.UploadUrlDto(url: url.toString()),
+      ),
+    );
+  }
 
-  // upload by url
+  /// Replaces series cover image and locks it with a base64 encoded image
+  Future<KavitaResponse<void>> uploadSeriesCoverImage({
+    required int seriesId,
+    required Uri url,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUploadSeriesPost(
+        body: raw.UploadFileDto(
+          id: seriesId,
+          url: url.toString(),
+        ),
+      ),
+    );
+  }
 
-  // series
+  /// Replaces collection tag cover image and locks it with a base64 encoded image
+  Future<KavitaResponse<void>> uploadCollectionCoverImage({
+    required int collectionId,
+    required Uri url,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUploadCollectionPost(
+        body: raw.UploadFileDto(
+          id: collectionId,
+          url: url.toString(),
+        ),
+      ),
+    );
+  }
 
-  // collection
+  /// Replaces reading list cover image and locks it with a base64 encoded image
+  Future<KavitaResponse<void>> uploadReadingListCoverImage({
+    required int readingListId,
+    required Uri url,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUploadReadingListPost(
+        body: raw.UploadFileDto(
+          id: readingListId,
+          url: url.toString(),
+        ),
+      ),
+    );
+  }
 
-  // reading list
+  /// Replaces chapter cover image and locks it with a base64 encoded image.
+  /// This will update the parent volume's cover image.
+  Future<KavitaResponse<void>> uploadChapterCoverImage({
+    required int chapterId,
+    required Uri url,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUploadChapterPost(
+        body: raw.UploadFileDto(
+          id: chapterId,
+          url: url.toString(),
+        ),
+      ),
+    );
+  }
 
-  // chapter
+  /// Replaces library cover image with a base64 encoded image.
+  /// If empty string passed, will reset to null.
+  Future<KavitaResponse<void>> uploadLibraryCoverImage({
+    required int libraryId,
+    required Uri url,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUploadLibraryPost(
+        body: raw.UploadFileDto(
+          id: libraryId,
+          url: url.toString(),
+        ),
+      ),
+    );
+  }
 
-  // library
-
-  // reset chapter lock
+  /// Replaces chapter cover image and locks it with a base64 encoded image. This will update the parent volume's cover image.
+  Future<KavitaResponse<void>> resetChapterLock({
+    required int chapterId,
+    required Uri url,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUploadResetChapterLockPost(
+        body: raw.UploadFileDto(
+          id: chapterId,
+          url: url.toString(),
+        ),
+      ),
+    );
+  }
 }
 
 /// Responsible for all things Want To Read
