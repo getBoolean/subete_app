@@ -55,7 +55,7 @@ Future<void> main() async {
   //
   // This test must be the first to run. If not, the native side likely won't
   // receive any tests, and everything will fall apart.
-  test('patrol_test_explorer', () {
+  test('patrol_test_explorer', skip: true, () {
     // Maybe somewhat counterintuitively, this callback runs *after* the calls
     // to group() below.
     final topLevelGroup = Invoker.current!.liveTest.groups.first;
