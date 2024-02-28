@@ -2804,23 +2804,137 @@ class KavitaApiReadingList extends KavitaApi {
     );
   }
 
-  // update by series
+  /// Adds all [Chapter]s from a [Series] to a [ReadingList]
+  Future<KavitaResponse<void>> updateReadingListBySeries({
+    required int readingListId,
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListUpdateBySeriesPost(
+        body: raw.UpdateReadingListBySeriesDto(
+          readingListId: readingListId,
+          seriesId: seriesId,
+        ),
+      ),
+    );
+  }
 
-  // update by multiple
+  /// Adds all [Chapter]s from a list of [Volume]s and [Chapter]s to a [ReadingList]
+  Future<KavitaResponse<void>> updateReadingListByMultiple({
+    required int readingListId,
+    required int seriesId,
+    List<int>? volumeIds,
+    List<int>? chapterIds,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListUpdateByMultiplePost(
+        body: raw.UpdateReadingListByMultipleDto(
+          readingListId: readingListId,
+          seriesId: seriesId,
+          volumeIds: volumeIds,
+          chapterIds: chapterIds,
+        ),
+      ),
+    );
+  }
 
-  // update by multiple series
+  /// Adds all [Chapter]s from a list of [Series] to a [ReadingList]
+  Future<KavitaResponse<void>> updateReadingListByMultipleSeries({
+    required int readingListId,
+    required List<int> seriesIds,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListUpdateByMultipleSeriesPost(
+        body: raw.UpdateReadingListByMultipleSeriesDto(
+          readingListId: readingListId,
+          seriesIds: seriesIds,
+        ),
+      ),
+    );
+  }
 
-  // update by volume
+  /// Updates the [ReadingList] by a [Volume]
+  Future<KavitaResponse<void>> updateReadingListByVolume({
+    required int readingListId,
+    required int seriesId,
+    required int volumeId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListUpdateByVolumePost(
+        body: raw.UpdateReadingListByVolumeDto(
+          readingListId: readingListId,
+          seriesId: seriesId,
+          volumeId: volumeId,
+        ),
+      ),
+    );
+  }
 
-  // update by chapter
+  /// Updates the [ReadingList] by a [Chapter]
+  Future<KavitaResponse<void>> updateReadingListByChapter({
+    required int readingListId,
+    required int seriesId,
+    required int chapterId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListUpdateByChapterPost(
+        body: raw.UpdateReadingListByChapterDto(
+          readingListId: readingListId,
+          seriesId: seriesId,
+          chapterId: chapterId,
+        ),
+      ),
+    );
+  }
 
-  // characters
+  /// Returns a list of characters associated with the reading list
+  Future<KavitaResponse<List<PersonDto>>> getReadingListCharacters({
+    required int readingListId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.PersonDto>>,
+        KavitaResponse<List<PersonDto>>>(
+      await context.api.apiReadingListCharactersGet(
+        readingListId: readingListId,
+      ),
+    );
+  }
 
-  // next chapter
+  /// Returns the next chapter id within the [ReadingList]
+  Future<KavitaResponse<int>> getReadingListNextChapter({
+    required int readingListId,
+    required int currentChapterId,
+  }) async {
+    return mappr.convert<ch.Response<int>, KavitaResponse<int>>(
+      await context.api.apiReadingListNextChapterGet(
+        readingListId: readingListId,
+        currentChapterId: currentChapterId,
+      ),
+    );
+  }
 
-  // prev chapter
+  /// Returns the prev chapter id within the [ReadingList]
+  Future<KavitaResponse<int>> getReadingListPrevChapter({
+    required int readingListId,
+    required int currentChapterId,
+  }) async {
+    return mappr.convert<ch.Response<int>, KavitaResponse<int>>(
+      await context.api.apiReadingListPrevChapterGet(
+        readingListId: readingListId,
+        currentChapterId: currentChapterId,
+      ),
+    );
+  }
 
-  // name exists
+  /// Checks if a [ReadingList] exists with the [name]
+  Future<KavitaResponse<bool>> readingListNameExists({
+    required String name,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiReadingListNameExistsGet(
+        name: name,
+      ),
+    );
+  }
 }
 
 /// All Recommended related APIs
