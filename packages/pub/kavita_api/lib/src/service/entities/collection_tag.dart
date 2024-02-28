@@ -1,5 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/dtos/collection_tag_dto.dart';
 import 'package:kavita_api/src/service/entities/series_metadata.dart';
+import 'package:kavita_api/src/service/mappr.dart';
 
 part 'collection_tag.mapper.dart';
 
@@ -53,4 +55,9 @@ class CollectionTag with CollectionTagMappable {
   static const fromMap = CollectionTagMapper.fromMap;
   // ignore: public_member_api_docs
   static const fromJson = CollectionTagMapper.fromJson;
+
+  // ignore: public_member_api_docs
+  CollectionTagDto toDto() => mappr.convert<CollectionTag, CollectionTagDto>(
+        this,
+      );
 }

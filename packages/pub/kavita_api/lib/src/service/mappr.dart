@@ -6,6 +6,7 @@ import 'package:kavita_api/src/service/entities.dart';
 import 'package:kavita_api/src/service/mappr.auto_mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
+import 'package:meta/meta.dart';
 
 /// Maps raw types to the package equivalents
 @AutoMappr([
@@ -90,6 +91,8 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<ch.Response<raw.SeriesMetadataDto>,
       KavitaResponse<SeriesMetadataDto>>(),
   MapType<ch.Response<raw.UserReviewDto>, KavitaResponse<UserReviewDto>>(),
+  MapType<ch.Response<List<raw.ReadingListItemDto>>,
+      KavitaResponse<List<ReadingListItemDto>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -311,9 +314,9 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
   MapType<AppUserSideNavStream, raw.AppUserSideNavStream>(),
   MapType<raw.AppUserExternalSource, AppUserExternalSource>(reverse: true),
   MapType<raw.VolumeDto, VolumeDto>(reverse: true),
-  MapType<Volume, VolumeDto>(reverse: true),
-  MapType<Chapter, ChapterDto>(reverse: true),
-  MapType<MangaFile, MangaFileDto>(reverse: true),
+  MapType<Volume, VolumeDto>(),
+  MapType<Chapter, ChapterDto>(),
+  MapType<MangaFile, MangaFileDto>(),
   MapType<raw.ChapterMetadataDto, ChapterMetadataDto>(reverse: true),
   MapType<raw.RecentlyAddedItemDto, RecentlyAddedItemDto>(converters: [
     TypeConverter<int, MangaFormat>(MangaFormat.new),
@@ -333,10 +336,44 @@ import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swag
     TypeConverter<int, ScrobbleProvider>(ScrobbleProvider.new),
   ]),
   MapType<UserReviewDto, raw.UserReviewDto>(),
+  MapType<raw.ReadingListItemDto, ReadingListItemDto>(converters: [
+    TypeConverter<int, LibraryType>(LibraryType.new),
+    TypeConverter<int, MangaFormat>(MangaFormat.new),
+  ]),
+  MapType<ReadingListItemDto, raw.ReadingListItemDto>(),
+  MapType<ReadingList, ReadingListDto>(),
+  MapType<ReadingListItem, ReadingListItemDto>(),
+  MapType<Person, PersonDto>(),
+  MapType<Library, LibraryDto>(converters: [
+    TypeConverter<List<FolderPath>, List<String>>(Mappr.convertFolderPaths),
+    TypeConverter<List<LibraryFileTypeGroup>, List<FileTypeGroup>>(
+        Mappr.convertFileTypeGroups),
+  ]),
+  MapType<CollectionTag, CollectionTagDto>(),
+  MapType<Device, DeviceDto>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
   const Mappr();
+
+  @internal
+  // ignore: public_member_api_docs
+  static List<String> convertFolderPaths(List<FolderPath> folderPaths) {
+    return folderPaths
+        .where((e) => e.path != null)
+        .map((e) => e.path!)
+        .toList();
+  }
+
+  @internal
+  // ignore: public_member_api_docs
+  static List<FileTypeGroup> convertFileTypeGroups(
+      List<LibraryFileTypeGroup> fileTypeGroups) {
+    return fileTypeGroups
+        .where((e) => e.fileTypeGroup != null)
+        .map((e) => e.fileTypeGroup!)
+        .toList();
+  }
 }
 
 /// A global [Mappr] instance

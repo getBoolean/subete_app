@@ -88,4 +88,15 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
       error: error,
     );
   }
+
+  /// Maps the response body to [NewBodyType]
+  KavitaResponse<NewBodyType> map<NewBodyType>(
+    NewBodyType? Function(BodyType? body) mapper,
+  ) {
+    return KavitaResponse<NewBodyType>(
+      base,
+      mapper(body),
+      error: error,
+    );
+  }
 }

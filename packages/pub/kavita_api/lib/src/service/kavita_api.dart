@@ -2639,27 +2639,170 @@ class KavitaApiReadingList extends KavitaApi {
   /// All ReadingList related APIs
   const KavitaApiReadingList.fromContext(super.context) : super.fromContext();
 
-  // TODO*: Reading List
+  /// Fetches a single [ReadingListDto]
+  Future<KavitaResponse<ReadingListDto>> getReadingList({
+    required int readingListId,
+  }) async {
+    return mappr
+        .convert<ch.Response<List<raw.ReadingListDto>>,
+            KavitaResponse<List<ReadingListDto>>>(
+          await context.api.apiReadingListGet(readingListId: readingListId),
+        )
+        .map((body) => body?.firstOrNull);
+  }
 
-  // get
+  /// Deletes a [ReadingListDto]
+  Future<KavitaResponse<void>> deleteReadingList({
+    required int readingListId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListDelete(
+        readingListId: readingListId,
+      ),
+    );
+  }
 
-  // delete
+  /// Returns [ReadingListDto]s (paginated) for a given user.
+  ///
+  /// Arguments:
+  /// - [pageNumber]
+  /// - [pageSize] If set to 0, will set as MaxInt
+  /// - [includePromoted] Include Promoted Reading Lists along with user's Reading Lists.
+  /// - [sortByLastModified] Sort by last modified (most recent first) or by title (alphabetical)
+  Future<KavitaResponse<List<ReadingListDto>>> getReadingLists({
+    required int pageNumber,
+    required int pageSize,
+    bool includePromoted = true,
+    bool sortByLastModified = false,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.ReadingListDto>>,
+        KavitaResponse<List<ReadingListDto>>>(
+      await context.api.apiReadingListListsPost(
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        includePromoted: includePromoted,
+        sortByLastModified: sortByLastModified,
+      ),
+    );
+  }
 
-  // lists
+  /// Returns all [ReadingListDto]s the user has access to that have a [Series] within it.
+  Future<KavitaResponse<List<ReadingListDto>>> getReadingListsForSeries({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.ReadingListDto>>,
+        KavitaResponse<List<ReadingListDto>>>(
+      await context.api.apiReadingListListsForSeriesGet(
+        seriesId: seriesId,
+      ),
+    );
+  }
 
-  // lists for series
+  /// Fetches all reading list items for a given list including rich metadata around [Series], [Volume], [Chapter]s, and Progress
+  ///
+  /// This call is expensive.
+  Future<KavitaResponse<List<ReadingListItemDto>>> getReadingListItems({
+    required int readingListId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.ReadingListItemDto>>,
+        KavitaResponse<List<ReadingListItemDto>>>(
+      await context.api.apiReadingListItemsGet(
+        readingListId: readingListId,
+      ),
+    );
+  }
 
-  // items
+  /// Updates an items position
+  Future<KavitaResponse<void>> updateReadingListPosition({
+    required int readingListId,
+    required int readingListItemId,
+    required int toPosition,
+    int? fromPosition,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListUpdatePositionPost(
+        body: raw.UpdateReadingListPosition(
+          readingListId: readingListId,
+          readingListItemId: readingListItemId,
+          toPosition: toPosition,
+          fromPosition: fromPosition,
+        ),
+      ),
+    );
+  }
 
-  // update position
+  /// Deletes a list item from the list. Will reorder all item positions afterwards
+  Future<KavitaResponse<void>> deleteReadingListItem({
+    required int readingListId,
+    required int readingListItemId,
+    required int toPosition,
+    int? fromPosition,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListDeleteItemPost(
+        body: raw.UpdateReadingListPosition(
+          readingListId: readingListId,
+          readingListItemId: readingListItemId,
+          toPosition: toPosition,
+          fromPosition: fromPosition,
+        ),
+      ),
+    );
+  }
 
-  // delete item
+  /// Removes all entries that are fully read from the [ReadingList]
+  Future<KavitaResponse<void>> removeReadItems({
+    required int readingListId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListRemoveReadPost(
+        readingListId: readingListId,
+      ),
+    );
+  }
 
-  // remove read
+  /// Creates a new List with a unique title. Returns the new ReadingList back
+  Future<KavitaResponse<ReadingListDto>> createReadingList({
+    required String title,
+  }) async {
+    return mappr.convert<ch.Response<raw.ReadingListDto>,
+        KavitaResponse<ReadingListDto>>(
+      await context.api.apiReadingListCreatePost(
+        body: raw.CreateReadingListDto(
+          title: title,
+        ),
+      ),
+    );
+  }
 
-  // create
-
-  // update
+  /// Update the properties (title, summary) of a [ReadingList]
+  Future<KavitaResponse<void>> updateReadingList({
+    required int readingListId,
+    String? title,
+    String? summary,
+    bool? promoted,
+    bool? coverImageLocked,
+    int? startingMonth,
+    int? startingYear,
+    int? endingMonth,
+    int? endingYear,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiReadingListUpdatePost(
+        body: raw.UpdateReadingListDto(
+          readingListId: readingListId,
+          title: title,
+          summary: summary,
+          promoted: promoted,
+          coverImageLocked: coverImageLocked,
+          startingYear: startingYear,
+          startingMonth: startingMonth,
+          endingYear: endingYear,
+          endingMonth: endingMonth,
+        ),
+      ),
+    );
+  }
 
   // update by series
 

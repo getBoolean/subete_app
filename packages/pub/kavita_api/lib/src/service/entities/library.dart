@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/dtos/library_dto.dart';
 import 'package:kavita_api/src/service/entities/app_user.dart';
 import 'package:kavita_api/src/service/entities/enums/library_type.dart';
 import 'package:kavita_api/src/service/entities/folder_path.dart';
@@ -8,6 +9,7 @@ import 'package:kavita_api/src/service/entities/interfaces/entity_date.dart';
 import 'package:kavita_api/src/service/entities/library_exclude_pattern.dart';
 import 'package:kavita_api/src/service/entities/library_file_type_group.dart';
 import 'package:kavita_api/src/service/entities/series.dart';
+import 'package:kavita_api/src/service/mappr.dart';
 
 part 'library.mapper.dart';
 
@@ -84,4 +86,8 @@ class Library with LibraryMappable implements IEntityDate {
 
   static const fromMap = LibraryMapper.fromMap;
   static const fromJson = LibraryMapper.fromJson;
+
+  LibraryDto toDto() => mappr.convert<Library, LibraryDto>(
+        this,
+      );
 }

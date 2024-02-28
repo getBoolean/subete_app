@@ -6,8 +6,6 @@ void main() {
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Reading List', () {
-    // TODO*: Reading List
-
     // get
 
     // delete

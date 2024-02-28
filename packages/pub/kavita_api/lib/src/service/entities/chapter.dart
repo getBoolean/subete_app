@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/dtos/chapter_dto.dart';
 import 'package:kavita_api/src/service/entities/app_user_progress.dart';
 import 'package:kavita_api/src/service/entities/enums/age_rating.dart';
 import 'package:kavita_api/src/service/entities/genre.dart';
@@ -8,6 +9,7 @@ import 'package:kavita_api/src/service/entities/manga_file.dart';
 import 'package:kavita_api/src/service/entities/person.dart';
 import 'package:kavita_api/src/service/entities/tag.dart';
 import 'package:kavita_api/src/service/entities/volume.dart';
+import 'package:kavita_api/src/service/mappr.dart';
 
 part 'chapter.mapper.dart';
 
@@ -169,4 +171,9 @@ class Chapter
   static const fromMap = ChapterMapper.fromMap;
   // ignore: public_member_api_docs
   static const fromJson = ChapterMapper.fromJson;
+
+  // ignore: public_member_api_docs
+  ChapterDto toDto() => mappr.convert<Chapter, ChapterDto>(
+        this,
+      );
 }

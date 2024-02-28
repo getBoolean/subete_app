@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:kavita_api/src/service/dtos/person_dto.dart';
 import 'package:kavita_api/src/service/entities/chapter.dart';
 import 'package:kavita_api/src/service/entities/enums/person_role.dart';
 import 'package:kavita_api/src/service/entities/series_metadata.dart';
+import 'package:kavita_api/src/service/mappr.dart';
 
 part 'person.mapper.dart';
 
@@ -27,4 +29,8 @@ class Person with PersonMappable {
 
   static const fromMap = PersonMapper.fromMap;
   static const fromJson = PersonMapper.fromJson;
+
+  PersonDto toDto() => mappr.convert<Person, PersonDto>(
+        this,
+      );
 }
