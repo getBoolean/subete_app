@@ -95,6 +95,7 @@ import 'package:meta/meta.dart';
       KavitaResponse<List<ReadingListItemDto>>>(),
   MapType<ch.Response<List<raw.ReadingListDto>>,
       KavitaResponse<List<ReadingListDto>>>(),
+  MapType<ch.Response<raw.ReadingListDto>, KavitaResponse<ReadingListDto>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -197,6 +198,7 @@ import 'package:meta/meta.dart';
   MapType<SearchResultDto, raw.SearchResultDto>(),
   MapType<raw.ReadingListDto, ReadingListDto>(reverse: true),
   MapType<raw.GenreTagDto, GenreTagDto>(reverse: true),
+  MapType<ch.Response<List<raw.PersonDto>>, KavitaResponse<List<PersonDto>>>(),
   MapType<raw.PersonDto, PersonDto>(converters: [
     TypeConverter<int, PersonRole>(PersonRole.new),
   ]),

@@ -181,6 +181,7 @@ import 'openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 /// - `Response<UserReviewDto>` → `KavitaResponse<UserReviewDto>`.
 /// - `Response<List<ReadingListItemDto>>` → `KavitaResponse<List<ReadingListItemDto>>`.
 /// - `Response<List<ReadingListDto>>` → `KavitaResponse<List<ReadingListDto>>`.
+/// - `Response<ReadingListDto>` → `KavitaResponse<ReadingListDto>`.
 /// - `UserDto` → `UserDto`.
 /// - `UserDto` → `UserDto`.
 /// - `AgeRestrictionDto` → `AgeRestrictionDto`.
@@ -243,6 +244,7 @@ import 'openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 /// - `ReadingListDto` → `ReadingListDto`.
 /// - `GenreTagDto` → `GenreTagDto`.
 /// - `GenreTagDto` → `GenreTagDto`.
+/// - `Response<List<PersonDto>>` → `KavitaResponse<List<PersonDto>>`.
 /// - `PersonDto` → `PersonDto`.
 /// - `PersonDto` → `PersonDto`.
 /// - `TagDto` → `TagDto`.
@@ -806,6 +808,13 @@ class $Mappr implements _i1.AutoMapprInterface {
                 _typeOf<_i3.KavitaResponse<List<_i49.ReadingListDto>>?>())) {
       return true;
     }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ReadingListDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.ReadingListDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i49.ReadingListDto>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i49.ReadingListDto>?>())) {
+      return true;
+    }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
         (targetTypeOf == _typeOf<_i5.UserDto>() ||
@@ -1176,6 +1185,13 @@ class $Mappr implements _i1.AutoMapprInterface {
             sourceTypeOf == _typeOf<_i54.GenreTagDto?>()) &&
         (targetTypeOf == _typeOf<_i4.GenreTagDto>() ||
             targetTypeOf == _typeOf<_i4.GenreTagDto?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.PersonDto>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<_i4.PersonDto>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<_i55.PersonDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i55.PersonDto>>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.PersonDto>() ||
@@ -2732,6 +2748,17 @@ class $Mappr implements _i1.AutoMapprInterface {
       return (_map__i2$Response$List$_i4$ReadingListDto$$_To__i3$KavitaResponse$List$_i49$ReadingListDto$$(
           (model as _i2.Response<List<_i4.ReadingListDto>>?)) as TARGET);
     }
+    if ((sourceTypeOf == _typeOf<_i2.Response<_i4.ReadingListDto>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<_i4.ReadingListDto>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<_i49.ReadingListDto>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<_i49.ReadingListDto>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$_i4$ReadingListDto$_To__i3$KavitaResponse$_i49$ReadingListDto$(
+          (model as _i2.Response<_i4.ReadingListDto>?)) as TARGET);
+    }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
         (targetTypeOf == _typeOf<_i5.UserDto>() ||
@@ -3351,6 +3378,17 @@ class $Mappr implements _i1.AutoMapprInterface {
       }
       return (_map__i54$GenreTagDto_To__i4$GenreTagDto(
           (model as _i54.GenreTagDto?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.PersonDto>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<_i4.PersonDto>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<_i55.PersonDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i55.PersonDto>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$PersonDto$$_To__i3$KavitaResponse$List$_i55$PersonDto$$(
+          (model as _i2.Response<List<_i4.PersonDto>>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.PersonDto>() ||
             sourceTypeOf == _typeOf<_i4.PersonDto?>()) &&
@@ -5554,6 +5592,22 @@ class $Mappr implements _i1.AutoMapprInterface {
     );
   }
 
+  _i3.KavitaResponse<_i49.ReadingListDto>
+      _map__i2$Response$_i4$ReadingListDto$_To__i3$KavitaResponse$_i49$ReadingListDto$(
+          _i2.Response<_i4.ReadingListDto>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<ReadingListDto> → KavitaResponse<ReadingListDto> failed because Response<ReadingListDto> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<ReadingListDto>, KavitaResponse<ReadingListDto>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      _map__i4$ReadingListDto_To__i49$ReadingListDto_Nullable(model.body),
+      error: model.error,
+    );
+  }
+
   _i5.UserDto _map__i4$UserDto_To__i5$UserDto(_i4.UserDto? input) {
     final model = input;
     if (model == null) {
@@ -7128,6 +7182,25 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i4.GenreTagDto(
       id: model.id,
       title: model.title,
+    );
+  }
+
+  _i3.KavitaResponse<List<_i55.PersonDto>>
+      _map__i2$Response$List$_i4$PersonDto$$_To__i3$KavitaResponse$List$_i55$PersonDto$$(
+          _i2.Response<List<_i4.PersonDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<PersonDto>> → KavitaResponse<List<PersonDto>> failed because Response<List<PersonDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<PersonDto>>, KavitaResponse<List<PersonDto>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i55.PersonDto>(
+              (value) => _map__i4$PersonDto_To__i55$PersonDto(value))
+          .toList(),
+      error: model.error,
     );
   }
 
@@ -11743,6 +11816,26 @@ class $Mappr implements _i1.AutoMapprInterface {
               _map__i4$BookmarkSearchResultDto_To__i57$BookmarkSearchResultDto(
                   value))
           .toList(),
+    );
+  }
+
+  _i49.ReadingListDto? _map__i4$ReadingListDto_To__i49$ReadingListDto_Nullable(
+      _i4.ReadingListDto? input) {
+    final model = input;
+    if (model == null) {
+      return null;
+    }
+    return _i49.ReadingListDto(
+      id: model.id,
+      title: model.title,
+      summary: model.summary,
+      promoted: model.promoted,
+      coverImageLocked: model.coverImageLocked,
+      coverImage: model.coverImage,
+      startingYear: model.startingYear,
+      startingMonth: model.startingMonth,
+      endingYear: model.endingYear,
+      endingMonth: model.endingMonth,
     );
   }
 

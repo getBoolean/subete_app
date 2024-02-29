@@ -2669,7 +2669,7 @@ class KavitaApiReadingList extends KavitaApi {
   /// - [pageSize] If set to 0, will set as MaxInt
   /// - [includePromoted] Include Promoted Reading Lists along with user's Reading Lists.
   /// - [sortByLastModified] Sort by last modified (most recent first) or by title (alphabetical)
-  Future<KavitaResponse<List<ReadingListDto>>> getReadingLists({
+  Future<KavitaResponse<List<ReadingListDto>>> getAllReadingLists({
     required int pageNumber,
     required int pageSize,
     bool includePromoted = true,
@@ -2926,7 +2926,7 @@ class KavitaApiReadingList extends KavitaApi {
   }
 
   /// Checks if a [ReadingList] exists with the [name]
-  Future<KavitaResponse<bool>> readingListNameExists({
+  Future<KavitaResponse<bool>> getReadingListNameExists({
     required String name,
   }) async {
     return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
