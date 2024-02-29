@@ -1,3 +1,5 @@
+import 'package:kavita_api/raw_api.dart' as raw;
+
 import '../tests.dart';
 
 void main() {
@@ -7,6 +9,16 @@ void main() {
 
   group('Test Kavita API v1 Reading List', () {
     // get
+    test('Test Get Reading List', () async {
+      // Given
+      const expected = ReadingListDto();
+      when(() => kavita.rawApi.apiReadingListGet(readingListId: 1))
+          .thenResponse([const raw.ReadingListDto()]);
+      final res =
+          await kavita.underTest.readingList.getReadingList(readingListId: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
 
     // delete
 

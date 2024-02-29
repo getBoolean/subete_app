@@ -93,6 +93,8 @@ import 'package:meta/meta.dart';
   MapType<ch.Response<raw.UserReviewDto>, KavitaResponse<UserReviewDto>>(),
   MapType<ch.Response<List<raw.ReadingListItemDto>>,
       KavitaResponse<List<ReadingListItemDto>>>(),
+  MapType<ch.Response<List<raw.ReadingListDto>>,
+      KavitaResponse<List<ReadingListDto>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
