@@ -3601,7 +3601,7 @@ class KavitaApiStats extends KavitaApi {
 
   // TODO: Stats
 
-  // user/userId/read
+  // user read stats
 
   // server stats
 
