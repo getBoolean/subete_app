@@ -37,7 +37,8 @@ void main() {
 
     // clear media alerts
 
-    // byst kavitaplus cache
+    // bust kavitaplus cache
+
     test('Test Server Info', () async {
       // Given
       when(kavita.rawApi.apiServerServerInfoGet)

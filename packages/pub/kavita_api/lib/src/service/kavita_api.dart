@@ -3520,7 +3520,7 @@ class KavitaApiServer extends KavitaApi {
   /// All Server related APIs
   const KavitaApiServer.fromContext(super.context) : super.fromContext();
 
-  // TODO: Server
+  // TODO*: Server
 
   // clear cache
 
@@ -3557,7 +3557,7 @@ class KavitaApiServer extends KavitaApi {
 
   // clear media alerts
 
-  // byst kavitaplus cache
+  // bust kavitaplus cache
 }
 
 /// All Settings related APIs
@@ -3565,7 +3565,7 @@ class KavitaApiSettings extends KavitaApi {
   /// All Settings related APIs
   const KavitaApiSettings.fromContext(super.context) : super.fromContext();
 
-  // TODO: Settings
+  // TODO!: Settings
 
   // base url
 
@@ -3649,7 +3649,7 @@ class KavitaApiUsers extends KavitaApi {
   /// All Users related APIs
   const KavitaApiUsers.fromContext(super.context) : super.fromContext();
 
-  // TODO: Users
+  // TODO*: Users
 
   // delete user
 
