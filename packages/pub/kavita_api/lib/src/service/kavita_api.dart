@@ -2513,29 +2513,146 @@ class KavitaApiMetadata extends KavitaApi {
   /// All Metadata related APIs
   const KavitaApiMetadata.fromContext(super.context) : super.fromContext();
 
-  // TODO: Metadata
+  /// Fetches genres from the instance
+  ///
+  /// Arguments:
+  /// - [libraryIds] - if none passed, all in the server
+  Future<KavitaResponse<List<GenreTagDto>>> getGenres({
+    List<int> libraryIds = const [],
+  }) async {
+    final ids = libraryIds.isNotEmpty ? libraryIds.join(',') : null;
+    return mappr.convert<ch.Response<List<raw.GenreTagDto>>,
+        KavitaResponse<List<GenreTagDto>>>(
+      await context.api.apiMetadataGenresGet(libraryIds: ids),
+    );
+  }
 
-  // genres
+  /// Fetches people from the instance by role
+  Future<KavitaResponse<List<PersonDto>>> getPeopleByRole({
+    required PersonRole role,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.PersonDto>>,
+        KavitaResponse<List<PersonDto>>>(
+      await context.api.apiMetadataPeopleByRoleGet(
+        role: raw.ApiMetadataPeopleByRoleGetRole.values.firstWhereOrNull(
+              (r) => r.value == role,
+            ) ??
+            raw.ApiMetadataPeopleByRoleGetRole.swaggerGeneratedUnknown,
+      ),
+    );
+  }
 
-  // people by role
+  /// Fetches people from the instance
+  ///
+  /// Arguments:
+  /// - [libraryIds] - if none passed, all in the server
+  Future<KavitaResponse<List<PersonDto>>> getPeople({
+    List<String> libraryIds = const [],
+  }) async {
+    final ids = libraryIds.isNotEmpty ? libraryIds.join(',') : null;
+    return mappr.convert<ch.Response<List<raw.PersonDto>>,
+        KavitaResponse<List<PersonDto>>>(
+      await context.api.apiMetadataPeopleGet(libraryIds: ids),
+    );
+  }
 
-  // people
+  /// Fetches all tags from the instance
+  ///
+  /// Arguments:
+  /// - [libraryIds] - if none passed, all in the server
+  Future<KavitaResponse<List<TagDto>>> getTags({
+    List<String> libraryIds = const [],
+  }) async {
+    final ids = libraryIds.isNotEmpty ? libraryIds.join(',') : null;
+    return mappr
+        .convert<ch.Response<List<raw.TagDto>>, KavitaResponse<List<TagDto>>>(
+      await context.api.apiMetadataTagsGet(libraryIds: ids),
+    );
+  }
 
-  // tags
+  /// Fetches all age ratings from the instance
+  ///
+  /// Arguments:
+  /// - [libraryIds] - if none passed, all in the server
+  Future<KavitaResponse<List<AgeRatingDto>>> getAgeRatings({
+    List<String> libraryIds = const [],
+  }) async {
+    final ids = libraryIds.isNotEmpty ? libraryIds.join(',') : null;
+    return mappr.convert<ch.Response<List<raw.AgeRatingDto>>,
+        KavitaResponse<List<AgeRatingDto>>>(
+      await context.api.apiMetadataAgeRatingsGet(libraryIds: ids),
+    );
+  }
 
-  // age ratings
+  /// Fetches all publication status' from the instance
+  ///
+  /// Arguments:
+  /// - [libraryIds] - if none passed, all in the server
+  Future<KavitaResponse<List<PublicationStatusDto>>> getPublicationStatus({
+    List<String> libraryIds = const [],
+  }) async {
+    final ids = libraryIds.isNotEmpty ? libraryIds.join(',') : null;
+    return mappr.convert<ch.Response<List<raw.AgeRatingDto>>,
+        KavitaResponse<List<PublicationStatusDto>>>(
+      await context.api.apiMetadataPublicationStatusGet(
+        libraryIds: ids,
+      ),
+    );
+  }
 
-  // publication status
+  /// Fetches all age languages from the libraries passed (or if none passed, all in the server)
+  Future<KavitaResponse<List<LanguageDto>>> getLanguages({
+    List<String> libraryIds = const [],
+  }) async {
+    final ids = libraryIds.isNotEmpty ? libraryIds.join(',') : null;
+    return mappr.convert<ch.Response<List<raw.LanguageDto>>,
+        KavitaResponse<List<LanguageDto>>>(
+      await context.api.apiMetadataLanguagesGet(libraryIds: ids),
+    );
+  }
 
-  // languages
+  /// Returns all languages Kavita can accept
+  Future<KavitaResponse<List<LanguageDto>>> getAllLanguages() async {
+    return mappr.convert<ch.Response<List<raw.LanguageDto>>,
+        KavitaResponse<List<LanguageDto>>>(
+      await context.api.apiMetadataAllLanguagesGet(),
+    );
+  }
 
-  // all languages
+  /// Returns summary for the chapter
+  Future<KavitaResponse<String>> getChapterSummary({
+    required int id,
+  }) async {
+    return mappr.convert<ch.Response<String>, KavitaResponse<String>>(
+      await context.api.apiMetadataChapterSummaryGet(
+        chapterId: id,
+      ),
+    );
+  }
 
-  // chapter summary
+  /// If this Series is on Kavita+ Blacklist, removes it. If already cached,
+  /// invalidates it. This then attempts to refresh data from Kavita+ for this series.
+  Future<KavitaResponse<void>> forceRefresh({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiMetadataForceRefreshPost(
+        seriesId: seriesId,
+      ),
+    );
+  }
 
-  // force refresh
-
-  // series detail plus
+  /// Fetches the details needed from Kavita+ for Series Detail page
+  Future<KavitaResponse<SeriesDetailPlusDto>> getSeriesDetailPlus({
+    required int id,
+  }) async {
+    return mappr.convert<ch.Response<raw.SeriesDetailPlusDto>,
+        KavitaResponse<SeriesDetailPlusDto>>(
+      await context.api.apiMetadataSeriesDetailPlusGet(
+        seriesId: id,
+      ),
+    );
+  }
 }
 
 /// All OPDS related APIs

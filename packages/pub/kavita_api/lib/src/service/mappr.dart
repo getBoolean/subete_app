@@ -96,6 +96,17 @@ import 'package:meta/meta.dart';
   MapType<ch.Response<List<raw.ReadingListDto>>,
       KavitaResponse<List<ReadingListDto>>>(),
   MapType<ch.Response<raw.ReadingListDto>, KavitaResponse<ReadingListDto>>(),
+  MapType<ch.Response<List<raw.GenreTagDto>>,
+      KavitaResponse<List<GenreTagDto>>>(),
+  MapType<ch.Response<List<raw.AgeRatingDto>>,
+      KavitaResponse<List<AgeRatingDto>>>(),
+  MapType<ch.Response<List<raw.AgeRatingDto>>,
+      KavitaResponse<List<PublicationStatusDto>>>(),
+  MapType<ch.Response<List<raw.LanguageDto>>,
+      KavitaResponse<List<LanguageDto>>>(),
+  MapType<ch.Response<raw.SeriesDetailPlusDto>,
+      KavitaResponse<SeriesDetailPlusDto>>(),
+  MapType<ch.Response<List<raw.TagDto>>, KavitaResponse<List<TagDto>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -345,6 +356,12 @@ import 'package:meta/meta.dart';
     TypeConverter<int, MangaFormat>(MangaFormat.new),
   ]),
   MapType<ReadingListItemDto, raw.ReadingListItemDto>(),
+  MapType<raw.AgeRatingDto, AgeRatingDto>(converters: [
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<raw.AgeRatingDto, PublicationStatusDto>(converters: [
+    TypeConverter<int, PublicationStatus>(PublicationStatus.new),
+  ]),
   MapType<ReadingList, ReadingListDto>(),
   MapType<ReadingListItem, ReadingListItemDto>(),
   MapType<Person, PersonDto>(),
@@ -355,6 +372,9 @@ import 'package:meta/meta.dart';
   ]),
   MapType<CollectionTag, CollectionTagDto>(),
   MapType<Device, DeviceDto>(),
+  MapType<raw.SeriesDetailPlusDto, SeriesDetailPlusDto>(),
+  MapType<raw.RecommendationDto, RecommendationDto>(),
+  MapType<raw.LanguageDto, LanguageDto>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
