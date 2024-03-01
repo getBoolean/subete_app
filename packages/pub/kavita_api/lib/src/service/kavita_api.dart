@@ -4333,15 +4333,42 @@ class KavitaApiTheme {
   /// All Theme related APIs
   const KavitaApiTheme.fromContext(this.context);
 
-  // TODO: Theme
+  /// Returns a list of all themes
+  Future<KavitaResponse<List<SiteThemeDto>>> getThemes() async {
+    return mappr.convert<ch.Response<List<raw.SiteThemeDto>>,
+        KavitaResponse<List<SiteThemeDto>>>(
+      await context.api.apiThemeGet(),
+    );
+  }
 
-  // get theme
+  /// Initiates a scan
+  Future<KavitaResponse<void>> scan() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiThemeScanPost(),
+    );
+  }
 
-  // scan
+  /// Update default theme
+  Future<KavitaResponse<void>> updateDefaultTheme({
+    required int id,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiThemeUpdateDefaultPost(
+        body: raw.UpdateDefaultThemeDto(
+          themeId: id,
+        ),
+      ),
+    );
+  }
 
-  // update default
-
-  // download content
+  /// Returns css content to the UI. UI is expected to escape the content
+  Future<KavitaResponse<String>> downloadContent({
+    required int id,
+  }) async {
+    return mappr.convert<ch.Response<String>, KavitaResponse<String>>(
+      await context.api.apiThemeDownloadContentGet(themeId: id),
+    );
+  }
 }
 
 /// All Users related APIs

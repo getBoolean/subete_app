@@ -118,6 +118,8 @@ import 'package:meta/meta.dart';
       KavitaResponse<ServerSettingDto>>(),
   MapType<ch.Response<raw.SmtpConfigDto>, KavitaResponse<SmtpConfigDto>>(),
   MapType<ch.Response<List<raw.MemberDto>>, KavitaResponse<List<MemberDto>>>(),
+  MapType<ch.Response<List<raw.SiteThemeDto>>,
+      KavitaResponse<List<SiteThemeDto>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -394,6 +396,10 @@ import 'package:meta/meta.dart';
   ]),
   MapType<ServerSettingDto, raw.ServerSettingDto>(),
   MapType<raw.SmtpConfigDto, SmtpConfigDto>(reverse: true),
+  MapType<raw.SiteThemeDto, SiteThemeDto>(converters: [
+    TypeConverter<int, ThemeProvider>(ThemeProvider.new),
+  ]),
+  MapType<SiteThemeDto, raw.SiteThemeDto>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance

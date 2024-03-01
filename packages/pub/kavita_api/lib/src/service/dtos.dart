@@ -47,6 +47,7 @@ export 'dtos/series_metadata_dto.dart';
 export 'dtos/server_info_dto.dart';
 export 'dtos/server_settings_dto.dart';
 export 'dtos/side_nav_stream_dto.dart';
+export 'dtos/site_theme_dto.dart';
 export 'dtos/smart_filter_dto.dart';
 export 'dtos/smtp_config_dto.dart';
 export 'dtos/tag_dto.dart';
