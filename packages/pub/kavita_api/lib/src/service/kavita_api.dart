@@ -217,9 +217,12 @@ class KavitaApi {
 }
 
 /// All Account matters
-class KavitaApiAccount extends KavitaApi {
+class KavitaApiAccount {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Account matters
-  const KavitaApiAccount.fromContext(super.context) : super.fromContext();
+  const KavitaApiAccount.fromContext(this.context);
 
   /// Update a user's password
   Future<KavitaResponse<void>> resetPassword({
@@ -548,9 +551,12 @@ class KavitaApiAccount extends KavitaApi {
 }
 
 /// Responsible for the CBL import flow
-class KavitaApiCbl extends KavitaApi {
+class KavitaApiCbl {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// Responsible for the CBL import flow
-  const KavitaApiCbl.fromContext(super.context) : super.fromContext();
+  const KavitaApiCbl.fromContext(this.context);
 
   /// The first step in a cbl import. This validates the cbl
   /// file that if an import occured, would it be successful.
@@ -603,9 +609,12 @@ class KavitaApiCbl extends KavitaApi {
 }
 
 /// APIs for Collections
-class KavitaApiCollection extends KavitaApi {
+class KavitaApiCollection {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// APIs for Collections
-  const KavitaApiCollection.fromContext(super.context) : super.fromContext();
+  const KavitaApiCollection.fromContext(this.context);
 
   /// Return a list of all collection tags on the server for the logged in user.
   Future<KavitaResponse<List<CollectionTagDto>>> getCollections() async {
@@ -721,9 +730,12 @@ class KavitaApiCollection extends KavitaApi {
 }
 
 /// Responsible for interacting with and creating Devices
-class KavitaApiDevice extends KavitaApi {
+class KavitaApiDevice {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// Responsible for interacting with and creating Devices
-  const KavitaApiDevice.fromContext(super.context) : super.fromContext();
+  const KavitaApiDevice.fromContext(this.context);
 
   /// Create a device
   ///
@@ -816,11 +828,14 @@ class KavitaApiDevice extends KavitaApi {
 /// All APIs related to downloading entities from the system.
 ///
 /// Requires Download Role or Admin Role.
-class KavitaApiDownload extends KavitaApi {
+class KavitaApiDownload {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All APIs related to downloading entities from the system.
   ///
   /// Requires Download Role or Admin Role.
-  const KavitaApiDownload.fromContext(super.context) : super.fromContext();
+  const KavitaApiDownload.fromContext(this.context);
 
   /// For a given volume, return the size in bytes
   Future<KavitaResponse<int>> getVolumeSize({
@@ -917,9 +932,12 @@ class KavitaApiDownload extends KavitaApi {
 }
 
 /// This is reponsible for Filter caching
-class KavitaApiFilter extends KavitaApi {
+class KavitaApiFilter {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// This is reponsible for Filter caching
-  const KavitaApiFilter.fromContext(super.context) : super.fromContext();
+  const KavitaApiFilter.fromContext(this.context);
 
   /// Creates or Updates the user's current filter
   Future<KavitaResponse<void>> updateFilter(FilterV2Dto filter) async {
@@ -966,9 +984,12 @@ class KavitaApiFilter extends KavitaApi {
 }
 
 /// Responsible for servicing up images stored in Kavita for entities
-class KavitaApiImage extends KavitaApi {
+class KavitaApiImage {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// Responsible for servicing up images stored in Kavita for entities
-  const KavitaApiImage.fromContext(super.context) : super.fromContext();
+  const KavitaApiImage.fromContext(this.context);
 
   /// Returns cover image for [raw.Chapter]
   ///
@@ -1118,9 +1139,12 @@ class KavitaApiImage extends KavitaApi {
 }
 
 /// For the Panels app explicitly
-class KavitaApiPanels extends KavitaApi {
+class KavitaApiPanels {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// For the Panels app explicitly
-  const KavitaApiPanels.fromContext(super.context) : super.fromContext();
+  const KavitaApiPanels.fromContext(this.context);
 
   /// Saves the progress of a given chapter.
   ///
@@ -1151,9 +1175,12 @@ class KavitaApiPanels extends KavitaApi {
 }
 
 /// Responsible for providing external ratings for Series
-class KavitaApiRating extends KavitaApi {
+class KavitaApiRating {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// Responsible for providing external ratings for Series
-  const KavitaApiRating.fromContext(super.context) : super.fromContext();
+  const KavitaApiRating.fromContext(this.context);
 
   /// Get overall rating for a series
   Future<KavitaResponse<RatingDto>> getOverallRating({
@@ -1169,10 +1196,13 @@ class KavitaApiRating extends KavitaApi {
 
 /// For all things regarding reading, mainly focusing on non-Book
 /// related entities
-class KavitaApiReader extends KavitaApi {
+class KavitaApiReader {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// For all things regarding reading, mainly focusing on non-Book
   /// related entities
-  const KavitaApiReader.fromContext(super.context) : super.fromContext();
+  const KavitaApiReader.fromContext(this.context);
 
   /// Returns the PDF for the chapterId.
   ///
@@ -1653,9 +1683,12 @@ class KavitaApiReader extends KavitaApi {
 }
 
 /// Responsible for hte Search interface from the UI
-class KavitaApiSearch extends KavitaApi {
+class KavitaApiSearch {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// Responsible for hte Search interface from the UI
-  const KavitaApiSearch.fromContext(super.context) : super.fromContext();
+  const KavitaApiSearch.fromContext(this.context);
 
   /// Returns the series for the MangaFile id. If the user does not have access
   /// (shouldn't happen by the UI), then null is returned
@@ -1696,10 +1729,13 @@ class KavitaApiSearch extends KavitaApi {
 
 /// Responsible for anything that deals with Streams (SmartFilters,
 /// ExternalSource, DashboardStream, SideNavStream)
-class KavitaApiStream extends KavitaApi {
+class KavitaApiStream {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// Responsible for anything that deals with Streams (SmartFilters,
   /// ExternalSource, DashboardStream, SideNavStream)
-  const KavitaApiStream.fromContext(super.context) : super.fromContext();
+  const KavitaApiStream.fromContext(this.context);
 
   /// Returns the layout of the user's dashboard
   Future<KavitaResponse<List<DashboardStreamDto>>> getDashboard({
@@ -1910,10 +1946,13 @@ class KavitaApiStream extends KavitaApi {
 
 /// All APIs are for Tachiyomi extension and app. They have hacks for
 /// our implementation and should not be used for any other purposes.
-class KavitaApiTachiyomi extends KavitaApi {
+class KavitaApiTachiyomi {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All APIs are for Tachiyomi extension and app. They have hacks for
   /// our implementation and should not be used for any other purposes.
-  const KavitaApiTachiyomi.fromContext(super.context) : super.fromContext();
+  const KavitaApiTachiyomi.fromContext(this.context);
 
   /// Given the series Id, this should return the latest chapter that has been fully read.
   Future<KavitaResponse<ChapterDto>> getLatestChapter({
@@ -1942,9 +1981,12 @@ class KavitaApiTachiyomi extends KavitaApi {
 }
 
 /// All APIs related to uploading entities to the system.
-class KavitaApiUpload extends KavitaApi {
+class KavitaApiUpload {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All APIs related to uploading entities to the system.
-  const KavitaApiUpload.fromContext(super.context) : super.fromContext();
+  const KavitaApiUpload.fromContext(this.context);
 
   /// This stores a file (image) in temp directory for use in a cover image replacement flow. This is automatically cleaned up.
   Future<KavitaResponse<void>> uploadByUrl({
@@ -2051,9 +2093,12 @@ class KavitaApiUpload extends KavitaApi {
 }
 
 /// Responsible for all things Want To Read
-class KavitaApiWantToRead extends KavitaApi {
+class KavitaApiWantToRead {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// Responsible for all things Want To Read
-  const KavitaApiWantToRead.fromContext(super.context) : super.fromContext();
+  const KavitaApiWantToRead.fromContext(this.context);
 
   /// Returns true if the user has marked the series as Want To Read
   Future<KavitaResponse<bool>> isSeriesWantToRead({
@@ -2111,9 +2156,12 @@ class KavitaApiWantToRead extends KavitaApi {
 }
 
 /// All Admin APIs
-class KavitaApiAdmin extends KavitaApi {
+class KavitaApiAdmin {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Admin APIs
-  const KavitaApiAdmin.fromContext(super.context) : super.fromContext();
+  const KavitaApiAdmin.fromContext(this.context);
 
   /// Check if an admin account exists
   Future<KavitaResponse<bool>> exists() async {
@@ -2124,9 +2172,12 @@ class KavitaApiAdmin extends KavitaApi {
 }
 
 /// All Book related APIs
-class KavitaApiBook extends KavitaApi {
+class KavitaApiBook {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Book related APIs
-  const KavitaApiBook.fromContext(super.context) : super.fromContext();
+  const KavitaApiBook.fromContext(this.context);
 
   /// Retrieves information for the PDF and Epub reader
   ///
@@ -2188,9 +2239,12 @@ class KavitaApiBook extends KavitaApi {
 }
 
 /// All Health related APIs
-class KavitaApiHealth extends KavitaApi {
+class KavitaApiHealth {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Health related APIs
-  const KavitaApiHealth.fromContext(super.context) : super.fromContext();
+  const KavitaApiHealth.fromContext(this.context);
 
   /// Check the server is accessible
   Future<KavitaResponse<void>> getHealth() async {
@@ -2201,9 +2255,12 @@ class KavitaApiHealth extends KavitaApi {
 }
 
 /// All Library related APIs
-class KavitaApiLibrary extends KavitaApi {
+class KavitaApiLibrary {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Library related APIs
-  const KavitaApiLibrary.fromContext(super.context) : super.fromContext();
+  const KavitaApiLibrary.fromContext(this.context);
 
   /// Creates a new Library. Upon library creation, adds new library to all Admin accounts.
   Future<KavitaResponse<void>> createLibrary({
@@ -2432,9 +2489,12 @@ class KavitaApiLibrary extends KavitaApi {
 }
 
 /// All License related APIs for Kavita+
-class KavitaApiLicense extends KavitaApi {
+class KavitaApiLicense {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All License related APIs
-  const KavitaApiLicense.fromContext(super.context) : super.fromContext();
+  const KavitaApiLicense.fromContext(this.context);
 
   /// Checks if the user's license is valid or not
   Future<KavitaResponse<bool>> isValidLicense({
@@ -2495,9 +2555,12 @@ class KavitaApiLicense extends KavitaApi {
 }
 
 /// All Locale related APIs
-class KavitaApiLocale extends KavitaApi {
+class KavitaApiLocale {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Locale related APIs
-  const KavitaApiLocale.fromContext(super.context) : super.fromContext();
+  const KavitaApiLocale.fromContext(this.context);
 
   /// Get the locales on the server
   Future<KavitaResponse<List<String>>> getLocale() async {
@@ -2509,9 +2572,12 @@ class KavitaApiLocale extends KavitaApi {
 }
 
 /// All Metadata related APIs
-class KavitaApiMetadata extends KavitaApi {
+class KavitaApiMetadata {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Metadata related APIs
-  const KavitaApiMetadata.fromContext(super.context) : super.fromContext();
+  const KavitaApiMetadata.fromContext(this.context);
 
   /// Fetches genres from the instance
   ///
@@ -2656,9 +2722,19 @@ class KavitaApiMetadata extends KavitaApi {
 }
 
 /// All OPDS related APIs
-class KavitaApiOpds extends KavitaApi {
-  /// All OPDS related APIs
-  const KavitaApiOpds.fromContext(super.context) : super.fromContext();
+class KavitaApiOpds {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
+  /// Creates a new OPDS client with an API key. Prefer using [KavitaApi.opds]
+  /// if logging in with Kavita.
+  KavitaApiOpds(String apiKey, {required Uri baseUrl})
+      : context = KavitaContext(
+            baseUrl: baseUrl, currentUser: UserDto(apiKey: apiKey));
+
+  /// Creates a new OPDS client with a [KavitaContext]. This is useful for
+  /// sharing the api key with the other Kavita API clients.
+  const KavitaApiOpds.fromContext(this.context);
 
   // TODO: Opds (maybe delegate to separate package)
 
@@ -2712,9 +2788,12 @@ class KavitaApiOpds extends KavitaApi {
 }
 
 /// All Plugin related APIs
-class KavitaApiPlugin extends KavitaApi {
+class KavitaApiPlugin {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Plugin related APIs
-  const KavitaApiPlugin.fromContext(super.context) : super.fromContext();
+  const KavitaApiPlugin.fromContext(this.context);
 
   /// Authenticate with the Server given an apiKey. This will log you in by returning the user object and the JWT token
   ///
@@ -2752,9 +2831,12 @@ class KavitaApiPlugin extends KavitaApi {
 }
 
 /// All ReadingList related APIs
-class KavitaApiReadingList extends KavitaApi {
+class KavitaApiReadingList {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All ReadingList related APIs
-  const KavitaApiReadingList.fromContext(super.context) : super.fromContext();
+  const KavitaApiReadingList.fromContext(this.context);
 
   /// Fetches a single [ReadingListDto]
   Future<KavitaResponse<ReadingListDto>> getReadingList({
@@ -3055,9 +3137,12 @@ class KavitaApiReadingList extends KavitaApi {
 }
 
 /// All Recommended related APIs
-class KavitaApiRecommended extends KavitaApi {
+class KavitaApiRecommended {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Recommended related APIs
-  const KavitaApiRecommended.fromContext(super.context) : super.fromContext();
+  const KavitaApiRecommended.fromContext(this.context);
 
   /// Quick Reads are series that should be readable in less than 10 in total
   /// and are not Ongoing in release.
@@ -3144,9 +3229,12 @@ class KavitaApiRecommended extends KavitaApi {
 }
 
 /// All Review related APIs
-class KavitaApiReview extends KavitaApi {
+class KavitaApiReview {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Review related APIs
-  const KavitaApiReview.fromContext(super.context) : super.fromContext();
+  const KavitaApiReview.fromContext(this.context);
 
   /// Updates the review for a given series
   Future<KavitaResponse<UserReviewDto>> postReview({
@@ -3174,9 +3262,12 @@ class KavitaApiReview extends KavitaApi {
 }
 
 /// All Scrobbling related APIs
-class KavitaApiScrobbling extends KavitaApi {
+class KavitaApiScrobbling {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Scrobbling related APIs
-  const KavitaApiScrobbling.fromContext(super.context) : super.fromContext();
+  const KavitaApiScrobbling.fromContext(this.context);
 
   // TODO: Scrobbling
 
@@ -3204,9 +3295,12 @@ class KavitaApiScrobbling extends KavitaApi {
 }
 
 /// All [Series] related APIs
-class KavitaApiSeries extends KavitaApi {
+class KavitaApiSeries {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Series related APIs
-  const KavitaApiSeries.fromContext(super.context) : super.fromContext();
+  const KavitaApiSeries.fromContext(this.context);
 
   /// Finds [Series] with the applied Filter
   ///
@@ -3633,9 +3727,12 @@ class KavitaApiSeries extends KavitaApi {
 }
 
 /// All Server related APIs
-class KavitaApiServer extends KavitaApi {
+class KavitaApiServer {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Server related APIs
-  const KavitaApiServer.fromContext(super.context) : super.fromContext();
+  const KavitaApiServer.fromContext(this.context);
 
   // TODO*: Server
 
@@ -3678,9 +3775,12 @@ class KavitaApiServer extends KavitaApi {
 }
 
 /// All Settings related APIs
-class KavitaApiSettings extends KavitaApi {
+class KavitaApiSettings {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Settings related APIs
-  const KavitaApiSettings.fromContext(super.context) : super.fromContext();
+  const KavitaApiSettings.fromContext(this.context);
 
   // TODO!: Settings
 
@@ -3712,9 +3812,12 @@ class KavitaApiSettings extends KavitaApi {
 }
 
 /// All Stats related APIs
-class KavitaApiStats extends KavitaApi {
+class KavitaApiStats {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Stats related APIs
-  const KavitaApiStats.fromContext(super.context) : super.fromContext();
+  const KavitaApiStats.fromContext(this.context);
 
   // TODO: Stats
 
@@ -3746,9 +3849,12 @@ class KavitaApiStats extends KavitaApi {
 }
 
 /// All Theme related APIs
-class KavitaApiTheme extends KavitaApi {
+class KavitaApiTheme {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Theme related APIs
-  const KavitaApiTheme.fromContext(super.context) : super.fromContext();
+  const KavitaApiTheme.fromContext(this.context);
 
   // TODO: Theme
 
@@ -3762,9 +3868,12 @@ class KavitaApiTheme extends KavitaApi {
 }
 
 /// All Users related APIs
-class KavitaApiUsers extends KavitaApi {
+class KavitaApiUsers {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
   /// All Users related APIs
-  const KavitaApiUsers.fromContext(super.context) : super.fromContext();
+  const KavitaApiUsers.fromContext(this.context);
 
   // TODO*: Users
 
