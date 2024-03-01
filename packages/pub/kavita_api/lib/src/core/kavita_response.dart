@@ -82,7 +82,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
   /// from download API methods.
   @internal
   KavitaResponse<NewBodyType> cast<NewBodyType>() {
-    return map((body) => body as NewBodyType);
+    return map((body) => body as NewBodyType?);
   }
 
   /// Maps the response body to [NewBodyType]
