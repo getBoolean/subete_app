@@ -250,8 +250,16 @@ class KavitaContext {
     }
 
     if (response.statusCode >= 400 && response.statusCode < 500) {
+      final errorMessage = kavitaResponse.error?.toString() ?? '';
       throw KavitaHttpException(
-        'Required parameter is missing or improperly formatted.',
+        errorMessage.isEmpty ? 'Request failed.' : errorMessage,
+        kavitaResponse,
+      );
+    }
+
+    if (response.statusCode >= 500) {
+      throw KavitaHttpException(
+        'Request failed.',
         kavitaResponse,
       );
     }
