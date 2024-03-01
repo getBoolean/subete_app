@@ -4181,33 +4181,111 @@ class KavitaApiSettings {
   /// All Settings related APIs
   const KavitaApiSettings.fromContext(this.context);
 
-  // TODO!: Settings
+  /// Returns the base URL of the server
+  Future<KavitaResponse<String>> getBaseUrl() async {
+    return mappr.convert<ch.Response<String>, KavitaResponse<String>>(
+      await context.api.apiSettingsBaseUrlGet(),
+    );
+  }
 
-  // base url
+  /// Returns the server settings
+  Future<KavitaResponse<ServerSettingDto>> getSettings() async {
+    return mappr.convert<ch.Response<raw.ServerSettingDto>,
+        KavitaResponse<ServerSettingDto>>(
+      await context.api.apiSettingsGet(),
+    );
+  }
 
-  // get settings
+  /// Updates the server settings
+  Future<KavitaResponse<ServerSettingDto>> updateSettings({
+    required ServerSettingDto serverSetting,
+  }) async {
+    return mappr.convert<ch.Response<raw.ServerSettingDto>,
+        KavitaResponse<ServerSettingDto>>(
+      await context.api.apiSettingsPost(
+        body: mappr.convert<ServerSettingDto, raw.ServerSettingDto>(
+          serverSetting,
+        ),
+      ),
+    );
+  }
 
-  // post settings
+  /// Resets the server settings
+  Future<KavitaResponse<ServerSettingDto>> resetSettings() async {
+    return mappr.convert<ch.Response<raw.ServerSettingDto>,
+        KavitaResponse<ServerSettingDto>>(
+      await context.api.apiSettingsResetPost(),
+    );
+  }
 
-  // reset
+  /// Resets the IP Addresses
+  Future<KavitaResponse<void>> resetIpAddresses() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSettingsResetIpAddressesPost(),
+    );
+  }
 
-  // reset ip addresses
+  /// Resets the Base url
+  Future<KavitaResponse<void>> resetBaseUrl() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSettingsResetBaseUrlPost(),
+    );
+  }
 
-  // reset base url
+  /// Is the minimum information setup for Email to work
+  Future<KavitaResponse<bool>> isEmailSetup() async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiSettingsIsEmailSetupGet(),
+    );
+  }
 
-  // is email setup
+  /// All values allowed for Task Scheduling APIs. A custom cron job
+  /// is not included. Disabled is not applicable for Cleanup.
+  Future<KavitaResponse<List<String>>> getTaskFrequencies() async {
+    return mappr
+        .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
+      await context.api.apiSettingsTaskFrequenciesGet(),
+    );
+  }
 
-  // task frequencies
+  /// All Library Types
+  Future<KavitaResponse<List<String>>> getLibraryTypes() async {
+    return mappr
+        .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
+      await context.api.apiSettingsLibraryTypesGet(),
+    );
+  }
 
-  // library types
+  /// All Log Levels
+  Future<KavitaResponse<List<String>>> getLogLevels() async {
+    return mappr
+        .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
+      await context.api.apiSettingsLogLevelsGet(),
+    );
+  }
 
-  // log levels
+  /// Is OPDS enabled
+  Future<KavitaResponse<bool>> isOpdsEnabled() async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiSettingsOpdsEnabledGet(),
+    );
+  }
 
-  // opds enabled
+  /// Is the cron expression valid for Kavita's scheduler
+  Future<KavitaResponse<bool>> isValidCron(String cronExpression) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiSettingsIsValidCronGet(
+        cronExpression: cronExpression,
+      ),
+    );
+  }
 
-  // is valid cron
-
-  // test email url
+  /// Sends a test email to see if email settings are hooked up correctly
+  Future<KavitaResponse<void>> testEmailUrl() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiSettingsTestEmailUrlPost(),
+    );
+  }
 }
 
 /// All Stats related APIs
