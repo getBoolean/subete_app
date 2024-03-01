@@ -157,6 +157,7 @@ class KavitaApi {
   }
 
   /// All OPDS related APIs
+  @experimental
   KavitaApiOpds get opds {
     return KavitaApiOpds.fromContext(context);
   }
