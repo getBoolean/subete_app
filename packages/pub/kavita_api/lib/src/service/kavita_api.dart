@@ -2743,10 +2743,7 @@ class KavitaApiOpds {
 
   /// Checks if the API key is valid
   @experimental
-  Future<KavitaResponse<dynamic>> checkPost({
-    required String path,
-    required Map<String, dynamic> body,
-  }) async {
+  Future<KavitaResponse<dynamic>> checkPost() async {
     return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
       await context.api.apiOpdsApiKeyPost(
         apiKey: context.apiKey,
@@ -2756,9 +2753,7 @@ class KavitaApiOpds {
 
   /// Checks if the API key is valid
   @experimental
-  Future<KavitaResponse<dynamic>> checkGet({
-    required String path,
-  }) async {
+  Future<KavitaResponse<dynamic>> checkGet() async {
     return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
       await context.api.apiOpdsApiKeyGet(
         apiKey: context.apiKey,

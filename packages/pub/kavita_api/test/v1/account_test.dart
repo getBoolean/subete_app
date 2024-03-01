@@ -27,7 +27,7 @@ void main() {
     ),
     kavitaVersion: '1.0.0',
   );
-  late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
+  late ({KavitaApi underTest, raw.KavitaApiV1 rawApi, String apiKey}) kavita;
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Account', () {

@@ -1,13 +1,13 @@
+import 'package:kavita_api/raw_api.dart' as raw;
+
 import '../tests.dart';
 
 void main() {
   // ignore: unused_local_variable
-  late ({KavitaApi underTest, MockRawKavitaApiV1 rawApi, String apiKey}) kavita;
-  setUp(() async => kavita = await setUpKavita());
+  late ({KavitaApi underTest, raw.KavitaApiV1 rawApi, String apiKey}) kavita;
+  setUp(() async => kavita = await setUpRealKavita());
 
   group('Test Kavita API v1 Opds', () {
-    // TODO: Opds (maybe delegate to separate package)
-
     // post opds
 
     // get opds
