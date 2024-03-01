@@ -2730,12 +2730,14 @@ class KavitaApiOpds {
 
   /// Creates a new OPDS client with an API key. Prefer using [KavitaApi.opds]
   /// if logging in with Kavita.
+  @experimental
   KavitaApiOpds(String apiKey, {required Uri baseUrl})
       : context = KavitaContext(
             baseUrl: baseUrl, currentUser: UserDto(apiKey: apiKey));
 
   /// Creates a new OPDS client with a [KavitaContext]. This is useful for
   /// sharing the api key with the other Kavita API clients.
+  @experimental
   const KavitaApiOpds.fromContext(this.context);
 
   /// Checks if the API key is valid
