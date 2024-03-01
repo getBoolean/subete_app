@@ -4049,15 +4049,35 @@ class KavitaApiServer {
   /// All Server related APIs
   const KavitaApiServer.fromContext(this.context);
 
-  // TODO*: Server
+  /// Performs an ad-hoc cleanup of Cache
+  Future<KavitaResponse<void>> clearCache() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerClearCachePost(),
+    );
+  }
 
-  // clear cache
+  /// Performs an ad-hoc cleanup of Want To Read, by removing want to read
+  /// series for users, where the series are fully read and in Completed
+  /// publication status.
+  Future<KavitaResponse<void>> cleanupWantToRead() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerCleanupWantToReadPost(),
+    );
+  }
 
-  // cleanup want to read
+  /// Performs an ad-hoc backup of the Database
+  Future<KavitaResponse<void>> backupDb() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerBackupDbPost(),
+    );
+  }
 
-  // backup db
-
-  // analyze files
+  /// This is a one time task that needs to be ran for v0.7 statistics to work
+  Future<KavitaResponse<void>> analyzeFiles() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerAnalyzeFilesPost(),
+    );
+  }
 
   /// Returns non-sensitive information about the current system
   Future<KavitaResponse<ServerInfoDto>> getServerInfo() async {
@@ -4066,27 +4086,91 @@ class KavitaApiServer {
             await context.api.apiServerServerInfoGet());
   }
 
-  // server info slim
+  /// Returns non-sensitive information about the current system
+  Future<KavitaResponse<ServerInfoDto>> getServerInfoSlim() async {
+    return mappr
+        .convert<ch.Response<raw.ServerInfoDto>, KavitaResponse<ServerInfoDto>>(
+      await context.api.apiServerServerInfoSlimGet(),
+    );
+  }
 
-  // convert media
+  /// Triggers the scheduling of the convert media job. This will convert all media
+  /// to the target encoding (except for PNG). Only one job will run at a time.
+  Future<KavitaResponse<void>> convertMedia() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerConvertMediaPost(),
+    );
+  }
 
-  // logs
+  /// Downloads all the log files via a zip
+  Future<KavitaResponse<String>> getLogs() async {
+    return mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiServerLogsGet(),
+        )
+        .cast();
+  }
 
-  // check for updates
+  /// Checks for updates and pushes an event to the UI
+  Future<KavitaResponse<void>> checkForUpdates() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerCheckForUpdatesGet(),
+    );
+  }
 
-  // check update
+  /// Checks for updates, if no updates that are > current version installed, returns null
+  Future<KavitaResponse<UpdateNotificationDto>> checkUpdate() async {
+    return mappr.convert<ch.Response<raw.UpdateNotificationDto>,
+        KavitaResponse<UpdateNotificationDto>>(
+      await context.api.apiServerCheckUpdateGet(),
+    );
+  }
 
-  // check out of date
+  /// Returns how many versions out of date this install is
+  Future<KavitaResponse<int>> checkOutOfDate() async {
+    return mappr.convert<ch.Response<int>, KavitaResponse<int>>(
+      await context.api.apiServerCheckOutOfDateGet(),
+    );
+  }
 
-  // changelog
+  /// Pull the Changelog for Kavita from Github and display
+  Future<KavitaResponse<List<UpdateNotificationDto>>> getChangelog() async {
+    return mappr.convert<ch.Response<List<raw.UpdateNotificationDto>>,
+        KavitaResponse<List<UpdateNotificationDto>>>(
+      await context.api.apiServerChangelogGet(),
+    );
+  }
 
-  // jobs
+  /// Returns a list of reoccurring jobs. Scheduled ad-hoc jobs will not be returned.
+  Future<KavitaResponse<List<JobDto>>> getJobs() async {
+    return mappr
+        .convert<ch.Response<List<raw.JobDto>>, KavitaResponse<List<JobDto>>>(
+      await context.api.apiServerJobsGet(),
+    );
+  }
 
-  // media errors
+  /// Returns a list of issues found during scanning or reading in which
+  /// files may have corruption or bad metadata (structural metadata)
+  Future<KavitaResponse<List<MediaErrorDto>>> getMediaErrors() async {
+    return mappr.convert<ch.Response<List<raw.MediaErrorDto>>,
+        KavitaResponse<List<MediaErrorDto>>>(
+      await context.api.apiServerMediaErrorsGet(),
+    );
+  }
 
-  // clear media alerts
+  /// Deletes all media errors
+  Future<KavitaResponse<void>> clearMediaAlerts() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerClearMediaAlertsPost(),
+    );
+  }
 
-  // bust kavitaplus cache
+  /// Bust Kavita+ Cache
+  Future<KavitaResponse<void>> bustKavitaPlusCache() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiServerBustKavitaplusCachePost(),
+    );
+  }
 }
 
 /// All Settings related APIs

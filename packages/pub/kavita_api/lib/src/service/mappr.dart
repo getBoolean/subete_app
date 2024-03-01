@@ -107,6 +107,13 @@ import 'package:meta/meta.dart';
   MapType<ch.Response<raw.SeriesDetailPlusDto>,
       KavitaResponse<SeriesDetailPlusDto>>(),
   MapType<ch.Response<List<raw.TagDto>>, KavitaResponse<List<TagDto>>>(),
+  MapType<ch.Response<raw.UpdateNotificationDto>,
+      KavitaResponse<UpdateNotificationDto>>(),
+  MapType<ch.Response<List<raw.UpdateNotificationDto>>,
+      KavitaResponse<List<UpdateNotificationDto>>>(),
+  MapType<ch.Response<List<raw.JobDto>>, KavitaResponse<List<JobDto>>>(),
+  MapType<ch.Response<List<raw.MediaErrorDto>>,
+      KavitaResponse<List<MediaErrorDto>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
@@ -375,6 +382,9 @@ import 'package:meta/meta.dart';
   MapType<raw.SeriesDetailPlusDto, SeriesDetailPlusDto>(),
   MapType<raw.RecommendationDto, RecommendationDto>(),
   MapType<raw.LanguageDto, LanguageDto>(),
+  MapType<raw.UpdateNotificationDto, UpdateNotificationDto>(),
+  MapType<raw.JobDto, JobDto>(),
+  MapType<raw.MediaErrorDto, MediaErrorDto>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
