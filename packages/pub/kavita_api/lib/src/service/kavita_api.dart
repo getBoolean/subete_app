@@ -6,6 +6,7 @@ import 'package:kavita_api/src/service/entities.dart';
 import 'package:kavita_api/src/service/mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
+import 'package:meta/meta.dart';
 
 /// The Kavita API client
 class KavitaApi {
@@ -2722,6 +2723,7 @@ class KavitaApiMetadata {
 }
 
 /// All OPDS related APIs
+@experimental
 class KavitaApiOpds {
   /// The client context which holds the current user and the API client
   final KavitaContext context;
@@ -2736,55 +2738,327 @@ class KavitaApiOpds {
   /// sharing the api key with the other Kavita API clients.
   const KavitaApiOpds.fromContext(this.context);
 
-  // TODO: Opds (maybe delegate to separate package)
+  /// Checks if the API key is valid
+  @experimental
+  Future<KavitaResponse<dynamic>> checkPost({
+    required String path,
+    required Map<String, dynamic> body,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyPost(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // post opds
+  /// Checks if the API key is valid
+  @experimental
+  Future<KavitaResponse<dynamic>> checkGet({
+    required String path,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyGet(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // get opds
+  /// Returns the Series matching this smart filter. If FromDashboard,
+  /// will only return 20 records.
+  @experimental
+  Future<KavitaResponse<dynamic>> getSeriesBySmartFilter({
+    required int? filterId,
+    int? pageNumber,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeySmartFilterFilterIdGet(
+        apiKey: context.apiKey,
+        filterId: filterId,
+        pageNumber: pageNumber,
+      ),
+    );
+  }
 
-  // smart-filter/filterId
+  /// smart-filters
+  @experimental
+  Future<KavitaResponse<dynamic>> getAllSmartFilters() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeySmartFiltersGet(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // smart-filters
+  /// external-sources
+  @experimental
+  Future<KavitaResponse<dynamic>> getAllExternalSources() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyExternalSourcesGet(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // external-sources
+  /// libraries
+  @experimental
+  Future<KavitaResponse<dynamic>> getAllLibraries() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyLibrariesGet(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // libraries
+  /// want to read
+  @experimental
+  Future<KavitaResponse<dynamic>> getAllWantToRead(
+      {required int pageNumber}) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyWantToReadGet(
+        apiKey: context.apiKey,
+        pageNumber: pageNumber,
+      ),
+    );
+  }
 
-  // want to read
+  /// collections
+  @experimental
+  Future<KavitaResponse<dynamic>> getAllCollections() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyCollectionsGet(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // collections
+  /// collections/collectionId
+  @experimental
+  Future<KavitaResponse<dynamic>> getCollection({
+    required int? id,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyCollectionsCollectionIdGet(
+        apiKey: context.apiKey,
+        collectionId: id,
+      ),
+    );
+  }
 
-  // collections/collectionId
+  /// reading list
+  @experimental
+  Future<KavitaResponse<dynamic>> getAllReadingLists() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyReadingListGet(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // reading list
+  /// reading list/readingListId
+  @experimental
+  Future<KavitaResponse<dynamic>> getReadingList({
+    required int? id,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyReadingListReadingListIdGet(
+        apiKey: context.apiKey,
+        readingListId: id,
+      ),
+    );
+  }
 
-  // reading list/readingListId
+  /// libraries/libraryId
+  @experimental
+  Future<KavitaResponse<dynamic>> getLibrary({
+    required int? id,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyLibrariesLibraryIdGet(
+        apiKey: context.apiKey,
+        libraryId: id,
+      ),
+    );
+  }
 
-  // libraries/libraryId
+  /// recently added
+  @experimental
+  Future<KavitaResponse<dynamic>> getRecentlyAdded({
+    required int pageNumber,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyRecentlyAddedGet(
+        apiKey: context.apiKey,
+        pageNumber: pageNumber,
+      ),
+    );
+  }
 
-  // recently added
+  /// more in genre
+  @experimental
+  Future<KavitaResponse<dynamic>> getMoreInGenre({
+    required int genreId,
+    required int pageNumber,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyMoreInGenreGet(
+        apiKey: context.apiKey,
+        pageNumber: pageNumber,
+        genreId: genreId,
+      ),
+    );
+  }
 
-  // more in genre
+  /// recently updated
+  @experimental
+  Future<KavitaResponse<dynamic>> getRecentlyUpdated({
+    required int pageNumber,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyRecentlyUpdatedGet(
+        apiKey: context.apiKey,
+        pageNumber: pageNumber,
+      ),
+    );
+  }
 
-  // recently updated
+  /// on deck
+  @experimental
+  Future<KavitaResponse<dynamic>> getOnDeck({
+    required int pageNumber,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeyOnDeckGet(
+        apiKey: context.apiKey,
+        pageNumber: pageNumber,
+      ),
+    );
+  }
 
-  // on deck
+  /// series
+  @experimental
+  Future<KavitaResponse<dynamic>> searchSeries({required String query}) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeySeriesGet(
+        apiKey: context.apiKey,
+        query: query,
+      ),
+    );
+  }
 
-  // series
+  /// search
+  @experimental
+  Future<KavitaResponse<dynamic>> search() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeySearchGet(
+        apiKey: context.apiKey,
+      ),
+    );
+  }
 
-  // search
+  /// series/seriesId
+  @experimental
+  Future<KavitaResponse<dynamic>> getSeries({
+    required int? id,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeySeriesSeriesIdGet(
+        apiKey: context.apiKey,
+        seriesId: id,
+      ),
+    );
+  }
 
-  // series/seriesId
+  /// series/seriesId/volume/volumeId
+  @experimental
+  Future<KavitaResponse<dynamic>> getVolume({
+    required int? seriesId,
+    required int? volumeId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiOpdsApiKeySeriesSeriesIdVolumeVolumeIdGet(
+        apiKey: context.apiKey,
+        seriesId: seriesId,
+        volumeId: volumeId,
+      ),
+    );
+  }
 
-  // series/seriesId/volume/volumeId
+  /// series/seriesId/volume/volumeId/chapter/chapterId
+  @experimental
+  Future<KavitaResponse<dynamic>> getChapter({
+    required int? seriesId,
+    required int? volumeId,
+    required int? chapterId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api
+          .apiOpdsApiKeySeriesSeriesIdVolumeVolumeIdChapterChapterIdGet(
+        apiKey: context.apiKey,
+        seriesId: seriesId,
+        volumeId: volumeId,
+        chapterId: chapterId,
+      ),
+    );
+  }
 
-  // series/seriesId/volume/volumeId/chapter/chapterId
+  /// Downloads a file
+  @experimental
+  Future<KavitaResponse<String>> getChapterDownload({
+    required int? seriesId,
+    required int? volumeId,
+    required int? chapterId,
+    required String? filename,
+  }) async {
+    return mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api
+              .apiOpdsApiKeySeriesSeriesIdVolumeVolumeIdChapterChapterIdDownloadFilenameGet(
+            apiKey: context.apiKey,
+            seriesId: seriesId,
+            volumeId: volumeId,
+            chapterId: chapterId,
+            filename: filename,
+          ),
+        )
+        .cast();
+  }
 
-  // series/seriesId/volume/volumeId/chapter/chapterId/download/filename
+  /// This returns a streamed image following OPDS-PS v1.2
+  @experimental
+  Future<KavitaResponse<String>> getImage({
+    int? libraryId,
+    int? seriesId,
+    int? volumeId,
+    int? chapterId,
+    int? pageNumber,
+    bool saveProgress = true,
+  }) async {
+    return mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiOpdsApiKeyImageGet(
+            apiKey: context.apiKey,
+            libraryId: libraryId,
+            seriesId: seriesId,
+            volumeId: volumeId,
+            chapterId: chapterId,
+            pageNumber: pageNumber,
+            saveProgress: saveProgress,
+          ),
+        )
+        .cast();
+  }
 
-  // image
-
-  // favicon
+  /// favicon
+  @experimental
+  Future<KavitaResponse<String>> getFavicon() async {
+    return mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiOpdsApiKeyFaviconGet(
+            apiKey: context.apiKey,
+          ),
+        )
+        .cast();
+  }
 }
 
 /// All Plugin related APIs
