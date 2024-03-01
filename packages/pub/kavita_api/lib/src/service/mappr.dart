@@ -117,6 +117,7 @@ import 'package:meta/meta.dart';
   MapType<ch.Response<raw.ServerSettingDto>,
       KavitaResponse<ServerSettingDto>>(),
   MapType<ch.Response<raw.SmtpConfigDto>, KavitaResponse<SmtpConfigDto>>(),
+  MapType<ch.Response<List<raw.MemberDto>>, KavitaResponse<List<MemberDto>>>(),
   MapType<raw.UserDto, UserDto>(reverse: true),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,

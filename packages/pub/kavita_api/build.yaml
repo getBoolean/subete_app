@@ -18,3 +18,7 @@ targets:
           include_if_null: false
           override_equals_and_hashcode: true
           override_to_string: true
+          response_override_value_map:
+            - url: "/api/Users/myself"
+              method: get
+              overridden_value: "MemberDto"

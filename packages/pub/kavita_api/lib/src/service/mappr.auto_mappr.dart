@@ -204,6 +204,7 @@ import 'openapi_generated_code/kavita_api_v1.swagger.dart' as _i4;
 /// - `Response<List<MediaErrorDto>>` → `KavitaResponse<List<MediaErrorDto>>`.
 /// - `Response<ServerSettingDto>` → `KavitaResponse<ServerSettingDto>`.
 /// - `Response<SmtpConfigDto>` → `KavitaResponse<SmtpConfigDto>`.
+/// - `Response<List<MemberDto>>` → `KavitaResponse<List<MemberDto>>`.
 /// - `UserDto` → `UserDto`.
 /// - `UserDto` → `UserDto`.
 /// - `AgeRestrictionDto` → `AgeRestrictionDto`.
@@ -948,6 +949,13 @@ class $Mappr implements _i1.AutoMapprInterface {
         (targetTypeOf == _typeOf<_i3.KavitaResponse<_i60.SmtpConfigDto>>() ||
             targetTypeOf ==
                 _typeOf<_i3.KavitaResponse<_i60.SmtpConfigDto>?>())) {
+      return true;
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.MemberDto>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<_i4.MemberDto>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<_i37.MemberDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i37.MemberDto>>?>())) {
       return true;
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
@@ -3114,6 +3122,17 @@ class $Mappr implements _i1.AutoMapprInterface {
       }
       return (_map__i2$Response$_i4$SmtpConfigDto$_To__i3$KavitaResponse$_i60$SmtpConfigDto$(
           (model as _i2.Response<_i4.SmtpConfigDto>?)) as TARGET);
+    }
+    if ((sourceTypeOf == _typeOf<_i2.Response<List<_i4.MemberDto>>>() ||
+            sourceTypeOf == _typeOf<_i2.Response<List<_i4.MemberDto>>?>()) &&
+        (targetTypeOf == _typeOf<_i3.KavitaResponse<List<_i37.MemberDto>>>() ||
+            targetTypeOf ==
+                _typeOf<_i3.KavitaResponse<List<_i37.MemberDto>>?>())) {
+      if (canReturnNull && model == null) {
+        return null;
+      }
+      return (_map__i2$Response$List$_i4$MemberDto$$_To__i3$KavitaResponse$List$_i37$MemberDto$$(
+          (model as _i2.Response<List<_i4.MemberDto>>?)) as TARGET);
     }
     if ((sourceTypeOf == _typeOf<_i4.UserDto>() ||
             sourceTypeOf == _typeOf<_i4.UserDto?>()) &&
@@ -6296,6 +6315,25 @@ class $Mappr implements _i1.AutoMapprInterface {
     return _i3.KavitaResponse(
       model.base,
       _map__i4$SmtpConfigDto_To__i60$SmtpConfigDto_Nullable(model.body),
+      error: model.error,
+    );
+  }
+
+  _i3.KavitaResponse<List<_i37.MemberDto>>
+      _map__i2$Response$List$_i4$MemberDto$$_To__i3$KavitaResponse$List$_i37$MemberDto$$(
+          _i2.Response<List<_i4.MemberDto>>? input) {
+    final model = input;
+    if (model == null) {
+      throw Exception(
+          r'Mapping Response<List<MemberDto>> → KavitaResponse<List<MemberDto>> failed because Response<List<MemberDto>> was null, and no default value was provided. '
+          r'Consider setting the whenSourceIsNull parameter on the MapType<Response<List<MemberDto>>, KavitaResponse<List<MemberDto>>> to handle null values during mapping.');
+    }
+    return _i3.KavitaResponse(
+      model.base,
+      model.body
+          ?.map<_i37.MemberDto>(
+              (value) => _map__i4$MemberDto_To__i37$MemberDto(value))
+          .toList(),
       error: model.error,
     );
   }

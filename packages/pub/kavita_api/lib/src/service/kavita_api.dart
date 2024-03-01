@@ -4352,21 +4352,83 @@ class KavitaApiUsers {
   /// All Users related APIs
   const KavitaApiUsers.fromContext(this.context);
 
-  // TODO*: Users
+  /// Deletes a user by username
+  Future<KavitaResponse<void>> deleteUser({
+    required String username,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiUsersDeleteUserDelete(
+        username: username,
+      ),
+    );
+  }
 
-  // delete user
+  /// Returns all users of this server
+  Future<KavitaResponse<List<MemberDto>>> getUsers({
+    bool includePending = false,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.MemberDto>>,
+        KavitaResponse<List<MemberDto>>>(
+      await context.api.apiUsersGet(includePending: includePending),
+    );
+  }
 
-  // get users
+  /// Returns the current user
+  Future<KavitaResponse<MemberDto>> getMyself() async {
+    return mappr.convert<ch.Response<raw.MemberDto>, KavitaResponse<MemberDto>>(
+      await context.api.apiUsersMyselfGet(),
+    );
+  }
 
-  // myself
+  /// Checks if the user has reading progress
+  Future<KavitaResponse<bool>> hasReadingProgress({
+    required int libraryId,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiUsersHasReadingProgressGet(
+        libraryId: libraryId,
+      ),
+    );
+  }
 
-  // has reading progress
+  /// Checks if the user has library access
+  Future<KavitaResponse<bool>> hasLibraryAccess({
+    required int libraryId,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiUsersHasLibraryAccessGet(
+        libraryId: libraryId,
+      ),
+    );
+  }
 
-  // has library access
+  /// Updates the user preferences
+  Future<KavitaResponse<UserPreferencesDto>> updatePreferences({
+    required UserPreferencesDto userPreferences,
+  }) async {
+    return mappr.convert<ch.Response<raw.UserPreferencesDto>,
+        KavitaResponse<UserPreferencesDto>>(
+      await context.api.apiUsersUpdatePreferencesPost(
+        body: mappr.convert<UserPreferencesDto, raw.UserPreferencesDto>(
+          userPreferences,
+        ),
+      ),
+    );
+  }
 
-  // update preferences
+  /// Returns the preferences of the user
+  Future<KavitaResponse<UserPreferencesDto>> getPreferences() async {
+    return mappr.convert<ch.Response<raw.UserPreferencesDto>,
+        KavitaResponse<UserPreferencesDto>>(
+      await context.api.apiUsersGetPreferencesGet(),
+    );
+  }
 
-  // get preferences
-
-  // names
+  /// Returns a list of the user names within the system
+  Future<KavitaResponse<List<String>>> getNames() async {
+    return mappr
+        .convert<ch.Response<List<String>>, KavitaResponse<List<String>>>(
+      await context.api.apiUsersNamesGet(),
+    );
+  }
 }

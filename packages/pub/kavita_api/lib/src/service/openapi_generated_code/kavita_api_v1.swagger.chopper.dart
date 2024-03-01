@@ -4561,14 +4561,14 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
-  Future<Response<List<MemberDto>>> _apiUsersMyselfGet() {
+  Future<Response<MemberDto>> _apiUsersMyselfGet() {
     final Uri $url = Uri.parse('/api/Users/myself');
     final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
     );
-    return client.send<List<MemberDto>, MemberDto>($request);
+    return client.send<MemberDto, MemberDto>($request);
   }
 
   @override

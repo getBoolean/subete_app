@@ -4956,7 +4956,7 @@ abstract class KavitaApiV1 extends ChopperService {
       {@Query('includePending') bool? includePending});
 
   ///
-  Future<chopper.Response<List<MemberDto>>> apiUsersMyselfGet() {
+  Future<chopper.Response<MemberDto>> apiUsersMyselfGet() {
     generatedMapping.putIfAbsent(MemberDto, () => MemberDto.fromJsonFactory);
 
     return _apiUsersMyselfGet();
@@ -4964,7 +4964,7 @@ abstract class KavitaApiV1 extends ChopperService {
 
   ///
   @Get(path: '/api/Users/myself')
-  Future<chopper.Response<List<MemberDto>>> _apiUsersMyselfGet();
+  Future<chopper.Response<MemberDto>> _apiUsersMyselfGet();
 
   ///
   ///@param libraryId
