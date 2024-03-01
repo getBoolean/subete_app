@@ -12,7 +12,6 @@ void main() {
           .thenResponse('test');
       final res = await kavita.underTest.opds.getRootCategoriesPost();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -21,7 +20,6 @@ void main() {
           .thenResponse('test');
       final res = await kavita.underTest.opds.getRootCategoriesGet();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -36,7 +34,6 @@ void main() {
         pageNumber: 0,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -46,7 +43,6 @@ void main() {
           )).thenResponse('test');
       final res = await kavita.underTest.opds.getAllSmartFilters();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -56,7 +52,6 @@ void main() {
           )).thenResponse('test');
       final res = await kavita.underTest.opds.getAllExternalSources();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -66,7 +61,6 @@ void main() {
           )).thenResponse('test');
       final res = await kavita.underTest.opds.getAllLibraries();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -79,7 +73,6 @@ void main() {
         pageNumber: 0,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -89,7 +82,6 @@ void main() {
           )).thenResponse('test');
       final res = await kavita.underTest.opds.getAllCollections();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -102,7 +94,6 @@ void main() {
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -112,7 +103,6 @@ void main() {
           )).thenResponse('test');
       final res = await kavita.underTest.opds.getAllReadingLists();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -125,7 +115,6 @@ void main() {
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -138,7 +127,6 @@ void main() {
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -151,7 +139,6 @@ void main() {
         pageNumber: 0,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -166,7 +153,6 @@ void main() {
         pageNumber: 0,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -179,7 +165,6 @@ void main() {
         pageNumber: 0,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -192,7 +177,6 @@ void main() {
         pageNumber: 0,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -205,7 +189,6 @@ void main() {
         query: 'test',
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -215,7 +198,6 @@ void main() {
           )).thenResponse('test');
       final res = await kavita.underTest.opds.getSearchDescription();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -228,7 +210,6 @@ void main() {
         id: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -243,7 +224,6 @@ void main() {
         volumeId: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -261,7 +241,6 @@ void main() {
         chapterId: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -281,7 +260,6 @@ void main() {
         filename: 'test',
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -303,7 +281,6 @@ void main() {
         pageNumber: 1,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -313,7 +290,6 @@ void main() {
           )).thenResponse('test');
       final res = await kavita.underTest.opds.getFavicon();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
-      print(res.body);
       expect(res.body, isNotNull, reason: 'No data received');
     });
   });
