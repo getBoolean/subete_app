@@ -36,7 +36,7 @@ extension GoRouterExtension on GoRouter {
     return true;
   }
 
-  bool goBack({bool stripQueryParameters = true}) {
+  bool goBack({bool stripQueryParameters = false}) {
     if (!canGoBack()) {
       return false;
     }
