@@ -10,3 +10,4 @@ ignore:
   - "**/*.i18n.dart"
   - "lib/generated/intl/messages*.dart"
   - "**/openapi_generated_code/**.dart"
+  - "packages/pub/sidebarx/**.dart"
