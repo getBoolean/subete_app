@@ -1,5 +1,6 @@
-/// This library is the raw generated code from the OpenAPI generator. It may
-/// introduce breaking changes without notice if the spec changes.
+/// This library contains the raw generated code from the OpenAPI generator. It may
+/// introduce breaking changes without notice if the spec changes. This is only
+/// exposed for testing purposes.
 ///
 /// This is marked as [experimental] and [visibleForTesting].
 @visibleForTesting
