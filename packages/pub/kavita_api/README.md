@@ -13,13 +13,13 @@ and the Flutter guide for
 
 # Kavita API Client
 
-An unofficial Dart package for Kavita API generated using [swagger_dart_code_generator](https://pub.dev/packages/swagger_dart_code_generator)
+An unofficial Dart package for Kavita API. The underlying API is generated using [swagger_dart_code_generator](https://pub.dev/packages/swagger_dart_code_generator)
 
 ## Usage
 
 ```dart
 // Can only use certain API methods until the user is not authenticated
-final api = KavitaApi(baseUrl: baseUrl);
+final api = KavitaApi(baseUrl: 'http://localhost:5000');
 ```
 
 ### Authentication
@@ -39,3 +39,7 @@ await api.plugin.authenticate(
     pluginName: 'YOUR_APP_NAME_HERE',
 );
 ```
+
+### Resources
+
+* [Kavita API Docs](https://www.kavitareader.com/docs/api/#/)
