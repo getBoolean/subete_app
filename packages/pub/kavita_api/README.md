@@ -35,7 +35,7 @@ await api.account.login(
 
 // Option 2. Authenticate with the Server given a User's apiKey.
 await api.plugin.authenticate(
-    apiKey: 'YOUR_API_KEY_HERE',
+    apiKey: 'API_KEY_FOR_USER_HERE',
     pluginName: 'YOUR_APP_NAME_HERE',
 );
 ```
