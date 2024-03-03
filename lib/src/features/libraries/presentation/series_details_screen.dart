@@ -48,7 +48,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
                       [
                         XFile.fromData(
                           download,
-                          name: '${volumeItem.name} - $seriesName.epub',
+                          name: 'Volume ${volumeItem.name} - $seriesName.epub',
                           mimeType: 'application/epub+zip',
                           lastModified: volumeItem.lastModifiedUtc,
                           length: download.length,
@@ -56,6 +56,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
                       ],
                       sharePositionOrigin:
                           box!.localToGlobal(Offset.zero) & box.size,
+                      subject: 'Volume ${volumeItem.name} - $seriesName.epub',
                     );
                     if (context.mounted &&
                         result.status == ShareResultStatus.dismissed) {
