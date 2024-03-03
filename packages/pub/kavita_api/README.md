@@ -13,7 +13,7 @@ and the Flutter guide for
 
 # Kavita API Client
 
-An unofficial Dart package for Kavita API. The underlying API is generated using [swagger_dart_code_generator](https://pub.dev/packages/swagger_dart_code_generator)
+An unofficial Dart package for the Kavita API. The underlying API is generated using [swagger_dart_code_generator](https://pub.dev/packages/swagger_dart_code_generator)
 
 ## Usage
 
