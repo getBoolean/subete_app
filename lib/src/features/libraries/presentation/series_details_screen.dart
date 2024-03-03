@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kavita_api/kavita_api.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
+
+class SeriesDetailsScreen extends ConsumerWidget {
+  const SeriesDetailsScreen({
+    required this.seriesId,
+    required this.seriesName,
+    super.key,
+  });
+  final String seriesId;
+  final String seriesName;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int seriesId = int.parse(this.seriesId);
+    final AsyncValue<List<VolumeDto>> series = ref.watch(volumesProvider(
+      seriesId: seriesId,
+    ));
+    return series.when(
+      data: (series) {
+        return ListView.builder(
+          itemCount: series.length,
+          itemBuilder: (context, index) {
+            final VolumeDto volumeItem = series[index];
+            return Card(
+              child: ListTile(
+                title: Text('${volumeItem.name} - $seriesName'),
+                subtitle: Text(
+                  '${volumeItem.avgHoursToRead} hours',
+                ),
+                onTap: () async {
+                  final id = volumeItem.id;
+                  if (id == null) {
+                    return;
+                  }
+                  final download = await ref
+                      .read(downloadVolumeProvider(volumeId: id).future);
+                  if (!context.mounted) return;
+
+                  final box = context.findRenderObject() as RenderBox?;
+                  final result = await Share.shareXFiles(
+                    [
+                      XFile.fromData(
+                        download,
+                        name: '${volumeItem.name} - $seriesName',
+                      )
+                    ],
+                    sharePositionOrigin:
+                        box!.localToGlobal(Offset.zero) & box.size,
+                  );
+                  if (context.mounted &&
+                      result.status == ShareResultStatus.dismissed) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Export canceled'),
+                      ),
+                    );
+                  }
+                },
+              ),
+            );
+          },
+        );
+      },
+      error: (e, st) => Center(child: Text('Error: $e')),
+      loading: () {
+        return Skeletonizer(
+            child: ListView.builder(
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return const Card(
+              child: ListTile(
+                title: Text('Loading...'),
+                subtitle: Text('Hours...'),
+              ),
+            );
+          },
+        ));
+      },
+    );
+  }
+}

@@ -24,7 +24,7 @@ An unofficial Dart package for the Kavita API. The underlying API is generated u
 
 ```dart
 // Can only use certain API methods until the user is not authenticated
-final baseUrl = Uri.parse('http://localhost:5000');
+final baseUrl = Uri.parse('http://127.0.0.1:5000');
 final api = KavitaApi(baseUrl: baseUrl);
 ```
 

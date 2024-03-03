@@ -18,7 +18,7 @@ class DevEnv implements EnvFlavor, EnvFields {
 
   @override
   @EnviedField(
-      varName: 'KAVITA_BASE_URL', defaultValue: 'http://localhost:5000')
+      varName: 'KAVITA_BASE_URL', defaultValue: 'http://127.0.0.1:5000')
   final String kavitaBaseUrl = _Env.kavitaBaseUrl;
 
   @override
