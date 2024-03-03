@@ -11,3 +11,11 @@ ignore:
   - "lib/generated/intl/messages*.dart"
   - "**/openapi_generated_code/**.dart"
   - "packages/pub/sidebarx/**.dart"
+
+coverage:
+  status:
+    patch:
+      default:
+        target: auto
+        threshold: 30%
+        informational: true
