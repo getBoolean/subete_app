@@ -26,21 +26,26 @@ void main() async {
       KavitaDataNotFoundException() => 'Data not found',
       KavitaRateLimitExceededException() => 'Rate limit exceeded',
       KavitaPendingException() => 'Still being processed',
-      KavitaHttpException() => e.message,
+      KavitaHttpException() => 'Request failed',
     };
 
-    print('Error: $message, ${e.message}');
+    print('Error: $message, ${e.message}, ${e.response}');
     print(e.response);
-    print(e.response?.body);
+    print(e.body);
   } on KavitaAuthException catch (e) {
     // only thrown when a required api key or token to make a request is missing. This does
     // not check that the API key is valid.
     print(
       'Error: Attempted to use method that requires an API key but one was not provided or the user was not authenticated.',
     );
-    print(e);
+    print(e.message);
   } on KavitaException catch (e) {
     // Generic catch all
+    final message = switch (e) {
+      KavitaHttpException() => '${e.message}, ${e.response}',
+      KavitaAuthException() => e.message,
+    };
+    print('Error: $message');
     print(e);
   }
 }

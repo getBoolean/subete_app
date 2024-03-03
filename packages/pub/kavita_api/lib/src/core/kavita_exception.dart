@@ -22,10 +22,16 @@ sealed class KavitaException implements Exception {
 @optionalTypeArgs
 final class KavitaHttpException<T> extends KavitaException {
   /// The response associated with the exception
-  final KavitaResponse<T>? response;
+  final KavitaResponse<T> response;
+
+  /// The frozen base request associated with the response
+  final http.BaseRequest? request;
+
+  /// The body of the response
+  T? get body => response.body;
 
   /// Thrown when a [KavitaApi] method's [http.Request] fails
-  const KavitaHttpException(super.message, [this.response]);
+  const KavitaHttpException(super.message, this.response, this.request);
 
   @override
   String toString() {
@@ -39,7 +45,8 @@ final class KavitaUnauthorizedException<T> extends KavitaHttpException<T> {
   /// Thrown when a [KavitaApi] method receives an unauthorized error code response
   const KavitaUnauthorizedException(
     super.message,
-    KavitaResponse<T> super.response,
+    super.response,
+    super.request,
   );
 }
 
@@ -49,7 +56,8 @@ final class KavitaDataNotFoundException<T> extends KavitaHttpException<T> {
   /// Thrown when a [KavitaApi] method receives a data not found code response
   const KavitaDataNotFoundException(
     super.message,
-    KavitaResponse<T> super.response,
+    super.response,
+    super.request,
   );
 }
 
@@ -59,7 +67,8 @@ final class KavitaRateLimitExceededException<T> extends KavitaHttpException<T> {
   /// Thrown when a [KavitaApi] method receives a rate limit exceeded code response
   const KavitaRateLimitExceededException(
     super.message,
-    KavitaResponse<T> super.response,
+    super.response,
+    super.request,
   );
 }
 
@@ -69,7 +78,8 @@ final class KavitaPendingException<T> extends KavitaHttpException<T> {
   /// Thrown when a [KavitaApi] method receives a pending code response
   const KavitaPendingException(
     super.message,
-    KavitaResponse<T> super.response,
+    super.response,
+    super.request,
   );
 }
 

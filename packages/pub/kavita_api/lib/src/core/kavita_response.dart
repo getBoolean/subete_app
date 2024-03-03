@@ -63,7 +63,7 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
         // ignore: only_throw_errors
         throw error!;
       }
-      throw KavitaHttpException(error.toString(), this);
+      throw KavitaHttpException(error.toString(), this, base.request);
     }
   }
 

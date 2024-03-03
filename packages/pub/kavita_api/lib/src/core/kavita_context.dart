@@ -119,6 +119,7 @@ class KavitaContext {
             throw KavitaHttpException(
               'Failed to refresh token',
               kavitaResponse,
+              request,
             );
           }
           if (_currentUser == null) {
@@ -221,6 +222,7 @@ class KavitaContext {
       throw KavitaUnauthorizedException(
         'The specified access token is invalid.',
         kavitaResponse,
+        kavitaResponse.base.request,
       );
     }
 
@@ -228,6 +230,7 @@ class KavitaContext {
       throw KavitaHttpException(
         'Your request is forbidden.',
         kavitaResponse,
+        kavitaResponse.base.request,
       );
     }
 
@@ -235,6 +238,7 @@ class KavitaContext {
       throw KavitaDataNotFoundException(
         'There is no data associated with request.',
         kavitaResponse,
+        kavitaResponse.base.request,
       );
     }
 
@@ -242,11 +246,16 @@ class KavitaContext {
       throw KavitaRateLimitExceededException(
         'Rate limit exceeded.',
         kavitaResponse,
+        kavitaResponse.base.request,
       );
     }
 
     if (response.statusCode == 206) {
-      throw KavitaPendingException('Still being processed.', kavitaResponse);
+      throw KavitaPendingException(
+        'Still being processed.',
+        kavitaResponse,
+        kavitaResponse.base.request,
+      );
     }
 
     if (response.statusCode >= 400 && response.statusCode < 500) {
@@ -254,6 +263,7 @@ class KavitaContext {
       throw KavitaHttpException(
         errorMessage.isEmpty ? 'Request failed.' : errorMessage,
         kavitaResponse,
+        kavitaResponse.base.request,
       );
     }
 
@@ -261,6 +271,7 @@ class KavitaContext {
       throw KavitaHttpException(
         'Request failed.',
         kavitaResponse,
+        kavitaResponse.base.request,
       );
     }
 
