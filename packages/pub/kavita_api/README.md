@@ -15,6 +15,11 @@ and the Flutter guide for
 
 An unofficial Dart package for the Kavita API. The underlying API is generated using [swagger_dart_code_generator](https://pub.dev/packages/swagger_dart_code_generator)
 
+✅ The **wrapper library** for **[Kavita Api](https://www.kavitareader.com/docs/api/#/)** </br>
+✅ **Easily integrates** with the **Dart** & **Flutter** apps. </br>
+✅ Provides response objects with a **guaranteed safe types.** </br>
+✅ Supports **automatic token refresh.** </br>
+
 ## Usage
 
 ```dart
