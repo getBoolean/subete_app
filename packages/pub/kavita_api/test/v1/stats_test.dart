@@ -8,8 +8,6 @@ void main() {
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Stats', () {
-    // TODO: Stats
-
     // user/userId/read
 
     // server stats

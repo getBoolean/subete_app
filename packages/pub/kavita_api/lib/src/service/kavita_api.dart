@@ -4296,33 +4296,138 @@ class KavitaApiStats {
   /// All Stats related APIs
   const KavitaApiStats.fromContext(this.context);
 
-  // TODO: Stats
+  /// Returns the user read stats
+  Future<KavitaResponse<UserReadStatistics>> getUserReadStats({
+    required int userId,
+  }) async {
+    return mappr.convert<ch.Response<raw.UserReadStatistics>,
+        KavitaResponse<UserReadStatistics>>(
+      await context.api.apiStatsUserUserIdReadGet(
+        userId: userId,
+      ),
+    );
+  }
 
-  // user read stats
+  /// Returns the server stats
+  Future<KavitaResponse<ServerStatisticsDto>> getServerStats() async {
+    return mappr.convert<ch.Response<raw.ServerStatisticsDto>,
+        KavitaResponse<ServerStatisticsDto>>(
+      await context.api.apiStatsServerStatsGet(),
+    );
+  }
 
-  // server stats
+  /// Returns the server count for each year
+  Future<KavitaResponse<List<StatCount<int>>>> getServerYearCount() async {
+    return mappr.convert<ch.Response<List<raw.Int32StatCount>>,
+        KavitaResponse<List<StatCount<int>>>>(
+      await context.api.apiStatsServerCountYearGet(),
+    );
+  }
 
-  // server count year
+  /// Returns the server count for each publication status
+  Future<KavitaResponse<List<StatCount<PublicationStatus>>>>
+      getServerPublicationStatusCount() async {
+    return mappr.convert<ch.Response<List<raw.PublicationStatusStatCount>>,
+        KavitaResponse<List<StatCount<PublicationStatus>>>>(
+      await context.api.apiStatsServerCountPublicationStatusGet(),
+    );
+  }
 
-  // server count publication status
+  /// Returns the server count for each manga format
+  Future<KavitaResponse<List<StatCount<MangaFormat>>>>
+      getServerMangaFormatCount() async {
+    return mappr.convert<ch.Response<List<raw.MangaFormatStatCount>>,
+        KavitaResponse<List<StatCount<MangaFormat>>>>(
+      await context.api.apiStatsServerCountMangaFormatGet(),
+    );
+  }
 
-  // server count manga format
+  /// Returns the server top years
+  Future<KavitaResponse<List<StatCount<int>>>> getServerTopYears() async {
+    return mappr.convert<ch.Response<List<raw.Int32StatCount>>,
+        KavitaResponse<List<StatCount<int>>>>(
+      await context.api.apiStatsServerTopYearsGet(),
+    );
+  }
 
-  // server top years
+  /// Returns users with the top reads in the server
+  Future<KavitaResponse<List<TopReadDto>>> getServerTopUsers(
+      {int? days}) async {
+    return mappr.convert<ch.Response<List<raw.TopReadDto>>,
+        KavitaResponse<List<TopReadDto>>>(
+      await context.api.apiStatsServerTopUsersGet(days: days),
+    );
+  }
 
-  // server top users
+  /// A breakdown of different files, their size, and format
+  Future<KavitaResponse<List<FileExtensionBreakdownDto>>>
+      getServerFileBreakdown() async {
+    return mappr.convert<ch.Response<List<raw.FileExtensionBreakdownDto>>,
+        KavitaResponse<List<FileExtensionBreakdownDto>>>(
+      await context.api.apiStatsServerFileBreakdownGet(),
+    );
+  }
 
-  // server filebreakdown
+  /// Returns reading history events for a give or all users, broken up by day, and format
+  ///
+  /// Arguments:
+  /// - [userId] - Defaults to all users if `null` or `0`
+  /// - [days] - If 0, defaults to all time, else just those days asked for
+  Future<KavitaResponse<List<PagesReadOnADayCount<DateTime>>>>
+      getReadingCountByDay({
+    int? userId,
+    int? days,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.DateTimePagesReadOnADayCount>>,
+        KavitaResponse<List<PagesReadOnADayCount<DateTime>>>>(
+      await context.api.apiStatsReadingCountByDayGet(
+        userId: userId,
+        days: days,
+      ),
+    );
+  }
 
-  // reading count by day
+  /// Breakdown by day of week
+  Future<KavitaResponse<List<StatCount<DayOfWeek>>>> getDayBreakdown({
+    int? userId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.DayOfWeekStatCount>>,
+        KavitaResponse<List<StatCount<DayOfWeek>>>>(
+      await context.api.apiStatsDayBreakdownGet(userId: userId),
+    );
+  }
 
-  // day breakdown
+  /// Returns reading history events for a user
+  Future<KavitaResponse<List<ReadHistoryEvent>>> getUserReadingHistory({
+    required int userId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.ReadHistoryEvent>>,
+        KavitaResponse<List<ReadHistoryEvent>>>(
+      await context.api.apiStatsUserReadingHistoryGet(
+        userId: userId,
+      ),
+    );
+  }
 
-  // user reading history
+  /// Returns a count of pages read per year for a given userId.
+  Future<KavitaResponse<List<StatCount<int>>>> getPagesPerYear({
+    required int userId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.Int32StatCount>>,
+        KavitaResponse<List<StatCount<int>>>>(
+      await context.api.apiStatsPagesPerYearGet(userId: userId),
+    );
+  }
 
-  // pages per year
-
-  // words per year
+  /// Returns a count of words read per year for a given userId.
+  Future<KavitaResponse<List<StatCount<int>>>> getWordsPerYear({
+    required int userId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.Int32StatCount>>,
+        KavitaResponse<List<StatCount<int>>>>(
+      await context.api.apiStatsWordsPerYearGet(userId: userId),
+    );
+  }
 }
 
 /// All Theme related APIs
