@@ -12,3 +12,4 @@ lib/generated/intl/messages*.dart linguist-generated=true
 **/*.swagger.dart linguist-generated=true
 **/client_mapping.dart linguist-generated=true
 **/*.auto_mappr.dart linguist-generated=true
+**/*.lock linguist-generated=true
