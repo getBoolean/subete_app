@@ -11,10 +11,9 @@ KavitaApi kavita(KavitaRef ref) {
 }
 
 @Riverpod(keepAlive: true)
-Future<KavitaApi> kavitaAuthenticate(KavitaAuthenticateRef ref) async {
+Future<void> kavitaAuthenticate(KavitaAuthenticateRef ref) async {
   final kavita = ref.watch(kavitaProvider);
   await _authenticate(kavita);
-  return kavita;
 }
 
 @Riverpod(keepAlive: true)
@@ -25,10 +24,6 @@ Stream<UserDto?> kavitaUser(
   await for (final user in api.context.onUserChange) {
     if (user != null) {
       yield user;
-    } else {
-      // TODO: reauthenticate if user is logged out.
-      // This is temporary until a login flow is implemented.
-      await _authenticate(api);
     }
   }
 }

@@ -21,11 +21,11 @@ final kavitaProvider = Provider<KavitaApi>.internal(
 
 typedef KavitaRef = ProviderRef<KavitaApi>;
 String _$kavitaAuthenticateHash() =>
-    r'47a0f77d406aaabf339b4b5ae45dd97e2daaa2d2';
+    r'cc691ece81a8783ca1753b8e417115f73024ef30';
 
 /// See also [kavitaAuthenticate].
 @ProviderFor(kavitaAuthenticate)
-final kavitaAuthenticateProvider = FutureProvider<KavitaApi>.internal(
+final kavitaAuthenticateProvider = FutureProvider<void>.internal(
   kavitaAuthenticate,
   name: r'kavitaAuthenticateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -35,8 +35,8 @@ final kavitaAuthenticateProvider = FutureProvider<KavitaApi>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef KavitaAuthenticateRef = FutureProviderRef<KavitaApi>;
-String _$kavitaUserHash() => r'1da1cafc80e25fd0b51fb0a4a8df3b07cd8b8983';
+typedef KavitaAuthenticateRef = FutureProviderRef<void>;
+String _$kavitaUserHash() => r'5217ebd9801785802451ec79f698e57bcf4db351';
 
 /// See also [kavitaUser].
 @ProviderFor(kavitaUser)

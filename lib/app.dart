@@ -7,6 +7,7 @@ import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:localization/localization.dart';
+import 'package:subete/src/features/kavita/presentation/kavita_auth_widget.dart';
 import 'package:subete/src/features/settings/application/settings_service.dart';
 import 'package:subete/src/features/settings/data/dto/settings.dart';
 import 'package:subete/src/features/settings/presentation/widgets/app_settings.dart';
@@ -88,7 +89,8 @@ class App extends ConsumerWidget {
               fontFamily: GoogleFonts.notoSans().fontFamily,
             ),
             themeMode: settings.themeType.toThemeMode(),
-            builder: (context, child) => AccessibilityTools(child: child),
+            builder: (context, child) =>
+                KavitaAuthWidget(child: AccessibilityTools(child: child)),
           ),
         );
       },
