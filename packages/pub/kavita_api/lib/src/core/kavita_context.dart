@@ -82,7 +82,7 @@ class KavitaContext {
   KavitaContext({
     required Uri baseUrl,
     UserDto? currentUser,
-    this.maxRetryCount = 5,
+    this.maxRetryCount = 3,
   })  : _baseUrl = baseUrl,
         _currentUser = currentUser {
     _httpClient = RetryClient(
@@ -149,7 +149,7 @@ class KavitaContext {
     raw.KavitaApiV1 api, {
     required Uri baseUrl,
     UserDto? currentUser,
-    this.maxRetryCount = 5,
+    this.maxRetryCount = 3,
   })  : _api = api,
         _currentUser = currentUser,
         _baseUrl = baseUrl,
