@@ -99,7 +99,7 @@ jobs:
 
       - name: Activate Melos
         if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
@@ -196,7 +196,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -205,7 +205,7 @@ jobs:
       # https://gist.github.com/devhammed/617d920b7ee886591a46c22633ab0093
       - name: Build Flutter IPA
         run: |
-          flutter build ios --release --no-codesign --dart-define FLAVOR=${{ env.FLAVOR }}
+          flutter build ios --release --no-codesign --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
           cd build/ios/iphoneos
           mkdir Payload
           cd Payload
@@ -303,7 +303,7 @@ jobs:
   #     # https://gist.github.com/devhammed/617d920b7ee886591a46c22633ab0093
   #     - name: Build Flutter IPA
   #       run: |
-  #         flutter build ios --release --no-codesign --dart-define FLAVOR=${{ env.FLAVOR }}
+  #         flutter build ios --release --no-codesign --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
   #         cd build/ios/iphoneos
   #         mkdir Payload
   #         cd Payload
@@ -383,7 +383,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -391,7 +391,7 @@ jobs:
       - name: Build Android Split APK
         run: |
           flutter pub get
-          flutter build apk --release --split-per-abi --dart-define FLAVOR=${{ env.FLAVOR }}
+          flutter build apk --release --split-per-abi --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
           cd build/app/outputs/flutter-apk
           mv app-arm64-v8a-release.apk subete-${{ env.BRANCH_NAME }}-android-arm64-v8a.apk
           mv app-armeabi-v7a-release.apk subete-${{ env.BRANCH_NAME }}-android-armeabi-v7a.apk
@@ -414,7 +414,7 @@ jobs:
       - name: Build Universal APK
         run: |
           flutter pub get
-          flutter build apk --release --dart-define FLAVOR=${{ env.FLAVOR }}
+          flutter build apk --release --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
           cd build/app/outputs/flutter-apk
           mv app-release.apk subete-${{ env.BRANCH_NAME }}-android-universal.apk
 
@@ -435,7 +435,7 @@ jobs:
       - name: Build Android App Bundle
         run: |
           flutter pub get
-          flutter build appbundle --release --dart-define FLAVOR=${{ env.FLAVOR }}
+          flutter build appbundle --release --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
           cd build/app/outputs/bundle/release
           mv app-release.aab subete-${{ env.BRANCH_NAME }}-android-appbundle.aab
 
@@ -513,13 +513,13 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
 
       - name: Build Windows
-        run: flutter build windows --dart-define FLAVOR=${{ env.FLAVOR }}
+        run: flutter build windows --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
 
       - name: Build MSIX
         run: |
@@ -599,13 +599,13 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
 
       - name: Build Linux
-        run: flutter build linux --release --dart-define FLAVOR=${{ env.FLAVOR }}
+        run: flutter build linux --release --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
 
       - name: Build AppImage
         run: |
@@ -686,7 +686,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -695,7 +695,7 @@ jobs:
         run: |
           git config --global core.longpaths true
           flutter pub get
-          flutter build macos --release --dart-define FLAVOR=${{ env.FLAVOR }}
+          flutter build macos --release --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }}
 
       - name: Build DMG
         uses: nick-fields/retry@v2
@@ -774,7 +774,7 @@ jobs:
           secrets: ${{ toJSON(secrets) }}
 
       - name: Activate Melos
-        run: dart pub global activate melos ^3.4.0
+        run: dart pub global activate melos ^4.1.0
 
       - name: Bootstrap Melos
         run: melos bootstrap
@@ -782,7 +782,7 @@ jobs:
       - name: Build Web
         run: |
           flutter pub get
-          flutter build web --dart-define FLAVOR=${{ env.FLAVOR }} --release --web-renderer=canvaskit
+          flutter build web --dart-define FLUTTER_APP_FLAVOR=${{ env.FLAVOR }} --release --web-renderer=canvaskit
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -825,11 +825,32 @@ jobs:
         if: github.actor != 'dependabot[bot]'
         uses: tj-actions/branch-names@v8
 
+      - name: Check Flutter Version
+        if: github.actor != 'dependabot[bot]'
+        run: flutter --version
+
+      # Make environment variables available to the melos generate script.
+      #
+      # The environment variables need to be defined in the repository secrets
+      - name: Load Environment Variables
+        if: github.actor != 'dependabot[bot]'
+        uses: oNaiPs/secrets-to-env-action@v1
+        with:
+          secrets: ${{ toJSON(secrets) }}
+
+      - name: Activate Melos
+        if: github.actor != 'dependabot[bot]'
+        run: dart pub global activate melos ^4.1.0
+
+      - name: Bootstrap Melos
+        if: github.actor != 'dependabot[bot]'
+        run: melos bootstrap
+
       - name: Build Web
         if: github.actor != 'dependabot[bot]'
         run: |
           flutter pub get
-          flutter build web --dart-define FLAVOR=staging --release --web-renderer=canvaskit --base-href="/${{ github.event.repository.name }}/${{ steps.branch-name.outputs.current_branch }}/"
+          flutter build web --dart-define FLUTTER_APP_FLAVOR=staging --release --web-renderer=canvaskit --base-href="/${{ github.event.repository.name }}/${{ steps.branch-name.outputs.current_branch }}/"
 
       - name: Deploy to GitHub Pages 🚀
         if: github.actor != 'dependabot[bot]'

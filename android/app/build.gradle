@@ -52,6 +52,15 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
+
+        // patrol
+        testInstrumentationRunner "pl.leancode.patrol.PatrolJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: "true"
+    }
+
+    // patrol
+    testOptions {
+        execution "ANDROIDX_TEST_ORCHESTRATOR"
     }
 
     buildTypes {
@@ -70,4 +79,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // patrol
+    androidTestUtil "androidx.test:orchestrator:1.4.2"
 }

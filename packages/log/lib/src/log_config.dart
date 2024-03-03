@@ -18,6 +18,7 @@ class LogConfig {
   }
 
   LogConfig(String Function(logging.LogRecord)? format) {
+    // TODO: Figure out analytics posthog/datadog. should probably use an inherited widget or riverpod provider so it can be disabled
     if (kDebugMode) {
       logging.Logger.root.level = logging.Level.ALL;
       logging.Logger.root.onRecord.listen((record) {

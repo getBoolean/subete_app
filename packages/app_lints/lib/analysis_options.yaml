@@ -72,3 +72,5 @@ linter:
     # while important, it is not a priority for an app
     public_member_api_docs: false
     lines_longer_than_80_chars: false
+    # enabling prevents removing commas to auto format
+    require_trailing_commas: false

@@ -1,0 +1,30 @@
+name: kavita_api
+description: Unnoficial Kavita API Client for Dart applications
+version: 0.0.1
+repository: https://github.com/getBoolean/subete_app
+homepage: https://subete.dev
+issue_tracker: https://github.com/getBoolean/subete_app/issues
+
+environment:
+  sdk: ^3.3.0
+
+dependencies:
+  auto_mappr_annotation: ^2.0.0
+  chopper: ^7.0.0
+  collection: ^1.0.0
+  dart_mappable: ^4.0.0
+  http: ^1.0.0
+  json_annotation: ^4.0.0
+  meta: ^1.0.0
+
+dev_dependencies:
+  auto_mappr: ^2.3.0
+  build_runner: ^2.4.8
+  chopper_generator: ^7.1.1
+  dart_mappable_builder: ^4.2.0
+  dotenv: ^4.2.0
+  json_serializable: ^6.7.1
+  lints: ^3.0.0
+  mocktail: ^1.0.3
+  swagger_dart_code_generator: ^2.15.0
+  test: ^1.24.0

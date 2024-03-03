@@ -8,7 +8,5 @@ void main() {
   test(
     'ensure_gen',
     expectBuildClean,
-    // Skipped because build_verify package does not support flutter gen-l10n.
-    skip: true,
   );
 }
