@@ -141,6 +141,12 @@ import 'package:meta/meta.dart';
       KavitaResponse<List<PagesReadOnADayCount<DateTime>>>>(),
   MapType<ch.Response<List<raw.ReadHistoryEvent>>,
       KavitaResponse<List<ReadHistoryEvent>>>(),
+  MapType<ch.Response<List<raw.ScrobbleErrorDto>>,
+      KavitaResponse<List<ScrobbleErrorDto>>>(),
+  MapType<ch.Response<List<raw.ScrobbleEventDto>>,
+      KavitaResponse<List<ScrobbleEventDto>>>(),
+  MapType<ch.Response<List<raw.ScrobbleHoldDto>>,
+      KavitaResponse<List<ScrobbleHoldDto>>>(),
   MapType<raw.AgeRestrictionDto, AgeRestrictionDto>(converters: [
     // Also applied to DeviceDto.id. Not ideal,
     // but works since DevicePlatform is also an int
@@ -439,6 +445,15 @@ import 'package:meta/meta.dart';
   ),
   MapType<raw.DayOfWeekStatCount, StatCount<DayOfWeek>>(),
   MapType<raw.ReadHistoryEvent, ReadHistoryEvent>(),
+  MapType<raw.ScrobbleErrorDto, ScrobbleErrorDto>(),
+  MapType<raw.ScrobbleEventFilter, ScrobbleEventFilter>(converters: [
+    TypeConverter<int, ScrobbleEventSortField>(ScrobbleEventSortField.new),
+  ]),
+  MapType<ScrobbleEventFilter, raw.ScrobbleEventFilter>(),
+  MapType<raw.ScrobbleEventDto, ScrobbleEventDto>(converters: [
+    TypeConverter<int, ScrobbleEventType>(ScrobbleEventType.new),
+  ]),
+  MapType<raw.ScrobbleHoldDto, ScrobbleHoldDto>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance

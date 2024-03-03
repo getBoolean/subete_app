@@ -3576,7 +3576,7 @@ class KavitaApiReview {
   }
 }
 
-/// All Scrobbling related APIs
+/// All Scrobbling related APIs, requires a Kavita+ license
 class KavitaApiScrobbling {
   /// The client context which holds the current user and the API client
   final KavitaContext context;
@@ -3584,29 +3584,126 @@ class KavitaApiScrobbling {
   /// All Scrobbling related APIs
   const KavitaApiScrobbling.fromContext(this.context);
 
-  // TODO: Scrobbling
+  /// Get the current user's AniList token
+  Future<KavitaResponse<String>> getAnilistToken() async {
+    return mappr.convert<ch.Response<String>, KavitaResponse<String>>(
+      await context.api.apiScrobblingAnilistTokenGet(),
+    );
+  }
 
-  // anilist token
+  /// Update the current user's AniList token
+  Future<KavitaResponse<void>> updateAnilistToken({
+    required String token,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiScrobblingUpdateAnilistTokenPost(
+        body: raw.AniListUpdateDto(token: token),
+      ),
+    );
+  }
 
-  // update anilist token
+  /// Checks if the current Scrobbling token for the given Provider has expired for the current user
+  Future<KavitaResponse<bool>> checkTokenExpired({
+    required ScrobbleProvider provider,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiScrobblingTokenExpiredGet(
+          provider: raw.ApiScrobblingTokenExpiredGetProvider.values
+                  .firstWhereOrNull(
+                (r) => r.value == provider,
+              ) ??
+              raw.ApiScrobblingTokenExpiredGetProvider.swaggerGeneratedUnknown),
+    );
+  }
 
-  // token expired
+  /// Returns all scrobbling errors for the instance
+  ///
+  /// Requires admin
+  Future<KavitaResponse<List<ScrobbleErrorDto>>> getScrobbleErrors() async {
+    return mappr.convert<ch.Response<List<raw.ScrobbleErrorDto>>,
+        KavitaResponse<List<ScrobbleErrorDto>>>(
+      await context.api.apiScrobblingScrobbleErrorsGet(),
+    );
+  }
 
-  // scrobble errors
+  /// Clears the scrobbling errors table
+  Future<KavitaResponse<void>> clearScrobbleErrors() async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiScrobblingClearErrorsPost(),
+    );
+  }
 
-  // clear errors
+  /// Returns the scrobbling history for the user
+  ///
+  /// User must have a valid license for Kavita+
+  Future<KavitaResponse<List<ScrobbleEventDto>>> getScrobbleEvents({
+    required int pageNumber,
+    required int pageSize,
+    ScrobbleEventFilter? filter,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.ScrobbleEventDto>>,
+        KavitaResponse<List<ScrobbleEventDto>>>(
+      await context.api.apiScrobblingScrobbleEventsPost(
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        body: mappr.convert<ScrobbleEventFilter, raw.ScrobbleEventFilter>(
+          filter,
+        ),
+      ),
+    );
+  }
 
-  // scrobble events
+  /// Returns all scrobble holds for the current user
+  Future<KavitaResponse<List<ScrobbleHoldDto>>> getHolds() async {
+    return mappr.convert<ch.Response<List<raw.ScrobbleHoldDto>>,
+        KavitaResponse<List<ScrobbleHoldDto>>>(
+      await context.api.apiScrobblingHoldsGet(),
+    );
+  }
 
-  // holds
+  /// If there is an active hold on the series
+  Future<KavitaResponse<bool>> hasHold({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiScrobblingHasHoldGet(
+        seriesId: seriesId,
+      ),
+    );
+  }
 
-  // has hold
+  /// Check if a series's library allows scrobbling
+  Future<KavitaResponse<bool>> libraryAllowsScrobbling({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiScrobblingLibraryAllowsScrobblingGet(
+        seriesId: seriesId,
+      ),
+    );
+  }
 
-  // library allows scrobbling
+  /// Adds a hold against the Series for user's scrobbling
+  Future<KavitaResponse<void>> addHold({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiScrobblingAddHoldPost(
+        seriesId: seriesId,
+      ),
+    );
+  }
 
-  // add hold
-
-  // remove hold
+  /// Adds a hold against the Series for user's scrobbling
+  Future<KavitaResponse<void>> removeHold({
+    required int seriesId,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiScrobblingRemoveHoldDelete(
+        seriesId: seriesId,
+      ),
+    );
+  }
 }
 
 /// All [Series] related APIs

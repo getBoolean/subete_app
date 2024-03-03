@@ -32,6 +32,7 @@ export 'entities/enums/reader_mode.dart';
 export 'entities/enums/reading_direction.dart';
 export 'entities/enums/relation_kind.dart';
 export 'entities/enums/scaling_option.dart';
+export 'entities/enums/scrobble_event_sort_field.dart';
 export 'entities/enums/scrobble_provider.dart';
 export 'entities/enums/side_nav_stream_type.dart';
 export 'entities/enums/theme_provider.dart';
