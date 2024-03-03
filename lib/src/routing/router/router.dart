@@ -119,7 +119,6 @@ GoRouter createRouter({required Logger log}) {
     // * However it's still necessary otherwise the navigator pops back to
     // * root on hot reload
     navigatorKey: _rootNavigatorKey,
-    debugLogDiagnostics: true,
     initialLocation: '/books',
     routes: <RouteBase>[
       StatefulShellRoute(
