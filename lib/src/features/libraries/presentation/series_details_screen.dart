@@ -26,43 +26,49 @@ class SeriesDetailsScreen extends ConsumerWidget {
           itemCount: series.length,
           itemBuilder: (context, index) {
             final VolumeDto volumeItem = series[index];
-            return Card(
-              child: ListTile(
-                title: Text('${volumeItem.name} - $seriesName'),
-                subtitle: Text(
-                  '${volumeItem.avgHoursToRead} hours',
-                ),
-                onTap: () async {
-                  final id = volumeItem.id;
-                  if (id == null) {
-                    return;
-                  }
-                  final download = await ref
-                      .read(downloadVolumeProvider(volumeId: id).future);
-                  if (!context.mounted) return;
+            return Builder(builder: (context) {
+              return Card(
+                child: ListTile(
+                  title: Text('${volumeItem.name} - $seriesName'),
+                  subtitle: Text(
+                    '${volumeItem.avgHoursToRead} hours',
+                  ),
+                  onTap: () async {
+                    final id = volumeItem.id;
+                    if (id == null) {
+                      return;
+                    }
+                    final download = await ref
+                        .read(downloadVolumeProvider(volumeId: id).future);
 
-                  final box = context.findRenderObject() as RenderBox?;
-                  final result = await Share.shareXFiles(
-                    [
-                      XFile.fromData(
-                        download,
-                        name: '${volumeItem.name} - $seriesName',
-                      )
-                    ],
-                    sharePositionOrigin:
-                        box!.localToGlobal(Offset.zero) & box.size,
-                  );
-                  if (context.mounted &&
-                      result.status == ShareResultStatus.dismissed) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Export canceled'),
-                      ),
+                    if (!context.mounted) return;
+
+                    final box = context.findRenderObject() as RenderBox?;
+                    final result = await Share.shareXFiles(
+                      [
+                        XFile.fromData(
+                          download,
+                          name: '${volumeItem.name} - $seriesName.epub',
+                          mimeType: 'application/epub+zip',
+                          lastModified: volumeItem.lastModifiedUtc,
+                          length: download.length,
+                        )
+                      ],
+                      sharePositionOrigin:
+                          box!.localToGlobal(Offset.zero) & box.size,
                     );
-                  }
-                },
-              ),
-            );
+                    if (context.mounted &&
+                        result.status == ShareResultStatus.dismissed) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Export canceled'),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              );
+            });
           },
         );
       },

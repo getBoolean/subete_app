@@ -25,25 +25,28 @@ class LibrariesScreen extends ConsumerWidget {
             itemCount: lightNovelLibraries.length,
             itemBuilder: (context, index) {
               final library = lightNovelLibraries[index];
-              return ListTile(
-                leading: const Icon(Icons.library_books),
-                title: Text(library.name ?? 'Unnamed Library'),
-                onTap: () {
-                  final int? id = library.id;
-                  if (id == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Library has no ID'),
-                    ));
-                    return;
-                  }
+              return Card(
+                child: ListTile(
+                  leading: const Icon(Icons.library_books),
+                  title: Text(library.name ?? 'Unnamed Library'),
+                  onTap: () {
+                    final int? id = library.id;
+                    if (id == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Library has no ID'),
+                      ));
+                      return;
+                    }
 
-                  context
-                      .goNamed(RouteName.libraryDetails.name, pathParameters: {
-                    'libraryId': id.toString(),
-                  }, queryParameters: {
-                    'libraryName': library.name ?? 'Unnamed Library',
-                  });
-                },
+                    context.goNamed(RouteName.libraryDetails.name,
+                        pathParameters: {
+                          'libraryId': id.toString(),
+                        },
+                        queryParameters: {
+                          'libraryName': library.name ?? 'Unnamed Library',
+                        });
+                  },
+                ),
               );
             },
           );
@@ -53,8 +56,10 @@ class LibrariesScreen extends ConsumerWidget {
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
-              return const ListTile(
-                title: Text('Loading Library'),
+              return const Card(
+                child: ListTile(
+                  title: Text('Loading Library'),
+                ),
               );
             },
           ),
