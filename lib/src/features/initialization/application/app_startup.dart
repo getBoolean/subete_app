@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:subete/src/features/initialization/application/info_service.dart';
+import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/settings/data/dto/flex_scheme_data.dart';
 import 'package:subete/src/features/settings/data/dto/navigation_type_override.dart';
 import 'package:subete/src/features/settings/data/dto/settings.dart';
@@ -20,12 +21,14 @@ Future<void> appStartup(AppStartupRef ref) async {
   ref.onDispose(() {
     // invalidate all the providers we depend on
     ref.invalidate(packageInfoProvider);
+    ref.invalidate(kavitaAuthenticateProvider);
   });
   // all asynchronous app initialization code should belong here:
   await (
     _initWindow(),
     _initHive(),
     ref.watch(packageInfoProvider.future),
+    ref.watch(kavitaAuthenticateProvider.future),
   ).wait;
 }
 
