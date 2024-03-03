@@ -37,7 +37,7 @@ analyzer:
     # OpenAPI Generated
     - "**/*.chopper.dart"
     - "**/*.swagger.dart"
-    # - "**/*.auto_mappr.dart"
+    - "**/*.auto_mappr.dart"
     - "**/client_mapping.dart"
 
 linter:
