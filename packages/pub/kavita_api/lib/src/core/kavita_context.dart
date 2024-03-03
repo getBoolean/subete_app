@@ -46,7 +46,7 @@ class KavitaContext {
   @useResult
   String get apiKey {
     if (_currentUser == null || _currentUser!.apiKey == null) {
-      throw const KavitaAuthException('User is not logged in');
+      throw const KavitaAuthException('User does not have an API key');
     }
 
     return _currentUser!.apiKey!;
@@ -59,7 +59,7 @@ class KavitaContext {
   @useResult
   String get token {
     if (_currentUser == null || _currentUser!.token == null) {
-      throw const KavitaAuthException('User is not logged in');
+      throw const KavitaAuthException('User does not have a bearer token');
     }
 
     return _currentUser!.token!;
@@ -72,7 +72,7 @@ class KavitaContext {
   @useResult
   String get refreshToken {
     if (_currentUser == null || _currentUser!.refreshToken == null) {
-      throw const KavitaAuthException('User is not logged in');
+      throw const KavitaAuthException('User does not have a refresh token');
     }
 
     return _currentUser!.refreshToken!;
