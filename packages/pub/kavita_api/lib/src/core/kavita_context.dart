@@ -200,7 +200,7 @@ class KavitaContext {
       headers: {
         if (currentUser.token != null)
           'Authorization': 'Bearer ${currentUser.token}',
-        'Referer': baseUrl.toString(),
+        'Referer': request.url.toString(),
         'Origin': baseUrl.toString(),
       }..addAll(request.headers),
     );
