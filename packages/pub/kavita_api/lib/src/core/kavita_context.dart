@@ -192,7 +192,7 @@ class KavitaContext {
 
   final _userChangeController = StreamController<UserDto?>.broadcast();
 
-  static ch.Request _applyRequestBearerToken(
+  ch.Request _applyRequestBearerToken(
     ch.Request request,
     UserDto currentUser,
   ) {
@@ -200,6 +200,8 @@ class KavitaContext {
       headers: {
         if (currentUser.token != null)
           'Authorization': 'Bearer ${currentUser.token}',
+        'Referer': baseUrl.toString(),
+        'Origin': baseUrl.toString(),
       }..addAll(request.headers),
     );
   }
