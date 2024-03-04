@@ -1,7 +1,11 @@
+import 'dart:io' as io;
+
+import 'package:cross_file/cross_file.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kavita_api/kavita_api.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 
@@ -43,26 +47,27 @@ class SeriesDetailsScreen extends ConsumerWidget {
 
                     if (!context.mounted) return;
 
-                    final box = context.findRenderObject() as RenderBox?;
-                    final result = await Share.shareXFiles(
-                      [
-                        XFile.fromData(
-                          download,
-                          name: 'Volume ${volumeItem.name} - $seriesName.epub',
-                          mimeType: 'application/epub+zip',
-                          lastModified: volumeItem.lastModifiedUtc,
-                          length: download.length,
-                        )
-                      ],
-                      sharePositionOrigin:
-                          box!.localToGlobal(Offset.zero) & box.size,
-                      subject: 'Volume ${volumeItem.name} - $seriesName.epub',
+                    final file = XFile.fromData(
+                      download,
+                      name: 'Volume ${volumeItem.name} - $seriesName.epub',
+                      mimeType: 'application/epub+zip',
+                      lastModified: volumeItem.lastModifiedUtc,
+                      length: download.length,
                     );
-                    if (context.mounted &&
-                        result.status == ShareResultStatus.dismissed) {
+                    await file
+                        .saveTo('Volume ${volumeItem.name} - $seriesName.epub');
+
+                    final openResult = await OpenFilex.open(
+                      'Volume ${volumeItem.name} - $seriesName.epub',
+                      type: 'application/epub+zip',
+                    );
+                    if (!kIsWeb) {
+                      await io.File(file.path).delete();
+                    }
+                    if (context.mounted && openResult.type != ResultType.done) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Export canceled'),
+                          content: Text('Download canceled'),
                         ),
                       );
                     }

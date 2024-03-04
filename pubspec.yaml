@@ -18,6 +18,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   constants:
     path: packages/constants
+  cross_file: ^0.3.3+8
   cupertino_icons: ^1.0.6
   dart_mappable: ^4.1.0
   env:
@@ -48,12 +49,12 @@ dependencies:
   log:
     path: packages/log
   modddels_annotation_fpdart: ^0.2.0
+  open_filex: ^4.4.0
   package_info_plus: ^5.0.1
   path: ^1.9.0
   path_provider: ^2.1.2
   riverpod: ^2.3.6
   riverpod_annotation: ^2.3.4
-  share_plus: ^7.2.2
   sidebarx:
     path: packages/pub/sidebarx
   skeletonizer: ^1.1.0
