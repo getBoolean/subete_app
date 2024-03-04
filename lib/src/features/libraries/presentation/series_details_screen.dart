@@ -31,48 +31,10 @@ class SeriesDetailsScreen extends ConsumerWidget {
           itemBuilder: (context, index) {
             final VolumeDto volumeItem = series[index];
             return Builder(builder: (context) {
-              return Card(
-                child: ListTile(
-                  title: Text('${volumeItem.name} - $seriesName'),
-                  subtitle: Text(
-                    '${volumeItem.avgHoursToRead} hours',
-                  ),
-                  onTap: () async {
-                    final id = volumeItem.id;
-                    if (id == null) {
-                      return;
-                    }
-                    final download = await ref
-                        .read(downloadVolumeProvider(volumeId: id).future);
-
-                    if (!context.mounted) return;
-
-                    final file = XFile.fromData(
-                      download,
-                      name: 'Volume ${volumeItem.name} - $seriesName.epub',
-                      mimeType: 'application/epub+zip',
-                      lastModified: volumeItem.lastModifiedUtc,
-                      length: download.length,
-                    );
-                    await file
-                        .saveTo('Volume ${volumeItem.name} - $seriesName.epub');
-
-                    final openResult = await OpenFilex.open(
-                      'Volume ${volumeItem.name} - $seriesName.epub',
-                      type: 'application/epub+zip',
-                    );
-                    if (!kIsWeb) {
-                      await io.File(file.path).delete();
-                    }
-                    if (context.mounted && openResult.type != ResultType.done) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Download canceled'),
-                        ),
-                      );
-                    }
-                  },
-                ),
+              return _VolumeWidget(
+                key: ValueKey(volumeItem.id ?? index),
+                volumeItem: volumeItem,
+                seriesName: seriesName,
               );
             });
           },
@@ -93,6 +55,71 @@ class SeriesDetailsScreen extends ConsumerWidget {
           },
         ));
       },
+    );
+  }
+}
+
+class _VolumeWidget extends ConsumerWidget {
+  const _VolumeWidget({
+    required this.volumeItem,
+    required this.seriesName,
+    super.key,
+  });
+
+  final VolumeDto volumeItem;
+  final String seriesName;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final downloadVolumeCover = ref.watch(downloadVolumeCoverProvider(
+      volumeId: volumeItem.id ?? -1,
+    ));
+    return Card(
+      child: ListTile(
+        leading: downloadVolumeCover.when(
+          data: Image.memory,
+          error: (e, st) => const Icon(Icons.error),
+          loading: () => const Icon(Icons.download),
+        ),
+        title: Text('${volumeItem.name} - $seriesName'),
+        subtitle: Text(
+          '${volumeItem.avgHoursToRead} hours',
+        ),
+        onTap: () async {
+          final id = volumeItem.id;
+          if (id == null) {
+            return;
+          }
+          final download =
+              await ref.read(downloadVolumeProvider(volumeId: id).future);
+
+          if (!context.mounted) return;
+
+          final file = XFile.fromData(
+            download,
+            name: 'Volume ${volumeItem.name} - $seriesName.epub',
+            mimeType: 'application/epub+zip',
+            lastModified: volumeItem.lastModifiedUtc,
+            length: download.length,
+          );
+          await file.saveTo('Volume ${volumeItem.name} - $seriesName.epub');
+
+          final openResult = await OpenFilex.open(
+            'Volume ${volumeItem.name} - $seriesName.epub',
+            type: 'application/epub+zip',
+          );
+          if (!kIsWeb) {
+            await io.File(file.path).delete();
+          }
+          if (context.mounted && openResult.type != ResultType.done) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Download canceled'),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

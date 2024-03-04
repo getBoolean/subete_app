@@ -67,3 +67,33 @@ Future<Uint8List> downloadVolume(
 
   throw Exception('Failed to download volume');
 }
+
+@riverpod
+Future<Uint8List> downloadVolumeCover(
+  DownloadVolumeCoverRef ref, {
+  required int volumeId,
+}) async {
+  final kavita = ref.watch(kavitaProvider);
+  final imageResponse = await kavita.image.getVolumeCover(id: volumeId);
+
+  if (imageResponse.isSuccessful) {
+    return Uint8List.fromList(imageResponse.body!.codeUnits);
+  }
+
+  throw Exception('Failed to download volume cover');
+}
+
+@riverpod
+Future<Uint8List> downloadSeriesCover(
+  DownloadSeriesCoverRef ref, {
+  required int seriesId,
+}) async {
+  final kavita = ref.watch(kavitaProvider);
+  final imageResponse = await kavita.image.getSeriesCover(id: seriesId);
+
+  if (imageResponse.isSuccessful) {
+    return Uint8List.fromList(imageResponse.body!.codeUnits);
+  }
+
+  throw Exception('Failed to download series cover');
+}

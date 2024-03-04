@@ -132,20 +132,19 @@ class _SingleSeriesPage extends ConsumerWidget {
           itemCount: series.length,
           itemBuilder: (context, index) {
             final SeriesDto seriesItem = series[index];
-            return Card(
-              child: ListTile(
-                title: Text(seriesItem.name ?? 'Unnamed Series'),
-                subtitle: Text(
-                  'Hours: ${seriesItem.avgHoursToRead}',
-                ),
-                onTap: () => context
-                    .goNamed(RouteName.seriesDetails.name, pathParameters: {
+            return _SeriesItemWidget(
+              key: ValueKey(seriesItem.id ?? index),
+              seriesItem: seriesItem,
+              onTap: () => context.goNamed(
+                RouteName.seriesDetails.name,
+                pathParameters: {
                   'seriesId': seriesItem.id.toString(),
                   'libraryId': libraryId.toString(),
-                }, queryParameters: {
+                },
+                queryParameters: {
                   'libraryName': libraryName,
                   'seriesName': seriesItem.name ?? 'Unnamed Series',
-                }),
+                },
               ),
             );
           },
@@ -166,6 +165,38 @@ class _SingleSeriesPage extends ConsumerWidget {
           },
         ));
       },
+    );
+  }
+}
+
+class _SeriesItemWidget extends ConsumerWidget {
+  const _SeriesItemWidget({
+    required this.seriesItem,
+    super.key,
+    this.onTap,
+  });
+
+  final SeriesDto seriesItem;
+  final void Function()? onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final downloadSeriesCover = ref.watch(downloadSeriesCoverProvider(
+      seriesId: seriesItem.id ?? -1,
+    ));
+    return Card(
+      child: ListTile(
+        leading: downloadSeriesCover.when(
+          data: Image.memory,
+          error: (e, st) => const Icon(Icons.error),
+          loading: () => const Icon(Icons.download),
+        ),
+        title: Text(seriesItem.name ?? 'Unnamed Series'),
+        subtitle: Text(
+          'Hours: ${seriesItem.avgHoursToRead}',
+        ),
+        onTap: onTap,
+      ),
     );
   }
 }
