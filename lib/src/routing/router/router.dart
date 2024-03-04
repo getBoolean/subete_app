@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
-import 'package:subete/src/routing/presentation/routes/book_details_route.dart';
-import 'package:subete/src/routing/presentation/routes/books_route.dart';
+import 'package:subete/src/routing/presentation/routes/libraries_route.dart';
+import 'package:subete/src/routing/presentation/routes/library_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/profile_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/profile_route.dart';
+import 'package:subete/src/routing/presentation/routes/seroes_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/setting_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/settings_route.dart';
 import 'package:subete/src/routing/presentation/widgets/implicitly_animated_page_switcher.dart';
@@ -26,8 +27,9 @@ final _shellNavigatorSettingsKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
 
 enum RouteName {
-  books(_booksTitleBuilder),
-  bookDetails(_bookDetailsTitleBuilder),
+  libraries(_librariesTitleBuilder),
+  libraryDetails(_libraryDetailsTitleBuilder),
+  seriesDetails(_seriesDetailsTitleBuilder),
   profile(_profileTitleBuilder),
   profileDetails(_profileDetailsTitleBuilder),
   settings(_settingsTitleBuilder),
@@ -37,16 +39,23 @@ enum RouteName {
 
   final String Function(BuildContext context, GoRouterState state) titleBuilder;
 
-  static String _booksTitleBuilder(BuildContext context, GoRouterState state) =>
-      (state.uri.queryParameters['id'] != null)
-          ? 'Book ${state.uri.queryParameters['id']}'
-          : 'Books';
+  static String _librariesTitleBuilder(
+          BuildContext context, GoRouterState state) =>
+      'Libraries';
 
-  static String _bookDetailsTitleBuilder(
+  static String _libraryDetailsTitleBuilder(
     BuildContext context,
     GoRouterState state,
   ) =>
-      'Book ${state.pathParameters['id']}';
+      state.uri.queryParameters['libraryName'] ??
+      'Library #${state.pathParameters['libraryId'] ?? -1}';
+
+  static String _seriesDetailsTitleBuilder(
+    BuildContext context,
+    GoRouterState state,
+  ) =>
+      state.uri.queryParameters['seriesName'] ??
+      'Series #${state.pathParameters['seriesId'] ?? -1}';
 
   static String _profileTitleBuilder(
     BuildContext context,
@@ -87,7 +96,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
 final _destinations = [
   RouterDestination(
-    title: 'Books',
+    title: 'Libraries',
     icon: Icons.book,
     navigatorKey: _shellNavigatorBooksKey,
   ),
@@ -204,22 +213,51 @@ StatefulShellBranch _buildBooksBranch(RouterDestination destination) {
     navigatorKey: destination.navigatorKey,
     routes: <RouteBase>[
       GoRoute(
-        name: RouteName.books.name,
+        name: RouteName.libraries.name,
         path: '/books',
         builder: (BuildContext context, GoRouterState state) {
-          return const BooksRoute(
+          return const Libraries(
             key: ValueKey('BOOKS'),
           );
         },
         routes: <RouteBase>[
           GoRoute(
-            name: RouteName.bookDetails.name,
-            path: 'details-:id',
-            builder: (BuildContext context, GoRouterState state) {
-              final id = state.pathParameters['id'];
-              return BookDetailsRoute(id: id);
-            },
-          ),
+              name: RouteName.libraryDetails.name,
+              path: ':libraryId',
+              redirect: (context, state) {
+                final libraryId = state.pathParameters['libraryId'];
+                if (libraryId == null) {
+                  return '/books';
+                }
+                return null;
+              },
+              builder: (BuildContext context, GoRouterState state) {
+                final libraryId = state.pathParameters['libraryId'] ?? '-1';
+                final libraryName =
+                    state.uri.queryParameters['libraryName'] ?? '-1';
+                return LibraryDetailsRoute(
+                    libraryId: libraryId, libraryName: libraryName);
+              },
+              routes: [
+                GoRoute(
+                  name: RouteName.seriesDetails.name,
+                  path: ':seriesId',
+                  builder: (BuildContext context, GoRouterState state) {
+                    final seriesId = state.pathParameters['seriesId'] ?? '-1';
+                    final seriesName =
+                        state.uri.queryParameters['seriesName'] ?? '-1';
+                    return SeriesDetailsRoute(
+                        seriesId: seriesId, seriesName: seriesName);
+                  },
+                  redirect: (context, state) {
+                    final seriesId = state.pathParameters['seriesId'];
+                    if (seriesId == null) {
+                      return ':libraryId';
+                    }
+                    return null;
+                  },
+                )
+              ]),
         ],
       ),
     ],

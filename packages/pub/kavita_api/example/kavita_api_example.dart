@@ -1,7 +1,7 @@
 import 'package:kavita_api/kavita_api.dart';
 
 void main() async {
-  final baseUrl = Uri.parse('http://localhost:5000');
+  final baseUrl = Uri.parse('http://127.0.0.1:5000');
   final api = KavitaApi(baseUrl: baseUrl);
 
   try {

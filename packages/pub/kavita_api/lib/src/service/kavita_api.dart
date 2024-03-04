@@ -3865,7 +3865,7 @@ class KavitaApiSeries {
     required int libraryId,
     required int pageNumber,
     required int pageSize,
-    required FilterV2Dto filter,
+    FilterV2Dto? filter,
   }) async {
     return mappr.convert<ch.Response<List<raw.SeriesDto>>,
         KavitaResponse<List<SeriesDto>>>(
@@ -3873,7 +3873,21 @@ class KavitaApiSeries {
         libraryId: libraryId,
         pageNumber: pageNumber,
         pageSize: pageSize,
-        body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+        body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(
+          filter ??
+              FilterV2Dto(
+                statements: [
+                  FilterStatementDto(
+                    field: FilterField.libraries,
+                    $value: '$libraryId',
+                    comparison: FilterComparison.equal,
+                  ),
+                ],
+                sortOptions: const SortOptions(
+                    isAscending: true, sortField: SortField.sortName),
+                limitTo: 0,
+              ),
+        ),
       ),
     );
   }

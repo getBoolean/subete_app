@@ -12,7 +12,7 @@ abstract class EnvFlavor implements EnvFields {
           ? String.fromEnvironment('FLUTTER_APP_FLAVOR')
           : 'local';
 
-  static const EnvFlavor instance =
+  static final EnvFlavor instance =
       EnvFlavor.rawFlavor == 'prod' || EnvFlavor.rawFlavor == 'beta'
           ? ProdEnv()
           : EnvFlavor.rawFlavor == 'staging'
@@ -20,6 +20,20 @@ abstract class EnvFlavor implements EnvFields {
               : EnvFlavor.rawFlavor == 'local'
                   ? LocalEnv()
                   : DevEnv();
+
+  static const bool isProd = flavor == Flavor.prod;
+  static const bool isStaging = flavor == Flavor.staging;
+  static const bool isLocal = flavor == Flavor.local;
+  static const bool isDev = flavor == Flavor.dev;
+
+  static const Flavor flavor =
+      EnvFlavor.rawFlavor == 'prod' || EnvFlavor.rawFlavor == 'beta'
+          ? Flavor.prod
+          : EnvFlavor.rawFlavor == 'staging'
+              ? Flavor.staging
+              : EnvFlavor.rawFlavor == 'local'
+                  ? Flavor.local
+                  : Flavor.dev;
 
   const EnvFlavor._();
 }

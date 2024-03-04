@@ -19,3 +19,8 @@ coverage:
         target: auto
         threshold: 30%
         informational: true
+    project:
+      default:
+        target: auto
+        threshold: 30%
+        informational: true

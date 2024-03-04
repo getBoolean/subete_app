@@ -5,10 +5,10 @@ import 'tests.dart';
 void main() {
   group('Test Kavita API', () {
     test('Test KavitaApi Constructor', () async {
-      final testApi = KavitaApi(baseUrl: Uri.parse('http://localhost:5000'));
+      final testApi = KavitaApi(baseUrl: Uri.parse('http://127.0.0.1:5000'));
       expect(
         testApi.context.baseUrl,
-        equals(Uri.parse('http://localhost:5000')),
+        equals(Uri.parse('http://127.0.0.1:5000')),
         reason: 'Base URL is not set correctly',
       );
     });
@@ -18,11 +18,11 @@ void main() {
         const UserDto(
           token: 'test',
         ),
-        baseUrl: Uri.parse('http://localhost:3000'),
+        baseUrl: Uri.parse('http://127.0.0.1:3000'),
       );
       expect(
         testApi.context.baseUrl,
-        equals(Uri.parse('http://localhost:3000')),
+        equals(Uri.parse('http://127.0.0.1:3000')),
         reason: 'Base URL is not set correctly',
       );
       expect(testApi.context.currentUser, isNotNull, reason: 'User is not set');
