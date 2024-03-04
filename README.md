@@ -34,7 +34,7 @@ this app provides some basic functionality for them.
 
 ## About
 
-A preview of the application is deployed to [getboolean.github.io/subete](https://getboolean.github.io/subete).
+A preview of the application is deployed to [getboolean.github.io/subete_app](https://getboolean.github.io/subete_app).
 
 - Made with Flutter
 - Template by [@getBoolean](https://github.com/getBoolean)
