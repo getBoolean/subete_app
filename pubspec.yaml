@@ -19,7 +19,6 @@ dependencies:
   constants:
     path: packages/constants
   cross_file: ^0.3.3+8
-  cupertino_icons: ^1.0.6
   dart_mappable: ^4.1.0
   env:
     path: packages/env
