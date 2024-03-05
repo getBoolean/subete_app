@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:chopper/chopper.dart' as ch show Converter;
@@ -65,6 +66,23 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
       }
       throw KavitaHttpException(error.toString(), this, base.request);
     }
+  }
+
+  /// Returns the pagination header if it exists
+  ({int currentPage, int itemsPerPage, int totalItems, int totalPages})?
+      get paginationHeader {
+    final paginationJson = headers['pagination'];
+    if (paginationJson == null) {
+      return null;
+    }
+
+    final paginationMap = jsonDecode(paginationJson) as Map<String, dynamic>;
+    return (
+      currentPage: paginationMap['currentPage'] as int? ?? 1,
+      itemsPerPage: paginationMap['itemsPerPage'] as int? ?? 1,
+      totalItems: paginationMap['totalItems'] as int? ?? 0,
+      totalPages: paginationMap['totalPages'] as int? ?? 0,
+    );
   }
 
   /// Check if the response is an error and if the error is of type [ErrorType] and casts the error to [ErrorType]. Otherwise it returns null.
