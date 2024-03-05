@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/dtos.dart';
 import 'package:kavita_api/src/service/entities/app_user_progress.dart';
 import 'package:kavita_api/src/service/entities/app_user_rating.dart';
 import 'package:kavita_api/src/service/entities/enums/manga_format.dart';
@@ -12,7 +11,6 @@ import 'package:kavita_api/src/service/entities/library.dart';
 import 'package:kavita_api/src/service/entities/series_metadata.dart';
 import 'package:kavita_api/src/service/entities/series_relation.dart';
 import 'package:kavita_api/src/service/entities/volume.dart';
-import 'package:kavita_api/src/service/mappr.dart';
 
 part 'series.mapper.dart';
 
@@ -138,6 +136,4 @@ class Series with SeriesMappable implements IEntityDate, IHasReadTimeEstimate {
 
   static const fromMap = SeriesMapper.fromMap;
   static const fromJson = SeriesMapper.fromJson;
-
-  SeriesDto toDto() => mappr.convert<Series, SeriesDto>(this);
 }

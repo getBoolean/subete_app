@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/dtos/series_metadata_dto.dart';
 import 'package:kavita_api/src/service/entities/collection_tag.dart';
 import 'package:kavita_api/src/service/entities/enums/age_rating.dart';
 import 'package:kavita_api/src/service/entities/enums/publication_status.dart';
@@ -10,7 +9,6 @@ import 'package:kavita_api/src/service/entities/interfaces/has_concurrency_token
 import 'package:kavita_api/src/service/entities/person.dart';
 import 'package:kavita_api/src/service/entities/series.dart';
 import 'package:kavita_api/src/service/entities/tag.dart';
-import 'package:kavita_api/src/service/mappr.dart';
 
 part 'series_metadata.mapper.dart';
 
@@ -111,7 +109,4 @@ class SeriesMetadata
 
   static const fromMap = SeriesMetadataMapper.fromMap;
   static const fromJson = SeriesMetadataMapper.fromJson;
-
-  SeriesMetadataDto toDto() =>
-      mappr.convert<SeriesMetadata, SeriesMetadataDto>(this);
 }

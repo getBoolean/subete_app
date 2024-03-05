@@ -1,9 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/dtos/device_dto.dart';
 import 'package:kavita_api/src/service/entities/app_user.dart';
 import 'package:kavita_api/src/service/entities/enums/device_platform.dart';
 import 'package:kavita_api/src/service/entities/interfaces/entity_date.dart';
-import 'package:kavita_api/src/service/mappr.dart';
 
 part 'device.mapper.dart';
 
@@ -67,9 +65,4 @@ class Device with DeviceMappable implements IEntityDate {
   static const fromMap = DeviceMapper.fromMap;
   // ignore: public_member_api_docs
   static const fromJson = DeviceMapper.fromJson;
-
-  // ignore: public_member_api_docs
-  DeviceDto toDto() => mappr.convert<Device, DeviceDto>(
-        this,
-      );
 }

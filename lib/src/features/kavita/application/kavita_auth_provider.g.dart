@@ -6,22 +6,8 @@ part of 'kavita_auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$kavitaHash() => r'd3268d31978c57c36acd4dd27ffe036a8bbcf892';
-
-/// See also [kavita].
-@ProviderFor(kavita)
-final kavitaProvider = Provider<KavitaApi>.internal(
-  kavita,
-  name: r'kavitaProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$kavitaHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef KavitaRef = ProviderRef<KavitaApi>;
 String _$kavitaAuthenticateHash() =>
-    r'cc691ece81a8783ca1753b8e417115f73024ef30';
+    r'43c0dabd6d7dcaa780ab7ce47808135910dc6419';
 
 /// See also [kavitaAuthenticate].
 @ProviderFor(kavitaAuthenticate)
@@ -36,7 +22,7 @@ final kavitaAuthenticateProvider = FutureProvider<void>.internal(
 );
 
 typedef KavitaAuthenticateRef = FutureProviderRef<void>;
-String _$kavitaUserHash() => r'5217ebd9801785802451ec79f698e57bcf4db351';
+String _$kavitaUserHash() => r'000b1b494edcde994feda30466658559ced56192';
 
 /// See also [kavitaUser].
 @ProviderFor(kavitaUser)

@@ -1,7 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/dtos/reading_list_dto.dart';
 import 'package:kavita_api/src/service/entities.dart';
-import 'package:kavita_api/src/service/mappr.dart';
 
 part 'reading_list.mapper.dart';
 
@@ -84,7 +82,4 @@ class ReadingList with ReadingListMappable implements IEntityDate {
   static const fromMap = ReadingListMapper.fromMap;
   // ignore: public_member_api_docs
   static const fromJson = ReadingListMapper.fromJson;
-
-  // ignore: public_member_api_docs
-  ReadingListDto toDto() => mappr.convert<ReadingList, ReadingListDto>(this);
 }

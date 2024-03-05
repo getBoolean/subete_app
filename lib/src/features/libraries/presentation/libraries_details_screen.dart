@@ -181,16 +181,8 @@ class _SeriesItemWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final downloadSeriesCover = ref.watch(downloadSeriesCoverProvider(
-      seriesId: seriesItem.id ?? -1,
-    ));
     return Card(
       child: ListTile(
-        leading: downloadSeriesCover.when(
-          data: Image.memory,
-          error: (e, st) => const Icon(Icons.error),
-          loading: () => const Icon(Icons.download),
-        ),
         title: Text(seriesItem.name ?? 'Unnamed Series'),
         subtitle: Text(
           'Hours: ${seriesItem.avgHoursToRead}',

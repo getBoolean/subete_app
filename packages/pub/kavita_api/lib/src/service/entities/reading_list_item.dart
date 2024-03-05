@@ -1,12 +1,10 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/dtos/reading_list_item_dto.dart';
 import 'package:kavita_api/src/service/entities/chapter.dart';
 import 'package:kavita_api/src/service/entities/reading_list.dart';
 import 'package:kavita_api/src/service/entities/series.dart';
 import 'package:kavita_api/src/service/entities/volume.dart';
-import 'package:kavita_api/src/service/mappr.dart';
 
 part 'reading_list_item.mapper.dart';
 
@@ -39,9 +37,4 @@ class ReadingListItem with ReadingListItemMappable {
   final Chapter? chapter;
   static const fromMap = ReadingListItemMapper.fromMap;
   static const fromJson = ReadingListItemMapper.fromJson;
-
-  ReadingListItemDto toDto() =>
-      mappr.convert<ReadingListItem, ReadingListItemDto>(
-        this,
-      );
 }
