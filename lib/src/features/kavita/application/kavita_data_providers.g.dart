@@ -6,11 +6,11 @@ part of 'kavita_data_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$librariesHash() => r'de200d132ce4c308a47dc6831323a51325c6e533';
+String _$librariesHash() => r'af82682753d6038b9c0ec696bd8101d99f640d83';
 
 /// See also [libraries].
 @ProviderFor(libraries)
-final librariesProvider = AutoDisposeFutureProvider<List<LibraryDto>>.internal(
+final librariesProvider = AutoDisposeFutureProvider<List<void>>.internal(
   libraries,
   name: r'librariesProvider',
   debugGetCreateSourceHash:
@@ -19,8 +19,8 @@ final librariesProvider = AutoDisposeFutureProvider<List<LibraryDto>>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef LibrariesRef = AutoDisposeFutureProviderRef<List<LibraryDto>>;
-String _$seriesPaginatedHash() => r'd70eb2a34c07124eb0fbe4d5c97104e170941eff';
+typedef LibrariesRef = AutoDisposeFutureProviderRef<List<void>>;
+String _$seriesPaginatedHash() => r'f967bad1bc93913455455fd49a083643876afe46';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -48,7 +48,7 @@ class _SystemHash {
 const seriesPaginatedProvider = SeriesPaginatedFamily();
 
 /// See also [seriesPaginated].
-class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
+class SeriesPaginatedFamily extends Family<AsyncValue<List<void>>> {
   /// See also [seriesPaginated].
   const SeriesPaginatedFamily();
 
@@ -92,8 +92,7 @@ class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
 }
 
 /// See also [seriesPaginated].
-class SeriesPaginatedProvider
-    extends AutoDisposeFutureProvider<List<SeriesDto>> {
+class SeriesPaginatedProvider extends AutoDisposeFutureProvider<List<void>> {
   /// See also [seriesPaginated].
   SeriesPaginatedProvider({
     required int libraryId,
@@ -138,7 +137,7 @@ class SeriesPaginatedProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<SeriesDto>> Function(SeriesPaginatedRef provider) create,
+    FutureOr<List<void>> Function(SeriesPaginatedRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -157,7 +156,7 @@ class SeriesPaginatedProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<SeriesDto>> createElement() {
+  AutoDisposeFutureProviderElement<List<void>> createElement() {
     return _SeriesPaginatedProviderElement(this);
   }
 
@@ -180,7 +179,7 @@ class SeriesPaginatedProvider
   }
 }
 
-mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<SeriesDto>> {
+mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<void>> {
   /// The parameter `libraryId` of this provider.
   int get libraryId;
 
@@ -192,7 +191,7 @@ mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<SeriesDto>> {
 }
 
 class _SeriesPaginatedProviderElement
-    extends AutoDisposeFutureProviderElement<List<SeriesDto>>
+    extends AutoDisposeFutureProviderElement<List<void>>
     with SeriesPaginatedRef {
   _SeriesPaginatedProviderElement(super.provider);
 
@@ -204,14 +203,14 @@ class _SeriesPaginatedProviderElement
   int get pageSize => (origin as SeriesPaginatedProvider).pageSize;
 }
 
-String _$volumesHash() => r'0b54fbfaf9a3c6e13e1477a4594adabcad09307b';
+String _$volumesHash() => r'5311548e40c33de3b5eba12db7a5686d6e261da3';
 
 /// See also [volumes].
 @ProviderFor(volumes)
 const volumesProvider = VolumesFamily();
 
 /// See also [volumes].
-class VolumesFamily extends Family<AsyncValue<List<VolumeDto>>> {
+class VolumesFamily extends Family<AsyncValue<List<void>>> {
   /// See also [volumes].
   const VolumesFamily();
 
@@ -249,7 +248,7 @@ class VolumesFamily extends Family<AsyncValue<List<VolumeDto>>> {
 }
 
 /// See also [volumes].
-class VolumesProvider extends AutoDisposeFutureProvider<List<VolumeDto>> {
+class VolumesProvider extends AutoDisposeFutureProvider<List<void>> {
   /// See also [volumes].
   VolumesProvider({
     required int seriesId,
@@ -283,7 +282,7 @@ class VolumesProvider extends AutoDisposeFutureProvider<List<VolumeDto>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<VolumeDto>> Function(VolumesRef provider) create,
+    FutureOr<List<void>> Function(VolumesRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -300,7 +299,7 @@ class VolumesProvider extends AutoDisposeFutureProvider<List<VolumeDto>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<VolumeDto>> createElement() {
+  AutoDisposeFutureProviderElement<List<void>> createElement() {
     return _VolumesProviderElement(this);
   }
 
@@ -318,13 +317,13 @@ class VolumesProvider extends AutoDisposeFutureProvider<List<VolumeDto>> {
   }
 }
 
-mixin VolumesRef on AutoDisposeFutureProviderRef<List<VolumeDto>> {
+mixin VolumesRef on AutoDisposeFutureProviderRef<List<void>> {
   /// The parameter `seriesId` of this provider.
   int get seriesId;
 }
 
 class _VolumesProviderElement
-    extends AutoDisposeFutureProviderElement<List<VolumeDto>> with VolumesRef {
+    extends AutoDisposeFutureProviderElement<List<void>> with VolumesRef {
   _VolumesProviderElement(super.provider);
 
   @override

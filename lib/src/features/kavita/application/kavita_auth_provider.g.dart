@@ -22,11 +22,11 @@ final kavitaAuthenticateProvider = FutureProvider<void>.internal(
 );
 
 typedef KavitaAuthenticateRef = FutureProviderRef<void>;
-String _$kavitaUserHash() => r'000b1b494edcde994feda30466658559ced56192';
+String _$kavitaUserHash() => r'7e0f4a83af5f4d308f9b94a8971fbe5d26ec1bef';
 
 /// See also [kavitaUser].
 @ProviderFor(kavitaUser)
-final kavitaUserProvider = StreamProvider<UserDto?>.internal(
+final kavitaUserProvider = StreamProvider<void>.internal(
   kavitaUser,
   name: r'kavitaUserProvider',
   debugGetCreateSourceHash:
@@ -35,6 +35,6 @@ final kavitaUserProvider = StreamProvider<UserDto?>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef KavitaUserRef = StreamProviderRef<UserDto?>;
+typedef KavitaUserRef = StreamProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kavita_api/kavita_api.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/router/router.dart';
@@ -120,8 +119,7 @@ class _SingleSeriesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<List<SeriesDto>> series =
-        ref.watch(seriesPaginatedProvider(
+    final AsyncValue<List<void>> series = ref.watch(seriesPaginatedProvider(
       libraryId: libraryId,
       pageNumber: index,
       pageSize: 20,
@@ -131,19 +129,17 @@ class _SingleSeriesPage extends ConsumerWidget {
         return ListView.builder(
           itemCount: series.length,
           itemBuilder: (context, index) {
-            final SeriesDto seriesItem = series[index];
             return _SeriesItemWidget(
-              key: ValueKey(seriesItem.id ?? index),
-              seriesItem: seriesItem,
+              key: ValueKey(index),
               onTap: () => context.goNamed(
                 RouteName.seriesDetails.name,
                 pathParameters: {
-                  'seriesId': seriesItem.id.toString(),
+                  'seriesId': '1',
                   'libraryId': libraryId.toString(),
                 },
                 queryParameters: {
                   'libraryName': libraryName,
-                  'seriesName': seriesItem.name ?? 'Unnamed Series',
+                  'seriesName': 'Unnamed Series',
                 },
               ),
             );
@@ -171,21 +167,19 @@ class _SingleSeriesPage extends ConsumerWidget {
 
 class _SeriesItemWidget extends ConsumerWidget {
   const _SeriesItemWidget({
-    required this.seriesItem,
     super.key,
     this.onTap,
   });
 
-  final SeriesDto seriesItem;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: ListTile(
-        title: Text(seriesItem.name ?? 'Unnamed Series'),
-        subtitle: Text(
-          'Hours: ${seriesItem.avgHoursToRead}',
+        title: const Text('Unnamed Series'),
+        subtitle: const Text(
+          'Hours: 1',
         ),
         onTap: onTap,
       ),

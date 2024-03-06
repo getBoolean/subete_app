@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:kavita_api/kavita_api.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/router/router.dart';
@@ -13,37 +12,27 @@ class LibrariesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<List<LibraryDto>> libraries = ref.watch(librariesProvider);
+    final AsyncValue<List<void>> libraries = ref.watch(librariesProvider);
     return Scaffold(
       body: libraries.when(
         data: (data) {
           // Currently only books are supported
-          final lightNovelLibraries = data
-              .where((library) => library.type == LibraryType.book)
-              .toList();
           return ListView.builder(
-            itemCount: lightNovelLibraries.length,
+            itemCount: 1,
             itemBuilder: (context, index) {
-              final library = lightNovelLibraries[index];
               return Card(
                 child: ListTile(
                   leading: const Icon(Icons.library_books),
-                  title: Text(library.name ?? 'Unnamed Library'),
+                  title: const Text('Unnamed Library'),
                   onTap: () {
-                    final int? id = library.id;
-                    if (id == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Library has no ID'),
-                      ));
-                      return;
-                    }
+                    const int id = 1;
 
                     context.goNamed(RouteName.libraryDetails.name,
                         pathParameters: {
                           'libraryId': id.toString(),
                         },
                         queryParameters: {
-                          'libraryName': library.name ?? 'Unnamed Library',
+                          'libraryName': 'Unnamed Library',
                         });
                   },
                 ),
