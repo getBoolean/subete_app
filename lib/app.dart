@@ -83,8 +83,7 @@ class App extends ConsumerWidget {
               swapLegacyOnMaterial3: true,
             ),
             themeMode: settings.themeType.toThemeMode(),
-            builder: (context, child) =>
-                KavitaAuthWidget(child: AccessibilityTools(child: child)),
+            builder: (context, child) => AccessibilityTools(child: child),
           ),
         );
       },
