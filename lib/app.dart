@@ -4,10 +4,8 @@ import 'package:accessibility_tools/accessibility_tools.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:localization/localization.dart';
-import 'package:subete/src/features/kavita/presentation/kavita_auth_widget.dart';
 import 'package:subete/src/features/settings/application/settings_service.dart';
 import 'package:subete/src/features/settings/data/dto/settings.dart';
 import 'package:subete/src/features/settings/presentation/widgets/app_settings.dart';
@@ -68,8 +66,6 @@ class App extends ConsumerWidget {
               visualDensity: FlexColorScheme.comfortablePlatformDensity,
               useMaterial3: true,
               swapLegacyOnMaterial3: true,
-              // To use the Playground font, add GoogleFonts package and uncomment
-              fontFamily: GoogleFonts.notoSans().fontFamily,
             ),
             darkTheme: FlexThemeData.dark(
               colors: settings.darkTheme.dark,
@@ -85,8 +81,6 @@ class App extends ConsumerWidget {
               visualDensity: FlexColorScheme.comfortablePlatformDensity,
               useMaterial3: true,
               swapLegacyOnMaterial3: true,
-              // To use the Playground font, add GoogleFonts package and uncomment
-              fontFamily: GoogleFonts.notoSans().fontFamily,
             ),
             themeMode: settings.themeType.toThemeMode(),
             builder: (context, child) =>

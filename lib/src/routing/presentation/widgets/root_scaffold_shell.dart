@@ -1,7 +1,6 @@
 import 'package:constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
 import 'package:subete/src/features/settings/application/settings_service.dart';
@@ -112,8 +111,7 @@ class _RootScaffoldShellState extends ConsumerState<RootScaffoldShell> {
                           ),
                           child: Text(
                             kAppName,
-                            style: theme.textTheme.titleMedium
-                                ?.merge(GoogleFonts.robotoMono()),
+                            style: theme.textTheme.titleMedium,
                             overflow: TextOverflow.clip,
                             maxLines: 1,
                           ),
