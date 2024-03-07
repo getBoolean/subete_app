@@ -216,6 +216,11 @@ class KavitaApi {
   KavitaApiUsers get users {
     return KavitaApiUsers.fromContext(context);
   }
+
+  /// Disposes resources held by [KavitaContext]
+  void dispose() {
+    context.dispose();
+  }
 }
 
 /// All Account matters

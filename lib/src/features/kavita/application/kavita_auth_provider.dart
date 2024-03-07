@@ -7,7 +7,10 @@ part 'kavita_auth_provider.g.dart';
 @Riverpod(keepAlive: true)
 KavitaApi kavita(KavitaRef ref) {
   final String baseUrl = EnvFlavor.instance.kavitaBaseUrl;
-  return KavitaApi(baseUrl: Uri.parse(baseUrl));
+  final api = KavitaApi(baseUrl: Uri.parse(baseUrl));
+  ref.onDispose(api.dispose);
+
+  return api;
 }
 
 @Riverpod(keepAlive: true)
