@@ -46,6 +46,21 @@ await api.plugin.authenticate(
 );
 ```
 
+### Disposing
+
+The underlying `KavitaContext` object contains resources that must be disposed.
+
+```dart
+// State widget
+final api = KavitaApi(baseUrl: baseUrl);
+
+@override
+void dispose() {
+  api.dispose();
+  super.dispose();
+}
+```
+
 ### Resources
 
 * [Kavita API Docs](https://www.kavitareader.com/docs/api/#/)

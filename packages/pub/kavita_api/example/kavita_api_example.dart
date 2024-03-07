@@ -47,5 +47,7 @@ void main() async {
     };
     print('Error: $message');
     print(e);
+  } finally {
+    api.dispose();
   }
 }
