@@ -51,7 +51,21 @@ class LibrariesScreen extends ConsumerWidget {
             },
           );
         },
-        error: (error, stackTrace) => const Center(child: Text('Error')),
+        error: (error, stackTrace) {
+          return Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Error: $error'),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => ref.invalidate(librariesProvider),
+                  child: const Text('Retry'),
+                )
+              ],
+            ),
+          );
+        },
         loading: () => Skeletonizer(
           child: ListView.builder(
             itemCount: 10,
