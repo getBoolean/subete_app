@@ -50,6 +50,8 @@ class SeriesDetailsScreen extends ConsumerWidget {
           itemBuilder: (context, index) {
             return const Card(
               child: ListTile(
+                leading: Icon(Icons.library_books),
+                minLeadingWidth: 40,
                 title: Text('Loading...'),
                 subtitle: Text('Hours...'),
               ),
@@ -80,9 +82,18 @@ class _VolumeWidget extends ConsumerWidget {
     ));
     return Card(
       child: ListTile(
+        minLeadingWidth: 40,
         leading: downloadVolumeCover.when(
-          data: Image.memory,
-          error: (e, st) => const Icon(Icons.error),
+          data: (data) => Image.memory(data, width: 40),
+          error: (e, st) => IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(
+              downloadVolumeCoverProvider(
+                volumeId: volumeItem.id ?? -1,
+              ),
+            ),
+            tooltip: 'Retry Cover Download',
+          ),
           loading: () => const Icon(Icons.download),
         ),
         title: Text('${volumeItem.name} - $seriesName'),
