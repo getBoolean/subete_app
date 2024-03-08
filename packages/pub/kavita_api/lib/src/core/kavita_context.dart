@@ -162,7 +162,6 @@ class KavitaContext {
   void setCurrentUser(UserDto user) {
     _currentUser = user;
 
-    _api.client.httpClient.close();
     _api = raw.KavitaApiV1.create(
       baseUrl: _baseUrl,
       httpClient: _httpClient,
@@ -196,7 +195,6 @@ class KavitaContext {
   /// Closes the [onUserChange] stream and the underlying [http.Client]
   void dispose() {
     _userChangeController.close();
-    _api.client.httpClient.close();
   }
 
   ch.Request _applyRequestBearerToken(
