@@ -5,7 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kavita_api/kavita_api.dart';
+import 'package:log/log.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:path/path.dart' as p;
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 
@@ -48,6 +50,8 @@ class SeriesDetailsScreen extends ConsumerWidget {
           itemBuilder: (context, index) {
             return const Card(
               child: ListTile(
+                leading: Icon(Icons.library_books),
+                minLeadingWidth: 40,
                 title: Text('Loading...'),
                 subtitle: Text('Hours...'),
               ),
@@ -69,6 +73,8 @@ class _VolumeWidget extends ConsumerWidget {
   final VolumeDto volumeItem;
   final String seriesName;
 
+  static final _log = Logger('_VolumeWidget');
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final downloadVolumeCover = ref.watch(downloadVolumeCoverProvider(
@@ -76,9 +82,18 @@ class _VolumeWidget extends ConsumerWidget {
     ));
     return Card(
       child: ListTile(
+        minLeadingWidth: 40,
         leading: downloadVolumeCover.when(
-          data: Image.memory,
-          error: (e, st) => const Icon(Icons.error),
+          data: (data) => Image.memory(data, width: 40),
+          error: (e, st) => IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(
+              downloadVolumeCoverProvider(
+                volumeId: volumeItem.id ?? -1,
+              ),
+            ),
+            tooltip: 'Retry Cover Download',
+          ),
           loading: () => const Icon(Icons.download),
         ),
         title: Text('${volumeItem.name} - $seriesName'),
@@ -95,21 +110,33 @@ class _VolumeWidget extends ConsumerWidget {
 
           if (!context.mounted) return;
 
+          final filename = 'Volume ${volumeItem.name} - $seriesName.epub';
           final file = XFile.fromData(
             download,
-            name: 'Volume ${volumeItem.name} - $seriesName.epub',
+            name: filename,
             mimeType: 'application/epub+zip',
             lastModified: volumeItem.lastModifiedUtc,
             length: download.length,
           );
-          await file.saveTo('Volume ${volumeItem.name} - $seriesName.epub');
+          await file.saveTo(filename);
 
           final openResult = await OpenFilex.open(
-            'Volume ${volumeItem.name} - $seriesName.epub',
+            filename,
             type: 'application/epub+zip',
           );
           if (!kIsWeb) {
-            await io.File(file.path).delete();
+            final path = p.join(file.path, filename);
+            final ioFile = io.File(path);
+            try {
+              if (ioFile.existsSync()) {
+                await Future<void>.delayed(const Duration(seconds: 15));
+                if (ioFile.existsSync()) {
+                  await ioFile.delete();
+                }
+              }
+            } on io.FileSystemException catch (e, st) {
+              _log.severe(e.message, e, st);
+            }
           }
           if (context.mounted && openResult.type != ResultType.done) {
             ScaffoldMessenger.of(context).showSnackBar(

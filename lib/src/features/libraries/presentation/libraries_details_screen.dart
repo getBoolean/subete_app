@@ -158,6 +158,8 @@ class _SingleSeriesPage extends ConsumerWidget {
           itemBuilder: (context, index) {
             return const Card(
               child: ListTile(
+                leading: Icon(Icons.library_books),
+                minLeadingWidth: 40,
                 title: Text('Loading...'),
                 subtitle: Text('Hours...'),
               ),
@@ -186,9 +188,17 @@ class _SeriesItemWidget extends ConsumerWidget {
     ));
     return Card(
       child: ListTile(
+        minLeadingWidth: 40,
         leading: downloadSeriesCover.when(
-          data: Image.memory,
-          error: (e, st) => const Icon(Icons.error),
+          data: (data) => Image.memory(data, width: 40),
+          error: (e, st) => IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () => ref.invalidate(
+              downloadSeriesCoverProvider(
+                seriesId: seriesItem.id ?? -1,
+              ),
+            ),
+          ),
           loading: () => const Icon(Icons.download),
         ),
         title: Text(seriesItem.name ?? 'Unnamed Series'),
