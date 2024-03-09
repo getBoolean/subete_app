@@ -34,6 +34,19 @@ class FilterV2Dto with FilterV2DtoMappable {
 
   static const fromMap = FilterV2DtoMapper.fromMap;
   static const fromJson = FilterV2DtoMapper.fromJson;
+
+  FilterV2Dto merge(FilterV2Dto? other) {
+    return FilterV2Dto(
+      id: other?.id ?? id,
+      name: other?.name ?? name,
+      statements: statements == null && other?.statements == null
+          ? null
+          : (statements ?? []) + (other?.statements ?? []),
+      combination: other?.combination ?? combination,
+      sortOptions: other?.sortOptions ?? sortOptions,
+      limitTo: other?.limitTo ?? limitTo,
+    );
+  }
 }
 
 extension type const FilterCombination(int value) implements int {

@@ -3866,12 +3866,29 @@ class KavitaApiSeries {
   }
 
   /// Returns all [Series] for the library
+  ///
+  /// If [combineWithDefaultFilter] is enabled, the filter forced to use [FilterCombination.and]
   Future<KavitaResponse<List<SeriesDto>>> getAllSeries({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
     FilterV2Dto? filter,
+    bool combineWithDefaultFilter = true,
   }) async {
+    final defaultFilter = FilterV2Dto(
+      statements: [
+        FilterStatementDto(
+          field: FilterField.libraries,
+          $value: '$libraryId',
+          comparison: FilterComparison.equal,
+        ),
+      ],
+      combination: FilterCombination.and,
+      sortOptions:
+          const SortOptions(isAscending: true, sortField: SortField.sortName),
+      limitTo: 0,
+    );
+
     return mappr.convert<ch.Response<List<raw.SeriesDto>>,
         KavitaResponse<List<SeriesDto>>>(
       await context.api.apiSeriesAllV2Post(
@@ -3879,19 +3896,11 @@ class KavitaApiSeries {
         pageNumber: pageNumber,
         pageSize: pageSize,
         body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(
-          filter ??
-              FilterV2Dto(
-                statements: [
-                  FilterStatementDto(
-                    field: FilterField.libraries,
-                    $value: '$libraryId',
-                    comparison: FilterComparison.equal,
-                  ),
-                ],
-                sortOptions: const SortOptions(
-                    isAscending: true, sortField: SortField.sortName),
-                limitTo: 0,
-              ),
+          combineWithDefaultFilter
+              ? defaultFilter
+                  .merge(filter)
+                  .copyWith(combination: FilterCombination.and)
+              : filter ?? defaultFilter,
         ),
       ),
     );
