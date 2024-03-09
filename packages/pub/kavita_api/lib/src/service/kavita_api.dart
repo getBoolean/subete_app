@@ -3867,7 +3867,7 @@ class KavitaApiSeries {
 
   /// Returns all [Series] for the library
   ///
-  /// If [combineWithDefaultFilter] is enabled, the filter forced to use [FilterCombination.and]
+  /// If [mergeWithDefaultFilter] is enabled, the filter forced to use [FilterCombination.and]
   Future<KavitaResponse<List<SeriesDto>>> getAllSeries({
     required int libraryId,
     required int pageNumber,
