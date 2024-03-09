@@ -9,6 +9,7 @@ import 'package:log/log.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as p;
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 
 class SeriesDetailsScreen extends ConsumerWidget {
@@ -99,24 +100,16 @@ class _VolumeWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final downloadVolumeCover = ref.watch(downloadVolumeCoverProvider(
-      volumeId: volumeItem.id ?? -1,
-    ));
+    final kavita = ref.watch(kavitaProvider);
+    final (:headers, :url) =
+        kavita.image.getVolumeCoverUrl(id: volumeItem.id ?? -1);
     return Card(
       child: ListTile(
         minLeadingWidth: 40,
-        leading: downloadVolumeCover.when(
-          data: (data) => Image.memory(data, width: 40),
-          error: (e, st) => IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => ref.invalidate(
-              downloadVolumeCoverProvider(
-                volumeId: volumeItem.id ?? -1,
-              ),
-            ),
-            tooltip: 'Retry Cover Download',
-          ),
-          loading: () => const Icon(Icons.download),
+        leading: Image.network(
+          url.toString(),
+          headers: headers,
+          width: 40,
         ),
         title: Text('${volumeItem.name} - $seriesName'),
         subtitle: Text(
