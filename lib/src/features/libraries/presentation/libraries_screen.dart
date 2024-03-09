@@ -15,67 +15,76 @@ class LibrariesScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<LibraryDto>> libraries = ref.watch(librariesProvider);
     return Scaffold(
-      body: libraries.when(
-        data: (data) {
-          // Currently only books are supported
-          final lightNovelLibraries = data
-              .where((library) => library.type == LibraryType.book)
-              .toList();
-          return ListView.builder(
-            itemCount: lightNovelLibraries.length,
-            itemBuilder: (context, index) {
-              final library = lightNovelLibraries[index];
-              return Card(
-                child: ListTile(
-                  leading: const Icon(Icons.library_books),
-                  title: Text(library.name ?? 'Unnamed Library'),
-                  onTap: () {
-                    final int? id = library.id;
-                    if (id == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Library has no ID'),
-                      ));
-                      return;
-                    }
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 650),
+        switchInCurve: Curves.easeInOut,
+        switchOutCurve: Curves.easeInOut,
+        child: libraries.when(
+          data: (data) {
+            // Currently only books are supported
+            final lightNovelLibraries = data
+                .where((library) => library.type == LibraryType.book)
+                .toList();
+            return ListView.builder(
+              key: const ValueKey('LibrariesScreen-list'),
+              itemCount: lightNovelLibraries.length,
+              itemBuilder: (context, index) {
+                final library = lightNovelLibraries[index];
+                return Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.library_books),
+                    title: Text(library.name ?? 'Unnamed Library'),
+                    onTap: () {
+                      final int? id = library.id;
+                      if (id == null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text('Library has no ID'),
+                        ));
+                        return;
+                      }
 
-                    context.goNamed(RouteName.libraryDetails.name,
-                        pathParameters: {
-                          'libraryId': id.toString(),
-                        },
-                        queryParameters: {
-                          'libraryName': library.name ?? 'Unnamed Library',
-                        });
-                  },
-                ),
-              );
-            },
-          );
-        },
-        error: (error, stackTrace) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Error: $error'),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () => ref.invalidate(librariesProvider),
-                  child: const Text('Retry'),
-                )
-              ],
+                      context.goNamed(RouteName.libraryDetails.name,
+                          pathParameters: {
+                            'libraryId': id.toString(),
+                          },
+                          queryParameters: {
+                            'libraryName': library.name ?? 'Unnamed Library',
+                          });
+                    },
+                  ),
+                );
+              },
+            );
+          },
+          error: (error, stackTrace) {
+            return Center(
+              key: ValueKey(error),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Error: $error'),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => ref.invalidate(librariesProvider),
+                    child: const Text('Retry'),
+                  )
+                ],
+              ),
+            );
+          },
+          loading: () => Skeletonizer(
+            key: const ValueKey('LibrariesScreen-loading'),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const Card(
+                  child: ListTile(
+                    title: Text('Loading Library'),
+                  ),
+                );
+              },
             ),
-          );
-        },
-        loading: () => Skeletonizer(
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return const Card(
-                child: ListTile(
-                  title: Text('Loading Library'),
-                ),
-              );
-            },
           ),
         ),
       ),

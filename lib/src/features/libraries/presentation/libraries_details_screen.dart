@@ -126,47 +126,69 @@ class _SingleSeriesPage extends ConsumerWidget {
       pageNumber: index,
       pageSize: 20,
     ));
-    return series.when(
-      data: (series) {
-        return ListView.builder(
-          itemCount: series.length,
-          itemBuilder: (context, index) {
-            final SeriesDto seriesItem = series[index];
-            return _SeriesItemWidget(
-              key: ValueKey(seriesItem.id ?? index),
-              seriesItem: seriesItem,
-              onTap: () => context.goNamed(
-                RouteName.seriesDetails.name,
-                pathParameters: {
-                  'seriesId': seriesItem.id.toString(),
-                  'libraryId': libraryId.toString(),
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 650),
+      switchInCurve: Curves.easeInOut,
+      switchOutCurve: Curves.easeInOut,
+      child: series.when(
+        data: (series) {
+          return ListView.builder(
+            key: const ValueKey('_SingleSeriesPage-list'),
+            itemCount: series.length,
+            itemBuilder: (context, index) {
+              final SeriesDto seriesItem = series[index];
+              return _SeriesItemWidget(
+                key: ValueKey(seriesItem.id ?? index),
+                seriesItem: seriesItem,
+                onTap: () => context.goNamed(
+                  RouteName.seriesDetails.name,
+                  pathParameters: {
+                    'seriesId': seriesItem.id.toString(),
+                    'libraryId': libraryId.toString(),
+                  },
+                  queryParameters: {
+                    'libraryName': libraryName,
+                    'seriesName': seriesItem.name ?? 'Unnamed Series',
+                  },
+                ),
+              );
+            },
+          );
+        },
+        error: (error, stackTrace) {
+          return Center(
+            key: ValueKey(error),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Error: $error'),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => ref.invalidate(librariesProvider),
+                  child: const Text('Retry'),
+                )
+              ],
+            ),
+          );
+        },
+        loading: () {
+          return Skeletonizer(
+              key: const ValueKey('_SingleSeriesPage-loading'),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const Card(
+                    child: ListTile(
+                      leading: Icon(Icons.library_books),
+                      minLeadingWidth: 40,
+                      title: Text('Loading...'),
+                      subtitle: Text('Hours...'),
+                    ),
+                  );
                 },
-                queryParameters: {
-                  'libraryName': libraryName,
-                  'seriesName': seriesItem.name ?? 'Unnamed Series',
-                },
-              ),
-            );
-          },
-        );
-      },
-      error: (e, st) => Center(child: Text('Error: $e')),
-      loading: () {
-        return Skeletonizer(
-            child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return const Card(
-              child: ListTile(
-                leading: Icon(Icons.library_books),
-                minLeadingWidth: 40,
-                title: Text('Loading...'),
-                subtitle: Text('Hours...'),
-              ),
-            );
-          },
-        ));
-      },
+              ));
+        },
+      ),
     );
   }
 }

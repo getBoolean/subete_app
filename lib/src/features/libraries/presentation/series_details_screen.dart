@@ -26,39 +26,61 @@ class SeriesDetailsScreen extends ConsumerWidget {
     final AsyncValue<List<VolumeDto>> series = ref.watch(volumesProvider(
       seriesId: seriesId,
     ));
-    return series.when(
-      data: (series) {
-        return ListView.builder(
-          itemCount: series.length,
-          itemBuilder: (context, index) {
-            final VolumeDto volumeItem = series[index];
-            return Builder(builder: (context) {
-              return _VolumeWidget(
-                key: ValueKey(volumeItem.id ?? index),
-                volumeItem: volumeItem,
-                seriesName: seriesName,
-              );
-            });
-          },
-        );
-      },
-      error: (e, st) => Center(child: Text('Error: $e')),
-      loading: () {
-        return Skeletonizer(
-            child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return const Card(
-              child: ListTile(
-                leading: Icon(Icons.library_books),
-                minLeadingWidth: 40,
-                title: Text('Loading...'),
-                subtitle: Text('Hours...'),
-              ),
-            );
-          },
-        ));
-      },
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 650),
+      switchInCurve: Curves.easeInOut,
+      switchOutCurve: Curves.easeInOut,
+      child: series.when(
+        data: (series) {
+          return ListView.builder(
+            key: const ValueKey('SeriesDetailsScreen-list'),
+            itemCount: series.length,
+            itemBuilder: (context, index) {
+              final VolumeDto volumeItem = series[index];
+              return Builder(builder: (context) {
+                return _VolumeWidget(
+                  key: ValueKey(volumeItem.id ?? index),
+                  volumeItem: volumeItem,
+                  seriesName: seriesName,
+                );
+              });
+            },
+          );
+        },
+        error: (error, stackTrace) {
+          return Center(
+            key: ValueKey(error),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Error: $error'),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => ref.invalidate(librariesProvider),
+                  child: const Text('Retry'),
+                )
+              ],
+            ),
+          );
+        },
+        loading: () {
+          return Skeletonizer(
+              key: const ValueKey('SeriesDetailsScreen-loading'),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const Card(
+                    child: ListTile(
+                      leading: Icon(Icons.library_books),
+                      minLeadingWidth: 40,
+                      title: Text('Loading...'),
+                      subtitle: Text('Hours...'),
+                    ),
+                  );
+                },
+              ));
+        },
+      ),
     );
   }
 }
