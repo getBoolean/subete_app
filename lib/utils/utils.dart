@@ -198,13 +198,10 @@ extension BuildContextExtensions on BuildContext {
             ),
             TextButton(
               onPressed: () async {
+                Navigator.of(context).pop();
                 final result = onConfirm();
                 if (result is Future) {
                   await result;
-                }
-
-                if (mounted) {
-                  Navigator.of(context).pop();
                 }
               },
               child: Text(
