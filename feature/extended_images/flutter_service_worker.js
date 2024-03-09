@@ -6,9 +6,9 @@ const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {"assets/AssetManifest.bin": "7e690f2cbde9bae78199a33775eeed6e",
 "assets/AssetManifest.bin.json": "725a22c2340d18d10fb2f753a7d391ee",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
-"assets/NOTICES": "1bdcd4cb67d38aa77d43c72f2ea841a6",
+"assets/NOTICES": "8e28bea475fe8b05402897f26b757f11",
 "assets/AssetManifest.json": "0afe4033a78f65273e1e3afeb52333c7",
-"assets/fonts/MaterialIcons-Regular.otf": "5b7515116c0a36062e6969545eb42f3c",
+"assets/fonts/MaterialIcons-Regular.otf": "8676ae7c34d5e025789d1de2666039d9",
 "assets/packages/assets/images/flutter_logo.png": "d0515092173211776ceed19b39c2a041",
 "assets/packages/flex_color_picker/assets/opacity.png": "49c4f3bcb1b25364bb4c255edcaaf5b2",
 "assets/packages/window_manager/images/ic_chrome_maximize.png": "af7499d7657c8b69d23b85156b60298c",
@@ -34,9 +34,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "7e690f2cbde9bae78199a33775eeed6e
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "flutter.js": "c71a09214cb6f5f8996a531350400a9a",
 "manifest.json": "3ec0793baf217f425cf2029647ed9865",
-"index.html": "5f1d0178550e4669dc118c32dfa9bf45",
-"/": "5f1d0178550e4669dc118c32dfa9bf45",
-"main.dart.js": "d4d599a7875cce0b551bfb83605fbdf9"};
+"index.html": "3ef338b87e00c4a8a4c021d9768ed39b",
+"/": "3ef338b87e00c4a8a4c021d9768ed39b",
+"main.dart.js": "cb1be143947884699aeef40f65c89d86"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
