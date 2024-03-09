@@ -74,7 +74,7 @@ class _RootScaffoldShellState extends ConsumerState<RootScaffoldShell> {
           return expanded
               ? IntrinsicWidth(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsetsDirectional.all(8.0),
                     child: Semantics(
                       label: 'Search series',
                       child: SearchAnchor(
