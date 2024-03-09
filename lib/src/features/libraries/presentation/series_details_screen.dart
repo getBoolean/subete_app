@@ -12,6 +12,7 @@ import 'package:path/path.dart' as p;
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
+import 'package:subete/utils/utils.dart';
 
 class SeriesDetailsScreen extends ConsumerWidget {
   const SeriesDetailsScreen({
@@ -164,12 +165,19 @@ class _VolumeWidget extends ConsumerWidget {
               _log.severe(e.message, e, st);
             }
           }
-          if (context.mounted && openResult.type != ResultType.done) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Download canceled'),
-              ),
-            );
+          if (!context.mounted) return;
+
+          switch (openResult.type) {
+            case ResultType.done:
+              break;
+            case ResultType.error:
+              context.showSnackBar('Open in app failed');
+            case ResultType.permissionDenied:
+              context.showSnackBar('Permission denied');
+            case ResultType.fileNotFound:
+              context.showSnackBar('File not found');
+            case ResultType.noAppToOpen:
+              context.showSnackBar('No app to open');
           }
         },
       ),

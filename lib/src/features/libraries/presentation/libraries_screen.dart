@@ -7,6 +7,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/router/router.dart';
+import 'package:subete/utils/utils.dart';
 
 class LibrariesScreen extends ConsumerWidget {
   const LibrariesScreen({
@@ -106,9 +107,7 @@ class _SingleLibraryItemWidget extends ConsumerWidget {
         onTap: () {
           final int? id = library.id;
           if (id == null) {
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Library has no ID'),
-            ));
+            context.showSnackBar('Library has no ID');
             return;
           }
 
