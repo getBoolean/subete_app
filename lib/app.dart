@@ -89,8 +89,15 @@ class App extends ConsumerWidget {
               fontFamily: GoogleFonts.notoSans().fontFamily,
             ),
             themeMode: settings.themeType.toThemeMode(),
-            builder: (context, child) =>
-                KavitaAuthWidget(child: AccessibilityTools(child: child)),
+            builder: (context, child) => KavitaAuthWidget(
+              child: AccessibilityTools(
+                minimumTapAreas: const MinimumTapAreas(
+                  mobile: 48,
+                  desktop: 20,
+                ),
+                child: child,
+              ),
+            ),
           ),
         );
       },
