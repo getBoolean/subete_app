@@ -29,6 +29,7 @@ class RootScaffoldShell extends ConsumerStatefulWidget {
 }
 
 class _RootScaffoldShellState extends ConsumerState<RootScaffoldShell> {
+  final _focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -71,18 +72,48 @@ class _RootScaffoldShellState extends ConsumerState<RootScaffoldShell> {
         buildActionButton: (context, topRoute, index, expanded) {
           if (index != 0) return const SizedBox.shrink();
           return expanded
-              ? const IntrinsicWidth(
+              ? IntrinsicWidth(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.all(8.0),
-                    child: Focus(
-                      child: SearchBar(
-                        hintText: 'Search books',
-                        trailing: [
-                          Icon(
-                            Icons.search,
-                            semanticLabel: 'Search books',
-                          ),
-                        ],
+                    padding: const EdgeInsets.all(8.0),
+                    child: Semantics(
+                      label: 'Search series',
+                      child: SearchAnchor(
+                        suggestionsBuilder: (BuildContext context,
+                            SearchController controller) {
+                          return List<ListTile>.generate(5, (int index) {
+                            final String item = 'item $index';
+                            return ListTile(
+                              title: Text(item),
+                              onTap: () {
+                                setState(() {
+                                  controller.closeView(item);
+                                });
+                              },
+                            );
+                          });
+                        },
+                        builder: (context, SearchController controller) {
+                          return SearchBar(
+                            controller: controller,
+                            focusNode: _focusNode,
+                            onTap: () {
+                              controller.openView();
+                            },
+                            onChanged: (_) {
+                              controller.openView();
+                            },
+                            hintText: 'Search books',
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.search,
+                            leading: const Tooltip(
+                              message: 'Search books',
+                              child: IconButton(
+                                icon: Icon(Icons.search),
+                                onPressed: null,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
