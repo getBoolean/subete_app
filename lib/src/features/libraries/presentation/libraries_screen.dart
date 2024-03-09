@@ -95,7 +95,7 @@ class _SingleLibraryItemWidget extends ConsumerWidget {
           errorBuilder: (context, error, stackTrace) {
             if (error is NetworkImageLoadException) {
               return error.statusCode == 400
-                  ? const Icon(Icons.library_books)
+                  ? const Icon(Icons.menu_book_outlined)
                   : const Icon(Icons.error);
             }
             return const Icon(Icons.error);
