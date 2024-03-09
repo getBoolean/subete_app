@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -88,19 +89,19 @@ class _SingleLibraryItemWidget extends ConsumerWidget {
         kavita.image.getLibraryCoverUrl(id: library.id ?? -1);
     return Card(
       child: ListTile(
-        leading: Image.network(
-          url.toString(),
-          headers: headers,
-          width: 40,
-          errorBuilder: (context, error, stackTrace) {
-            if (error is NetworkImageLoadException) {
-              return error.statusCode == 400
-                  ? const Icon(Icons.menu_book_outlined)
-                  : const Icon(Icons.error);
-            }
-            return const Icon(Icons.error);
-          },
-        ),
+        leading: library.coverImage == null
+            ? const Icon(Icons.menu_book_outlined)
+            : ExtendedImage.network(
+                url.toString(),
+                headers: headers,
+                width: 40,
+                fit: BoxFit.fill,
+                shape: BoxShape.rectangle,
+                handleLoadingProgress: true,
+                borderRadius:
+                    // ignore: avoid_using_api
+                    const BorderRadius.all(Radius.circular(8.0)),
+              ),
         title: Text(library.name ?? 'Unnamed Library'),
         onTap: () {
           final int? id = library.id;

@@ -1,6 +1,7 @@
 import 'dart:io' as io;
 
 import 'package:cross_file/cross_file.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -106,11 +107,21 @@ class _VolumeWidget extends ConsumerWidget {
     return Card(
       child: ListTile(
         minLeadingWidth: 40,
-        leading: Image.network(
-          url.toString(),
-          headers: headers,
-          width: 40,
-        ),
+        leading: ExtendedImage.network(url.toString(),
+            headers: headers,
+            width: 40,
+            fit: BoxFit.fill,
+            shape: BoxShape.rectangle,
+            handleLoadingProgress: true,
+            borderRadius:
+                // ignore: avoid_using_api
+                const BorderRadius.all(Radius.circular(8.0)),
+            loadStateChanged: (state) {
+          return switch (state.extendedImageLoadState) {
+            LoadState.loading => const SizedBox(width: 40),
+            LoadState.completed || LoadState.failed => null,
+          };
+        }),
         title: Text('${volumeItem.name} - $seriesName'),
         subtitle: Text(
           '${volumeItem.avgHoursToRead} hours',

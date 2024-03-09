@@ -1,4 +1,5 @@
 import 'package:constants/constants.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
@@ -77,39 +78,35 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
       title: const Text('Advanced'),
       tiles: [
         SettingsTile(
+          title: const Text('Clear Cache'),
+          leading: const Icon(Icons.delete),
+          onPressed: (context) async {
+            await context.showConfirmationDialog(
+              title: const Text('Clear Cache'),
+              content: const Text(
+                'Are you sure you want to clear the cache?',
+              ),
+              confirmText: 'Clear',
+              onConfirm: () {
+                clearMemoryImageCache();
+                context.showAccessibilitySnackBar('Cache cleared');
+              },
+            );
+          },
+        ),
+        SettingsTile(
           title: const Text('Reset settings'),
           leading: const Icon(Icons.restore),
           onPressed: (context) async {
-            await showAdaptiveDialog<dynamic>(
-              context: context,
-              builder: (context) {
-                final colorScheme = Theme.of(context).colorScheme;
-                return AlertDialog.adaptive(
-                  title: const Text('Reset settings'),
-                  content: const Text(
-                    'Are you sure you want to reset your settings to default? This action cannot be undone.',
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        ref
-                            .read(settingsServiceProvider.notifier)
-                            .resetSettings();
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'Reset',
-                        style: TextStyle(
-                          color: colorScheme.error,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
+            await context.showConfirmationDialog(
+              title: const Text('Reset settings'),
+              content: const Text(
+                'Are you sure you want to reset your settings to default? This action cannot be undone.',
+              ),
+              confirmText: 'Reset',
+              onConfirm: () {
+                ref.read(settingsServiceProvider.notifier).resetSettings();
+                context.showAccessibilitySnackBar('Settings reset');
               },
             );
           },

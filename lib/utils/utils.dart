@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:async';
 import 'dart:io' as io;
 
 import 'package:flutter/foundation.dart';
@@ -174,6 +175,48 @@ extension BuildContextExtensions on BuildContext {
     messenger?.clearSnackBars();
     messenger?.showSnackBar(
       SnackBar(content: Text(message)),
+    );
+  }
+
+  Future<void> showConfirmationDialog({
+    required Widget title,
+    required Widget content,
+    required String confirmText,
+    required FutureOr<void> Function() onConfirm,
+  }) {
+    return showAdaptiveDialog<void>(
+      context: this,
+      builder: (context) {
+        final colorScheme = Theme.of(context).colorScheme;
+        return AlertDialog.adaptive(
+          title: title,
+          content: content,
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                final result = onConfirm();
+                if (result is Future) {
+                  await result;
+                }
+
+                if (mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(
+                confirmText,
+                style: TextStyle(
+                  color: colorScheme.error,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

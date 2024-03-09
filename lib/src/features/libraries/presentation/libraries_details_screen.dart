@@ -1,3 +1,4 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -212,10 +213,16 @@ class _SeriesItemWidget extends ConsumerWidget {
     return Card(
       child: ListTile(
         minLeadingWidth: 40,
-        leading: Image.network(
+        leading: ExtendedImage.network(
           url.toString(),
           headers: headers,
           width: 40,
+          fit: BoxFit.fill,
+          shape: BoxShape.rectangle,
+          handleLoadingProgress: true,
+          borderRadius:
+              // ignore: avoid_using_api
+              const BorderRadius.all(Radius.circular(8.0)),
         ),
         title: Text(seriesItem.name ?? 'Unnamed Series'),
         subtitle: Text(
