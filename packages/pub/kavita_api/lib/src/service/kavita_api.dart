@@ -3873,7 +3873,7 @@ class KavitaApiSeries {
     required int pageNumber,
     required int pageSize,
     FilterV2Dto? filter,
-    bool combineWithDefaultFilter = true,
+    bool mergeWithDefaultFilter = true,
   }) async {
     final defaultFilter = FilterV2Dto(
       statements: [
@@ -3896,7 +3896,7 @@ class KavitaApiSeries {
         pageNumber: pageNumber,
         pageSize: pageSize,
         body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(
-          combineWithDefaultFilter
+          mergeWithDefaultFilter
               ? defaultFilter
                   .merge(filter)
                   .copyWith(combination: FilterCombination.and)

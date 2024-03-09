@@ -201,6 +201,7 @@ void main() {
           id: 0,
           name: 'All',
         ),
+        mergeWithDefaultFilter: false,
       );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, equals(expected));
