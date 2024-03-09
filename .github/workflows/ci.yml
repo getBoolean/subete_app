@@ -112,12 +112,12 @@ jobs:
 
       - name: Annotate PR
         if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
-        uses: invertase/github-action-dart-analyzer@v2.0.0
+        uses: invertase/github-action-dart-analyzer@v3
         with:
           fatal-infos: false
           fatal-warnings: false
           annotate-only: true
-          # custom-lint: true
+          custom-lint: true
 
       - name: Run Dart Analyzer
         if: github.event.inputs.run_tests == 'true' || github.event.inputs.run_tests == null
