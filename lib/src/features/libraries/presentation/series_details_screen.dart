@@ -70,20 +70,21 @@ class SeriesDetailsScreen extends ConsumerWidget {
         },
         loading: () {
           return Skeletonizer(
-              key: const ValueKey('SeriesDetailsScreen-loading'),
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const Card(
-                    child: ListTile(
-                      leading: Icon(Icons.library_books),
-                      minLeadingWidth: 40,
-                      title: Text('Loading...'),
-                      subtitle: Text('Hours...'),
-                    ),
-                  );
-                },
-              ));
+            key: const ValueKey('SeriesDetailsScreen-loading'),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const Card(
+                  child: ListTile(
+                    leading: Icon(Icons.library_books),
+                    minLeadingWidth: 40,
+                    title: Text('Loading...'),
+                    subtitle: Text('Hours...'),
+                  ),
+                );
+              },
+            ),
+          );
         },
       ),
     );
