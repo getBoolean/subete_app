@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_foundation/path_provider_foundation.dart';
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:subete/src/routing/data/navigation_type.dart';
 import 'package:universal_html/html.dart' as html;
 
@@ -251,4 +253,15 @@ Future<void> clearAppTemporaryDirectory() async {
   if (io.Directory(cacheDir).existsSync()) {
     await io.Directory(cacheDir).delete(recursive: true);
   }
+}
+
+Future<String?> getContainerPath() async {
+  if (kIsWeb || !io.Platform.isIOS) {
+    throw UnsupportedError('Functionality only available on iOS');
+  }
+
+  final pathProvider = PathProviderPlatform.instance as PathProviderFoundation;
+  return await pathProvider.getContainerPath(
+    appGroupIdentifier: 'group.org.getboolean.subete',
+  );
 }
