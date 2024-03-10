@@ -214,13 +214,18 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
 
   /// Saves a file to the user's Downloads folder.
   Future<void> _saveFile(Uint8List file, String filename) async {
-    final filepath = await FileSaver.instance.saveFile(
+    await FileSaver.instance.saveFile(
       name: filename,
       bytes: file,
       mimeType: MimeType.epub,
     );
     if (!mounted) return;
-    context.showSnackBar('Saved to Downloads Folder at $filepath');
+
+    if (kIsWeb) {
+      context.showAccessibilitySnackBar('Opened save file dialog');
+    } else {
+      context.showSnackBar('Saved to Downloads Folder');
+    }
   }
 
   /// Opens a file with the default app if available. Not supported on web
