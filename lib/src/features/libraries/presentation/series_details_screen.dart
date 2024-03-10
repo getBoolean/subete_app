@@ -147,23 +147,24 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
 
           final filename =
               'Volume ${widget.volumeItem.name} - ${widget.seriesName}.epub';
-          final file = XFile.fromData(
-            download,
-            name: filename,
-            mimeType: MimeType.epub.type,
-            lastModified: widget.volumeItem.lastModifiedUtc,
-            length: download.length,
-          );
           if (!kIsWeb) {
+            final downloadsPath = await getAppTemporaryDirectory();
+            final ioFile = io.File(p.join(downloadsPath, filename));
+            await ioFile.writeAsBytes(download);
+            final file = XFile(
+              ioFile.path,
+              mimeType: MimeType.epub.type,
+              name: filename,
+            );
             if (io.Platform.isMacOS ||
                 io.Platform.isLinux ||
                 io.Platform.isWindows) {
               await _openFile(file, filename, fallback: () async {
                 await _saveFile(download, filename);
               });
-            } else if (io.Platform.isIOS || io.Platform.isAndroid) {
-              await _shareFile(context, file, filename, fallback: () async {
-                if (!kIsWeb && io.Platform.isIOS) {
+            } else if (io.Platform.isIOS) {
+              if (context.mounted) {
+                await _shareFile(context, file, filename, fallback: () async {
                   final downloadsPath =
                       await getApplicationDocumentsDirectory();
                   final directory =
@@ -176,22 +177,23 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
                   await file.saveTo(filepath);
                   if (!context.mounted) return;
                   context.showSnackBar('Saved to Application Documents Folder');
-                } else {
-                  try {
-                    final downloadsPath =
-                        p.join('/storage/emulated/0/Download/', filename);
-                    await file.saveTo(downloadsPath);
-                    if (!context.mounted) return;
-                    context.showSnackBar('Saved to Downloads Folder');
-                  } on Exception catch (e, st) {
-                    _log.severe(
-                        'Failed to save file to android downloads folder',
-                        e,
-                        st);
-                  }
-                }
-              });
+                });
+              }
+            } else if (io.Platform.isAndroid) {
+              try {
+                final downloadsPath = p.join('/storage/emulated/0/Download/');
+                final filepath = p.join(downloadsPath, filename);
+                _log.info('Saving to $filepath');
+                await file.saveTo(filepath);
+
+                if (!context.mounted) return;
+                context.showSnackBar('Saved to Downloads Folder');
+              } on Exception catch (e, st) {
+                _log.severe(
+                    'Failed to save file to android downloads folder', e, st);
+              }
             }
+            await ioFile.delete();
           } else {
             await _saveFile(download, filename);
           }
@@ -262,16 +264,14 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     final box = context.findRenderObject() as RenderBox?;
     final result = await Share.shareXFiles(
       [file],
-      text: filename,
-      subject: filename,
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
 
     if (!context.mounted) return;
     switch (result.status) {
       case ShareResultStatus.success:
-      case ShareResultStatus.dismissed:
         break;
+      case ShareResultStatus.dismissed:
       case ShareResultStatus.unavailable:
         await fallback();
     }
