@@ -246,9 +246,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
 
     try {
       if (ioFile.existsSync()) {
-        if (ioFile.existsSync()) {
-          await ioFile.delete();
-        }
+        await ioFile.delete();
       }
     } on io.FileSystemException catch (e, st) {
       _log.severe(e.message, e, st);
