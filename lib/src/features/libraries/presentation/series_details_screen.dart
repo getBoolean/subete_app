@@ -177,7 +177,18 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
                   if (!context.mounted) return;
                   context.showSnackBar('Saved to Application Documents Folder');
                 } else {
-                  await _saveFile(download, filename);
+                  try {
+                    final downloadsPath =
+                        p.join('/storage/emulated/0/Download/', filename);
+                    await file.saveTo(downloadsPath);
+                    if (!context.mounted) return;
+                    context.showSnackBar('Saved to Downloads Folder');
+                  } on Exception catch (e, st) {
+                    _log.severe(
+                        'Failed to save file to android downloads folder',
+                        e,
+                        st);
+                  }
                 }
               });
             }
