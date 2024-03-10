@@ -273,6 +273,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     switch (result.status) {
       case ShareResultStatus.success:
       case ShareResultStatus.dismissed:
+        break;
       case ShareResultStatus.unavailable:
         await fallback();
     }
