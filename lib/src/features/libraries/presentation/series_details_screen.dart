@@ -10,6 +10,7 @@ import 'package:kavita_api/kavita_api.dart';
 import 'package:log/log.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
@@ -160,11 +161,26 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
               await _openFile(file, filename, fallback: () async {
                 await _saveFile(download, filename);
               });
+            } else if (io.Platform.isIOS || io.Platform.isAndroid) {
+              await _shareFile(context, file, filename, fallback: () async {
+                if (!kIsWeb && io.Platform.isIOS) {
+                  final downloadsPath =
+                      await getApplicationDocumentsDirectory();
+                  final directory =
+                      io.Directory(p.join(downloadsPath.path, 'Downloads'));
+                  if (!directory.existsSync()) {
+                    await directory.create();
+                  }
+                  final filepath = p.join(directory.path, filename);
+                  _log.info('Saving to $filepath');
+                  await file.saveTo(filepath);
+                  if (!context.mounted) return;
+                  context.showSnackBar('Saved to Application Documents Folder');
+                } else {
+                  await _saveFile(download, filename);
+                }
+              });
             }
-          } else if (io.Platform.isIOS || io.Platform.isAndroid) {
-            await _shareFile(context, file, filename, fallback: () async {
-              await _saveFile(download, filename);
-            });
           } else {
             await _saveFile(download, filename);
           }
@@ -174,13 +190,13 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
   }
 
   Future<void> _saveFile(Uint8List file, String filename) async {
-    await FileSaver.instance.saveFile(
+    final filepath = await FileSaver.instance.saveFile(
       name: filename,
       bytes: file,
       mimeType: MimeType.epub,
     );
     if (!mounted) return;
-    context.showSnackBar('Saved to Downloads Folder');
+    context.showSnackBar('Saved to Downloads Folder at $filepath');
   }
 
   Future<void> _openFile(
@@ -245,9 +261,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     if (!context.mounted) return;
     switch (result.status) {
       case ShareResultStatus.success:
-        context.showSnackBar('File shared');
       case ShareResultStatus.dismissed:
-        context.showSnackBar('Share cancelled');
       case ShareResultStatus.unavailable:
         await fallback();
     }

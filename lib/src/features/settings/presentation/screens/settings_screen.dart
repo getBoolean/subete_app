@@ -1,3 +1,5 @@
+import 'dart:io' as io;
+
 import 'package:constants/constants.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
@@ -78,23 +80,40 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
       title: const Text('Advanced'),
       tiles: [
         SettingsTile(
-          title: const Text('Clear Cache'),
-          leading: const Icon(Icons.delete),
+          title: const Text('Delete Image Cache'),
+          leading: const Icon(Icons.image_not_supported_rounded),
           onPressed: (context) async {
             await context.showConfirmationDialog(
-              title: const Text('Clear Cache'),
+              title: const Text('Delete Image Cache'),
               content: const Text(
-                'Are you sure you want to clear the cache?',
+                'Are you sure you want to delete the image cache?',
               ),
               confirmText: 'Clear',
               onConfirm: () async {
                 context.showAccessibilitySnackBar('Cache cleared');
                 clearMemoryImageCache();
-                await clearAppTemporaryDirectory();
               },
             );
           },
         ),
+        if (!kIsWeb && io.Platform.isIOS)
+          SettingsTile(
+            title: const Text('Delete Downloads'),
+            leading: const Icon(Icons.delete),
+            onPressed: (context) async {
+              await context.showConfirmationDialog(
+                title: const Text('Delete Downloads'),
+                content: const Text(
+                  'Are you sure you want to delete all downloaded files?',
+                ),
+                confirmText: 'Delete',
+                onConfirm: () async {
+                  context.showAccessibilitySnackBar('Downloads deleted');
+                  await clearIOSAppDocumentsDirectory('Downloads');
+                },
+              );
+            },
+          ),
         SettingsTile(
           title: const Text('Reset settings'),
           leading: const Icon(Icons.restore),

@@ -238,23 +238,6 @@ Future<String> getAppTemporaryDirectory() async {
   return appCacheDir;
 }
 
-/// Clears the app's cache directory
-///
-/// This is not supported on web
-Future<void> clearAppTemporaryDirectory() async {
-  if (kIsWeb) {
-    throw UnsupportedError(
-        'clearAppTemporaryDirectory is not supported for web');
-  }
-
-  final tempDir = await getApplicationCacheDirectory();
-  final cacheDir = p.join(tempDir.path, 'subete-caches');
-
-  if (io.Directory(cacheDir).existsSync()) {
-    await io.Directory(cacheDir).delete(recursive: true);
-  }
-}
-
 Future<String?> getContainerPath() async {
   if (kIsWeb || !io.Platform.isIOS) {
     throw UnsupportedError('Functionality only available on iOS');
@@ -264,4 +247,14 @@ Future<String?> getContainerPath() async {
   return await pathProvider.getContainerPath(
     appGroupIdentifier: 'group.org.getboolean.subete',
   );
+}
+
+Future<void> clearIOSAppDocumentsDirectory([String? path]) async {
+  if (!kIsWeb && io.Platform.isIOS) {
+    final downloadsPath = await getApplicationDocumentsDirectory();
+    final directory = io.Directory(p.join(downloadsPath.path, path));
+    if (directory.existsSync()) {
+      await directory.delete(recursive: true);
+    }
+  }
 }
