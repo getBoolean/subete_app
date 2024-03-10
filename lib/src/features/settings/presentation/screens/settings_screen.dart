@@ -99,24 +99,6 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
             );
           },
         ),
-        if (!kIsWeb && io.Platform.isIOS)
-          SettingsTile(
-            title: const Text('Delete Downloads'),
-            leading: const Icon(Icons.delete),
-            onPressed: (context) async {
-              await context.showConfirmationDialog(
-                title: const Text('Delete Downloads'),
-                content: const Text(
-                  'Are you sure you want to delete all downloaded files?',
-                ),
-                confirmText: 'Delete',
-                onConfirm: () async {
-                  context.showAccessibilitySnackBar('Downloads deleted');
-                  await clearIOSAppDocumentsDirectory('Downloads');
-                },
-              );
-            },
-          ),
         SettingsTile(
           title: const Text('Reset settings'),
           leading: const Icon(Icons.restore),

@@ -264,13 +264,3 @@ Future<String?> getContainerPath() async {
     appGroupIdentifier: 'group.org.getboolean.subete',
   );
 }
-
-Future<void> clearIOSAppDocumentsDirectory([String? path]) async {
-  if (!kIsWeb && io.Platform.isIOS) {
-    final downloadsPath = await getApplicationDocumentsDirectory();
-    final directory = io.Directory(p.join(downloadsPath.path, path));
-    if (directory.existsSync()) {
-      await directory.delete(recursive: true);
-    }
-  }
-}

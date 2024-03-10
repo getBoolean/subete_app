@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io' as io;
 
 import 'package:extended_image/extended_image.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:kavita_api/kavita_api.dart';
 import 'package:log/log.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
@@ -156,29 +156,30 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
               mimeType: MimeType.epub.type,
               name: filename,
             );
-            if (io.Platform.isMacOS ||
-                io.Platform.isLinux ||
-                io.Platform.isWindows) {
-              await _openFile(file, filename, fallback: () async {
-                await _saveFile(download, filename);
-              });
-            } else if (io.Platform.isIOS) {
+            if (io.Platform.isMacOS || io.Platform.isWindows) {
               if (context.mounted) {
                 await _shareFile(context, file, filename, fallback: () async {
-                  final downloadsPath =
-                      await getApplicationDocumentsDirectory();
-                  final directory =
-                      io.Directory(p.join(downloadsPath.path, 'Downloads'));
-                  if (!directory.existsSync()) {
-                    await directory.create();
-                  }
-                  final filepath = p.join(directory.path, filename);
-                  _log.info('Saving to $filepath');
-                  await file.saveTo(filepath);
-                  if (context.mounted) {
-                    context.showSnackBar('Saved to App Documents Folder');
-                  }
+                  await _openFile(file, filename, fallback: () async {
+                    await _saveFile(download, filename);
+                  });
                 });
+              }
+            } else if (io.Platform.isLinux) {
+              final String? outputFile = await FilePicker.platform.saveFile(
+                dialogTitle: 'Please select a file save location:',
+                fileName: filename,
+                type: FileType.custom,
+                allowedExtensions: ['epub'],
+              );
+              if (outputFile != null) {
+                await file.saveTo(outputFile);
+                if (context.mounted) {
+                  context.showAccessibilitySnackBar('Saved file successfully');
+                }
+              }
+            } else if (io.Platform.isIOS) {
+              if (context.mounted) {
+                await _shareFile(context, file, filename);
               }
             } else if (io.Platform.isAndroid) {
               try {
@@ -261,12 +262,17 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     }
   }
 
+  /// Open share dialog. Not supported on Linux.
   Future<void> _shareFile(
     BuildContext context,
     XFile file,
     String filename, {
-    required FutureOr<void> Function() fallback,
+    FutureOr<void> Function()? fallback,
   }) async {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.linux) {
+      return;
+    }
+
     final box = context.findRenderObject() as RenderBox?;
     final result = await Share.shareXFiles(
       [file],
@@ -276,10 +282,10 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     if (!context.mounted) return;
     switch (result.status) {
       case ShareResultStatus.success:
-        break;
       case ShareResultStatus.dismissed:
+        break;
       case ShareResultStatus.unavailable:
-        await fallback();
+        await fallback?.call();
     }
   }
 }
