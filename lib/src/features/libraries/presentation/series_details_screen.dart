@@ -190,6 +190,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     );
   }
 
+  /// Opens a save file dialog. Not supported on web or mobile
   Future<void> _saveFileAsDesktop(
     String filename,
     XFile file,
@@ -211,6 +212,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     }
   }
 
+  /// Saves a file to the user's Downloads folder.
   Future<void> _saveFile(Uint8List file, String filename) async {
     final filepath = await FileSaver.instance.saveFile(
       name: filename,
@@ -221,12 +223,19 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     context.showSnackBar('Saved to Downloads Folder at $filepath');
   }
 
+  /// Opens a file with the default app if available. Not supported on web
   Future<void> _openFile(
     XFile file,
     String filename, {
     required FutureOr<void> Function() fallback,
   }) async {
-    if (kIsWeb) return;
+    if (kIsWeb) {
+      final result = fallback();
+      if (result is Future) {
+        await result;
+      }
+      return;
+    }
 
     final tempDir = await getAppTemporaryDirectory();
     final savedFilePath = p.join(tempDir, filename);
@@ -255,7 +264,10 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
       case ResultType.permissionDenied:
       case ResultType.fileNotFound:
       case ResultType.noAppToOpen:
-        await fallback();
+        final result = fallback();
+        if (result is Future) {
+          await result;
+        }
     }
 
     try {
@@ -275,6 +287,10 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     FutureOr<void> Function()? fallback,
   }) async {
     if (!kIsWeb && defaultTargetPlatform == TargetPlatform.linux) {
+      final result = fallback?.call();
+      if (result is Future) {
+        await result;
+      }
       return;
     }
 
