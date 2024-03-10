@@ -6,7 +6,7 @@ part of 'kavita_auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$kavitaHash() => r'd3268d31978c57c36acd4dd27ffe036a8bbcf892';
+String _$kavitaHash() => r'1c858237ea7d069d799179cf8c1926b748c5a9a6';
 
 /// See also [kavita].
 @ProviderFor(kavita)
