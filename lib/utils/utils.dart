@@ -222,25 +222,30 @@ extension BuildContextExtensions on BuildContext {
   }
 }
 
+/// Returns the app's cache directory
+///
+/// This is not supported on web
 Future<String> getAppTemporaryDirectory() async {
   if (kIsWeb) {
-    throw UnimplementedError(
-        'getAppTemporaryDirectory is not implemented for web');
+    throw UnsupportedError('getAppTemporaryDirectory is not supported for web');
   }
 
-  final tempDir = await getTemporaryDirectory();
+  final tempDir = await getApplicationCacheDirectory();
   final appCacheDir = p.join(tempDir.path, 'subete-caches');
   await io.Directory(appCacheDir).create(recursive: true);
   return appCacheDir;
 }
 
+/// Clears the app's cache directory
+///
+/// This is not supported on web
 Future<void> clearAppTemporaryDirectory() async {
   if (kIsWeb) {
-    throw UnimplementedError(
-        'clearAppTemporaryDirectory is not implemented for web');
+    throw UnsupportedError(
+        'clearAppTemporaryDirectory is not supported for web');
   }
 
-  final tempDir = await getTemporaryDirectory();
+  final tempDir = await getApplicationCacheDirectory();
   final cacheDir = p.join(tempDir.path, 'subete-caches');
 
   if (io.Directory(cacheDir).existsSync()) {

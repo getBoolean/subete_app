@@ -174,13 +174,13 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
   }
 
   Future<void> _saveFile(Uint8List file, String filename) async {
-    final result = await FileSaver.instance.saveFile(
+    await FileSaver.instance.saveFile(
       name: filename,
       bytes: file,
       mimeType: MimeType.epub,
     );
     if (!mounted) return;
-    context.showSnackBar('Downloaded $result');
+    context.showSnackBar('Saved to Downloads Folder');
   }
 
   Future<void> _openFile(
@@ -189,14 +189,14 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     required FutureOr<void> Function() fallback,
   }) async {
     final tempDir = await getAppTemporaryDirectory();
-    await file.saveTo(p.join(tempDir, filename));
+    final savedFilePath = p.join(tempDir, filename);
+    await file.saveTo(savedFilePath);
     final openResult = await OpenFilex.open(
-      filename,
+      savedFilePath,
       type: MimeType.epub.type,
     );
 
-    final path = p.join(file.path, filename);
-    final ioFile = io.File(path);
+    final ioFile = io.File(savedFilePath);
     if (!mounted) return;
     switch (openResult.type) {
       case ResultType.done:
