@@ -147,13 +147,13 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
 
           final filename =
               'Volume ${widget.volumeItem.name} - ${widget.seriesName}.epub';
+          final file = XFile.fromData(
+            download,
+            mimeType: MimeType.epub.type,
+            name: filename,
+            lastModified: widget.volumeItem.lastModifiedUtc,
+          );
           if (!kIsWeb) {
-            final file = XFile.fromData(
-              download,
-              mimeType: MimeType.epub.type,
-              name: filename,
-              lastModified: widget.volumeItem.lastModifiedUtc,
-            );
             if (io.Platform.isMacOS ||
                 io.Platform.isWindows ||
                 io.Platform.isLinux) {
@@ -183,7 +183,9 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
               }
             }
           } else {
-            await _saveFile(download, filename);
+            await _shareFile(context, file, filename, fallback: () async {
+              await _saveFile(download, filename);
+            });
           }
         },
       ),
