@@ -175,22 +175,28 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
                   final filepath = p.join(directory.path, filename);
                   _log.info('Saving to $filepath');
                   await file.saveTo(filepath);
-                  if (!context.mounted) return;
-                  context.showSnackBar('Saved to Application Documents Folder');
+                  if (context.mounted) {
+                    context.showSnackBar('Saved to App Documents Folder');
+                  }
                 });
               }
             } else if (io.Platform.isAndroid) {
               try {
-                final downloadsPath = p.join('/storage/emulated/0/Download/');
-                final filepath = p.join(downloadsPath, filename);
-                _log.info('Saving to $filepath');
-                await file.saveTo(filepath);
-
-                if (!context.mounted) return;
-                context.showSnackBar('Saved to Downloads Folder');
+                final result = await FileSaver.instance.saveAs(
+                  name: filename,
+                  ext: 'epub',
+                  mimeType: MimeType.epub,
+                  bytes: download,
+                );
+                if (result == null && context.mounted) {
+                  context.showAccessibilitySnackBar('Saved file successfully');
+                }
               } on Exception catch (e, st) {
                 _log.severe(
                     'Failed to save file to android downloads folder', e, st);
+                if (context.mounted) {
+                  context.showSnackBar('Error saving file');
+                }
               }
             }
             await ioFile.delete();
@@ -223,6 +229,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     final openResult = await OpenFilex.open(
       savedFilePath,
       type: MimeType.epub.type,
+      uti: 'org.idpf.epub-container',
     );
 
     final ioFile = io.File(savedFilePath);
