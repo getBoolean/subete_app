@@ -87,9 +87,10 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
                 'Are you sure you want to clear the cache?',
               ),
               confirmText: 'Clear',
-              onConfirm: () {
-                clearMemoryImageCache();
+              onConfirm: () async {
                 context.showAccessibilitySnackBar('Cache cleared');
+                clearMemoryImageCache();
+                await clearAppTemporaryDirectory();
               },
             );
           },

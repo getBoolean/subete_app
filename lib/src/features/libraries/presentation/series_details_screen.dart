@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:io' as io;
 
 import 'package:cross_file/cross_file.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,6 +11,7 @@ import 'package:kavita_api/kavita_api.dart';
 import 'package:log/log.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as p;
+import 'package:share_plus/share_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
@@ -88,7 +91,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
   }
 }
 
-class _VolumeWidget extends ConsumerWidget {
+class _VolumeWidget extends ConsumerStatefulWidget {
   const _VolumeWidget({
     required this.volumeItem,
     required this.seriesName,
@@ -98,13 +101,17 @@ class _VolumeWidget extends ConsumerWidget {
   final VolumeDto volumeItem;
   final String seriesName;
 
-  static final _log = Logger('_VolumeWidget');
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_VolumeWidget> createState() => _VolumeWidgetState();
+}
+
+class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
+  static final _log = Logger('_VolumeWidget');
+  @override
+  Widget build(BuildContext context) {
     final kavita = ref.watch(kavitaProvider);
     final (:headers, :url) =
-        kavita.image.getVolumeCoverUrl(id: volumeItem.id ?? -1);
+        kavita.image.getVolumeCoverUrl(id: widget.volumeItem.id ?? -1);
     return Card(
       child: ListTile(
         minLeadingWidth: 40,
@@ -123,12 +130,12 @@ class _VolumeWidget extends ConsumerWidget {
             LoadState.completed || LoadState.failed => null,
           };
         }),
-        title: Text('${volumeItem.name} - $seriesName'),
+        title: Text('${widget.volumeItem.name} - ${widget.seriesName}'),
         subtitle: Text(
-          '${volumeItem.avgHoursToRead} hours',
+          '${widget.volumeItem.avgHoursToRead} hours',
         ),
         onTap: () async {
-          final id = volumeItem.id;
+          final id = widget.volumeItem.id;
           if (id == null) {
             return;
           }
@@ -137,50 +144,110 @@ class _VolumeWidget extends ConsumerWidget {
 
           if (!context.mounted) return;
 
-          final filename = 'Volume ${volumeItem.name} - $seriesName.epub';
+          final filename =
+              'Volume ${widget.volumeItem.name} - ${widget.seriesName}.epub';
           final file = XFile.fromData(
             download,
             name: filename,
-            mimeType: 'application/epub+zip',
-            lastModified: volumeItem.lastModifiedUtc,
+            mimeType: MimeType.epub.type,
+            lastModified: widget.volumeItem.lastModifiedUtc,
             length: download.length,
           );
-          await file.saveTo(filename);
-
-          final openResult = await OpenFilex.open(
-            filename,
-            type: 'application/epub+zip',
-          );
           if (!kIsWeb) {
-            final path = p.join(file.path, filename);
-            final ioFile = io.File(path);
-            try {
-              if (ioFile.existsSync()) {
-                await Future<void>.delayed(const Duration(seconds: 15));
-                if (ioFile.existsSync()) {
-                  await ioFile.delete();
-                }
-              }
-            } on io.FileSystemException catch (e, st) {
-              _log.severe(e.message, e, st);
+            if (io.Platform.isMacOS ||
+                io.Platform.isLinux ||
+                io.Platform.isWindows) {
+              await _openFile(file, filename, fallback: () async {
+                await _saveFile(download, filename);
+              });
             }
-          }
-          if (!context.mounted) return;
-
-          switch (openResult.type) {
-            case ResultType.done:
-              break;
-            case ResultType.error:
-              context.showSnackBar('Open in app failed');
-            case ResultType.permissionDenied:
-              context.showSnackBar('Permission denied');
-            case ResultType.fileNotFound:
-              context.showSnackBar('File not found');
-            case ResultType.noAppToOpen:
-              context.showSnackBar('No app to open');
+          } else if (io.Platform.isIOS || io.Platform.isAndroid) {
+            await _shareFile(context, file, filename, fallback: () async {
+              await _saveFile(download, filename);
+            });
+          } else {
+            await _saveFile(download, filename);
           }
         },
       ),
     );
+  }
+
+  Future<void> _saveFile(Uint8List file, String filename) async {
+    await FileSaver.instance.saveFile(
+      name: filename,
+      bytes: file,
+      mimeType: MimeType.epub,
+    );
+  }
+
+  Future<void> _openFile(
+    XFile file,
+    String filename, {
+    required FutureOr<void> Function() fallback,
+  }) async {
+    final tempDir = await getAppTemporaryDirectory();
+    await file.saveTo(p.join(tempDir, filename));
+    final openResult = await OpenFilex.open(
+      filename,
+      type: MimeType.epub.type,
+    );
+
+    final path = p.join(file.path, filename);
+    final ioFile = io.File(path);
+    if (!mounted) return;
+    switch (openResult.type) {
+      case ResultType.done:
+        try {
+          if (ioFile.existsSync()) {
+            await Future<void>.delayed(const Duration(seconds: 15));
+            if (ioFile.existsSync()) {
+              await ioFile.delete();
+            }
+          }
+        } on io.FileSystemException catch (e, st) {
+          _log.severe(e.message, e, st);
+        }
+      case ResultType.error:
+      case ResultType.permissionDenied:
+      case ResultType.fileNotFound:
+      case ResultType.noAppToOpen:
+        await fallback();
+    }
+
+    try {
+      if (ioFile.existsSync()) {
+        if (ioFile.existsSync()) {
+          await ioFile.delete();
+        }
+      }
+    } on io.FileSystemException catch (e, st) {
+      _log.severe(e.message, e, st);
+    }
+  }
+
+  Future<void> _shareFile(
+    BuildContext context,
+    XFile file,
+    String filename, {
+    required FutureOr<void> Function() fallback,
+  }) async {
+    final box = context.findRenderObject() as RenderBox?;
+    final result = await Share.shareXFiles(
+      [file],
+      text: filename,
+      subject: filename,
+      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+    );
+
+    if (!context.mounted) return;
+    switch (result.status) {
+      case ShareResultStatus.success:
+        context.showSnackBar('File shared');
+      case ShareResultStatus.dismissed:
+        context.showSnackBar('Share cancelled');
+      case ShareResultStatus.unavailable:
+        await fallback();
+    }
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:subete/src/routing/data/navigation_type.dart';
 import 'package:universal_html/html.dart' as html;
+import 'package:path/path.dart' as p;
 
 enum DeviceType {
   iOS,
@@ -161,6 +162,7 @@ extension BuildContextExtensions on BuildContext {
   /// Shows a [SnackBar] with [message] only if the user is using an accessibility
   /// service like TalkBack or VoiceOver to interact with the application.
   void showAccessibilitySnackBar(String message) {
+    if (!mounted) return;
     final isAccessible = MediaQuery.accessibleNavigationOf(this);
     if (!isAccessible) {
       return;
@@ -171,6 +173,7 @@ extension BuildContextExtensions on BuildContext {
 
   /// Shows a [SnackBar] with [message]
   void showSnackBar(String message) {
+    if (!mounted) return;
     final messenger = ScaffoldMessenger.maybeOf(this);
     messenger?.clearSnackBars();
     messenger?.showSnackBar(
@@ -183,8 +186,9 @@ extension BuildContextExtensions on BuildContext {
     required Widget content,
     required String confirmText,
     required FutureOr<void> Function() onConfirm,
-  }) {
-    return showAdaptiveDialog<void>(
+  }) async {
+    if (!mounted) return;
+    return await showAdaptiveDialog<void>(
       context: this,
       builder: (context) {
         final colorScheme = Theme.of(context).colorScheme;
@@ -215,5 +219,30 @@ extension BuildContextExtensions on BuildContext {
         );
       },
     );
+  }
+}
+
+Future<String> getAppTemporaryDirectory() async {
+  if (kIsWeb) {
+    throw UnimplementedError(
+        'getAppTemporaryDirectory is not implemented for web');
+  }
+
+  final tempDir = await getTemporaryDirectory();
+
+  return p.join(tempDir.path, 'subete-caches');
+}
+
+Future<void> clearAppTemporaryDirectory() async {
+  if (kIsWeb) {
+    throw UnimplementedError(
+        'clearAppTemporaryDirectory is not implemented for web');
+  }
+
+  final tempDir = await getTemporaryDirectory();
+  final cacheDir = p.join(tempDir.path, 'subete-caches');
+
+  if (io.Directory(cacheDir).existsSync()) {
+    await io.Directory(cacheDir).delete(recursive: true);
   }
 }

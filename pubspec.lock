@@ -430,6 +430,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.1"
   env:
     dependency: "direct main"
     description:
@@ -493,6 +501,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  file_saver:
+    dependency: "direct main"
+    description:
+      name: file_saver
+      sha256: eb16c32d3eb5e4b6318ab9fa97138d6ea0b2d47a25c0af6540263e46979e1c57
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.11"
   fixnum:
     dependency: transitive
     description:
@@ -1389,6 +1405,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  share_plus:
+    dependency: "direct main"
+    description:
+      name: share_plus
+      sha256: "3ef39599b00059db0990ca2e30fca0a29d8b37aae924d60063f8e0184cf20900"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.2.2"
+  share_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: share_plus_platform_interface
+      sha256: df08bc3a07d01f5ea47b45d03ffcba1fa9cd5370fb44b3f38c70e42cced0f956
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.1"
   shelf:
     dependency: transitive
     description:
