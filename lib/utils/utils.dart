@@ -229,8 +229,9 @@ Future<String> getAppTemporaryDirectory() async {
   }
 
   final tempDir = await getTemporaryDirectory();
-
-  return p.join(tempDir.path, 'subete-caches');
+  final appCacheDir = p.join(tempDir.path, 'subete-caches');
+  await io.Directory(appCacheDir).create(recursive: true);
+  return appCacheDir;
 }
 
 Future<void> clearAppTemporaryDirectory() async {
