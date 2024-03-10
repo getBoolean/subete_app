@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io' as io;
 
-import 'package:cross_file/cross_file.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';

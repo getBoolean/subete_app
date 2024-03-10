@@ -6,10 +6,10 @@ import 'dart:io' as io;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:subete/src/routing/data/navigation_type.dart';
 import 'package:universal_html/html.dart' as html;
-import 'package:path/path.dart' as p;
 
 enum DeviceType {
   iOS,
