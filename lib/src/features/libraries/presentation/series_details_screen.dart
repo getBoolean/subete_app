@@ -192,8 +192,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
                   context.showAccessibilitySnackBar('Saved file successfully');
                 }
               } on Exception catch (e, st) {
-                _log.severe(
-                    'Failed to save file to android downloads folder', e, st);
+                _log.severe('Failed to save file to folder', e, st);
                 if (context.mounted) {
                   context.showSnackBar('Error saving file');
                 }
