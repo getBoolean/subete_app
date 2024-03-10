@@ -155,6 +155,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
               ioFile.path,
               mimeType: MimeType.epub.type,
               name: filename,
+              lastModified: widget.volumeItem.lastModifiedUtc,
             );
             if (io.Platform.isMacOS || io.Platform.isWindows) {
               if (context.mounted) {
