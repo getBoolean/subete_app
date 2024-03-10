@@ -27,7 +27,7 @@ class LocalEnv implements EnvFlavor, EnvFields {
   final String kavitaPluginName = _Env.kavitaPluginName;
 
   @override
-  @EnviedField(varName: 'KAVITA_API_KEY', optional: true)
+  @EnviedField(varName: 'KAVITA_API_KEY', optional: true, obfuscate: true)
   final String? kavitaApiKey = _Env.kavitaApiKey;
 
   @override

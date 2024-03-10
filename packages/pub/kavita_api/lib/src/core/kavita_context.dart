@@ -138,8 +138,7 @@ class KavitaContext {
     _api = raw.KavitaApiV1.create(
       baseUrl: baseUrl,
       httpClient: _httpClient,
-      interceptors:
-          currentUser == null ? null : _createInterceptors(currentUser),
+      interceptors: _createInterceptors(),
     );
     _userChangeController.add(currentUser);
   }
@@ -165,15 +164,14 @@ class KavitaContext {
     _api = raw.KavitaApiV1.create(
       baseUrl: _baseUrl,
       httpClient: _httpClient,
-      interceptors: currentUser == null ? null : _createInterceptors(user),
+      interceptors: currentUser == null ? null : _createInterceptors(),
     );
     _userChangeController.add(user);
   }
 
-  List<dynamic> _createInterceptors(UserDto currentUser) {
+  List<dynamic> _createInterceptors() {
     return [
-      (ch.Request request) async =>
-          _applyRequestBearerToken(request, currentUser),
+      (ch.Request request) async => _applyRequestBearerToken(request),
       (ch.Response<dynamic> response) async => _checkResponse(response),
     ];
   }
@@ -197,14 +195,19 @@ class KavitaContext {
     _userChangeController.close();
   }
 
+  /// The current user's bearer token
+  Map<String, String> get bearerHeader => {
+        if (currentUser?.token != null)
+          'Authorization': 'Bearer ${currentUser?.token ?? ''}',
+      };
+
   ch.Request _applyRequestBearerToken(
     ch.Request request,
-    UserDto currentUser,
   ) {
     return request.copyWith(
       headers: {
-        if (currentUser.token != null)
-          'Authorization': 'Bearer ${currentUser.token}',
+        if (currentUser?.token != null)
+          'Authorization': 'Bearer ${currentUser?.token ?? ''}',
       }..addAll(request.headers),
     );
   }

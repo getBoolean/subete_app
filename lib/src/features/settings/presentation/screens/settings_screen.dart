@@ -1,4 +1,7 @@
+import 'dart:io' as io;
+
 import 'package:constants/constants.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
@@ -77,39 +80,38 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
       title: const Text('Advanced'),
       tiles: [
         SettingsTile(
+          title: const Text('Delete Cache'),
+          leading: const Icon(Icons.image_not_supported_rounded),
+          onPressed: (context) async {
+            await context.showConfirmationDialog(
+              title: const Text('Delete Cache'),
+              content: Text(
+                (!kIsWeb && io.Platform.isIOS)
+                    ? 'Are you sure you want to delete the image cache?'
+                    : 'Are you sure you want to delete the cache? This includes cached images and downloaded files.',
+              ),
+              confirmText: 'Delete',
+              onConfirm: () async {
+                context.showAccessibilitySnackBar('Cache cleared');
+                clearMemoryImageCache();
+                await clearAppTemporaryDirectory();
+              },
+            );
+          },
+        ),
+        SettingsTile(
           title: const Text('Reset settings'),
           leading: const Icon(Icons.restore),
           onPressed: (context) async {
-            await showAdaptiveDialog<dynamic>(
-              context: context,
-              builder: (context) {
-                final colorScheme = Theme.of(context).colorScheme;
-                return AlertDialog.adaptive(
-                  title: const Text('Reset settings'),
-                  content: const Text(
-                    'Are you sure you want to reset your settings to default? This action cannot be undone.',
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        ref
-                            .read(settingsServiceProvider.notifier)
-                            .resetSettings();
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'Reset',
-                        style: TextStyle(
-                          color: colorScheme.error,
-                        ),
-                      ),
-                    ),
-                  ],
-                );
+            await context.showConfirmationDialog(
+              title: const Text('Reset settings'),
+              content: const Text(
+                'Are you sure you want to reset your settings to default? This action cannot be undone.',
+              ),
+              confirmText: 'Reset',
+              onConfirm: () {
+                ref.read(settingsServiceProvider.notifier).resetSettings();
+                context.showAccessibilitySnackBar('Settings reset');
               },
             );
           },

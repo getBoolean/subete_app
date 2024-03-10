@@ -1,11 +1,15 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:async';
 import 'dart:io' as io;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_foundation/path_provider_foundation.dart';
+import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:subete/src/routing/data/navigation_type.dart';
 import 'package:universal_html/html.dart' as html;
 
@@ -160,6 +164,7 @@ extension BuildContextExtensions on BuildContext {
   /// Shows a [SnackBar] with [message] only if the user is using an accessibility
   /// service like TalkBack or VoiceOver to interact with the application.
   void showAccessibilitySnackBar(String message) {
+    if (!mounted) return;
     final isAccessible = MediaQuery.accessibleNavigationOf(this);
     if (!isAccessible) {
       return;
@@ -170,10 +175,92 @@ extension BuildContextExtensions on BuildContext {
 
   /// Shows a [SnackBar] with [message]
   void showSnackBar(String message) {
+    if (!mounted) return;
     final messenger = ScaffoldMessenger.maybeOf(this);
     messenger?.clearSnackBars();
     messenger?.showSnackBar(
       SnackBar(content: Text(message)),
     );
   }
+
+  Future<void> showConfirmationDialog({
+    required Widget title,
+    required Widget content,
+    required String confirmText,
+    required FutureOr<void> Function() onConfirm,
+  }) async {
+    if (!mounted) return;
+    return await showAdaptiveDialog<void>(
+      context: this,
+      builder: (context) {
+        final colorScheme = Theme.of(context).colorScheme;
+        return AlertDialog.adaptive(
+          title: title,
+          content: content,
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                final result = onConfirm();
+                if (result is Future) {
+                  await result;
+                }
+              },
+              child: Text(
+                confirmText,
+                style: TextStyle(
+                  color: colorScheme.error,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+/// Returns the app's cache directory
+///
+/// This is not supported on web
+Future<String> getAppTemporaryDirectory() async {
+  if (kIsWeb) {
+    throw UnsupportedError('getAppTemporaryDirectory is not supported for web');
+  }
+
+  final tempDir = await getApplicationCacheDirectory();
+  final appCacheDir = p.join(tempDir.path, 'subete-caches');
+  await io.Directory(appCacheDir).create(recursive: true);
+  return appCacheDir;
+}
+
+/// Clears the app's cache directory
+///
+/// This is not supported on web
+Future<void> clearAppTemporaryDirectory() async {
+  if (kIsWeb) {
+    return;
+  }
+
+  final tempDir = await getApplicationCacheDirectory();
+  final cacheDir = p.join(tempDir.path, 'subete-caches');
+
+  if (io.Directory(cacheDir).existsSync()) {
+    await io.Directory(cacheDir).delete(recursive: true);
+  }
+}
+
+Future<String?> getContainerPath() async {
+  if (kIsWeb || !io.Platform.isIOS) {
+    throw UnsupportedError('Functionality only available on iOS');
+  }
+
+  final pathProvider = PathProviderPlatform.instance as PathProviderFoundation;
+  return await pathProvider.getContainerPath(
+    appGroupIdentifier: 'group.org.getboolean.subete',
+  );
 }

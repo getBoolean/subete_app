@@ -892,6 +892,29 @@ class KavitaApiDownload {
         .cast();
   }
 
+  /// Returns a download url and required headers for a volume
+  ({Uri url, Map<String, String> headers}) getDownloadVolumeUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Download',
+          'volume',
+        ],
+        queryParameters: {
+          'volumeId': id,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
   /// Returns the zip for a single chapter.
   ///
   /// If the chapter contains multiple files, they will be zipped.
@@ -907,6 +930,29 @@ class KavitaApiDownload {
         .cast();
   }
 
+  /// Returns a download url and required headers for a chapter
+  ({Uri url, Map<String, String> headers}) getDownloadChapterUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Download',
+          'chapter',
+        ],
+        queryParameters: <String, String>{
+          'chapterId': '$id',
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
   /// Returns the zip for a series.
   Future<KavitaResponse<String>> downloadSeries({
     required int id,
@@ -918,6 +964,29 @@ class KavitaApiDownload {
           ),
         )
         .cast();
+  }
+
+  /// Returns a download url and required headers for a series
+  ({Uri url, Map<String, String> headers}) getDownloadSeriesUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Download',
+          'series',
+        ],
+        queryParameters: <String, String>{
+          'seriesId': '$id',
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
   }
 
   /// Downloads all bookmarks in a zip for
@@ -1014,6 +1083,32 @@ class KavitaApiImage {
         .cast();
   }
 
+  /// Returns a download url and required headers for a chapter cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getChapterCoverUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'chapter-cover',
+        ],
+        queryParameters: <String, String>{
+          'chapterId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
   /// Returns cover image for [raw.Library]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
@@ -1028,6 +1123,32 @@ class KavitaApiImage {
           ),
         )
         .cast();
+  }
+
+  /// Returns a download url and required headers for a library cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getLibraryCoverUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'library-cover',
+        ],
+        queryParameters: <String, String>{
+          'libraryId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
   }
 
   /// Returns cover image for [raw.Volume]
@@ -1046,6 +1167,32 @@ class KavitaApiImage {
         .cast();
   }
 
+  /// Returns a download url and required headers for a volume cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getVolumeCoverUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'volume-cover',
+        ],
+        queryParameters: <String, String>{
+          'volumeId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
   /// Returns cover image for [SeriesDto]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
@@ -1060,6 +1207,32 @@ class KavitaApiImage {
           ),
         )
         .cast();
+  }
+
+  /// Returns a download url and required headers for a series cover
+  ({Uri url, Map<String, String> headers}) getSeriesCoverUrl({
+    ///
+    /// Throws [KavitaAuthException] if the user is not logged in
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'series-cover',
+        ],
+        queryParameters: <String, String>{
+          'seriesId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
   }
 
   /// Returns cover image for [CollectionTagDto]
@@ -1078,6 +1251,32 @@ class KavitaApiImage {
         .cast();
   }
 
+  /// Returns a download url and required headers for a collection cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getCollectionCoverUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'collection-cover',
+        ],
+        queryParameters: <String, String>{
+          'collectionTagId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
   /// Returns cover image for a [raw.ReadingList]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
@@ -1092,6 +1291,32 @@ class KavitaApiImage {
           ),
         )
         .cast();
+  }
+
+  /// Returns a download url and required headers for a readinglist cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getReadingListCoverUrl({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'readinglist-cover',
+        ],
+        queryParameters: <String, String>{
+          'readingListId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
   }
 
   /// Returns image for a given [BookmarkDto] page
@@ -1110,6 +1335,34 @@ class KavitaApiImage {
           ),
         )
         .cast();
+  }
+
+  /// Returns a download url and required headers for a readinglist cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getBookmarkImageUrl({
+    required int chapterId,
+    required int pageNum,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'bookmark',
+        ],
+        queryParameters: <String, String>{
+          'chapterId': '$chapterId',
+          'pageNum': '$pageNum',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
   }
 
   /// Returns the image associated with a web-link

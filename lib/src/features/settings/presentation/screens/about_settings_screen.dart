@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
 import 'package:subete/src/features/initialization/application/info_service.dart';
+import 'package:subete/utils/utils.dart';
 import 'package:super_clipboard/super_clipboard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -48,11 +49,7 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
                     );
                     await clipboard!.write([item]);
                     if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Version copied to clipboard'),
-                        ),
-                      );
+                      context.showSnackBar('Version copied to clipboard');
                     }
                   },
           ),

@@ -1,8 +1,10 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/router/router.dart';
 
@@ -173,20 +175,21 @@ class _SingleSeriesPage extends ConsumerWidget {
         },
         loading: () {
           return Skeletonizer(
-              key: const ValueKey('_SingleSeriesPage-loading'),
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const Card(
-                    child: ListTile(
-                      leading: Icon(Icons.library_books),
-                      minLeadingWidth: 40,
-                      title: Text('Loading...'),
-                      subtitle: Text('Hours...'),
-                    ),
-                  );
-                },
-              ));
+            key: const ValueKey('_SingleSeriesPage-loading'),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const Card(
+                  child: ListTile(
+                    leading: Icon(Icons.library_books),
+                    minLeadingWidth: 40,
+                    title: Text('Loading...'),
+                    subtitle: Text('Hours...'),
+                  ),
+                );
+              },
+            ),
+          );
         },
       ),
     );
@@ -205,23 +208,22 @@ class _SeriesItemWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final downloadSeriesCover = ref.watch(downloadSeriesCoverProvider(
-      seriesId: seriesItem.id ?? -1,
-    ));
+    final kavita = ref.watch(kavitaProvider);
+    final (:headers, :url) =
+        kavita.image.getSeriesCoverUrl(id: seriesItem.id ?? -1);
     return Card(
       child: ListTile(
         minLeadingWidth: 40,
-        leading: downloadSeriesCover.when(
-          data: (data) => Image.memory(data, width: 40),
-          error: (e, st) => IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () => ref.invalidate(
-              downloadSeriesCoverProvider(
-                seriesId: seriesItem.id ?? -1,
-              ),
-            ),
-          ),
-          loading: () => const Icon(Icons.download),
+        leading: ExtendedImage.network(
+          url.toString(),
+          headers: headers,
+          width: 40,
+          fit: BoxFit.fill,
+          shape: BoxShape.rectangle,
+          handleLoadingProgress: true,
+          borderRadius:
+              // ignore: avoid_using_api
+              const BorderRadius.all(Radius.circular(8.0)),
         ),
         title: Text(seriesItem.name ?? 'Unnamed Series'),
         subtitle: Text(
