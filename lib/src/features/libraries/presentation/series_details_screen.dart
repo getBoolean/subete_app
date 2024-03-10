@@ -148,36 +148,18 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
           final filename =
               'Volume ${widget.volumeItem.name} - ${widget.seriesName}.epub';
           if (!kIsWeb) {
-            final downloadsPath = await getAppTemporaryDirectory();
-            final ioFile = io.File(p.join(downloadsPath, filename));
-            await ioFile.writeAsBytes(download);
-            final file = XFile(
-              ioFile.path,
+            final file = XFile.fromData(
+              download,
               mimeType: MimeType.epub.type,
               name: filename,
               lastModified: widget.volumeItem.lastModifiedUtc,
             );
-            if (io.Platform.isMacOS || io.Platform.isWindows) {
-              if (context.mounted) {
-                await _shareFile(context, file, filename, fallback: () async {
-                  await _openFile(file, filename, fallback: () async {
-                    await _saveFile(download, filename);
-                  });
-                });
-              }
-            } else if (io.Platform.isLinux) {
-              final String? outputFile = await FilePicker.platform.saveFile(
-                dialogTitle: 'Please select a file save location:',
-                fileName: filename,
-                type: FileType.custom,
-                allowedExtensions: ['epub'],
-              );
-              if (outputFile != null) {
-                await file.saveTo(outputFile);
-                if (context.mounted) {
-                  context.showAccessibilitySnackBar('Saved file successfully');
-                }
-              }
+            if (io.Platform.isMacOS ||
+                io.Platform.isWindows ||
+                io.Platform.isLinux) {
+              await _openFile(file, filename, fallback: () async {
+                await _saveFileAsDesktop(filename, file, context);
+              });
             } else if (io.Platform.isIOS) {
               if (context.mounted) {
                 await _shareFile(context, file, filename);
@@ -200,13 +182,33 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
                 }
               }
             }
-            await ioFile.delete();
           } else {
             await _saveFile(download, filename);
           }
         },
       ),
     );
+  }
+
+  Future<void> _saveFileAsDesktop(
+    String filename,
+    XFile file,
+    BuildContext context,
+  ) async {
+    if (kIsWeb || io.Platform.isIOS || io.Platform.isAndroid) return;
+
+    final String? outputFile = await FilePicker.platform.saveFile(
+      dialogTitle: 'Please select a file save location:',
+      fileName: filename,
+      type: FileType.custom,
+      allowedExtensions: ['epub'],
+    );
+    if (outputFile != null) {
+      await file.saveTo(outputFile);
+      if (context.mounted) {
+        context.showAccessibilitySnackBar('Saved file successfully');
+      }
+    }
   }
 
   Future<void> _saveFile(Uint8List file, String filename) async {
@@ -224,6 +226,8 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     String filename, {
     required FutureOr<void> Function() fallback,
   }) async {
+    if (kIsWeb) return;
+
     final tempDir = await getAppTemporaryDirectory();
     final savedFilePath = p.join(tempDir, filename);
     await file.saveTo(savedFilePath);
