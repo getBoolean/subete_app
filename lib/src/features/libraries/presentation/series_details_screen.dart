@@ -174,11 +174,13 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
   }
 
   Future<void> _saveFile(Uint8List file, String filename) async {
-    await FileSaver.instance.saveFile(
+    final result = await FileSaver.instance.saveFile(
       name: filename,
       bytes: file,
       mimeType: MimeType.epub,
     );
+    if (!mounted) return;
+    context.showSnackBar('Downloaded $result');
   }
 
   Future<void> _openFile(
