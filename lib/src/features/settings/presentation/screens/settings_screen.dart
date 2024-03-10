@@ -80,18 +80,21 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
       title: const Text('Advanced'),
       tiles: [
         SettingsTile(
-          title: const Text('Delete Image Cache'),
+          title: const Text('Delete Cache'),
           leading: const Icon(Icons.image_not_supported_rounded),
           onPressed: (context) async {
             await context.showConfirmationDialog(
-              title: const Text('Delete Image Cache'),
-              content: const Text(
-                'Are you sure you want to delete the image cache?',
+              title: const Text('Delete Cache'),
+              content: Text(
+                (!kIsWeb && io.Platform.isIOS)
+                    ? 'Are you sure you want to delete the image cache?'
+                    : 'Are you sure you want to delete the cache? This includes cached images and downloaded files.',
               ),
-              confirmText: 'Clear',
+              confirmText: 'Delete',
               onConfirm: () async {
                 context.showAccessibilitySnackBar('Cache cleared');
                 clearMemoryImageCache();
+                await clearAppTemporaryDirectory();
               },
             );
           },
