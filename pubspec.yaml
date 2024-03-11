@@ -57,7 +57,7 @@ dependencies:
   path_provider: ^2.1.2
   path_provider_foundation: ^2.3.2
   path_provider_platform_interface: ^2.1.2
-  riverpod: ^2.3.6
+  riverpod: ^2.5.1
   riverpod_annotation: ^2.3.4
   share_plus: ^7.2.2
   sidebarx:
