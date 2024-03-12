@@ -513,10 +513,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_saver
-      sha256: eb16c32d3eb5e4b6318ab9fa97138d6ea0b2d47a25c0af6540263e46979e1c57
+      sha256: bdebc720e17b3e01aba59da69b6d47020a7e5ba7d5c75bd9194f9618d5f16ef4
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.11"
+    version: "0.2.12"
   fixnum:
     dependency: transitive
     description:
