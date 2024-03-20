@@ -505,10 +505,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: caa6bc229eab3e32eb2f37b53a5f9d22a6981474afd210c512a7546c1e1a04f6
+      sha256: fa6e189a411f66a9516fbd4ce306666812f9d03f56b6fd03c566eec984654ddd
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.0"
+    version: "7.0.2"
   file_saver:
     dependency: "direct main"
     description:
