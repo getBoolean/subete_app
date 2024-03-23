@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io' as io;
 
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus/flag.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
@@ -11,6 +13,7 @@ import 'package:kavita_api/kavita_api.dart';
 import 'package:log/log.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
@@ -157,6 +160,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
             if (io.Platform.isMacOS ||
                 io.Platform.isWindows ||
                 io.Platform.isLinux) {
+              // TODO: Show dialog with "open", "open with", and "save as" options
               await _openFile(file, filename, fallback: () async {
                 await _saveFileAsDesktop(filename, file, context);
               });
@@ -165,22 +169,11 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
                 await _shareFile(context, file, filename);
               }
             } else if (io.Platform.isAndroid) {
-              try {
-                final result = await FileSaver.instance.saveAs(
-                  name: filename,
-                  ext: 'epub',
-                  mimeType: MimeType.epub,
-                  bytes: download,
-                );
-                if (result == null && context.mounted) {
-                  context.showAccessibilitySnackBar('Saved file successfully');
-                }
-              } on Exception catch (e, st) {
-                _log.severe('Failed to save file to folder', e, st);
-                if (context.mounted) {
-                  context.showSnackBar('Error saving file');
-                }
-              }
+              // TODO: Show dialog with "open with" and "save as" options
+              await _openFileWithAndroid(filename, file, download, context,
+                  fallback: () async {
+                await _saveFileAsAndroid(filename, download, context);
+              });
             }
           } else {
             await _saveFile(download, filename);
@@ -188,6 +181,62 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
         },
       ),
     );
+  }
+
+  Future<void> _saveFileAsAndroid(
+    String filename,
+    Uint8List download,
+    BuildContext context,
+  ) async {
+    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) return;
+
+    try {
+      final result = await FileSaver.instance.saveAs(
+        name: filename,
+        ext: 'epub',
+        mimeType: MimeType.epub,
+        bytes: download,
+      );
+      if (result == null && context.mounted) {
+        context.showAccessibilitySnackBar('Saved file successfully');
+      }
+    } on Exception catch (e, st) {
+      _log.severe('Failed to save file to folder', e, st);
+      if (context.mounted) {
+        context.showSnackBar('Error saving file');
+      }
+    }
+  }
+
+  Future<void> _openFileWithAndroid(
+    String filename,
+    XFile file,
+    Uint8List download,
+    BuildContext context, {
+    required FutureOr<void> Function() fallback,
+  }) async {
+    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) return;
+    try {
+      final tempDir = await getApplicationCacheDirectory();
+      final savedFilePath = p.join(tempDir.path, filename);
+      await file.saveTo(savedFilePath);
+      final intent = AndroidIntent(
+        action: 'action_view',
+        data: Uri.encodeFull(
+            'content://com.getboolean.subete.subete_fileprovider/cache/$filename'),
+        type: MimeType.epub.type,
+        flags: <int>[
+          Flag.FLAG_ACTIVITY_NEW_TASK,
+          Flag.FLAG_GRANT_READ_URI_PERMISSION
+        ], // open in app
+      );
+      await intent.launch();
+    } on Exception catch (_, __) {
+      final result = fallback();
+      if (result is Future) {
+        await result;
+      }
+    }
   }
 
   /// Opens a save file dialog. Not supported on web or mobile
