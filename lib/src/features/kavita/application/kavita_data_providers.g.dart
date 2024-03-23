@@ -20,7 +20,7 @@ final librariesProvider = AutoDisposeFutureProvider<List<LibraryDto>>.internal(
 );
 
 typedef LibrariesRef = AutoDisposeFutureProviderRef<List<LibraryDto>>;
-String _$seriesPaginatedHash() => r'836900dfeedd02b5a15149fc234859a7ed0b4294';
+String _$seriesPaginatedHash() => r'505b1f0b8f5f19b9e6069ddf80ca3b71722a18ff';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -57,11 +57,13 @@ class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
     required int libraryId,
     required int pageNumber,
     required int pageSize,
+    String? query,
   }) {
     return SeriesPaginatedProvider(
       libraryId: libraryId,
       pageNumber: pageNumber,
       pageSize: pageSize,
+      query: query,
     );
   }
 
@@ -73,6 +75,7 @@ class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
       libraryId: provider.libraryId,
       pageNumber: provider.pageNumber,
       pageSize: provider.pageSize,
+      query: provider.query,
     );
   }
 
@@ -99,12 +102,14 @@ class SeriesPaginatedProvider
     required int libraryId,
     required int pageNumber,
     required int pageSize,
+    String? query,
   }) : this._internal(
           (ref) => seriesPaginated(
             ref as SeriesPaginatedRef,
             libraryId: libraryId,
             pageNumber: pageNumber,
             pageSize: pageSize,
+            query: query,
           ),
           from: seriesPaginatedProvider,
           name: r'seriesPaginatedProvider',
@@ -118,6 +123,7 @@ class SeriesPaginatedProvider
           libraryId: libraryId,
           pageNumber: pageNumber,
           pageSize: pageSize,
+          query: query,
         );
 
   SeriesPaginatedProvider._internal(
@@ -130,11 +136,13 @@ class SeriesPaginatedProvider
     required this.libraryId,
     required this.pageNumber,
     required this.pageSize,
+    required this.query,
   }) : super.internal();
 
   final int libraryId;
   final int pageNumber;
   final int pageSize;
+  final String? query;
 
   @override
   Override overrideWith(
@@ -152,6 +160,7 @@ class SeriesPaginatedProvider
         libraryId: libraryId,
         pageNumber: pageNumber,
         pageSize: pageSize,
+        query: query,
       ),
     );
   }
@@ -166,7 +175,8 @@ class SeriesPaginatedProvider
     return other is SeriesPaginatedProvider &&
         other.libraryId == libraryId &&
         other.pageNumber == pageNumber &&
-        other.pageSize == pageSize;
+        other.pageSize == pageSize &&
+        other.query == query;
   }
 
   @override
@@ -175,6 +185,7 @@ class SeriesPaginatedProvider
     hash = _SystemHash.combine(hash, libraryId.hashCode);
     hash = _SystemHash.combine(hash, pageNumber.hashCode);
     hash = _SystemHash.combine(hash, pageSize.hashCode);
+    hash = _SystemHash.combine(hash, query.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -189,6 +200,9 @@ mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<SeriesDto>> {
 
   /// The parameter `pageSize` of this provider.
   int get pageSize;
+
+  /// The parameter `query` of this provider.
+  String? get query;
 }
 
 class _SeriesPaginatedProviderElement
@@ -202,6 +216,8 @@ class _SeriesPaginatedProviderElement
   int get pageNumber => (origin as SeriesPaginatedProvider).pageNumber;
   @override
   int get pageSize => (origin as SeriesPaginatedProvider).pageSize;
+  @override
+  String? get query => (origin as SeriesPaginatedProvider).query;
 }
 
 String _$volumesHash() => r'f23bcff1a86daba3a3ba5ec5d5f1cf2d604cacae';
