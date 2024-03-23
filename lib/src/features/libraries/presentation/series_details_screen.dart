@@ -143,6 +143,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
           if (id == null) {
             return;
           }
+          // TODO: Add loading indicator
           final download =
               await ref.read(downloadVolumeProvider(volumeId: id).future);
 
