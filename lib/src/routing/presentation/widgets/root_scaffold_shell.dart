@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
-import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
+import 'package:subete/src/features/libraries/presentation/widgets/search_series_button.dart';
 import 'package:subete/src/features/settings/application/settings_service.dart';
 import 'package:subete/src/features/settings/data/dto/navigation_type_override.dart';
 import 'package:subete/src/routing/presentation/widgets/auto_leading_button.dart';
@@ -76,91 +76,9 @@ class _RootScaffoldShellState extends ConsumerState<RootScaffoldShell> {
                   topRoute == RouteName.seriesDetails)) {
             return const SizedBox.shrink();
           }
-          return Padding(
-            padding: const EdgeInsetsDirectional.all(8.0),
-            child: Semantics(
-              label: 'Search series',
-              child: Consumer(builder: (context, ref, _) {
-                final routeState = GoRouterState.of(context);
-                final libraryId =
-                    routeState.pathParameters['libraryId'] ?? '-1';
-                final libraryName =
-                    routeState.uri.queryParameters['libraryName'] ?? 'Library';
-                return SearchAnchor(
-                  suggestionsBuilder: (BuildContext context,
-                      SearchController controller) async {
-                    if (controller.text.isEmpty || !context.mounted) {
-                      return [];
-                    }
-                    final series = await ref.read(seriesPaginatedProvider(
-                      libraryId: int.parse(libraryId),
-                      pageNumber: 1,
-                      pageSize: 10,
-                      query: controller.text,
-                    ).future);
-                    return series
-                        .map(
-                          (eachSeries) => Material(
-                            color: Colors.transparent,
-                            child: Card(
-                              child: ListTile(
-                                title:
-                                    Text(eachSeries.name ?? 'Unnamed Series'),
-                                onTap: () {
-                                  controller.closeView(null);
-                                  context.goNamed(RouteName.seriesDetails.name,
-                                      pathParameters: {
-                                        'seriesId': eachSeries.id.toString(),
-                                        'libraryId': libraryId,
-                                      },
-                                      queryParameters: {
-                                        'seriesName':
-                                            eachSeries.name ?? 'Series',
-                                        'libraryName':
-                                            eachSeries.libraryName ?? 'Library',
-                                      });
-                                },
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList();
-                  },
-                  builder: (context, SearchController controller) {
-                    return expanded
-                        ? IntrinsicWidth(
-                            child: SearchBar(
-                              controller: controller,
-                              focusNode: _focusNode,
-                              onTap: () {
-                                controller.openView();
-                              },
-                              onChanged: (_) {
-                                controller.openView();
-                              },
-                              hintText: 'Search $libraryName',
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.search,
-                              leading: const Tooltip(
-                                message: 'Search books',
-                                child: IconButton(
-                                  icon: Icon(Icons.search),
-                                  onPressed: null,
-                                ),
-                              ),
-                            ),
-                          )
-                        : IconButton(
-                            onPressed: () {
-                              controller.openView();
-                            },
-                            icon: const Icon(Icons.search),
-                            tooltip: 'Search $libraryName',
-                          );
-                  },
-                );
-              }),
-            ),
+          return SearchSeriesButton(
+            expanded: true,
+            focusNode: _focusNode,
           );
         },
         buildLogo: (context, topRoute, index, expanded) {
