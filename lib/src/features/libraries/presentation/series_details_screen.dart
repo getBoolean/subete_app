@@ -162,7 +162,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
                 io.Platform.isLinux) {
               // TODO: Show dialog with "open", "open with", and "save as" options
               await _openFile(file, filename, fallback: () async {
-                await _saveFileAsDesktop(filename, file, context);
+                await _saveFileAs(filename, file, context);
               });
             } else if (io.Platform.isIOS) {
               if (context.mounted) {
@@ -170,9 +170,9 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
               }
             } else if (io.Platform.isAndroid) {
               // TODO: Show dialog with "open with" and "save as" options
-              await _openFileWithAndroid(filename, file, download, context,
+              await _openFileAndroid(filename, file, download, context,
                   fallback: () async {
-                await _saveFileAsAndroid(filename, download, context);
+                await _saveFileAs(filename, file, context);
               });
             }
           } else {
@@ -183,32 +183,8 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     );
   }
 
-  Future<void> _saveFileAsAndroid(
-    String filename,
-    Uint8List download,
-    BuildContext context,
-  ) async {
-    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) return;
-
-    try {
-      final result = await FileSaver.instance.saveAs(
-        name: filename,
-        ext: 'epub',
-        mimeType: MimeType.epub,
-        bytes: download,
-      );
-      if (result == null && context.mounted) {
-        context.showAccessibilitySnackBar('Saved file successfully');
-      }
-    } on Exception catch (e, st) {
-      _log.severe('Failed to save file to folder', e, st);
-      if (context.mounted) {
-        context.showSnackBar('Error saving file');
-      }
-    }
-  }
-
-  Future<void> _openFileWithAndroid(
+  /// Opens a file with the default app if available. Only supported on Android
+  Future<void> _openFileAndroid(
     String filename,
     XFile file,
     Uint8List download,
@@ -239,13 +215,13 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     }
   }
 
-  /// Opens a save file dialog. Not supported on web or mobile
-  Future<void> _saveFileAsDesktop(
+  /// Opens a save file dialog. Not supported on web
+  Future<void> _saveFileAs(
     String filename,
     XFile file,
     BuildContext context,
   ) async {
-    if (kIsWeb || io.Platform.isIOS || io.Platform.isAndroid) return;
+    if (kIsWeb) return;
 
     final String? outputFile = await FilePicker.platform.saveFile(
       dialogTitle: 'Please select a file save location:',
