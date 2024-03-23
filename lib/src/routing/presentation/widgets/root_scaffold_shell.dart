@@ -77,7 +77,7 @@ class _RootScaffoldShellState extends ConsumerState<RootScaffoldShell> {
             return const SizedBox.shrink();
           }
           return SearchSeriesButton(
-            expanded: true,
+            expanded: expanded,
             focusNode: _focusNode,
           );
         },
