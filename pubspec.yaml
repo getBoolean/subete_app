@@ -1,9 +1,9 @@
 name: subete
-description: Kavita and Audiobookshelf client for mobile and desktop (coming soon)
+description: Kavita client for mobile and desktop (coming soon)
 
 publish_to: none
 
-version: 0.0.1
+version: 0.0.2
 
 environment:
   sdk: ">=3.3.0 <4.0.0"

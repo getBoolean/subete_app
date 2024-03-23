@@ -24,14 +24,25 @@ Future<List<SeriesDto>> seriesPaginated(
   required int libraryId,
   required int pageNumber,
   required int pageSize,
+  String? query,
 }) async {
   final kavita = ref.watch(kavitaProvider);
 
   final response = await kavita.series.getAllSeries(
-    libraryId: libraryId,
-    pageNumber: pageNumber,
-    pageSize: pageSize,
-  );
+      libraryId: libraryId,
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      filter: query == null
+          ? null
+          : FilterV2Dto(
+              statements: [
+                FilterStatementDto(
+                  field: FilterField.seriesName,
+                  $value: query,
+                  comparison: FilterComparison.matches,
+                ),
+              ],
+            ));
   if (response.isSuccessful) {
     return response.body ?? [];
   }
