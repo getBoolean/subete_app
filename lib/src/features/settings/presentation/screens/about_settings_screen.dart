@@ -29,6 +29,8 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final packageInfo = ref.watch(packageInfoProvider);
+    final version = packageInfo.requireValue.version;
+    final buildNumber = packageInfo.requireValue.buildNumber;
     return Material(
       child: ListView(
         children: <Widget>[
@@ -36,7 +38,7 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
             title: const Text('Version'),
             leading: const Icon(Icons.info),
             subtitle: Text(
-              'v${packageInfo.requireValue.version}+${packageInfo.requireValue.buildNumber}',
+              'v$version${version == buildNumber ? '' : '+$buildNumber'}',
             ),
             onTap: clipboard == null
                 ? null
