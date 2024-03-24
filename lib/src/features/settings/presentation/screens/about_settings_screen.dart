@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,7 +39,7 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
             title: const Text('Version'),
             leading: const Icon(Icons.info),
             subtitle: Text(
-              'v$version${version == buildNumber ? '' : '+$buildNumber'}',
+              'v$version${((!kIsWeb && defaultTargetPlatform == TargetPlatform.iOS && version == buildNumber) || buildNumber.isEmpty) ? '' : '+$buildNumber'}',
             ),
             onTap: clipboard == null
                 ? null
