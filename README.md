@@ -4,7 +4,7 @@
 [![coverage](https://img.shields.io/codecov/c/github/getBoolean/subete_app)](https://app.codecov.io/gh/getBoolean/subete_app)
 [![Codemagic build status](https://api.codemagic.io/apps/65d2775c4e369a6b975b5c92/65d2775c4e369a6b975b5c91/status_badge.svg)](https://codemagic.io/apps/65d2775c4e369a6b975b5c92/65d2775c4e369a6b975b5c91/latest_build)
 
-Kavita for mobile and desktop (coming soon)
+Unofficial Kavita client for mobile and desktop (in progress)
 
 ## Table of Contents <!-- omit in toc -->
 
