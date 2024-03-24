@@ -331,7 +331,7 @@ jobs:
   build_android:
     name: Build Flutter for Android
     needs: [flutter_test]
-    runs-on: macos-14
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
