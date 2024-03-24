@@ -225,6 +225,11 @@ jobs:
           artifacts: build/ios/iphoneos/subete-*.ipa
           allowUpdates: true
           omitBodyDuringUpdate: true
+          omitBody: true
+          omitName: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          omitDraftDuringUpdate: true
 
   # build_ios_with_signing:
   #   name: Build Flutter for iOS (Signed)
@@ -410,6 +415,11 @@ jobs:
           artifacts: build/app/outputs/flutter-apk/subete-*.apk
           allowUpdates: true
           omitBodyDuringUpdate: true
+          omitBody: true
+          omitName: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          omitDraftDuringUpdate: true
 
       - name: Build Universal APK
         run: |
@@ -431,6 +441,11 @@ jobs:
           artifacts: build/app/outputs/flutter-apk/subete-${{ env.BRANCH_NAME }}-android-universal.apk
           allowUpdates: true
           omitBodyDuringUpdate: true
+          omitBody: true
+          omitName: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          omitDraftDuringUpdate: true
 
       - name: Build Android App Bundle
         run: |
@@ -452,6 +467,11 @@ jobs:
           artifacts: build/app/outputs/bundle/release/subete-*.aab
           allowUpdates: true
           omitBodyDuringUpdate: true
+          omitBody: true
+          omitName: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          omitDraftDuringUpdate: true
 
   build_windows:
     name: Build Flutter for Windows x64
@@ -539,6 +559,11 @@ jobs:
           artifacts: build/windows/x64/runner/Release/subete-*.msix
           allowUpdates: true
           omitBodyDuringUpdate: true
+          omitBody: true
+          omitName: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          omitDraftDuringUpdate: true
 
   build_linux:
     name: Build Flutter for Linux
@@ -631,6 +656,11 @@ jobs:
           artifacts: build/subete-*.AppImage
           allowUpdates: true
           omitBodyDuringUpdate: true
+          omitBody: true
+          omitName: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          omitDraftDuringUpdate: true
 
   build_macos:
     name: Build Flutter for MacOS
@@ -720,6 +750,11 @@ jobs:
           artifacts: /Users/runner/work/subete/subete/subete-*.dmg
           allowUpdates: true
           omitBodyDuringUpdate: true
+          omitBody: true
+          omitName: true
+          omitNameDuringUpdate: true
+          omitPrereleaseDuringUpdate: true
+          omitDraftDuringUpdate: true
 
   build_web:
     name: Build Flutter for Web
