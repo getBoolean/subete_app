@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/router/router.dart';
 
-class SearchSeriesButton extends ConsumerWidget {
+class SearchSeriesButton extends ConsumerStatefulWidget {
   const SearchSeriesButton({
     required this.expanded,
     required this.focusNode,
@@ -15,7 +15,27 @@ class SearchSeriesButton extends ConsumerWidget {
   final FocusNode focusNode;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _SearchSeriesButtonState();
+}
+
+class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
+  late SearchController searchController;
+
+  @override
+  void initState() {
+    searchController = SearchController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final routeState = GoRouterState.of(context);
     final libraryId = routeState.pathParameters['libraryId'] ?? '-1';
     final libraryName =
@@ -23,8 +43,22 @@ class SearchSeriesButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsetsDirectional.all(8.0),
       child: Semantics(
-        label: 'Search series',
+        label: 'Search $libraryName series',
         child: SearchAnchor(
+          searchController: searchController,
+          textInputAction: TextInputAction.search,
+          keyboardType: TextInputType.text,
+          viewHintText: 'Search $libraryName',
+          viewLeading: const BackButton(),
+          viewTrailing: [
+            IconButton(
+              icon: const Icon(Icons.close),
+              tooltip: 'Clear',
+              onPressed: () {
+                searchController.clear();
+              },
+            )
+          ],
           suggestionsBuilder:
               (BuildContext context, SearchController controller) async {
             if (controller.text.isEmpty || !context.mounted) {
@@ -63,16 +97,16 @@ class SearchSeriesButton extends ConsumerWidget {
                 .toList();
           },
           builder: (context, SearchController controller) {
-            return expanded
+            return widget.expanded
                 ? IntrinsicWidth(
                     child: SearchBar(
                       controller: controller,
-                      focusNode: focusNode,
+                      focusNode: widget.focusNode,
                       onTap: () {
-                        controller.openView();
+                        if (!controller.isOpen) controller.openView();
                       },
                       onChanged: (_) {
-                        controller.openView();
+                        if (!controller.isOpen) controller.openView();
                       },
                       hintText: 'Search $libraryName',
                       keyboardType: TextInputType.text,
@@ -88,7 +122,7 @@ class SearchSeriesButton extends ConsumerWidget {
                   )
                 : IconButton(
                     onPressed: () {
-                      controller.openView();
+                      if (!controller.isOpen) controller.openView();
                     },
                     icon: const Icon(Icons.search),
                     tooltip: 'Search $libraryName',
