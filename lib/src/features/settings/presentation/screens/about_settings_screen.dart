@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,6 +30,8 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final packageInfo = ref.watch(packageInfoProvider);
+    final version = packageInfo.requireValue.version;
+    final buildNumber = packageInfo.requireValue.buildNumber;
     return Material(
       child: ListView(
         children: <Widget>[
@@ -36,7 +39,7 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
             title: const Text('Version'),
             leading: const Icon(Icons.info),
             subtitle: Text(
-              'v${packageInfo.requireValue.version}+${packageInfo.requireValue.buildNumber}',
+              'v$version${((!kIsWeb && defaultTargetPlatform == TargetPlatform.iOS && version == buildNumber) || buildNumber.isEmpty) ? '' : '+$buildNumber'}',
             ),
             onTap: clipboard == null
                 ? null
