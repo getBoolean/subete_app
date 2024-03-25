@@ -94,7 +94,6 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
               onConfirm: () async {
                 context.showAccessibilitySnackBar('Cache cleared');
                 clearMemoryImageCache();
-                await clearAppTemporaryDirectory();
               },
             );
           },

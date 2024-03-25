@@ -241,16 +241,13 @@ Future<String> getAppTemporaryDirectory() async {
 /// Clears the app's cache directory
 ///
 /// This is not supported on web
-Future<void> clearAppTemporaryDirectory() async {
+Future<void> clearAppTemporaryDirectory(String appCacheDir) async {
   if (kIsWeb) {
     return;
   }
 
-  final tempDir = await getApplicationCacheDirectory();
-  final cacheDir = p.join(tempDir.path, 'subete-caches');
-
-  if (io.Directory(cacheDir).existsSync()) {
-    await io.Directory(cacheDir).delete(recursive: true);
+  if (io.Directory(appCacheDir).existsSync()) {
+    await io.Directory(appCacheDir).delete(recursive: true);
   }
 }
 

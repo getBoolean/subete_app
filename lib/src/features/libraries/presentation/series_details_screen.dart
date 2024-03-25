@@ -301,13 +301,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
         }
     }
 
-    try {
-      if (ioFile.existsSync()) {
-        await ioFile.delete();
-      }
-    } on io.FileSystemException catch (e, st) {
-      _log.severe(e.message, e, st);
-    }
+    await clearAppTemporaryDirectory(tempDir);
   }
 
   /// Open share dialog. Not supported on Linux.
