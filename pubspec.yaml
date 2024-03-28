@@ -60,7 +60,7 @@ dependencies:
   path_provider_platform_interface: ^2.1.2
   riverpod: ^2.5.1
   riverpod_annotation: ^2.3.5
-  share_plus: ^7.2.2
+  share_plus: ^8.0.2
   sidebarx:
     path: packages/pub/sidebarx
   skeletonizer: ^1.1.1
