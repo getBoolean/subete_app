@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:kavita_api/src/service/dtos/collection_tag_dto.dart';
 import 'package:kavita_api/src/service/dtos/genre_tag_dto.dart';
 import 'package:kavita_api/src/service/dtos/person_dto.dart';
 import 'package:kavita_api/src/service/dtos/tag_dto.dart';
