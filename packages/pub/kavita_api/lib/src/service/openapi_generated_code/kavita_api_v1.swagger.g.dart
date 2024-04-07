@@ -150,6 +150,11 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
               ?.map((e) => ReadingList.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      collections: (json['collections'] as List<dynamic>?)
+              ?.map(
+                  (e) => AppUserCollection.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       wantToRead: (json['wantToRead'] as List<dynamic>?)
               ?.map(
                   (e) => AppUserWantToRead.fromJson(e as Map<String, dynamic>))
@@ -170,6 +175,8 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       ageRestrictionIncludeUnknowns:
           json['ageRestrictionIncludeUnknowns'] as bool?,
       aniListAccessToken: json['aniListAccessToken'] as String?,
+      malUserName: json['malUserName'] as String?,
+      malAccessToken: json['malAccessToken'] as String?,
       scrobbleHolds: (json['scrobbleHolds'] as List<dynamic>?)
               ?.map((e) => ScrobbleHold.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -238,6 +245,8 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) {
   writeNotNull(
       'readingLists', instance.readingLists?.map((e) => e.toJson()).toList());
   writeNotNull(
+      'collections', instance.collections?.map((e) => e.toJson()).toList());
+  writeNotNull(
       'wantToRead', instance.wantToRead?.map((e) => e.toJson()).toList());
   writeNotNull('devices', instance.devices?.map((e) => e.toJson()).toList());
   writeNotNull('tableOfContents',
@@ -248,6 +257,8 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) {
   writeNotNull(
       'ageRestrictionIncludeUnknowns', instance.ageRestrictionIncludeUnknowns);
   writeNotNull('aniListAccessToken', instance.aniListAccessToken);
+  writeNotNull('malUserName', instance.malUserName);
+  writeNotNull('malAccessToken', instance.malAccessToken);
   writeNotNull(
       'scrobbleHolds', instance.scrobbleHolds?.map((e) => e.toJson()).toList());
   writeNotNull(
@@ -305,6 +316,115 @@ Map<String, dynamic> _$AppUserBookmarkToJson(AppUserBookmark instance) {
   writeNotNull('lastModified', instance.lastModified?.toIso8601String());
   writeNotNull('createdUtc', instance.createdUtc?.toIso8601String());
   writeNotNull('lastModifiedUtc', instance.lastModifiedUtc?.toIso8601String());
+  return val;
+}
+
+AppUserCollection _$AppUserCollectionFromJson(Map<String, dynamic> json) =>
+    AppUserCollection(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      normalizedTitle: json['normalizedTitle'] as String?,
+      summary: json['summary'] as String?,
+      promoted: json['promoted'] as bool?,
+      coverImage: json['coverImage'] as String?,
+      coverImageLocked: json['coverImageLocked'] as bool?,
+      ageRating: json['ageRating'] as int?,
+      items: (json['items'] as List<dynamic>?)
+              ?.map((e) => Series.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      created: json['created'] == null
+          ? null
+          : DateTime.parse(json['created'] as String),
+      lastModified: json['lastModified'] == null
+          ? null
+          : DateTime.parse(json['lastModified'] as String),
+      createdUtc: json['createdUtc'] == null
+          ? null
+          : DateTime.parse(json['createdUtc'] as String),
+      lastModifiedUtc: json['lastModifiedUtc'] == null
+          ? null
+          : DateTime.parse(json['lastModifiedUtc'] as String),
+      lastSyncUtc: json['lastSyncUtc'] == null
+          ? null
+          : DateTime.parse(json['lastSyncUtc'] as String),
+      source: json['source'] as int?,
+      sourceUrl: json['sourceUrl'] as String?,
+      appUser: json['appUser'] == null
+          ? null
+          : AppUser.fromJson(json['appUser'] as Map<String, dynamic>),
+      appUserId: json['appUserId'] as int?,
+    );
+
+Map<String, dynamic> _$AppUserCollectionToJson(AppUserCollection instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('title', instance.title);
+  writeNotNull('normalizedTitle', instance.normalizedTitle);
+  writeNotNull('summary', instance.summary);
+  writeNotNull('promoted', instance.promoted);
+  writeNotNull('coverImage', instance.coverImage);
+  writeNotNull('coverImageLocked', instance.coverImageLocked);
+  writeNotNull('ageRating', instance.ageRating);
+  writeNotNull('items', instance.items?.map((e) => e.toJson()).toList());
+  writeNotNull('created', instance.created?.toIso8601String());
+  writeNotNull('lastModified', instance.lastModified?.toIso8601String());
+  writeNotNull('createdUtc', instance.createdUtc?.toIso8601String());
+  writeNotNull('lastModifiedUtc', instance.lastModifiedUtc?.toIso8601String());
+  writeNotNull('lastSyncUtc', instance.lastSyncUtc?.toIso8601String());
+  writeNotNull('source', instance.source);
+  writeNotNull('sourceUrl', instance.sourceUrl);
+  writeNotNull('appUser', instance.appUser?.toJson());
+  writeNotNull('appUserId', instance.appUserId);
+  return val;
+}
+
+AppUserCollectionDto _$AppUserCollectionDtoFromJson(
+        Map<String, dynamic> json) =>
+    AppUserCollectionDto(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      summary: json['summary'] as String?,
+      promoted: json['promoted'] as bool?,
+      ageRating: json['ageRating'] as int?,
+      coverImage: json['coverImage'] as String?,
+      coverImageLocked: json['coverImageLocked'] as bool?,
+      owner: json['owner'] as String?,
+      lastSyncUtc: json['lastSyncUtc'] == null
+          ? null
+          : DateTime.parse(json['lastSyncUtc'] as String),
+      source: json['source'] as int?,
+      sourceUrl: json['sourceUrl'] as String?,
+    );
+
+Map<String, dynamic> _$AppUserCollectionDtoToJson(
+    AppUserCollectionDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('title', instance.title);
+  writeNotNull('summary', instance.summary);
+  writeNotNull('promoted', instance.promoted);
+  writeNotNull('ageRating', instance.ageRating);
+  writeNotNull('coverImage', instance.coverImage);
+  writeNotNull('coverImageLocked', instance.coverImageLocked);
+  writeNotNull('owner', instance.owner);
+  writeNotNull('lastSyncUtc', instance.lastSyncUtc?.toIso8601String());
+  writeNotNull('source', instance.source);
+  writeNotNull('sourceUrl', instance.sourceUrl);
   return val;
 }
 
@@ -401,12 +521,16 @@ AppUserPreferences _$AppUserPreferencesFromJson(Map<String, dynamic> json) =>
       bookReaderTapToPaginate: json['bookReaderTapToPaginate'] as bool?,
       bookReaderReadingDirection: json['bookReaderReadingDirection'] as int?,
       bookReaderWritingStyle: json['bookReaderWritingStyle'] as int?,
-      theme: json['theme'] == null
-          ? null
-          : SiteTheme.fromJson(json['theme'] as Map<String, dynamic>),
       bookThemeName: json['bookThemeName'] as String?,
       bookReaderLayoutMode: json['bookReaderLayoutMode'] as int?,
       bookReaderImmersiveMode: json['bookReaderImmersiveMode'] as bool?,
+      pdfTheme: json['pdfTheme'] as int?,
+      pdfScrollMode: json['pdfScrollMode'] as int?,
+      pdfLayoutMode: json['pdfLayoutMode'] as int?,
+      pdfSpreadMode: json['pdfSpreadMode'] as int?,
+      theme: json['theme'] == null
+          ? null
+          : SiteTheme.fromJson(json['theme'] as Map<String, dynamic>),
       globalPageLayoutMode: json['globalPageLayoutMode'] as int?,
       blurUnreadSummaries: json['blurUnreadSummaries'] as bool?,
       promptForDownloadSize: json['promptForDownloadSize'] as bool?,
@@ -448,10 +572,14 @@ Map<String, dynamic> _$AppUserPreferencesToJson(AppUserPreferences instance) {
   writeNotNull(
       'bookReaderReadingDirection', instance.bookReaderReadingDirection);
   writeNotNull('bookReaderWritingStyle', instance.bookReaderWritingStyle);
-  writeNotNull('theme', instance.theme?.toJson());
   writeNotNull('bookThemeName', instance.bookThemeName);
   writeNotNull('bookReaderLayoutMode', instance.bookReaderLayoutMode);
   writeNotNull('bookReaderImmersiveMode', instance.bookReaderImmersiveMode);
+  writeNotNull('pdfTheme', instance.pdfTheme);
+  writeNotNull('pdfScrollMode', instance.pdfScrollMode);
+  writeNotNull('pdfLayoutMode', instance.pdfLayoutMode);
+  writeNotNull('pdfSpreadMode', instance.pdfSpreadMode);
+  writeNotNull('theme', instance.theme?.toJson());
   writeNotNull('globalPageLayoutMode', instance.globalPageLayoutMode);
   writeNotNull('blurUnreadSummaries', instance.blurUnreadSummaries);
   writeNotNull('promptForDownloadSize', instance.promptForDownloadSize);
@@ -1023,6 +1151,9 @@ Chapter _$ChapterFromJson(Map<String, dynamic> json) => Chapter(
       id: json['id'] as int?,
       range: json['range'] as String?,
       number: json['number'] as String?,
+      minNumber: (json['minNumber'] as num?)?.toDouble(),
+      maxNumber: (json['maxNumber'] as num?)?.toDouble(),
+      sortOrder: (json['sortOrder'] as num?)?.toDouble(),
       files: (json['files'] as List<dynamic>?)
               ?.map((e) => MangaFile.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -1099,6 +1230,9 @@ Map<String, dynamic> _$ChapterToJson(Chapter instance) {
   writeNotNull('id', instance.id);
   writeNotNull('range', instance.range);
   writeNotNull('number', instance.number);
+  writeNotNull('minNumber', instance.minNumber);
+  writeNotNull('maxNumber', instance.maxNumber);
+  writeNotNull('sortOrder', instance.sortOrder);
   writeNotNull('files', instance.files?.map((e) => e.toJson()).toList());
   writeNotNull('created', instance.created?.toIso8601String());
   writeNotNull('lastModified', instance.lastModified?.toIso8601String());
@@ -1142,6 +1276,9 @@ ChapterDto _$ChapterDtoFromJson(Map<String, dynamic> json) => ChapterDto(
       id: json['id'] as int?,
       range: json['range'] as String?,
       number: json['number'] as String?,
+      minNumber: (json['minNumber'] as num?)?.toDouble(),
+      maxNumber: (json['maxNumber'] as num?)?.toDouble(),
+      sortOrder: (json['sortOrder'] as num?)?.toDouble(),
       pages: json['pages'] as int?,
       isSpecial: json['isSpecial'] as bool?,
       title: json['title'] as String?,
@@ -1194,6 +1331,9 @@ Map<String, dynamic> _$ChapterDtoToJson(ChapterDto instance) {
   writeNotNull('id', instance.id);
   writeNotNull('range', instance.range);
   writeNotNull('number', instance.number);
+  writeNotNull('minNumber', instance.minNumber);
+  writeNotNull('maxNumber', instance.maxNumber);
+  writeNotNull('sortOrder', instance.sortOrder);
   writeNotNull('pages', instance.pages);
   writeNotNull('isSpecial', instance.isSpecial);
   writeNotNull('title', instance.title);
@@ -1307,6 +1447,10 @@ ChapterMetadataDto _$ChapterMetadataDtoFromJson(Map<String, dynamic> json) =>
               ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      imprints: (json['imprints'] as List<dynamic>?)
+              ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       colorists: (json['colorists'] as List<dynamic>?)
               ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -1320,6 +1464,14 @@ ChapterMetadataDto _$ChapterMetadataDtoFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       translators: (json['translators'] as List<dynamic>?)
+              ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      teams: (json['teams'] as List<dynamic>?)
+              ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      locations: (json['locations'] as List<dynamic>?)
               ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
@@ -1363,6 +1515,7 @@ Map<String, dynamic> _$ChapterMetadataDtoToJson(ChapterMetadataDto instance) {
   writeNotNull(
       'pencillers', instance.pencillers?.map((e) => e.toJson()).toList());
   writeNotNull('inkers', instance.inkers?.map((e) => e.toJson()).toList());
+  writeNotNull('imprints', instance.imprints?.map((e) => e.toJson()).toList());
   writeNotNull(
       'colorists', instance.colorists?.map((e) => e.toJson()).toList());
   writeNotNull(
@@ -1370,6 +1523,9 @@ Map<String, dynamic> _$ChapterMetadataDtoToJson(ChapterMetadataDto instance) {
   writeNotNull('editors', instance.editors?.map((e) => e.toJson()).toList());
   writeNotNull(
       'translators', instance.translators?.map((e) => e.toJson()).toList());
+  writeNotNull('teams', instance.teams?.map((e) => e.toJson()).toList());
+  writeNotNull(
+      'locations', instance.locations?.map((e) => e.toJson()).toList());
   writeNotNull('genres', instance.genres?.map((e) => e.toJson()).toList());
   writeNotNull('tags', instance.tags?.map((e) => e.toJson()).toList());
   writeNotNull('ageRating', instance.ageRating);
@@ -2393,6 +2549,48 @@ Map<String, dynamic> _$FolderPathToJson(FolderPath instance) {
   return val;
 }
 
+FullProgressDto _$FullProgressDtoFromJson(Map<String, dynamic> json) =>
+    FullProgressDto(
+      id: json['id'] as int?,
+      chapterId: json['chapterId'] as int?,
+      pagesRead: json['pagesRead'] as int?,
+      lastModified: json['lastModified'] == null
+          ? null
+          : DateTime.parse(json['lastModified'] as String),
+      lastModifiedUtc: json['lastModifiedUtc'] == null
+          ? null
+          : DateTime.parse(json['lastModifiedUtc'] as String),
+      created: json['created'] == null
+          ? null
+          : DateTime.parse(json['created'] as String),
+      createdUtc: json['createdUtc'] == null
+          ? null
+          : DateTime.parse(json['createdUtc'] as String),
+      appUserId: json['appUserId'] as int?,
+      userName: json['userName'] as String?,
+    );
+
+Map<String, dynamic> _$FullProgressDtoToJson(FullProgressDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('chapterId', instance.chapterId);
+  writeNotNull('pagesRead', instance.pagesRead);
+  writeNotNull('lastModified', instance.lastModified?.toIso8601String());
+  writeNotNull('lastModifiedUtc', instance.lastModifiedUtc?.toIso8601String());
+  writeNotNull('created', instance.created?.toIso8601String());
+  writeNotNull('createdUtc', instance.createdUtc?.toIso8601String());
+  writeNotNull('appUserId', instance.appUserId);
+  writeNotNull('userName', instance.userName);
+  return val;
+}
+
 Genre _$GenreFromJson(Map<String, dynamic> json) => Genre(
       id: json['id'] as int?,
       title: json['title'] as String?,
@@ -2876,8 +3074,58 @@ Map<String, dynamic> _$LoginDtoToJson(LoginDto instance) {
   return val;
 }
 
+MalStackDto _$MalStackDtoFromJson(Map<String, dynamic> json) => MalStackDto(
+      title: json['title'] as String?,
+      stackId: json['stackId'] as int?,
+      url: json['url'] as String?,
+      author: json['author'] as String?,
+      seriesCount: json['seriesCount'] as int?,
+      restackCount: json['restackCount'] as int?,
+      existingId: json['existingId'] as int?,
+    );
+
+Map<String, dynamic> _$MalStackDtoToJson(MalStackDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('stackId', instance.stackId);
+  writeNotNull('url', instance.url);
+  writeNotNull('author', instance.author);
+  writeNotNull('seriesCount', instance.seriesCount);
+  writeNotNull('restackCount', instance.restackCount);
+  writeNotNull('existingId', instance.existingId);
+  return val;
+}
+
+MalUserInfoDto _$MalUserInfoDtoFromJson(Map<String, dynamic> json) =>
+    MalUserInfoDto(
+      username: json['username'] as String?,
+      accessToken: json['accessToken'] as String?,
+    );
+
+Map<String, dynamic> _$MalUserInfoDtoToJson(MalUserInfoDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('username', instance.username);
+  writeNotNull('accessToken', instance.accessToken);
+  return val;
+}
+
 MangaFile _$MangaFileFromJson(Map<String, dynamic> json) => MangaFile(
       id: json['id'] as int?,
+      fileName: json['fileName'] as String?,
       filePath: json['filePath'] as String?,
       pages: json['pages'] as int?,
       format: json['format'] as int?,
@@ -2917,6 +3165,7 @@ Map<String, dynamic> _$MangaFileToJson(MangaFile instance) {
   }
 
   writeNotNull('id', instance.id);
+  writeNotNull('fileName', instance.fileName);
   writeNotNull('filePath', instance.filePath);
   writeNotNull('pages', instance.pages);
   writeNotNull('format', instance.format);
@@ -3292,6 +3541,31 @@ Map<String, dynamic> _$ProgressDtoToJson(ProgressDto instance) {
   return val;
 }
 
+PromoteCollectionsDto _$PromoteCollectionsDtoFromJson(
+        Map<String, dynamic> json) =>
+    PromoteCollectionsDto(
+      collectionIds: (json['collectionIds'] as List<dynamic>?)
+              ?.map((e) => e as int)
+              .toList() ??
+          [],
+      promoted: json['promoted'] as bool?,
+    );
+
+Map<String, dynamic> _$PromoteCollectionsDtoToJson(
+    PromoteCollectionsDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('collectionIds', instance.collectionIds);
+  writeNotNull('promoted', instance.promoted);
+  return val;
+}
+
 PublicationStatusStatCount _$PublicationStatusStatCountFromJson(
         Map<String, dynamic> json) =>
     PublicationStatusStatCount(
@@ -3348,7 +3622,7 @@ ReadHistoryEvent _$ReadHistoryEventFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['readDate'] as String),
       chapterId: json['chapterId'] as int?,
-      chapterNumber: json['chapterNumber'] as String?,
+      chapterNumber: (json['chapterNumber'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ReadHistoryEventToJson(ReadHistoryEvent instance) {
@@ -3767,6 +4041,10 @@ RelatedSeriesDto _$RelatedSeriesDtoFromJson(Map<String, dynamic> json) =>
               ?.map((e) => SeriesDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      annuals: (json['annuals'] as List<dynamic>?)
+              ?.map((e) => SeriesDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
 
 Map<String, dynamic> _$RelatedSeriesDtoToJson(RelatedSeriesDto instance) {
@@ -3798,6 +4076,7 @@ Map<String, dynamic> _$RelatedSeriesDtoToJson(RelatedSeriesDto instance) {
       'doujinshis', instance.doujinshis?.map((e) => e.toJson()).toList());
   writeNotNull('parent', instance.parent?.map((e) => e.toJson()).toList());
   writeNotNull('editions', instance.editions?.map((e) => e.toJson()).toList());
+  writeNotNull('annuals', instance.annuals?.map((e) => e.toJson()).toList());
   return val;
 }
 
@@ -4079,7 +4358,8 @@ SearchResultGroupDto _$SearchResultGroupDtoFromJson(
               .toList() ??
           [],
       collections: (json['collections'] as List<dynamic>?)
-              ?.map((e) => CollectionTagDto.fromJson(e as Map<String, dynamic>))
+              ?.map((e) =>
+                  AppUserCollectionDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       readingLists: (json['readingLists'] as List<dynamic>?)
@@ -4209,6 +4489,7 @@ Series _$SeriesFromJson(Map<String, dynamic> json) => Series(
       coverImageLocked: json['coverImageLocked'] as bool?,
       pages: json['pages'] as int?,
       folderPath: json['folderPath'] as String?,
+      lowestFolderPath: json['lowestFolderPath'] as String?,
       lastFolderScanned: json['lastFolderScanned'] == null
           ? null
           : DateTime.parse(json['lastFolderScanned'] as String),
@@ -4241,6 +4522,11 @@ Series _$SeriesFromJson(Map<String, dynamic> json) => Series(
           [],
       progress: (json['progress'] as List<dynamic>?)
               ?.map((e) => AppUserProgress.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      collections: (json['collections'] as List<dynamic>?)
+              ?.map(
+                  (e) => AppUserCollection.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       relations: (json['relations'] as List<dynamic>?)
@@ -4285,6 +4571,7 @@ Map<String, dynamic> _$SeriesToJson(Series instance) {
   writeNotNull('coverImageLocked', instance.coverImageLocked);
   writeNotNull('pages', instance.pages);
   writeNotNull('folderPath', instance.folderPath);
+  writeNotNull('lowestFolderPath', instance.lowestFolderPath);
   writeNotNull(
       'lastFolderScanned', instance.lastFolderScanned?.toIso8601String());
   writeNotNull(
@@ -4305,6 +4592,8 @@ Map<String, dynamic> _$SeriesToJson(Series instance) {
       'externalSeriesMetadata', instance.externalSeriesMetadata?.toJson());
   writeNotNull('ratings', instance.ratings?.map((e) => e.toJson()).toList());
   writeNotNull('progress', instance.progress?.map((e) => e.toJson()).toList());
+  writeNotNull(
+      'collections', instance.collections?.map((e) => e.toJson()).toList());
   writeNotNull(
       'relations', instance.relations?.map((e) => e.toJson()).toList());
   writeNotNull(
@@ -4543,10 +4832,13 @@ SeriesMetadata _$SeriesMetadataFromJson(Map<String, dynamic> json) =>
       coloristLocked: json['coloristLocked'] as bool?,
       editorLocked: json['editorLocked'] as bool?,
       inkerLocked: json['inkerLocked'] as bool?,
+      imprintLocked: json['imprintLocked'] as bool?,
       lettererLocked: json['lettererLocked'] as bool?,
       pencillerLocked: json['pencillerLocked'] as bool?,
       publisherLocked: json['publisherLocked'] as bool?,
       translatorLocked: json['translatorLocked'] as bool?,
+      teamLocked: json['teamLocked'] as bool?,
+      locationLocked: json['locationLocked'] as bool?,
       coverArtistLocked: json['coverArtistLocked'] as bool?,
       releaseYearLocked: json['releaseYearLocked'] as bool?,
       series: json['series'] == null
@@ -4590,10 +4882,13 @@ Map<String, dynamic> _$SeriesMetadataToJson(SeriesMetadata instance) {
   writeNotNull('coloristLocked', instance.coloristLocked);
   writeNotNull('editorLocked', instance.editorLocked);
   writeNotNull('inkerLocked', instance.inkerLocked);
+  writeNotNull('imprintLocked', instance.imprintLocked);
   writeNotNull('lettererLocked', instance.lettererLocked);
   writeNotNull('pencillerLocked', instance.pencillerLocked);
   writeNotNull('publisherLocked', instance.publisherLocked);
   writeNotNull('translatorLocked', instance.translatorLocked);
+  writeNotNull('teamLocked', instance.teamLocked);
+  writeNotNull('locationLocked', instance.locationLocked);
   writeNotNull('coverArtistLocked', instance.coverArtistLocked);
   writeNotNull('releaseYearLocked', instance.releaseYearLocked);
   writeNotNull('series', instance.series?.toJson());
@@ -4606,10 +4901,6 @@ SeriesMetadataDto _$SeriesMetadataDtoFromJson(Map<String, dynamic> json) =>
     SeriesMetadataDto(
       id: json['id'] as int?,
       summary: json['summary'] as String?,
-      collectionTags: (json['collectionTags'] as List<dynamic>?)
-              ?.map((e) => CollectionTagDto.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
       genres: (json['genres'] as List<dynamic>?)
               ?.map((e) => GenreTagDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -4642,6 +4933,10 @@ SeriesMetadataDto _$SeriesMetadataDtoFromJson(Map<String, dynamic> json) =>
               ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
+      imprints: (json['imprints'] as List<dynamic>?)
+              ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       colorists: (json['colorists'] as List<dynamic>?)
               ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -4655,6 +4950,14 @@ SeriesMetadataDto _$SeriesMetadataDtoFromJson(Map<String, dynamic> json) =>
               .toList() ??
           [],
       translators: (json['translators'] as List<dynamic>?)
+              ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      teams: (json['teams'] as List<dynamic>?)
+              ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      locations: (json['locations'] as List<dynamic>?)
               ?.map((e) => PersonDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
@@ -4676,10 +4979,13 @@ SeriesMetadataDto _$SeriesMetadataDtoFromJson(Map<String, dynamic> json) =>
       coloristLocked: json['coloristLocked'] as bool?,
       editorLocked: json['editorLocked'] as bool?,
       inkerLocked: json['inkerLocked'] as bool?,
+      imprintLocked: json['imprintLocked'] as bool?,
       lettererLocked: json['lettererLocked'] as bool?,
       pencillerLocked: json['pencillerLocked'] as bool?,
       publisherLocked: json['publisherLocked'] as bool?,
       translatorLocked: json['translatorLocked'] as bool?,
+      teamLocked: json['teamLocked'] as bool?,
+      locationLocked: json['locationLocked'] as bool?,
       coverArtistLocked: json['coverArtistLocked'] as bool?,
       releaseYearLocked: json['releaseYearLocked'] as bool?,
       seriesId: json['seriesId'] as int?,
@@ -4696,8 +5002,6 @@ Map<String, dynamic> _$SeriesMetadataDtoToJson(SeriesMetadataDto instance) {
 
   writeNotNull('id', instance.id);
   writeNotNull('summary', instance.summary);
-  writeNotNull('collectionTags',
-      instance.collectionTags?.map((e) => e.toJson()).toList());
   writeNotNull('genres', instance.genres?.map((e) => e.toJson()).toList());
   writeNotNull('tags', instance.tags?.map((e) => e.toJson()).toList());
   writeNotNull('writers', instance.writers?.map((e) => e.toJson()).toList());
@@ -4710,6 +5014,7 @@ Map<String, dynamic> _$SeriesMetadataDtoToJson(SeriesMetadataDto instance) {
   writeNotNull(
       'pencillers', instance.pencillers?.map((e) => e.toJson()).toList());
   writeNotNull('inkers', instance.inkers?.map((e) => e.toJson()).toList());
+  writeNotNull('imprints', instance.imprints?.map((e) => e.toJson()).toList());
   writeNotNull(
       'colorists', instance.colorists?.map((e) => e.toJson()).toList());
   writeNotNull(
@@ -4717,6 +5022,9 @@ Map<String, dynamic> _$SeriesMetadataDtoToJson(SeriesMetadataDto instance) {
   writeNotNull('editors', instance.editors?.map((e) => e.toJson()).toList());
   writeNotNull(
       'translators', instance.translators?.map((e) => e.toJson()).toList());
+  writeNotNull('teams', instance.teams?.map((e) => e.toJson()).toList());
+  writeNotNull(
+      'locations', instance.locations?.map((e) => e.toJson()).toList());
   writeNotNull('ageRating', instance.ageRating);
   writeNotNull('releaseYear', instance.releaseYear);
   writeNotNull('language', instance.language);
@@ -4735,10 +5043,13 @@ Map<String, dynamic> _$SeriesMetadataDtoToJson(SeriesMetadataDto instance) {
   writeNotNull('coloristLocked', instance.coloristLocked);
   writeNotNull('editorLocked', instance.editorLocked);
   writeNotNull('inkerLocked', instance.inkerLocked);
+  writeNotNull('imprintLocked', instance.imprintLocked);
   writeNotNull('lettererLocked', instance.lettererLocked);
   writeNotNull('pencillerLocked', instance.pencillerLocked);
   writeNotNull('publisherLocked', instance.publisherLocked);
   writeNotNull('translatorLocked', instance.translatorLocked);
+  writeNotNull('teamLocked', instance.teamLocked);
+  writeNotNull('locationLocked', instance.locationLocked);
   writeNotNull('coverArtistLocked', instance.coverArtistLocked);
   writeNotNull('releaseYearLocked', instance.releaseYearLocked);
   writeNotNull('seriesId', instance.seriesId);
@@ -5776,6 +6087,9 @@ UpdateRelatedSeriesDto _$UpdateRelatedSeriesDtoFromJson(
       editions:
           (json['editions'] as List<dynamic>?)?.map((e) => e as int).toList() ??
               [],
+      annuals:
+          (json['annuals'] as List<dynamic>?)?.map((e) => e as int).toList() ??
+              [],
     );
 
 Map<String, dynamic> _$UpdateRelatedSeriesDtoToJson(
@@ -5801,6 +6115,7 @@ Map<String, dynamic> _$UpdateRelatedSeriesDtoToJson(
   writeNotNull('alternativeVersions', instance.alternativeVersions);
   writeNotNull('doujinshis', instance.doujinshis);
   writeNotNull('editions', instance.editions);
+  writeNotNull('annuals', instance.annuals);
   return val;
 }
 
@@ -5866,10 +6181,6 @@ UpdateSeriesMetadataDto _$UpdateSeriesMetadataDtoFromJson(
           ? null
           : SeriesMetadataDto.fromJson(
               json['seriesMetadata'] as Map<String, dynamic>),
-      collectionTags: (json['collectionTags'] as List<dynamic>?)
-              ?.map((e) => CollectionTagDto.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
     );
 
 Map<String, dynamic> _$UpdateSeriesMetadataDtoToJson(
@@ -5883,8 +6194,6 @@ Map<String, dynamic> _$UpdateSeriesMetadataDtoToJson(
   }
 
   writeNotNull('seriesMetadata', instance.seriesMetadata?.toJson());
-  writeNotNull('collectionTags',
-      instance.collectionTags?.map((e) => e.toJson()).toList());
   return val;
 }
 
@@ -5967,6 +6276,34 @@ Map<String, dynamic> _$UpdateUserDtoToJson(UpdateUserDto instance) {
   writeNotNull('roles', instance.roles);
   writeNotNull('libraries', instance.libraries);
   writeNotNull('ageRestriction', instance.ageRestriction?.toJson());
+  return val;
+}
+
+UpdateUserProgressDto _$UpdateUserProgressDtoFromJson(
+        Map<String, dynamic> json) =>
+    UpdateUserProgressDto(
+      pageNum: json['pageNum'] as int?,
+      lastModifiedUtc: json['lastModifiedUtc'] == null
+          ? null
+          : DateTime.parse(json['lastModifiedUtc'] as String),
+      createdUtc: json['createdUtc'] == null
+          ? null
+          : DateTime.parse(json['createdUtc'] as String),
+    );
+
+Map<String, dynamic> _$UpdateUserProgressDtoToJson(
+    UpdateUserProgressDto instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('pageNum', instance.pageNum);
+  writeNotNull('lastModifiedUtc', instance.lastModifiedUtc?.toIso8601String());
+  writeNotNull('createdUtc', instance.createdUtc?.toIso8601String());
   return val;
 }
 
@@ -6129,6 +6466,10 @@ UserPreferencesDto _$UserPreferencesDtoFromJson(Map<String, dynamic> json) =>
       collapseSeriesRelationships: json['collapseSeriesRelationships'] as bool,
       shareReviews: json['shareReviews'] as bool,
       locale: json['locale'] as String,
+      pdfTheme: json['pdfTheme'] as int,
+      pdfScrollMode: json['pdfScrollMode'] as int,
+      pdfLayoutMode: json['pdfLayoutMode'] as int,
+      pdfSpreadMode: json['pdfSpreadMode'] as int,
     );
 
 Map<String, dynamic> _$UserPreferencesDtoToJson(UserPreferencesDto instance) =>
@@ -6161,6 +6502,10 @@ Map<String, dynamic> _$UserPreferencesDtoToJson(UserPreferencesDto instance) =>
       'collapseSeriesRelationships': instance.collapseSeriesRelationships,
       'shareReviews': instance.shareReviews,
       'locale': instance.locale,
+      'pdfTheme': instance.pdfTheme,
+      'pdfScrollMode': instance.pdfScrollMode,
+      'pdfLayoutMode': instance.pdfLayoutMode,
+      'pdfSpreadMode': instance.pdfSpreadMode,
     };
 
 UserReadStatistics _$UserReadStatisticsFromJson(Map<String, dynamic> json) =>
@@ -6246,6 +6591,7 @@ Map<String, dynamic> _$UserReviewDtoToJson(UserReviewDto instance) {
 Volume _$VolumeFromJson(Map<String, dynamic> json) => Volume(
       id: json['id'] as int?,
       name: json['name'] as String?,
+      lookupName: json['lookupName'] as String?,
       number: json['number'] as int?,
       minNumber: (json['minNumber'] as num?)?.toDouble(),
       maxNumber: (json['maxNumber'] as num?)?.toDouble(),
@@ -6288,6 +6634,7 @@ Map<String, dynamic> _$VolumeToJson(Volume instance) {
 
   writeNotNull('id', instance.id);
   writeNotNull('name', instance.name);
+  writeNotNull('lookupName', instance.lookupName);
   writeNotNull('number', instance.number);
   writeNotNull('minNumber', instance.minNumber);
   writeNotNull('maxNumber', instance.maxNumber);
@@ -6312,7 +6659,7 @@ VolumeDto _$VolumeDtoFromJson(Map<String, dynamic> json) => VolumeDto(
       minNumber: (json['minNumber'] as num?)?.toDouble(),
       maxNumber: (json['maxNumber'] as num?)?.toDouble(),
       name: json['name'] as String?,
-      number: (json['number'] as num?)?.toDouble(),
+      number: json['number'] as int?,
       pages: json['pages'] as int?,
       pagesRead: json['pagesRead'] as int?,
       lastModifiedUtc: json['lastModifiedUtc'] == null
@@ -6374,6 +6721,7 @@ ApiCblValidatePost$RequestBody _$ApiCblValidatePost$RequestBodyFromJson(
       length: json['Length'] as int?,
       name: json['Name'] as String?,
       fileName: json['FileName'] as String?,
+      comicVineMatching: json['comicVineMatching'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ApiCblValidatePost$RequestBodyToJson(
@@ -6392,6 +6740,7 @@ Map<String, dynamic> _$ApiCblValidatePost$RequestBodyToJson(
   writeNotNull('Length', instance.length);
   writeNotNull('Name', instance.name);
   writeNotNull('FileName', instance.fileName);
+  writeNotNull('comicVineMatching', instance.comicVineMatching);
   return val;
 }
 
@@ -6405,6 +6754,7 @@ ApiCblImportPost$RequestBody _$ApiCblImportPost$RequestBodyFromJson(
       name: json['Name'] as String?,
       fileName: json['FileName'] as String?,
       dryRun: json['dryRun'] as bool? ?? false,
+      comicVineMatching: json['comicVineMatching'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ApiCblImportPost$RequestBodyToJson(
@@ -6424,5 +6774,6 @@ Map<String, dynamic> _$ApiCblImportPost$RequestBodyToJson(
   writeNotNull('Name', instance.name);
   writeNotNull('FileName', instance.fileName);
   writeNotNull('dryRun', instance.dryRun);
+  writeNotNull('comicVineMatching', instance.comicVineMatching);
   return val;
 }

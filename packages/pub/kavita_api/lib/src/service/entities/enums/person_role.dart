@@ -19,4 +19,9 @@ extension type const PersonRole(int value) implements int {
 
   /// The Translator
   static const PersonRole translator = PersonRole(12);
+
+  /// The publisher before another Publisher bought
+  static const PersonRole imprint = PersonRole(13);
+  static const PersonRole team = PersonRole(14);
+  static const PersonRole location = PersonRole(15);
 }

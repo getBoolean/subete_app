@@ -39,6 +39,9 @@ extension type const RelationKind(int value) implements int {
   /// Same story, could be translation, colorization... Different edition of the series
   static const RelationKind edition = RelationKind(13);
 
+  /// The target series is an annual of the Series
+  static const RelationKind annual = RelationKind(14);
+
   /// Description of the relation
   String? get description {
     return switch (value) {
@@ -55,6 +58,7 @@ extension type const RelationKind(int value) implements int {
       doujinshi => 'Doujinshi',
       parent => 'Parent',
       edition => 'Edition',
+      annual => 'Annual',
       _ => null,
     };
   }

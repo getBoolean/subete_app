@@ -29,6 +29,15 @@ class ChapterDtoMapper extends ClassMapperBase<ChapterDto> {
   static String? _$number(ChapterDto v) => v.number;
   static const Field<ChapterDto, String> _f$number =
       Field('number', _$number, opt: true);
+  static double? _$minNumber(ChapterDto v) => v.minNumber;
+  static const Field<ChapterDto, double> _f$minNumber =
+      Field('minNumber', _$minNumber, opt: true);
+  static double? _$maxNumber(ChapterDto v) => v.maxNumber;
+  static const Field<ChapterDto, double> _f$maxNumber =
+      Field('maxNumber', _$maxNumber, opt: true);
+  static double? _$sortOrder(ChapterDto v) => v.sortOrder;
+  static const Field<ChapterDto, double> _f$sortOrder =
+      Field('sortOrder', _$sortOrder, opt: true);
   static int? _$pages(ChapterDto v) => v.pages;
   static const Field<ChapterDto, int> _f$pages =
       Field('pages', _$pages, opt: true);
@@ -105,6 +114,9 @@ class ChapterDtoMapper extends ClassMapperBase<ChapterDto> {
     #id: _f$id,
     #range: _f$range,
     #number: _f$number,
+    #minNumber: _f$minNumber,
+    #maxNumber: _f$maxNumber,
+    #sortOrder: _f$sortOrder,
     #pages: _f$pages,
     #isSpecial: _f$isSpecial,
     #title: _f$title,
@@ -135,6 +147,9 @@ class ChapterDtoMapper extends ClassMapperBase<ChapterDto> {
         id: data.dec(_f$id),
         range: data.dec(_f$range),
         number: data.dec(_f$number),
+        minNumber: data.dec(_f$minNumber),
+        maxNumber: data.dec(_f$maxNumber),
+        sortOrder: data.dec(_f$sortOrder),
         pages: data.dec(_f$pages),
         isSpecial: data.dec(_f$isSpecial),
         title: data.dec(_f$title),
@@ -219,6 +234,9 @@ abstract class ChapterDtoCopyWith<$R, $In extends ChapterDto, $Out>
       {int? id,
       String? range,
       String? number,
+      double? minNumber,
+      double? maxNumber,
+      double? sortOrder,
       int? pages,
       bool? isSpecial,
       String? title,
@@ -265,6 +283,9 @@ class _ChapterDtoCopyWithImpl<$R, $Out>
           {Object? id = $none,
           Object? range = $none,
           Object? number = $none,
+          Object? minNumber = $none,
+          Object? maxNumber = $none,
+          Object? sortOrder = $none,
           Object? pages = $none,
           Object? isSpecial = $none,
           Object? title = $none,
@@ -292,6 +313,9 @@ class _ChapterDtoCopyWithImpl<$R, $Out>
         if (id != $none) #id: id,
         if (range != $none) #range: range,
         if (number != $none) #number: number,
+        if (minNumber != $none) #minNumber: minNumber,
+        if (maxNumber != $none) #maxNumber: maxNumber,
+        if (sortOrder != $none) #sortOrder: sortOrder,
         if (pages != $none) #pages: pages,
         if (isSpecial != $none) #isSpecial: isSpecial,
         if (title != $none) #title: title,
@@ -323,6 +347,9 @@ class _ChapterDtoCopyWithImpl<$R, $Out>
       id: data.get(#id, or: $value.id),
       range: data.get(#range, or: $value.range),
       number: data.get(#number, or: $value.number),
+      minNumber: data.get(#minNumber, or: $value.minNumber),
+      maxNumber: data.get(#maxNumber, or: $value.maxNumber),
+      sortOrder: data.get(#sortOrder, or: $value.sortOrder),
       pages: data.get(#pages, or: $value.pages),
       isSpecial: data.get(#isSpecial, or: $value.isSpecial),
       title: data.get(#title, or: $value.title),

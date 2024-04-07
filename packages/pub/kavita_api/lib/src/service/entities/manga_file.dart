@@ -13,6 +13,7 @@ class MangaFile with MangaFileMappable implements IEntityDate {
   /// Represents a wrapper to the underlying file. This provides information around file, like number of pages, format, etc.
   const MangaFile({
     this.id,
+    this.fileName,
     this.filePath,
     this.pages,
     this.format,
@@ -30,6 +31,9 @@ class MangaFile with MangaFileMappable implements IEntityDate {
 
   // ignore: public_member_api_docs
   final int? id;
+
+  /// The filename without extension
+  final String? fileName;
 
   /// Absolute path to the archive file
   final String? filePath;

@@ -41,8 +41,8 @@ class ReadHistoryEventMapper extends ClassMapperBase<ReadHistoryEvent> {
   static int? _$chapterId(ReadHistoryEvent v) => v.chapterId;
   static const Field<ReadHistoryEvent, int> _f$chapterId =
       Field('chapterId', _$chapterId, opt: true);
-  static String? _$chapterNumber(ReadHistoryEvent v) => v.chapterNumber;
-  static const Field<ReadHistoryEvent, String> _f$chapterNumber =
+  static double? _$chapterNumber(ReadHistoryEvent v) => v.chapterNumber;
+  static const Field<ReadHistoryEvent, double> _f$chapterNumber =
       Field('chapterNumber', _$chapterNumber, opt: true);
 
   @override
@@ -133,7 +133,7 @@ abstract class ReadHistoryEventCopyWith<$R, $In extends ReadHistoryEvent, $Out>
       String? seriesName,
       DateTime? readDate,
       int? chapterId,
-      String? chapterNumber});
+      double? chapterNumber});
   ReadHistoryEventCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }

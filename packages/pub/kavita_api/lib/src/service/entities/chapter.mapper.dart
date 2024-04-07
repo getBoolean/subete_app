@@ -34,6 +34,15 @@ class ChapterMapper extends ClassMapperBase<Chapter> {
   static String? _$number(Chapter v) => v.number;
   static const Field<Chapter, String> _f$number =
       Field('number', _$number, opt: true);
+  static double? _$minNumber(Chapter v) => v.minNumber;
+  static const Field<Chapter, double> _f$minNumber =
+      Field('minNumber', _$minNumber, opt: true);
+  static double? _$maxNumber(Chapter v) => v.maxNumber;
+  static const Field<Chapter, double> _f$maxNumber =
+      Field('maxNumber', _$maxNumber, opt: true);
+  static double? _$sortOrder(Chapter v) => v.sortOrder;
+  static const Field<Chapter, double> _f$sortOrder =
+      Field('sortOrder', _$sortOrder, opt: true);
   static List<MangaFile>? _$files(Chapter v) => v.files;
   static const Field<Chapter, List<MangaFile>> _f$files =
       Field('files', _$files, opt: true);
@@ -145,6 +154,9 @@ class ChapterMapper extends ClassMapperBase<Chapter> {
     #id: _f$id,
     #range: _f$range,
     #number: _f$number,
+    #minNumber: _f$minNumber,
+    #maxNumber: _f$maxNumber,
+    #sortOrder: _f$sortOrder,
     #files: _f$files,
     #created: _f$created,
     #lastModified: _f$lastModified,
@@ -187,6 +199,9 @@ class ChapterMapper extends ClassMapperBase<Chapter> {
         id: data.dec(_f$id),
         range: data.dec(_f$range),
         number: data.dec(_f$number),
+        minNumber: data.dec(_f$minNumber),
+        maxNumber: data.dec(_f$maxNumber),
+        sortOrder: data.dec(_f$sortOrder),
         files: data.dec(_f$files),
         created: data.dec(_f$created),
         lastModified: data.dec(_f$lastModified),
@@ -288,6 +303,9 @@ abstract class ChapterCopyWith<$R, $In extends Chapter, $Out>
       {int? id,
       String? range,
       String? number,
+      double? minNumber,
+      double? maxNumber,
+      double? sortOrder,
       List<MangaFile>? files,
       DateTime? created,
       DateTime? lastModified,
@@ -373,6 +391,9 @@ class _ChapterCopyWithImpl<$R, $Out>
           {Object? id = $none,
           Object? range = $none,
           Object? number = $none,
+          Object? minNumber = $none,
+          Object? maxNumber = $none,
+          Object? sortOrder = $none,
           Object? files = $none,
           Object? created = $none,
           Object? lastModified = $none,
@@ -412,6 +433,9 @@ class _ChapterCopyWithImpl<$R, $Out>
         if (id != $none) #id: id,
         if (range != $none) #range: range,
         if (number != $none) #number: number,
+        if (minNumber != $none) #minNumber: minNumber,
+        if (maxNumber != $none) #maxNumber: maxNumber,
+        if (sortOrder != $none) #sortOrder: sortOrder,
         if (files != $none) #files: files,
         if (created != $none) #created: created,
         if (lastModified != $none) #lastModified: lastModified,
@@ -453,6 +477,9 @@ class _ChapterCopyWithImpl<$R, $Out>
       id: data.get(#id, or: $value.id),
       range: data.get(#range, or: $value.range),
       number: data.get(#number, or: $value.number),
+      minNumber: data.get(#minNumber, or: $value.minNumber),
+      maxNumber: data.get(#maxNumber, or: $value.maxNumber),
+      sortOrder: data.get(#sortOrder, or: $value.sortOrder),
       files: data.get(#files, or: $value.files),
       created: data.get(#created, or: $value.created),
       lastModified: data.get(#lastModified, or: $value.lastModified),

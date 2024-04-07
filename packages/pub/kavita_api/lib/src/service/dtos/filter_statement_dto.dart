@@ -66,43 +66,47 @@ extension type const FilterComparison(int value) implements int {
 }
 
 extension type const FilterField(int value) implements int {
-  static const FilterField summary = FilterField(0);
-  static const FilterField seriesName = FilterField(1);
-  static const FilterField publicationStatus = FilterField(2);
-  static const FilterField languages = FilterField(3);
-  static const FilterField ageRating = FilterField(4);
-  static const FilterField userRating = FilterField(5);
-  static const FilterField tags = FilterField(6);
-  static const FilterField collectionTags = FilterField(7);
-  static const FilterField translators = FilterField(8);
-  static const FilterField characters = FilterField(9);
-  static const FilterField publisher = FilterField(10);
-  static const FilterField editor = FilterField(11);
-  static const FilterField coverArtist = FilterField(12);
-  static const FilterField letterer = FilterField(13);
-  static const FilterField colorist = FilterField(14);
-  static const FilterField inker = FilterField(15);
-  static const FilterField penciller = FilterField(16);
-  static const FilterField writers = FilterField(17);
-  static const FilterField genres = FilterField(18);
-  static const FilterField libraries = FilterField(19);
-  static const FilterField readProgress = FilterField(20);
-  static const FilterField formats = FilterField(21);
-  static const FilterField releaseYear = FilterField(22);
-  static const FilterField readTime = FilterField(23);
+  static const summary = FilterField(0);
+  static const seriesName = FilterField(1);
+  static const publicationStatus = FilterField(2);
+  static const languages = FilterField(3);
+  static const ageRating = FilterField(4);
+  static const userRating = FilterField(5);
+  static const tags = FilterField(6);
+  static const collectionTags = FilterField(7);
+  static const translators = FilterField(8);
+  static const characters = FilterField(9);
+  static const publisher = FilterField(10);
+  static const editor = FilterField(11);
+  static const coverArtist = FilterField(12);
+  static const letterer = FilterField(13);
+  static const colorist = FilterField(14);
+  static const inker = FilterField(15);
+  static const penciller = FilterField(16);
+  static const writers = FilterField(17);
+  static const genres = FilterField(18);
+  static const libraries = FilterField(19);
+  static const readProgress = FilterField(20);
+  static const formats = FilterField(21);
+  static const releaseYear = FilterField(22);
+  static const readTime = FilterField(23);
 
   /// Series Folder
-  static const FilterField path = FilterField(24);
+  static const path = FilterField(24);
 
   /// File path
-  static const FilterField filePath = FilterField(25);
+  static const filePath = FilterField(25);
 
   /// On Want To Read or Not
-  static const FilterField wantToRead = FilterField(26);
+  static const wantToRead = FilterField(26);
 
   /// Last time User Read
-  static const FilterField readingDate = FilterField(27);
+  static const readingDate = FilterField(27);
 
   /// Average rating from Kavita+ - Not usable for non-licensed users
-  static const FilterField averageRating = FilterField(28);
+  static const averageRating = FilterField(28);
+
+  static const imprint = FilterField(29);
+  static const team = FilterField(30);
+  static const location = FilterField(31);
 }

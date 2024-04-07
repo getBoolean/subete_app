@@ -106,6 +106,10 @@ void main() {
         autoCloseMenu: true,
         showScreenHints: true,
         bookReaderThemeName: 'Test',
+        pdfTheme: 1,
+        pdfScrollMode: 1,
+        pdfLayoutMode: 2,
+        pdfSpreadMode: 1,
       );
       when(() => kavita.rawApi.apiUsersUpdatePreferencesPost(body: input))
           .thenResponse(input);
@@ -138,6 +142,10 @@ void main() {
         autoCloseMenu: true,
         showScreenHints: true,
         bookReaderThemeName: 'Test',
+        pdfTheme: PdfTheme.light,
+        pdfScrollMode: PdfScrollMode.horizontal,
+        pdfLayoutMode: PdfLayoutMode.book,
+        pdfSpreadMode: PdfSpreadMode.odd,
       );
       final res = await kavita.underTest.users.updatePreferences(
         userPreferences: expected,
@@ -176,6 +184,10 @@ void main() {
         autoCloseMenu: true,
         showScreenHints: true,
         bookReaderThemeName: 'Test',
+        pdfTheme: 1,
+        pdfScrollMode: 1,
+        pdfLayoutMode: 2,
+        pdfSpreadMode: 1,
       );
       const expected = UserPreferencesDto(
         readingDirection: ReadingDirection.rightToLeft,
@@ -206,6 +218,10 @@ void main() {
         autoCloseMenu: true,
         showScreenHints: true,
         bookReaderThemeName: 'Test',
+        pdfTheme: PdfTheme.light,
+        pdfScrollMode: PdfScrollMode.horizontal,
+        pdfLayoutMode: PdfLayoutMode.book,
+        pdfSpreadMode: PdfSpreadMode.odd,
       );
       when(() => kavita.rawApi.apiUsersGetPreferencesGet()).thenResponse(input);
       final res = await kavita.underTest.users.getPreferences();

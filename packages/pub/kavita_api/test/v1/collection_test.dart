@@ -8,16 +8,18 @@ void main() {
 
   group('Test Kavita API v1 Collection', () {
     test('Test Get Collections', () async {
-      when(() => kavita.rawApi.apiCollectionGet())
-          .thenResponse([const raw.CollectionTagDto(id: 1, title: 'Test')]);
+      when(() => kavita.rawApi.apiCollectionGet(ownedOnly: false))
+          .thenResponse([const raw.AppUserCollectionDto(id: 1, title: 'Test')]);
       final res = await kavita.underTest.collection.getCollections();
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
     test('Test Search Collections', () async {
-      when(() => kavita.rawApi.apiCollectionSearchGet(queryString: 'Test'))
-          .thenResponse([const raw.CollectionTagDto(id: 1, title: 'Test')]);
-      final res = await kavita.underTest.collection.searchCollections('Test');
+      when(() => kavita.rawApi
+              .apiCollectionAllSeriesGet(seriesId: 1, ownedOnly: true))
+          .thenResponse([const raw.AppUserCollectionDto(id: 1, title: 'Test')]);
+      final res = await kavita.underTest.collection
+          .allCollectionsWithSeries(seriesId: 1, ownedOnly: true);
       expect(res.body, isNotNull, reason: 'No data received');
     });
 
@@ -61,7 +63,7 @@ void main() {
 
     test('Test Update Collection', () async {
       when(() => kavita.rawApi.apiCollectionUpdatePost(
-            body: const raw.CollectionTagDto(
+            body: const raw.AppUserCollectionDto(
               id: 1,
               title: 'Test',
               summary: 'test',
@@ -95,6 +97,32 @@ void main() {
       when(() => kavita.rawApi.apiCollectionDelete(tagId: 1))
           .thenResponse(null);
       final res = await kavita.underTest.collection.deleteCollection(id: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
+
+    test('Test Promote Collections', () async {
+      when(() => kavita.rawApi.apiCollectionPromoteMultiplePost(
+            body: const raw.PromoteCollectionsDto(
+              collectionIds: [1],
+              promoted: true,
+            ),
+          )).thenResponse(null);
+      final res = await kavita.underTest.collection.promoteCollections(
+        ids: [1],
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
+
+    test('Test Delete Multiple', () async {
+      when(() => kavita.rawApi.apiCollectionDeleteMultiplePost(
+            body: const raw.PromoteCollectionsDto(
+              collectionIds: [1],
+              promoted: false,
+            ),
+          )).thenResponse(null);
+      final res = await kavita.underTest.collection.deleteMultiple(
+        ids: [1],
+      );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
   });

@@ -14,4 +14,20 @@ extension type const LibraryType(int value) implements int {
 
   /// Allows Books to Scrobble with AniList for Kavita+
   static const LibraryType lightNovel = LibraryType(4);
+
+  /// Uses Comic regex for filename parsing, uses ComicVine type of Parsing. Will replace Comic type in future
+  static const LibraryType comicVine = LibraryType(5);
+
+  /// Description from the C# enum code
+  String? get description {
+    return switch (value) {
+      manga => 'Manga',
+      comic => 'Comic',
+      book => 'Book',
+      image => 'Image',
+      lightNovel => 'Light Novel',
+      comicVine => 'Comic (ComicVine)',
+      _ => null,
+    };
+  }
 }

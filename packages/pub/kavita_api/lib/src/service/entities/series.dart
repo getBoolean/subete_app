@@ -2,6 +2,7 @@
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:kavita_api/src/service/dtos.dart';
+import 'package:kavita_api/src/service/entities/app_user_collection.dart';
 import 'package:kavita_api/src/service/entities/app_user_progress.dart';
 import 'package:kavita_api/src/service/entities/app_user_rating.dart';
 import 'package:kavita_api/src/service/entities/enums/manga_format.dart';
@@ -34,6 +35,7 @@ class Series with SeriesMappable implements IEntityDate, IHasReadTimeEstimate {
     this.coverImageLocked,
     this.pages,
     this.folderPath,
+    this.lowestFolderPath,
     this.lastFolderScanned,
     this.lastFolderScannedUtc,
     this.format,
@@ -49,6 +51,7 @@ class Series with SeriesMappable implements IEntityDate, IHasReadTimeEstimate {
     this.externalSeriesMetadata,
     this.ratings,
     this.progress,
+    this.collections,
     this.relations,
     this.relationOf,
     this.volumes,
@@ -103,6 +106,9 @@ class Series with SeriesMappable implements IEntityDate, IHasReadTimeEstimate {
   /// Highest path (that is under library root) that contains the series.
   final String? folderPath;
 
+  /// Lowest path (that is under library root) that contains all files for the series.
+  final String? lowestFolderPath;
+
   /// Last time the folder was scanned
   final DateTime? lastFolderScanned;
 
@@ -130,6 +136,7 @@ class Series with SeriesMappable implements IEntityDate, IHasReadTimeEstimate {
   final ExternalSeriesMetadata? externalSeriesMetadata;
   final List<AppUserRating>? ratings;
   final List<AppUserProgress>? progress;
+  final List<AppUserCollection>? collections;
   final List<SeriesRelation>? relations;
   final List<SeriesRelation>? relationOf;
   final List<Volume>? volumes;

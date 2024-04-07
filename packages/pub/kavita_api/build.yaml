@@ -5,6 +5,9 @@ targets:
       - lib/**
       - $package$
     builders:
+      # disable auto_mappr when updating openapi specs
+      # auto_mappr:
+      #   enabled: false
       chopper_generator:
         options:
           header: "// Generated code"

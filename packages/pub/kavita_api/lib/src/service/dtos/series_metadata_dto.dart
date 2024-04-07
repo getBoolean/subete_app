@@ -15,7 +15,6 @@ class SeriesMetadataDto with SeriesMetadataDtoMappable {
   const SeriesMetadataDto({
     this.id,
     this.summary,
-    this.collectionTags,
     this.genres,
     this.tags,
     this.writers,
@@ -53,16 +52,21 @@ class SeriesMetadataDto with SeriesMetadataDtoMappable {
     this.coverArtistLocked,
     this.releaseYearLocked,
     this.seriesId,
+    this.imprints,
+    this.teams,
+    this.locations,
+    this.imprintLocked,
+    this.teamLocked,
+    this.locationLocked,
   });
 
   final int? id;
   final String? summary;
 
-  /// Collections the Series belongs to
-  final List<CollectionTagDto>? collectionTags;
-
   /// Genres for the Series
   final List<GenreTagDto>? genres;
+
+  final List<PersonDto>? imprints;
 
   /// Collection of all Tags from underlying chapters for a Series
   final List<TagDto>? tags;
@@ -73,6 +77,8 @@ class SeriesMetadataDto with SeriesMetadataDtoMappable {
   final List<PersonDto>? pencillers;
   final List<PersonDto>? inkers;
   final List<PersonDto>? colorists;
+  final List<PersonDto>? teams;
+  final List<PersonDto>? locations;
   final List<PersonDto>? letterers;
   final List<PersonDto>? editors;
   final List<PersonDto>? translators;
@@ -112,10 +118,13 @@ class SeriesMetadataDto with SeriesMetadataDtoMappable {
   final bool? coloristLocked;
   final bool? editorLocked;
   final bool? inkerLocked;
+  final bool? imprintLocked;
   final bool? lettererLocked;
   final bool? pencillerLocked;
   final bool? publisherLocked;
   final bool? translatorLocked;
+  final bool? teamLocked;
+  final bool? locationLocked;
   final bool? coverArtistLocked;
   final bool? releaseYearLocked;
   final int? seriesId;
