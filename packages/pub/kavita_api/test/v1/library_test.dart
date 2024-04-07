@@ -10,11 +10,9 @@ void main() {
     test('Test Get Library', () async {
       when(() => kavita.rawApi.apiLibraryGet(
             libraryId: 1,
-          )).thenResponse(
-        const raw.LibraryDto(
-          id: 1,
-        ),
-      );
+          )).thenResponse([
+        const raw.LibraryDto(id: 1),
+      ]);
       const expected = LibraryDto(
         id: 1,
       );
@@ -80,7 +78,7 @@ void main() {
     });
 
     test('Test Get Libraries', () async {
-      when(() => kavita.rawApi.apiLibraryLibrariesGet()).thenResponse([
+      when(() => kavita.rawApi.apiLibraryGet()).thenResponse([
         const raw.LibraryDto(
           id: 1,
           name: 'Test',

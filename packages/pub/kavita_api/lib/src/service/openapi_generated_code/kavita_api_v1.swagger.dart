@@ -1124,7 +1124,7 @@ abstract class KavitaApiV1 extends ChopperService {
 
   ///Return a specific library
   ///@param libraryId
-  Future<chopper.Response<LibraryDto>> apiLibraryGet({int? libraryId}) {
+  Future<chopper.Response<List<LibraryDto>>> apiLibraryGet({int? libraryId}) {
     generatedMapping.putIfAbsent(LibraryDto, () => LibraryDto.fromJsonFactory);
 
     return _apiLibraryGet(libraryId: libraryId);
@@ -1133,19 +1133,17 @@ abstract class KavitaApiV1 extends ChopperService {
   ///Return a specific library
   ///@param libraryId
   @Get(path: '/api/Library')
-  Future<chopper.Response<LibraryDto>> _apiLibraryGet(
+  Future<chopper.Response<List<LibraryDto>>> _apiLibraryGet(
       {@Query('libraryId') int? libraryId});
 
   ///Return all libraries in the Server
-  Future<chopper.Response<List<LibraryDto>>> apiLibraryLibrariesGet() {
-    generatedMapping.putIfAbsent(LibraryDto, () => LibraryDto.fromJsonFactory);
-
+  Future<chopper.Response<String>> apiLibraryLibrariesGet() {
     return _apiLibraryLibrariesGet();
   }
 
   ///Return all libraries in the Server
   @Get(path: '/api/Library/libraries')
-  Future<chopper.Response<List<LibraryDto>>> _apiLibraryLibrariesGet();
+  Future<chopper.Response<String>> _apiLibraryLibrariesGet();
 
   ///For a given library, generate the jump bar information
   ///@param libraryId
