@@ -14,7 +14,7 @@ Unofficial Kavita client for mobile and desktop (in progress)
 - [Setup](#setup)
 - [Testing](#testing)
   - [Integration Tests](#integration-tests)
-- [Building](#building)
+- [Building the App](#building-the-app)
   - [Flavors](#flavors)
 - [Architecture](#architecture)
   - [Data Layer (Repositories)](#data-layer-repositories)
@@ -78,7 +78,7 @@ These integration tests are located in the `integration_test` directory.
 
 To run the tests, see the instructions in the [Patrol documentation](https://pub.dev/packages/patrol)
 
-## Building
+## Building the App
 
 This project automatically builds for all platforms without code signing using GitHub Actions.
 To build the project locally, follow the instructions in the
