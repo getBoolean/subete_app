@@ -29,6 +29,10 @@ class UserPreferencesDto with UserPreferencesDtoMappable {
     required this.bookReaderThemeName,
     required this.bookReaderLayoutMode,
     required this.bookReaderImmersiveMode,
+    required this.pdfTheme,
+    required this.pdfScrollMode,
+    required this.pdfLayoutMode,
+    required this.pdfSpreadMode,
     required this.globalPageLayoutMode,
     required this.blurUnreadSummaries,
     required this.promptForDownloadSize,
@@ -105,6 +109,18 @@ class UserPreferencesDto with UserPreferencesDtoMappable {
   /// on the screen. This should be used with tap to paginate, but the app
   /// doesn't enforce this.
   final bool bookReaderImmersiveMode;
+
+  /// PDF Reader: Theme of the Reader
+  final PdfTheme pdfTheme;
+
+  /// PDF Reader: Scroll mode of the reader
+  final PdfScrollMode pdfScrollMode;
+
+  /// PDF Reader: Layout Mode of the reader
+  final PdfLayoutMode pdfLayoutMode;
+
+  /// PDF Reader: Spread Mode of the reader
+  final PdfSpreadMode pdfSpreadMode;
 
   /// Global Site Option: If the UI should layout items as Cards or List items
   final PageLayoutMode globalPageLayoutMode;

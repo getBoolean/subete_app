@@ -97,6 +97,18 @@ class UserPreferencesDtoMapper extends ClassMapperBase<UserPreferencesDto> {
       v.bookReaderImmersiveMode;
   static const Field<UserPreferencesDto, bool> _f$bookReaderImmersiveMode =
       Field('bookReaderImmersiveMode', _$bookReaderImmersiveMode);
+  static PdfTheme _$pdfTheme(UserPreferencesDto v) => v.pdfTheme;
+  static const Field<UserPreferencesDto, PdfTheme> _f$pdfTheme =
+      Field('pdfTheme', _$pdfTheme);
+  static PdfScrollMode _$pdfScrollMode(UserPreferencesDto v) => v.pdfScrollMode;
+  static const Field<UserPreferencesDto, PdfScrollMode> _f$pdfScrollMode =
+      Field('pdfScrollMode', _$pdfScrollMode);
+  static PdfLayoutMode _$pdfLayoutMode(UserPreferencesDto v) => v.pdfLayoutMode;
+  static const Field<UserPreferencesDto, PdfLayoutMode> _f$pdfLayoutMode =
+      Field('pdfLayoutMode', _$pdfLayoutMode);
+  static PdfSpreadMode _$pdfSpreadMode(UserPreferencesDto v) => v.pdfSpreadMode;
+  static const Field<UserPreferencesDto, PdfSpreadMode> _f$pdfSpreadMode =
+      Field('pdfSpreadMode', _$pdfSpreadMode);
   static PageLayoutMode _$globalPageLayoutMode(UserPreferencesDto v) =>
       v.globalPageLayoutMode;
   static const Field<UserPreferencesDto, PageLayoutMode>
@@ -147,6 +159,10 @@ class UserPreferencesDtoMapper extends ClassMapperBase<UserPreferencesDto> {
     #bookReaderThemeName: _f$bookReaderThemeName,
     #bookReaderLayoutMode: _f$bookReaderLayoutMode,
     #bookReaderImmersiveMode: _f$bookReaderImmersiveMode,
+    #pdfTheme: _f$pdfTheme,
+    #pdfScrollMode: _f$pdfScrollMode,
+    #pdfLayoutMode: _f$pdfLayoutMode,
+    #pdfSpreadMode: _f$pdfSpreadMode,
     #globalPageLayoutMode: _f$globalPageLayoutMode,
     #blurUnreadSummaries: _f$blurUnreadSummaries,
     #promptForDownloadSize: _f$promptForDownloadSize,
@@ -179,6 +195,10 @@ class UserPreferencesDtoMapper extends ClassMapperBase<UserPreferencesDto> {
         bookReaderThemeName: data.dec(_f$bookReaderThemeName),
         bookReaderLayoutMode: data.dec(_f$bookReaderLayoutMode),
         bookReaderImmersiveMode: data.dec(_f$bookReaderImmersiveMode),
+        pdfTheme: data.dec(_f$pdfTheme),
+        pdfScrollMode: data.dec(_f$pdfScrollMode),
+        pdfLayoutMode: data.dec(_f$pdfLayoutMode),
+        pdfSpreadMode: data.dec(_f$pdfSpreadMode),
         globalPageLayoutMode: data.dec(_f$globalPageLayoutMode),
         blurUnreadSummaries: data.dec(_f$blurUnreadSummaries),
         promptForDownloadSize: data.dec(_f$promptForDownloadSize),
@@ -268,6 +288,10 @@ abstract class UserPreferencesDtoCopyWith<$R, $In extends UserPreferencesDto,
       String? bookReaderThemeName,
       BookPageLayoutMode? bookReaderLayoutMode,
       bool? bookReaderImmersiveMode,
+      PdfTheme? pdfTheme,
+      PdfScrollMode? pdfScrollMode,
+      PdfLayoutMode? pdfLayoutMode,
+      PdfSpreadMode? pdfSpreadMode,
       PageLayoutMode? globalPageLayoutMode,
       bool? blurUnreadSummaries,
       bool? promptForDownloadSize,
@@ -313,6 +337,10 @@ class _UserPreferencesDtoCopyWithImpl<$R, $Out>
           String? bookReaderThemeName,
           BookPageLayoutMode? bookReaderLayoutMode,
           bool? bookReaderImmersiveMode,
+          PdfTheme? pdfTheme,
+          PdfScrollMode? pdfScrollMode,
+          PdfLayoutMode? pdfLayoutMode,
+          PdfSpreadMode? pdfSpreadMode,
           PageLayoutMode? globalPageLayoutMode,
           bool? blurUnreadSummaries,
           bool? promptForDownloadSize,
@@ -350,6 +378,10 @@ class _UserPreferencesDtoCopyWithImpl<$R, $Out>
           #bookReaderLayoutMode: bookReaderLayoutMode,
         if (bookReaderImmersiveMode != null)
           #bookReaderImmersiveMode: bookReaderImmersiveMode,
+        if (pdfTheme != null) #pdfTheme: pdfTheme,
+        if (pdfScrollMode != null) #pdfScrollMode: pdfScrollMode,
+        if (pdfLayoutMode != null) #pdfLayoutMode: pdfLayoutMode,
+        if (pdfSpreadMode != null) #pdfSpreadMode: pdfSpreadMode,
         if (globalPageLayoutMode != null)
           #globalPageLayoutMode: globalPageLayoutMode,
         if (blurUnreadSummaries != null)
@@ -396,6 +428,10 @@ class _UserPreferencesDtoCopyWithImpl<$R, $Out>
           data.get(#bookReaderLayoutMode, or: $value.bookReaderLayoutMode),
       bookReaderImmersiveMode: data.get(#bookReaderImmersiveMode,
           or: $value.bookReaderImmersiveMode),
+      pdfTheme: data.get(#pdfTheme, or: $value.pdfTheme),
+      pdfScrollMode: data.get(#pdfScrollMode, or: $value.pdfScrollMode),
+      pdfLayoutMode: data.get(#pdfLayoutMode, or: $value.pdfLayoutMode),
+      pdfSpreadMode: data.get(#pdfSpreadMode, or: $value.pdfSpreadMode),
       globalPageLayoutMode:
           data.get(#globalPageLayoutMode, or: $value.globalPageLayoutMode),
       blurUnreadSummaries:

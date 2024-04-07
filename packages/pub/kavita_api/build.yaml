@@ -5,6 +5,9 @@ targets:
       - lib/**
       - $package$
     builders:
+      # disable auto_mappr when updating openapi specs
+      # auto_mappr:
+      #   enabled: false
       chopper_generator:
         options:
           header: "// Generated code"
@@ -22,3 +25,9 @@ targets:
             - url: "/api/Users/myself"
               method: get
               overridden_value: "MemberDto"
+            - url: "/api/Library/libraries"
+              method: get
+              overridden_value: "String"
+            - url: "/api/Library"
+              method: get
+              overridden_value: "List<LibraryDto>"

@@ -41,7 +41,10 @@ class AppUser with AppUserMappable implements IHasConcurrencyToken {
     this.userPreferences,
     this.bookmarks,
     this.readingLists,
+    this.collections,
     this.wantToRead,
+    this.malUserName,
+    this.malAccessToken,
     this.devices,
     this.tableOfContents,
     this.libraries,
@@ -101,8 +104,16 @@ class AppUser with AppUserMappable implements IHasConcurrencyToken {
   /// Reading lists associated with this user
   final List<ReadingList>? readingLists;
 
+  final List<AppUserCollection>? collections;
+
   /// A list of Series the user want's to read
   final List<AppUserWantToRead>? wantToRead;
+
+  /// The Username of the MAL user
+  final String? malUserName;
+
+  /// The Client ID for the user's MAL account. User should create a client on MAL for this.
+  final String? malAccessToken;
 
   /// A list of Devices which allows the user to send files to
   final List<Device>? devices;

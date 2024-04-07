@@ -7,6 +7,20 @@ void main() {
   setUp(() async => kavita = await setUpKavita());
 
   group('Test Kavita API v1 Library', () {
+    test('Test Get Library', () async {
+      when(() => kavita.rawApi.apiLibraryGet(
+            libraryId: 1,
+          )).thenResponse([
+        const raw.LibraryDto(id: 1),
+      ]);
+      const expected = LibraryDto(
+        id: 1,
+      );
+      final res = await kavita.underTest.library.getLibrary(id: 1);
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
+
     test('Test Create Library', () async {
       when(
         () => kavita.rawApi.apiLibraryCreatePost(

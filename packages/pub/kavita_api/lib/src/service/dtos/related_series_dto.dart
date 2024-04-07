@@ -22,6 +22,7 @@ class RelatedSeriesDto with RelatedSeriesDtoMappable {
     this.alternativeVersions,
     this.doujinshis,
     this.editions,
+    this.annuals,
   });
 
   /// The parent relationship Series
@@ -39,6 +40,7 @@ class RelatedSeriesDto with RelatedSeriesDtoMappable {
   final List<SeriesDto>? doujinshis;
   final List<SeriesDto>? parent;
   final List<SeriesDto>? editions;
+  final List<SeriesDto>? annuals;
 
   static const fromMap = RelatedSeriesDtoMapper.fromMap;
   static const fromJson = RelatedSeriesDtoMapper.fromJson;

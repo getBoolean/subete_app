@@ -26,6 +26,9 @@ class VolumeMapper extends ClassMapperBase<Volume> {
   static const Field<Volume, int> _f$id = Field('id', _$id, opt: true);
   static String? _$name(Volume v) => v.name;
   static const Field<Volume, String> _f$name = Field('name', _$name, opt: true);
+  static String? _$lookupName(Volume v) => v.lookupName;
+  static const Field<Volume, String> _f$lookupName =
+      Field('lookupName', _$lookupName, opt: true);
   static double? _$minNumber(Volume v) => v.minNumber;
   static const Field<Volume, double> _f$minNumber =
       Field('minNumber', _$minNumber, opt: true);
@@ -75,6 +78,7 @@ class VolumeMapper extends ClassMapperBase<Volume> {
   final MappableFields<Volume> fields = const {
     #id: _f$id,
     #name: _f$name,
+    #lookupName: _f$lookupName,
     #minNumber: _f$minNumber,
     #maxNumber: _f$maxNumber,
     #chapters: _f$chapters,
@@ -96,6 +100,7 @@ class VolumeMapper extends ClassMapperBase<Volume> {
     return Volume(
         id: data.dec(_f$id),
         name: data.dec(_f$name),
+        lookupName: data.dec(_f$lookupName),
         minNumber: data.dec(_f$minNumber),
         maxNumber: data.dec(_f$maxNumber),
         chapters: data.dec(_f$chapters),
@@ -168,6 +173,7 @@ abstract class VolumeCopyWith<$R, $In extends Volume, $Out>
   $R call(
       {int? id,
       String? name,
+      String? lookupName,
       double? minNumber,
       double? maxNumber,
       List<Chapter>? chapters,
@@ -205,6 +211,7 @@ class _VolumeCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Volume, $Out>
   $R call(
           {Object? id = $none,
           Object? name = $none,
+          Object? lookupName = $none,
           Object? minNumber = $none,
           Object? maxNumber = $none,
           Object? chapters = $none,
@@ -223,6 +230,7 @@ class _VolumeCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Volume, $Out>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
         if (name != $none) #name: name,
+        if (lookupName != $none) #lookupName: lookupName,
         if (minNumber != $none) #minNumber: minNumber,
         if (maxNumber != $none) #maxNumber: maxNumber,
         if (chapters != $none) #chapters: chapters,
@@ -243,6 +251,7 @@ class _VolumeCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Volume, $Out>
   Volume $make(CopyWithData data) => Volume(
       id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
+      lookupName: data.get(#lookupName, or: $value.lookupName),
       minNumber: data.get(#minNumber, or: $value.minNumber),
       maxNumber: data.get(#maxNumber, or: $value.maxNumber),
       chapters: data.get(#chapters, or: $value.chapters),

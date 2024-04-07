@@ -23,6 +23,9 @@ class MangaFileMapper extends ClassMapperBase<MangaFile> {
 
   static int? _$id(MangaFile v) => v.id;
   static const Field<MangaFile, int> _f$id = Field('id', _$id, opt: true);
+  static String? _$fileName(MangaFile v) => v.fileName;
+  static const Field<MangaFile, String> _f$fileName =
+      Field('fileName', _$fileName, opt: true);
   static String? _$filePath(MangaFile v) => v.filePath;
   static const Field<MangaFile, String> _f$filePath =
       Field('filePath', _$filePath, opt: true);
@@ -66,6 +69,7 @@ class MangaFileMapper extends ClassMapperBase<MangaFile> {
   @override
   final MappableFields<MangaFile> fields = const {
     #id: _f$id,
+    #fileName: _f$fileName,
     #filePath: _f$filePath,
     #pages: _f$pages,
     #format: _f$format,
@@ -84,6 +88,7 @@ class MangaFileMapper extends ClassMapperBase<MangaFile> {
   static MangaFile _instantiate(DecodingData data) {
     return MangaFile(
         id: data.dec(_f$id),
+        fileName: data.dec(_f$fileName),
         filePath: data.dec(_f$filePath),
         pages: data.dec(_f$pages),
         format: data.dec(_f$format),
@@ -154,6 +159,7 @@ abstract class MangaFileCopyWith<$R, $In extends MangaFile, $Out>
   ChapterCopyWith<$R, Chapter, Chapter>? get chapter;
   $R call(
       {int? id,
+      String? fileName,
       String? filePath,
       int? pages,
       MangaFormat? format,
@@ -184,6 +190,7 @@ class _MangaFileCopyWithImpl<$R, $Out>
   @override
   $R call(
           {Object? id = $none,
+          Object? fileName = $none,
           Object? filePath = $none,
           Object? pages = $none,
           Object? format = $none,
@@ -199,6 +206,7 @@ class _MangaFileCopyWithImpl<$R, $Out>
           Object? chapterId = $none}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
+        if (fileName != $none) #fileName: fileName,
         if (filePath != $none) #filePath: filePath,
         if (pages != $none) #pages: pages,
         if (format != $none) #format: format,
@@ -217,6 +225,7 @@ class _MangaFileCopyWithImpl<$R, $Out>
   @override
   MangaFile $make(CopyWithData data) => MangaFile(
       id: data.get(#id, or: $value.id),
+      fileName: data.get(#fileName, or: $value.fileName),
       filePath: data.get(#filePath, or: $value.filePath),
       pages: data.get(#pages, or: $value.pages),
       format: data.get(#format, or: $value.format),

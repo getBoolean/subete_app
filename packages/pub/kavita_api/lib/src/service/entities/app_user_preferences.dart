@@ -30,6 +30,10 @@ class AppUserPreferences with AppUserPreferencesMappable {
     this.bookThemeName,
     this.bookReaderLayoutMode,
     this.bookReaderImmersiveMode,
+    this.pdfTheme,
+    this.pdfScrollMode,
+    this.pdfLayoutMode,
+    this.pdfSpreadMode,
     this.globalPageLayoutMode,
     this.blurUnreadSummaries,
     this.promptForDownloadSize,
@@ -116,6 +120,18 @@ class AppUserPreferences with AppUserPreferencesMappable {
   ///
   /// Defaults to false
   final bool? bookReaderImmersiveMode;
+
+  /// PDF Reader: Theme of the Reader
+  final PdfTheme? pdfTheme;
+
+  /// PDF Reader: Scroll mode of the reader
+  final PdfScrollMode? pdfScrollMode;
+
+  /// PDF Reader: Layout Mode of the reader
+  final PdfLayoutMode? pdfLayoutMode;
+
+  /// PDF Reader: Spread Mode of the reader
+  final PdfSpreadMode? pdfSpreadMode;
 
   /// Global Site Option: If the UI should layout items as [PageLayoutMode.cards] or [PageLayoutMode.list] items
   ///

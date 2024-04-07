@@ -308,6 +308,20 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
+  Future<Response<bool>> _apiAdminUpdateChapterProgressPost(
+      {required UpdateUserProgressDto? body}) {
+    final Uri $url = Uri.parse('/api/Admin/update-chapter-progress');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<bool, bool>($request);
+  }
+
+  @override
   Future<Response<BookInfoDto>> _apiBookChapterIdBookInfoGet(
       {required int? chapterId}) {
     final Uri $url = Uri.parse('/api/Book/${chapterId}/book-info');
@@ -371,6 +385,7 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
     int? length,
     String? name,
     String? fileName,
+    bool? comicVineMatching,
   }) {
     final Uri $url = Uri.parse('/api/Cbl/validate');
     final List<PartValue> $parts = <PartValue>[
@@ -398,6 +413,10 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
         'FileName',
         fileName,
       ),
+      PartValue<bool?>(
+        'comicVineMatching',
+        comicVineMatching,
+      ),
     ];
     final Request $request = Request(
       'POST',
@@ -418,6 +437,7 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
     String? name,
     String? fileName,
     bool? dryRun,
+    bool? comicVineMatching,
   }) {
     final Uri $url = Uri.parse('/api/Cbl/import');
     final List<PartValue> $parts = <PartValue>[
@@ -449,6 +469,10 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
         'dryRun',
         dryRun,
       ),
+      PartValue<bool?>(
+        'comicVineMatching',
+        comicVineMatching,
+      ),
     ];
     final Request $request = Request(
       'POST',
@@ -461,14 +485,20 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
-  Future<Response<List<CollectionTagDto>>> _apiCollectionGet() {
+  Future<Response<List<AppUserCollectionDto>>> _apiCollectionGet(
+      {bool? ownedOnly}) {
     final Uri $url = Uri.parse('/api/Collection');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'ownedOnly': ownedOnly
+    };
     final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
+      parameters: $params,
     );
-    return client.send<List<CollectionTagDto>, CollectionTagDto>($request);
+    return client
+        .send<List<AppUserCollectionDto>, AppUserCollectionDto>($request);
   }
 
   @override
@@ -485,11 +515,14 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
-  Future<Response<List<CollectionTagDto>>> _apiCollectionSearchGet(
-      {String? queryString}) {
-    final Uri $url = Uri.parse('/api/Collection/search');
+  Future<Response<List<AppUserCollectionDto>>> _apiCollectionAllSeriesGet({
+    int? seriesId,
+    bool? ownedOnly,
+  }) {
+    final Uri $url = Uri.parse('/api/Collection/all-series');
     final Map<String, dynamic> $params = <String, dynamic>{
-      'queryString': queryString
+      'seriesId': seriesId,
+      'ownedOnly': ownedOnly,
     };
     final Request $request = Request(
       'GET',
@@ -497,7 +530,8 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
       client.baseUrl,
       parameters: $params,
     );
-    return client.send<List<CollectionTagDto>, CollectionTagDto>($request);
+    return client
+        .send<List<AppUserCollectionDto>, AppUserCollectionDto>($request);
   }
 
   @override
@@ -515,8 +549,36 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
 
   @override
   Future<Response<dynamic>> _apiCollectionUpdatePost(
-      {required CollectionTagDto? body}) {
+      {required AppUserCollectionDto? body}) {
     final Uri $url = Uri.parse('/api/Collection/update');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _apiCollectionPromoteMultiplePost(
+      {required PromoteCollectionsDto? body}) {
+    final Uri $url = Uri.parse('/api/Collection/promote-multiple');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _apiCollectionDeleteMultiplePost(
+      {required PromoteCollectionsDto? body}) {
+    final Uri $url = Uri.parse('/api/Collection/delete-multiple');
     final $body = body;
     final Request $request = Request(
       'POST',
@@ -553,6 +615,17 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
       body: $body,
     );
     return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<List<MalStackDto>>> _apiCollectionMalStacksGet() {
+    final Uri $url = Uri.parse('/api/Collection/mal-stacks');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<List<MalStackDto>, MalStackDto>($request);
   }
 
   @override
@@ -1019,14 +1092,29 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
-  Future<Response<List<LibraryDto>>> _apiLibraryGet() {
+  Future<Response<List<LibraryDto>>> _apiLibraryGet({int? libraryId}) {
     final Uri $url = Uri.parse('/api/Library');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'libraryId': libraryId
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<List<LibraryDto>, LibraryDto>($request);
+  }
+
+  @override
+  Future<Response<String>> _apiLibraryLibrariesGet() {
+    final Uri $url = Uri.parse('/api/Library/libraries');
     final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
     );
-    return client.send<List<LibraryDto>, LibraryDto>($request);
+    return client.send<String, String>($request);
   }
 
   @override
@@ -2451,6 +2539,22 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
+  Future<Response<List<FullProgressDto>>> _apiReaderAllChapterProgressGet(
+      {int? chapterId}) {
+    final Uri $url = Uri.parse('/api/Reader/all-chapter-progress');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'chapterId': chapterId
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<List<FullProgressDto>, FullProgressDto>($request);
+  }
+
+  @override
   Future<Response<List<ReadingListDto>>> _apiReadingListGet(
       {int? readingListId}) {
     final Uri $url = Uri.parse('/api/ReadingList');
@@ -2893,9 +2997,34 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
+  Future<Response<MalUserInfoDto>> _apiScrobblingMalTokenGet() {
+    final Uri $url = Uri.parse('/api/Scrobbling/mal-token');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<MalUserInfoDto, MalUserInfoDto>($request);
+  }
+
+  @override
   Future<Response<dynamic>> _apiScrobblingUpdateAnilistTokenPost(
       {required AniListUpdateDto? body}) {
     final Uri $url = Uri.parse('/api/Scrobbling/update-anilist-token');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _apiScrobblingUpdateMalTokenPost(
+      {required MalUserInfoDto? body}) {
+    final Uri $url = Uri.parse('/api/Scrobbling/update-mal-token');
     final $body = body;
     final Request $request = Request(
       'POST',
@@ -4117,6 +4246,18 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
       $url,
       client.baseUrl,
       parameters: $params,
+    );
+    return client.send<List<Int32StatCount>, Int32StatCount>($request);
+  }
+
+  @override
+  Future<Response<List<Int32StatCount>>>
+      _apiStatsKavitaplusMetadataBreakdownGet() {
+    final Uri $url = Uri.parse('/api/Stats/kavitaplus-metadata-breakdown');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
     );
     return client.send<List<Int32StatCount>, Int32StatCount>($request);
   }

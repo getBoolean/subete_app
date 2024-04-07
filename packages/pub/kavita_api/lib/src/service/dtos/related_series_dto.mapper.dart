@@ -65,6 +65,9 @@ class RelatedSeriesDtoMapper extends ClassMapperBase<RelatedSeriesDto> {
   static List<SeriesDto>? _$editions(RelatedSeriesDto v) => v.editions;
   static const Field<RelatedSeriesDto, List<SeriesDto>> _f$editions =
       Field('editions', _$editions, opt: true);
+  static List<SeriesDto>? _$annuals(RelatedSeriesDto v) => v.annuals;
+  static const Field<RelatedSeriesDto, List<SeriesDto>> _f$annuals =
+      Field('annuals', _$annuals, opt: true);
 
   @override
   final MappableFields<RelatedSeriesDto> fields = const {
@@ -82,6 +85,7 @@ class RelatedSeriesDtoMapper extends ClassMapperBase<RelatedSeriesDto> {
     #alternativeVersions: _f$alternativeVersions,
     #doujinshis: _f$doujinshis,
     #editions: _f$editions,
+    #annuals: _f$annuals,
   };
 
   static RelatedSeriesDto _instantiate(DecodingData data) {
@@ -99,7 +103,8 @@ class RelatedSeriesDtoMapper extends ClassMapperBase<RelatedSeriesDto> {
         alternativeSettings: data.dec(_f$alternativeSettings),
         alternativeVersions: data.dec(_f$alternativeVersions),
         doujinshis: data.dec(_f$doujinshis),
-        editions: data.dec(_f$editions));
+        editions: data.dec(_f$editions),
+        annuals: data.dec(_f$annuals));
   }
 
   @override
@@ -184,6 +189,8 @@ abstract class RelatedSeriesDtoCopyWith<$R, $In extends RelatedSeriesDto, $Out>
       get doujinshis;
   ListCopyWith<$R, SeriesDto, SeriesDtoCopyWith<$R, SeriesDto, SeriesDto>>?
       get editions;
+  ListCopyWith<$R, SeriesDto, SeriesDtoCopyWith<$R, SeriesDto, SeriesDto>>?
+      get annuals;
   $R call(
       {int? sourceSeriesId,
       List<SeriesDto>? parent,
@@ -198,7 +205,8 @@ abstract class RelatedSeriesDtoCopyWith<$R, $In extends RelatedSeriesDto, $Out>
       List<SeriesDto>? alternativeSettings,
       List<SeriesDto>? alternativeVersions,
       List<SeriesDto>? doujinshis,
-      List<SeriesDto>? editions});
+      List<SeriesDto>? editions,
+      List<SeriesDto>? annuals});
   RelatedSeriesDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -294,6 +302,12 @@ class _RelatedSeriesDtoCopyWithImpl<$R, $Out>
               (v) => call(editions: v))
           : null;
   @override
+  ListCopyWith<$R, SeriesDto, SeriesDtoCopyWith<$R, SeriesDto, SeriesDto>>?
+      get annuals => $value.annuals != null
+          ? ListCopyWith($value.annuals!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(annuals: v))
+          : null;
+  @override
   $R call(
           {Object? sourceSeriesId = $none,
           Object? parent = $none,
@@ -308,7 +322,8 @@ class _RelatedSeriesDtoCopyWithImpl<$R, $Out>
           Object? alternativeSettings = $none,
           Object? alternativeVersions = $none,
           Object? doujinshis = $none,
-          Object? editions = $none}) =>
+          Object? editions = $none,
+          Object? annuals = $none}) =>
       $apply(FieldCopyWithData({
         if (sourceSeriesId != $none) #sourceSeriesId: sourceSeriesId,
         if (parent != $none) #parent: parent,
@@ -325,7 +340,8 @@ class _RelatedSeriesDtoCopyWithImpl<$R, $Out>
         if (alternativeVersions != $none)
           #alternativeVersions: alternativeVersions,
         if (doujinshis != $none) #doujinshis: doujinshis,
-        if (editions != $none) #editions: editions
+        if (editions != $none) #editions: editions,
+        if (annuals != $none) #annuals: annuals
       }));
   @override
   RelatedSeriesDto $make(CopyWithData data) => RelatedSeriesDto(
@@ -344,7 +360,8 @@ class _RelatedSeriesDtoCopyWithImpl<$R, $Out>
       alternativeVersions:
           data.get(#alternativeVersions, or: $value.alternativeVersions),
       doujinshis: data.get(#doujinshis, or: $value.doujinshis),
-      editions: data.get(#editions, or: $value.editions));
+      editions: data.get(#editions, or: $value.editions),
+      annuals: data.get(#annuals, or: $value.annuals));
 
   @override
   RelatedSeriesDtoCopyWith<$R2, RelatedSeriesDto, $Out2> $chain<$R2, $Out2>(

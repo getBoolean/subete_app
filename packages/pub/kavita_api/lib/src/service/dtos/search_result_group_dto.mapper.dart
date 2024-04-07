@@ -15,7 +15,7 @@ class SearchResultGroupDtoMapper extends ClassMapperBase<SearchResultGroupDto> {
       MapperContainer.globals.use(_instance = SearchResultGroupDtoMapper._());
       LibraryDtoMapper.ensureInitialized();
       SearchResultDtoMapper.ensureInitialized();
-      CollectionTagDtoMapper.ensureInitialized();
+      AppUserCollectionDtoMapper.ensureInitialized();
       ReadingListDtoMapper.ensureInitialized();
       PersonDtoMapper.ensureInitialized();
       GenreTagDtoMapper.ensureInitialized();
@@ -36,9 +36,9 @@ class SearchResultGroupDtoMapper extends ClassMapperBase<SearchResultGroupDto> {
   static List<SearchResultDto>? _$series(SearchResultGroupDto v) => v.series;
   static const Field<SearchResultGroupDto, List<SearchResultDto>> _f$series =
       Field('series', _$series, opt: true);
-  static List<CollectionTagDto>? _$collections(SearchResultGroupDto v) =>
+  static List<AppUserCollectionDto>? _$collections(SearchResultGroupDto v) =>
       v.collections;
-  static const Field<SearchResultGroupDto, List<CollectionTagDto>>
+  static const Field<SearchResultGroupDto, List<AppUserCollectionDto>>
       _f$collections = Field('collections', _$collections, opt: true);
   static List<ReadingListDto>? _$readingLists(SearchResultGroupDto v) =>
       v.readingLists;
@@ -156,9 +156,11 @@ abstract class SearchResultGroupDtoCopyWith<
   ListCopyWith<$R, SearchResultDto,
           SearchResultDtoCopyWith<$R, SearchResultDto, SearchResultDto>>?
       get series;
-  ListCopyWith<$R, CollectionTagDto,
-          CollectionTagDtoCopyWith<$R, CollectionTagDto, CollectionTagDto>>?
-      get collections;
+  ListCopyWith<
+      $R,
+      AppUserCollectionDto,
+      AppUserCollectionDtoCopyWith<$R, AppUserCollectionDto,
+          AppUserCollectionDto>>? get collections;
   ListCopyWith<$R, ReadingListDto,
           ReadingListDtoCopyWith<$R, ReadingListDto, ReadingListDto>>?
       get readingLists;
@@ -179,7 +181,7 @@ abstract class SearchResultGroupDtoCopyWith<
   $R call(
       {List<LibraryDto>? libraries,
       List<SearchResultDto>? series,
-      List<CollectionTagDto>? collections,
+      List<AppUserCollectionDto>? collections,
       List<ReadingListDto>? readingLists,
       List<PersonDto>? persons,
       List<GenreTagDto>? genres,
@@ -213,12 +215,14 @@ class _SearchResultGroupDtoCopyWithImpl<$R, $Out>
               (v) => call(series: v))
           : null;
   @override
-  ListCopyWith<$R, CollectionTagDto,
-          CollectionTagDtoCopyWith<$R, CollectionTagDto, CollectionTagDto>>?
-      get collections => $value.collections != null
-          ? ListCopyWith($value.collections!, (v, t) => v.copyWith.$chain(t),
-              (v) => call(collections: v))
-          : null;
+  ListCopyWith<
+      $R,
+      AppUserCollectionDto,
+      AppUserCollectionDtoCopyWith<$R, AppUserCollectionDto,
+          AppUserCollectionDto>>? get collections => $value.collections != null
+      ? ListCopyWith($value.collections!, (v, t) => v.copyWith.$chain(t),
+          (v) => call(collections: v))
+      : null;
   @override
   ListCopyWith<$R, ReadingListDto,
           ReadingListDtoCopyWith<$R, ReadingListDto, ReadingListDto>>?

@@ -13,7 +13,6 @@ class SeriesMetadataDtoMapper extends ClassMapperBase<SeriesMetadataDto> {
   static SeriesMetadataDtoMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = SeriesMetadataDtoMapper._());
-      CollectionTagDtoMapper.ensureInitialized();
       GenreTagDtoMapper.ensureInitialized();
       TagDtoMapper.ensureInitialized();
       PersonDtoMapper.ensureInitialized();
@@ -30,10 +29,6 @@ class SeriesMetadataDtoMapper extends ClassMapperBase<SeriesMetadataDto> {
   static String? _$summary(SeriesMetadataDto v) => v.summary;
   static const Field<SeriesMetadataDto, String> _f$summary =
       Field('summary', _$summary, opt: true);
-  static List<CollectionTagDto>? _$collectionTags(SeriesMetadataDto v) =>
-      v.collectionTags;
-  static const Field<SeriesMetadataDto, List<CollectionTagDto>>
-      _f$collectionTags = Field('collectionTags', _$collectionTags, opt: true);
   static List<GenreTagDto>? _$genres(SeriesMetadataDto v) => v.genres;
   static const Field<SeriesMetadataDto, List<GenreTagDto>> _f$genres =
       Field('genres', _$genres, opt: true);
@@ -148,12 +143,29 @@ class SeriesMetadataDtoMapper extends ClassMapperBase<SeriesMetadataDto> {
   static int? _$seriesId(SeriesMetadataDto v) => v.seriesId;
   static const Field<SeriesMetadataDto, int> _f$seriesId =
       Field('seriesId', _$seriesId, opt: true);
+  static List<PersonDto>? _$imprints(SeriesMetadataDto v) => v.imprints;
+  static const Field<SeriesMetadataDto, List<PersonDto>> _f$imprints =
+      Field('imprints', _$imprints, opt: true);
+  static List<PersonDto>? _$teams(SeriesMetadataDto v) => v.teams;
+  static const Field<SeriesMetadataDto, List<PersonDto>> _f$teams =
+      Field('teams', _$teams, opt: true);
+  static List<PersonDto>? _$locations(SeriesMetadataDto v) => v.locations;
+  static const Field<SeriesMetadataDto, List<PersonDto>> _f$locations =
+      Field('locations', _$locations, opt: true);
+  static bool? _$imprintLocked(SeriesMetadataDto v) => v.imprintLocked;
+  static const Field<SeriesMetadataDto, bool> _f$imprintLocked =
+      Field('imprintLocked', _$imprintLocked, opt: true);
+  static bool? _$teamLocked(SeriesMetadataDto v) => v.teamLocked;
+  static const Field<SeriesMetadataDto, bool> _f$teamLocked =
+      Field('teamLocked', _$teamLocked, opt: true);
+  static bool? _$locationLocked(SeriesMetadataDto v) => v.locationLocked;
+  static const Field<SeriesMetadataDto, bool> _f$locationLocked =
+      Field('locationLocked', _$locationLocked, opt: true);
 
   @override
   final MappableFields<SeriesMetadataDto> fields = const {
     #id: _f$id,
     #summary: _f$summary,
-    #collectionTags: _f$collectionTags,
     #genres: _f$genres,
     #tags: _f$tags,
     #writers: _f$writers,
@@ -191,13 +203,18 @@ class SeriesMetadataDtoMapper extends ClassMapperBase<SeriesMetadataDto> {
     #coverArtistLocked: _f$coverArtistLocked,
     #releaseYearLocked: _f$releaseYearLocked,
     #seriesId: _f$seriesId,
+    #imprints: _f$imprints,
+    #teams: _f$teams,
+    #locations: _f$locations,
+    #imprintLocked: _f$imprintLocked,
+    #teamLocked: _f$teamLocked,
+    #locationLocked: _f$locationLocked,
   };
 
   static SeriesMetadataDto _instantiate(DecodingData data) {
     return SeriesMetadataDto(
         id: data.dec(_f$id),
         summary: data.dec(_f$summary),
-        collectionTags: data.dec(_f$collectionTags),
         genres: data.dec(_f$genres),
         tags: data.dec(_f$tags),
         writers: data.dec(_f$writers),
@@ -234,7 +251,13 @@ class SeriesMetadataDtoMapper extends ClassMapperBase<SeriesMetadataDto> {
         translatorLocked: data.dec(_f$translatorLocked),
         coverArtistLocked: data.dec(_f$coverArtistLocked),
         releaseYearLocked: data.dec(_f$releaseYearLocked),
-        seriesId: data.dec(_f$seriesId));
+        seriesId: data.dec(_f$seriesId),
+        imprints: data.dec(_f$imprints),
+        teams: data.dec(_f$teams),
+        locations: data.dec(_f$locations),
+        imprintLocked: data.dec(_f$imprintLocked),
+        teamLocked: data.dec(_f$teamLocked),
+        locationLocked: data.dec(_f$locationLocked));
   }
 
   @override
@@ -294,9 +317,6 @@ extension SeriesMetadataDtoValueCopy<$R, $Out>
 
 abstract class SeriesMetadataDtoCopyWith<$R, $In extends SeriesMetadataDto,
     $Out> implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, CollectionTagDto,
-          CollectionTagDtoCopyWith<$R, CollectionTagDto, CollectionTagDto>>?
-      get collectionTags;
   ListCopyWith<$R, GenreTagDto,
       GenreTagDtoCopyWith<$R, GenreTagDto, GenreTagDto>>? get genres;
   ListCopyWith<$R, TagDto, TagDtoCopyWith<$R, TagDto, TagDto>>? get tags;
@@ -320,10 +340,15 @@ abstract class SeriesMetadataDtoCopyWith<$R, $In extends SeriesMetadataDto,
       get editors;
   ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
       get translators;
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get imprints;
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get teams;
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get locations;
   $R call(
       {int? id,
       String? summary,
-      List<CollectionTagDto>? collectionTags,
       List<GenreTagDto>? genres,
       List<TagDto>? tags,
       List<PersonDto>? writers,
@@ -360,7 +385,13 @@ abstract class SeriesMetadataDtoCopyWith<$R, $In extends SeriesMetadataDto,
       bool? translatorLocked,
       bool? coverArtistLocked,
       bool? releaseYearLocked,
-      int? seriesId});
+      int? seriesId,
+      List<PersonDto>? imprints,
+      List<PersonDto>? teams,
+      List<PersonDto>? locations,
+      bool? imprintLocked,
+      bool? teamLocked,
+      bool? locationLocked});
   SeriesMetadataDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
       Then<$Out2, $R2> t);
 }
@@ -373,13 +404,6 @@ class _SeriesMetadataDtoCopyWithImpl<$R, $Out>
   @override
   late final ClassMapperBase<SeriesMetadataDto> $mapper =
       SeriesMetadataDtoMapper.ensureInitialized();
-  @override
-  ListCopyWith<$R, CollectionTagDto,
-          CollectionTagDtoCopyWith<$R, CollectionTagDto, CollectionTagDto>>?
-      get collectionTags => $value.collectionTags != null
-          ? ListCopyWith($value.collectionTags!, (v, t) => v.copyWith.$chain(t),
-              (v) => call(collectionTags: v))
-          : null;
   @override
   ListCopyWith<$R, GenreTagDto,
           GenreTagDtoCopyWith<$R, GenreTagDto, GenreTagDto>>?
@@ -454,10 +478,27 @@ class _SeriesMetadataDtoCopyWithImpl<$R, $Out>
               (v) => call(translators: v))
           : null;
   @override
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get imprints => $value.imprints != null
+          ? ListCopyWith($value.imprints!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(imprints: v))
+          : null;
+  @override
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get teams => $value.teams != null
+          ? ListCopyWith($value.teams!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(teams: v))
+          : null;
+  @override
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get locations => $value.locations != null
+          ? ListCopyWith($value.locations!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(locations: v))
+          : null;
+  @override
   $R call(
           {Object? id = $none,
           Object? summary = $none,
-          Object? collectionTags = $none,
           Object? genres = $none,
           Object? tags = $none,
           Object? writers = $none,
@@ -494,11 +535,16 @@ class _SeriesMetadataDtoCopyWithImpl<$R, $Out>
           Object? translatorLocked = $none,
           Object? coverArtistLocked = $none,
           Object? releaseYearLocked = $none,
-          Object? seriesId = $none}) =>
+          Object? seriesId = $none,
+          Object? imprints = $none,
+          Object? teams = $none,
+          Object? locations = $none,
+          Object? imprintLocked = $none,
+          Object? teamLocked = $none,
+          Object? locationLocked = $none}) =>
       $apply(FieldCopyWithData({
         if (id != $none) #id: id,
         if (summary != $none) #summary: summary,
-        if (collectionTags != $none) #collectionTags: collectionTags,
         if (genres != $none) #genres: genres,
         if (tags != $none) #tags: tags,
         if (writers != $none) #writers: writers,
@@ -536,13 +582,18 @@ class _SeriesMetadataDtoCopyWithImpl<$R, $Out>
         if (translatorLocked != $none) #translatorLocked: translatorLocked,
         if (coverArtistLocked != $none) #coverArtistLocked: coverArtistLocked,
         if (releaseYearLocked != $none) #releaseYearLocked: releaseYearLocked,
-        if (seriesId != $none) #seriesId: seriesId
+        if (seriesId != $none) #seriesId: seriesId,
+        if (imprints != $none) #imprints: imprints,
+        if (teams != $none) #teams: teams,
+        if (locations != $none) #locations: locations,
+        if (imprintLocked != $none) #imprintLocked: imprintLocked,
+        if (teamLocked != $none) #teamLocked: teamLocked,
+        if (locationLocked != $none) #locationLocked: locationLocked
       }));
   @override
   SeriesMetadataDto $make(CopyWithData data) => SeriesMetadataDto(
       id: data.get(#id, or: $value.id),
       summary: data.get(#summary, or: $value.summary),
-      collectionTags: data.get(#collectionTags, or: $value.collectionTags),
       genres: data.get(#genres, or: $value.genres),
       tags: data.get(#tags, or: $value.tags),
       writers: data.get(#writers, or: $value.writers),
@@ -584,7 +635,13 @@ class _SeriesMetadataDtoCopyWithImpl<$R, $Out>
           data.get(#coverArtistLocked, or: $value.coverArtistLocked),
       releaseYearLocked:
           data.get(#releaseYearLocked, or: $value.releaseYearLocked),
-      seriesId: data.get(#seriesId, or: $value.seriesId));
+      seriesId: data.get(#seriesId, or: $value.seriesId),
+      imprints: data.get(#imprints, or: $value.imprints),
+      teams: data.get(#teams, or: $value.teams),
+      locations: data.get(#locations, or: $value.locations),
+      imprintLocked: data.get(#imprintLocked, or: $value.imprintLocked),
+      teamLocked: data.get(#teamLocked, or: $value.teamLocked),
+      locationLocked: data.get(#locationLocked, or: $value.locationLocked));
 
   @override
   SeriesMetadataDtoCopyWith<$R2, SeriesMetadataDto, $Out2> $chain<$R2, $Out2>(

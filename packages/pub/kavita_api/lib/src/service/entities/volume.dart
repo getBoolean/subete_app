@@ -15,6 +15,7 @@ class Volume with VolumeMappable implements IEntityDate, IHasReadTimeEstimate {
   const Volume({
     this.id,
     this.name,
+    this.lookupName,
     this.minNumber,
     this.maxNumber,
     this.chapters,
@@ -37,6 +38,9 @@ class Volume with VolumeMappable implements IEntityDate, IHasReadTimeEstimate {
 
   /// A String representation of the volume number. Allows for floats. Can also include a range (1-2).
   final String? name;
+
+  /// This is just the original Parsed volume number for lookups
+  final String? lookupName;
 
   /// The minimum number in the Name field
   final double? minNumber;

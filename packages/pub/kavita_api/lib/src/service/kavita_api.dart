@@ -576,6 +576,7 @@ class KavitaApiCbl {
     int? length,
     String? name,
     String? fileName,
+    bool comicVineMatching = false,
   }) async {
     return mappr.convert<ch.Response<raw.CblImportSummaryDto>,
         KavitaResponse<CblImportSummaryDto>>(
@@ -586,6 +587,7 @@ class KavitaApiCbl {
         length: length,
         name: name,
         fileName: fileName,
+        comicVineMatching: comicVineMatching,
       ),
     );
   }
@@ -598,6 +600,7 @@ class KavitaApiCbl {
     int? length,
     String? name,
     String? fileName,
+    bool comicVineMatching = false,
     bool dryRun = false,
   }) async {
     return mappr.convert<ch.Response<raw.CblImportSummaryDto>,
@@ -609,6 +612,7 @@ class KavitaApiCbl {
         length: length,
         name: name,
         fileName: fileName,
+        comicVineMatching: comicVineMatching,
         dryRun: dryRun,
       ),
     );
@@ -623,11 +627,13 @@ class KavitaApiCollection {
   /// APIs for Collections
   const KavitaApiCollection.fromContext(this.context);
 
-  /// Return a list of all collection tags on the server for the logged in user.
-  Future<KavitaResponse<List<CollectionTagDto>>> getCollections() async {
-    return mappr.convert<ch.Response<List<raw.CollectionTagDto>>,
-        KavitaResponse<List<CollectionTagDto>>>(
-      await context.api.apiCollectionGet(),
+  /// Returns all Collection tags for a given User
+  Future<KavitaResponse<List<AppUserCollectionDto>>> getCollections({
+    bool ownedOnly = false,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.AppUserCollectionDto>>,
+        KavitaResponse<List<AppUserCollectionDto>>>(
+      await context.api.apiCollectionGet(ownedOnly: ownedOnly),
     );
   }
 
@@ -642,17 +648,17 @@ class KavitaApiCollection {
     );
   }
 
-  /// Searches against the collection tags on the DB and returns matches
-  /// that meet the search criteria.
-  ///
-  /// Search strings will be cleaned of certain fields, like %
-  Future<KavitaResponse<List<CollectionTagDto>>> searchCollections(
-    String queryString,
-  ) async {
-    return mappr.convert<ch.Response<List<raw.CollectionTagDto>>,
-        KavitaResponse<List<CollectionTagDto>>>(
-      await context.api.apiCollectionSearchGet(
-        queryString: queryString,
+  /// Returns all collections that contain the Series for the user with
+  /// the option to allow for promoted collections (non-user owned)
+  Future<KavitaResponse<List<AppUserCollectionDto>>> allCollectionsWithSeries({
+    required int seriesId,
+    bool ownedOnly = false,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.AppUserCollectionDto>>,
+        KavitaResponse<List<AppUserCollectionDto>>>(
+      await context.api.apiCollectionAllSeriesGet(
+        seriesId: seriesId,
+        ownedOnly: ownedOnly,
       ),
     );
   }
@@ -678,13 +684,55 @@ class KavitaApiCollection {
   }) async {
     return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
       await context.api.apiCollectionUpdatePost(
-        body: raw.CollectionTagDto(
+        body: raw.AppUserCollectionDto(
           id: id,
           title: title,
           summary: summary,
           promoted: promoted,
         ),
       ),
+    );
+  }
+
+  /// Promote/UnPromote multiple collections in one go. Will only
+  /// update the authenticated user's collections and will only
+  /// work if the user has `promotion` role
+  Future<KavitaResponse<void>> promoteCollections({
+    required List<int> ids,
+    bool promoted = true,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiCollectionPromoteMultiplePost(
+        body: raw.PromoteCollectionsDto(
+          collectionIds: ids,
+          promoted: promoted,
+        ),
+      ),
+    );
+  }
+
+  /// Promote/UnPromote multiple collections in one go.
+  ///
+  /// TODO: This name doesnt sound like it matches the API comment
+  Future<KavitaResponse<void>> deleteMultiple({
+    required List<int> ids,
+    bool promoted = false,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiCollectionDeleteMultiplePost(
+        body: raw.PromoteCollectionsDto(
+          collectionIds: ids,
+          promoted: promoted,
+        ),
+      ),
+    );
+  }
+
+  /// For the authenticated user, if they have an active Kavita+ subscription and a MAL username on record,\r\nfetch their Mal interest stacks (including restacks)
+  Future<KavitaResponse<List<MalStackDto>>> getMalInterestStacks() async {
+    return mappr.convert<ch.Response<List<raw.MalStackDto>>,
+        KavitaResponse<List<MalStackDto>>>(
+      await context.api.apiCollectionMalStacksGet(),
     );
   }
 
@@ -1235,7 +1283,7 @@ class KavitaApiImage {
     );
   }
 
-  /// Returns cover image for [CollectionTagDto]
+  /// Returns cover image for [CollectionDto]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
   Future<KavitaResponse<String>> getCollectionCover({
@@ -1940,6 +1988,18 @@ class KavitaApiReader {
       )),
     );
   }
+
+  /// Get all progress events for a given chapter
+  Future<KavitaResponse<List<FullProgressDto>>> getAllChapterProgress({
+    required int chapterId,
+  }) async {
+    return mappr.convert<ch.Response<List<raw.FullProgressDto>>,
+        KavitaResponse<List<FullProgressDto>>>(
+      await context.api.apiReaderAllChapterProgressGet(
+        chapterId: chapterId,
+      ),
+    );
+  }
 }
 
 /// Responsible for hte Search interface from the UI
@@ -2429,6 +2489,23 @@ class KavitaApiAdmin {
       await context.api.apiAdminExistsGet(),
     );
   }
+
+  /// Set the progress information for a particular user
+  Future<KavitaResponse<bool>> updateChapterProgress({
+    int? pageNum,
+    DateTime? lastModifiedUtc,
+    DateTime? createdUtc,
+  }) async {
+    return mappr.convert<ch.Response<bool>, KavitaResponse<bool>>(
+      await context.api.apiAdminUpdateChapterProgressPost(
+        body: raw.UpdateUserProgressDto(
+          pageNum: pageNum,
+          lastModifiedUtc: lastModifiedUtc,
+          createdUtc: createdUtc,
+        ),
+      ),
+    );
+  }
 }
 
 /// All Book related APIs
@@ -2521,6 +2598,18 @@ class KavitaApiLibrary {
 
   /// All Library related APIs
   const KavitaApiLibrary.fromContext(this.context);
+
+  /// Return a specific library
+  Future<KavitaResponse<LibraryDto>> getLibrary({
+    required int id,
+  }) async {
+    return mappr
+        .convert<ch.Response<List<raw.LibraryDto>>,
+            KavitaResponse<List<LibraryDto>>>(
+          await context.api.apiLibraryGet(libraryId: id),
+        )
+        .map((body) => body?.firstOrNull);
+  }
 
   /// Creates a new Library. Upon library creation, adds new library to all Admin accounts.
   Future<KavitaResponse<void>> createLibrary({
@@ -3849,6 +3938,14 @@ class KavitaApiScrobbling {
     );
   }
 
+  /// Get the current user's MAL token
+  Future<KavitaResponse<MalUserInfoDto>> getMalToken() async {
+    return mappr.convert<ch.Response<raw.MalUserInfoDto>,
+        KavitaResponse<MalUserInfoDto>>(
+      await context.api.apiScrobblingMalTokenGet(),
+    );
+  }
+
   /// Update the current user's AniList token
   Future<KavitaResponse<void>> updateAnilistToken({
     required String token,
@@ -3856,6 +3953,21 @@ class KavitaApiScrobbling {
     return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
       await context.api.apiScrobblingUpdateAnilistTokenPost(
         body: raw.AniListUpdateDto(token: token),
+      ),
+    );
+  }
+
+  /// Update the current user's MAL token (Client ID) and Username
+  Future<KavitaResponse<void>> updateMalToken({
+    required String username,
+    required String accessToken,
+  }) async {
+    return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+      await context.api.apiScrobblingUpdateMalTokenPost(
+        body: raw.MalUserInfoDto(
+          username: username,
+          accessToken: accessToken,
+        ),
       ),
     );
   }
@@ -4366,6 +4478,7 @@ class KavitaApiSeries {
     List<int>? alternativeVersions,
     List<int>? doujinshis,
     List<int>? editions,
+    List<int>? annuals,
   }) async {
     return mappr.convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
       await context.api.apiSeriesUpdateRelatedPost(
@@ -4383,6 +4496,7 @@ class KavitaApiSeries {
           alternativeVersions: alternativeVersions,
           doujinshis: doujinshis,
           editions: editions,
+          annuals: annuals,
         ),
       ),
     );
@@ -4804,6 +4918,16 @@ class KavitaApiStats {
     return mappr.convert<ch.Response<List<raw.Int32StatCount>>,
         KavitaResponse<List<StatCount<int>>>>(
       await context.api.apiStatsWordsPerYearGet(userId: userId),
+    );
+  }
+
+  /// Returns for Kavita+ the number of Series that have been
+  /// processed, errored, and not processed
+  Future<KavitaResponse<List<StatCount<int>>>>
+      getKavitaPlusMetadataBreakdown() async {
+    return mappr.convert<ch.Response<List<raw.Int32StatCount>>,
+        KavitaResponse<List<StatCount<int>>>>(
+      await context.api.apiStatsKavitaplusMetadataBreakdownGet(),
     );
   }
 }

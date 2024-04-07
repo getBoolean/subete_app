@@ -17,6 +17,7 @@ class SeriesMapper extends ClassMapperBase<Series> {
       ExternalSeriesMetadataMapper.ensureInitialized();
       AppUserRatingMapper.ensureInitialized();
       AppUserProgressMapper.ensureInitialized();
+      AppUserCollectionMapper.ensureInitialized();
       SeriesRelationMapper.ensureInitialized();
       VolumeMapper.ensureInitialized();
       LibraryMapper.ensureInitialized();
@@ -70,6 +71,9 @@ class SeriesMapper extends ClassMapperBase<Series> {
   static String? _$folderPath(Series v) => v.folderPath;
   static const Field<Series, String> _f$folderPath =
       Field('folderPath', _$folderPath, opt: true);
+  static String? _$lowestFolderPath(Series v) => v.lowestFolderPath;
+  static const Field<Series, String> _f$lowestFolderPath =
+      Field('lowestFolderPath', _$lowestFolderPath, opt: true);
   static DateTime? _$lastFolderScanned(Series v) => v.lastFolderScanned;
   static const Field<Series, DateTime> _f$lastFolderScanned =
       Field('lastFolderScanned', _$lastFolderScanned, opt: true);
@@ -116,6 +120,9 @@ class SeriesMapper extends ClassMapperBase<Series> {
   static List<AppUserProgress>? _$progress(Series v) => v.progress;
   static const Field<Series, List<AppUserProgress>> _f$progress =
       Field('progress', _$progress, opt: true);
+  static List<AppUserCollection>? _$collections(Series v) => v.collections;
+  static const Field<Series, List<AppUserCollection>> _f$collections =
+      Field('collections', _$collections, opt: true);
   static List<SeriesRelation>? _$relations(Series v) => v.relations;
   static const Field<Series, List<SeriesRelation>> _f$relations =
       Field('relations', _$relations, opt: true);
@@ -149,6 +156,7 @@ class SeriesMapper extends ClassMapperBase<Series> {
     #coverImageLocked: _f$coverImageLocked,
     #pages: _f$pages,
     #folderPath: _f$folderPath,
+    #lowestFolderPath: _f$lowestFolderPath,
     #lastFolderScanned: _f$lastFolderScanned,
     #lastFolderScannedUtc: _f$lastFolderScannedUtc,
     #format: _f$format,
@@ -164,6 +172,7 @@ class SeriesMapper extends ClassMapperBase<Series> {
     #externalSeriesMetadata: _f$externalSeriesMetadata,
     #ratings: _f$ratings,
     #progress: _f$progress,
+    #collections: _f$collections,
     #relations: _f$relations,
     #relationOf: _f$relationOf,
     #volumes: _f$volumes,
@@ -188,6 +197,7 @@ class SeriesMapper extends ClassMapperBase<Series> {
         coverImageLocked: data.dec(_f$coverImageLocked),
         pages: data.dec(_f$pages),
         folderPath: data.dec(_f$folderPath),
+        lowestFolderPath: data.dec(_f$lowestFolderPath),
         lastFolderScanned: data.dec(_f$lastFolderScanned),
         lastFolderScannedUtc: data.dec(_f$lastFolderScannedUtc),
         format: data.dec(_f$format),
@@ -203,6 +213,7 @@ class SeriesMapper extends ClassMapperBase<Series> {
         externalSeriesMetadata: data.dec(_f$externalSeriesMetadata),
         ratings: data.dec(_f$ratings),
         progress: data.dec(_f$progress),
+        collections: data.dec(_f$collections),
         relations: data.dec(_f$relations),
         relationOf: data.dec(_f$relationOf),
         volumes: data.dec(_f$volumes),
@@ -267,6 +278,9 @@ abstract class SeriesCopyWith<$R, $In extends Series, $Out>
   ListCopyWith<$R, AppUserProgress,
           AppUserProgressCopyWith<$R, AppUserProgress, AppUserProgress>>?
       get progress;
+  ListCopyWith<$R, AppUserCollection,
+          AppUserCollectionCopyWith<$R, AppUserCollection, AppUserCollection>>?
+      get collections;
   ListCopyWith<$R, SeriesRelation,
           SeriesRelationCopyWith<$R, SeriesRelation, SeriesRelation>>?
       get relations;
@@ -291,6 +305,7 @@ abstract class SeriesCopyWith<$R, $In extends Series, $Out>
       bool? coverImageLocked,
       int? pages,
       String? folderPath,
+      String? lowestFolderPath,
       DateTime? lastFolderScanned,
       DateTime? lastFolderScannedUtc,
       MangaFormat? format,
@@ -306,6 +321,7 @@ abstract class SeriesCopyWith<$R, $In extends Series, $Out>
       ExternalSeriesMetadata? externalSeriesMetadata,
       List<AppUserRating>? ratings,
       List<AppUserProgress>? progress,
+      List<AppUserCollection>? collections,
       List<SeriesRelation>? relations,
       List<SeriesRelation>? relationOf,
       List<Volume>? volumes,
@@ -341,6 +357,13 @@ class _SeriesCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Series, $Out>
       get progress => $value.progress != null
           ? ListCopyWith($value.progress!, (v, t) => v.copyWith.$chain(t),
               (v) => call(progress: v))
+          : null;
+  @override
+  ListCopyWith<$R, AppUserCollection,
+          AppUserCollectionCopyWith<$R, AppUserCollection, AppUserCollection>>?
+      get collections => $value.collections != null
+          ? ListCopyWith($value.collections!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(collections: v))
           : null;
   @override
   ListCopyWith<$R, SeriesRelation,
@@ -382,6 +405,7 @@ class _SeriesCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Series, $Out>
           Object? coverImageLocked = $none,
           Object? pages = $none,
           Object? folderPath = $none,
+          Object? lowestFolderPath = $none,
           Object? lastFolderScanned = $none,
           Object? lastFolderScannedUtc = $none,
           Object? format = $none,
@@ -397,6 +421,7 @@ class _SeriesCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Series, $Out>
           Object? externalSeriesMetadata = $none,
           Object? ratings = $none,
           Object? progress = $none,
+          Object? collections = $none,
           Object? relations = $none,
           Object? relationOf = $none,
           Object? volumes = $none,
@@ -419,6 +444,7 @@ class _SeriesCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Series, $Out>
         if (coverImageLocked != $none) #coverImageLocked: coverImageLocked,
         if (pages != $none) #pages: pages,
         if (folderPath != $none) #folderPath: folderPath,
+        if (lowestFolderPath != $none) #lowestFolderPath: lowestFolderPath,
         if (lastFolderScanned != $none) #lastFolderScanned: lastFolderScanned,
         if (lastFolderScannedUtc != $none)
           #lastFolderScannedUtc: lastFolderScannedUtc,
@@ -438,6 +464,7 @@ class _SeriesCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Series, $Out>
           #externalSeriesMetadata: externalSeriesMetadata,
         if (ratings != $none) #ratings: ratings,
         if (progress != $none) #progress: progress,
+        if (collections != $none) #collections: collections,
         if (relations != $none) #relations: relations,
         if (relationOf != $none) #relationOf: relationOf,
         if (volumes != $none) #volumes: volumes,
@@ -463,6 +490,8 @@ class _SeriesCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Series, $Out>
           data.get(#coverImageLocked, or: $value.coverImageLocked),
       pages: data.get(#pages, or: $value.pages),
       folderPath: data.get(#folderPath, or: $value.folderPath),
+      lowestFolderPath:
+          data.get(#lowestFolderPath, or: $value.lowestFolderPath),
       lastFolderScanned:
           data.get(#lastFolderScanned, or: $value.lastFolderScanned),
       lastFolderScannedUtc:
@@ -484,6 +513,7 @@ class _SeriesCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Series, $Out>
           data.get(#externalSeriesMetadata, or: $value.externalSeriesMetadata),
       ratings: data.get(#ratings, or: $value.ratings),
       progress: data.get(#progress, or: $value.progress),
+      collections: data.get(#collections, or: $value.collections),
       relations: data.get(#relations, or: $value.relations),
       relationOf: data.get(#relationOf, or: $value.relationOf),
       volumes: data.get(#volumes, or: $value.volumes),

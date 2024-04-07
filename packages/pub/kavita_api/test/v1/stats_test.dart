@@ -170,5 +170,15 @@ void main() {
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, equals(expected));
     });
+
+    test('Test Get Kvita+ Metadata Breakdown', () async {
+      // Given
+      const expected = [StatCount<int>(count: 1, $value: 1)];
+      when(() => kavita.rawApi.apiStatsKavitaplusMetadataBreakdownGet())
+          .thenResponse(const [raw.Int32StatCount(count: 1, $value: 1)]);
+      final res = await kavita.underTest.stats.getKavitaPlusMetadataBreakdown();
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
   });
 }
