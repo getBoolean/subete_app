@@ -80,9 +80,34 @@ To run the tests, see the instructions in the [Patrol documentation](https://pub
 
 ## Building the App
 
-This project automatically builds for all platforms without code signing using GitHub Actions.
-To build the project locally, follow the instructions in the
-[Flutter docs](https://flutter.dev/docs).
+1. To run and build this app, you need to have [Flutter SDK](https://docs.flutter.dev/get-started/install) installed on your system. Check for any problems with the command below.
+
+    ```bash
+    flutter doctor
+    ```
+
+1. Create/modify [packages/env/local.env](packages/env/local.env) using the values from [packages/env/local.env.example](packages/env/local.env.example) as reference.
+
+1. Initiallize the Flutter project using [melos](https://pub.dev/packages/melos).
+
+    ```bash
+    dart pub global activate melos
+    melos bootstrap
+    ```
+
+1. If you change environment variables after the above step, run these commands to update the code generated environment variables.
+
+    ```bash
+    melos run env
+    melos run generate:pkg # choose "env" when prompted
+    ```
+
+1. Then, you can run the app normally with `flutter run` or build the app with the following commands.
+
+    ```bash
+    flutter build ios --release --no-codesign --dart-define FLUTTER_APP_FLAVOR=local --no-tree-shake-icons
+    cd build/ios/iphoneos && rm -rf Payload && mkdir Payload && cd Payload && ln -s ../Runner.app && cd .. && zip -r subete-release.ipa Payload && cd ../../..
+    ```
 
 ### Flavors
 
