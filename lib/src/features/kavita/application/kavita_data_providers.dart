@@ -10,7 +10,7 @@ part 'kavita_data_providers.g.dart';
 Future<List<LibraryDto>> libraries(LibrariesRef ref) async {
   final kavita = ref.watch(kavitaProvider);
 
-  final response = await kavita.library.listLibraries();
+  final response = await kavita.library.getAllLibraries();
   if (response.isSuccessful) {
     return response.body ?? [];
   }

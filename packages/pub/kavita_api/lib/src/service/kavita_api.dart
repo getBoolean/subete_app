@@ -2657,7 +2657,7 @@ class KavitaApiLibrary {
   }
 
   /// Return all libraries in the Server
-  Future<KavitaResponse<List<LibraryDto>>> listLibraries() async {
+  Future<KavitaResponse<List<LibraryDto>>> getAllLibraries() async {
     return mappr.convert<ch.Response<List<raw.LibraryDto>>,
         KavitaResponse<List<LibraryDto>>>(
       await context.api.apiLibraryLibrariesGet(),

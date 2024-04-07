@@ -114,7 +114,7 @@ void main() {
           excludePatterns: [],
         ),
       ];
-      final res = await kavita.underTest.library.listLibraries();
+      final res = await kavita.underTest.library.getAllLibraries();
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, equals(expected));
     });
