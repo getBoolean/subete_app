@@ -20,7 +20,7 @@ final librariesProvider = AutoDisposeFutureProvider<List<LibraryDto>>.internal(
 );
 
 typedef LibrariesRef = AutoDisposeFutureProviderRef<List<LibraryDto>>;
-String _$seriesPaginatedHash() => r'505b1f0b8f5f19b9e6069ddf80ca3b71722a18ff';
+String _$seriesPaginatedHash() => r'9b596f1553a502742704ca9e0eb1ac90028a5577';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -48,7 +48,8 @@ class _SystemHash {
 const seriesPaginatedProvider = SeriesPaginatedFamily();
 
 /// See also [seriesPaginated].
-class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
+class SeriesPaginatedFamily
+    extends Family<AsyncValue<PaginatedResult<SeriesDto>>> {
   /// See also [seriesPaginated].
   const SeriesPaginatedFamily();
 
@@ -96,7 +97,7 @@ class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
 
 /// See also [seriesPaginated].
 class SeriesPaginatedProvider
-    extends AutoDisposeFutureProvider<List<SeriesDto>> {
+    extends AutoDisposeFutureProvider<PaginatedResult<SeriesDto>> {
   /// See also [seriesPaginated].
   SeriesPaginatedProvider({
     required int libraryId,
@@ -146,7 +147,8 @@ class SeriesPaginatedProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<SeriesDto>> Function(SeriesPaginatedRef provider) create,
+    FutureOr<PaginatedResult<SeriesDto>> Function(SeriesPaginatedRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -166,7 +168,7 @@ class SeriesPaginatedProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<SeriesDto>> createElement() {
+  AutoDisposeFutureProviderElement<PaginatedResult<SeriesDto>> createElement() {
     return _SeriesPaginatedProviderElement(this);
   }
 
@@ -191,7 +193,8 @@ class SeriesPaginatedProvider
   }
 }
 
-mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<SeriesDto>> {
+mixin SeriesPaginatedRef
+    on AutoDisposeFutureProviderRef<PaginatedResult<SeriesDto>> {
   /// The parameter `libraryId` of this provider.
   int get libraryId;
 
@@ -206,7 +209,7 @@ mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<SeriesDto>> {
 }
 
 class _SeriesPaginatedProviderElement
-    extends AutoDisposeFutureProviderElement<List<SeriesDto>>
+    extends AutoDisposeFutureProviderElement<PaginatedResult<SeriesDto>>
     with SeriesPaginatedRef {
   _SeriesPaginatedProviderElement(super.provider);
 

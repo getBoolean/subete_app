@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kavita_api/kavita_api.dart';
+import 'package:pagination/pagination.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/router/router.dart';
 
@@ -64,13 +66,14 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
             if (controller.text.isEmpty || !context.mounted) {
               return [];
             }
-            final series = await ref.read(seriesPaginatedProvider(
+            final PaginatedResult<SeriesDto> series =
+                await ref.read(seriesPaginatedProvider(
               libraryId: int.parse(libraryId),
               pageNumber: 1,
               pageSize: 10,
               query: controller.text,
             ).future);
-            return series
+            return series.results
                 .map(
                   (eachSeries) => Material(
                     color: Colors.transparent,
