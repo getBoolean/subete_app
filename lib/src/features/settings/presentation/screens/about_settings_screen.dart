@@ -6,6 +6,7 @@ import 'package:log/log.dart';
 import 'package:subete/src/features/initialization/application/info_service.dart';
 import 'package:subete/utils/utils.dart';
 import 'package:super_clipboard/super_clipboard.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutSettingsScreen extends ConsumerStatefulWidget {
@@ -33,7 +34,7 @@ class _AboutSettingsScreenState extends ConsumerState<AboutSettingsScreen> {
     final version = packageInfo.requireValue.version;
     final buildNumber = packageInfo.requireValue.buildNumber;
     return Material(
-      child: ListView(
+      child: SuperListView(
         children: <Widget>[
           ListTile(
             title: const Text('Version'),
