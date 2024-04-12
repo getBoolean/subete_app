@@ -46,16 +46,13 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
     return PaginatedView<SeriesDto>(
       pageSize: pageSize,
       restorationId: 'library-$libraryId',
-      itemsProviderBuilder: (int page) {
-        final AsyncValue<PaginatedResult<SeriesDto>> series = ref.watch(
-          seriesPaginatedProvider(
-            libraryId: libraryId,
-            pageNumber: page,
-            pageSize: pageSize,
-          ),
-        );
-        return series;
-      },
+      itemsProviderBuilder: (int page) => ref.watch(
+        seriesPaginatedProvider(
+          libraryId: libraryId,
+          pageNumber: page,
+          pageSize: pageSize,
+        ),
+      ),
       invalidateItemsProvider: () => ref.invalidate(seriesPaginatedProvider),
       invalidateItemPageProvider: (int page) =>
           ref.invalidate(seriesPaginatedProvider(
@@ -63,15 +60,12 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
         pageNumber: page,
         pageSize: 20,
       )),
-      refreshItemPageProvider: (int page) async {
-        final Future<PaginatedResult<SeriesDto>> result =
-            await ref.watch(seriesPaginatedProvider(
-          libraryId: libraryId,
-          pageNumber: page,
-          pageSize: 20,
-        ).future);
-        return result;
-      },
+      refreshItemPageProvider: (int page) async =>
+          await ref.watch(seriesPaginatedProvider(
+        libraryId: libraryId,
+        pageNumber: page,
+        pageSize: 20,
+      ).future),
       itemBuilder: (BuildContext context, SeriesDto item, int indexInPage) =>
           _SeriesItemWidget(
         key: ValueKey(item.id ?? indexInPage),
@@ -88,18 +82,17 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
           },
         ),
       ),
-      loadingItemBuilder: (BuildContext context, int page, int indexInPage) {
-        return const Skeletonizer(
-          child: Card(
-            child: ListTile(
-              leading: Bone.icon(),
-              minLeadingWidth: 40,
-              title: Bone.text(),
-              subtitle: Bone.text(),
-            ),
+      loadingItemBuilder: (BuildContext context, int page, int indexInPage) =>
+          const Skeletonizer(
+        child: Card(
+          child: ListTile(
+            leading: Bone.icon(),
+            minLeadingWidth: 40,
+            title: Bone.text(),
+            subtitle: Bone.text(),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
