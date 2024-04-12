@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pagination/src/paginated_result.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 final _pageBucket = PageStorageBucket();
 
+// TODO: Add a "scroll to top" button when scrolled
 class PaginatedView<T> extends ConsumerWidget {
   const PaginatedView({
     required this.itemsProviderBuilder,
@@ -63,7 +65,7 @@ class PaginatedView<T> extends ConsumerWidget {
             // fail silently as the provider error state is handled inside the ListView
           }
         },
-        child: ListView.builder(
+        child: SuperListView.builder(
           key: PageStorageKey(restorationId),
           shrinkWrap: shrinkWrap,
           itemCount: totalResults,
