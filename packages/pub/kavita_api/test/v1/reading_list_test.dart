@@ -29,7 +29,7 @@ void main() {
 
     test('Test Get All Reading Lists', () async {
       // Given
-      const expected = [ReadingListDto()];
+      const expected = KavitaPaginatedResult([ReadingListDto()]);
       when(() => kavita.rawApi.apiReadingListListsPost(
             pageNumber: 1,
             pageSize: 1,

@@ -61,7 +61,7 @@ void main() {
               includeReviews: true,
             ),
           )).thenResponse([const raw.ScrobbleEventDto()]);
-      const expected = [ScrobbleEventDto()];
+      const expected = KavitaPaginatedResult([ScrobbleEventDto()]);
       final res = await kavita.underTest.scrobbling.getScrobbleEvents(
         pageNumber: 1,
         pageSize: 1,

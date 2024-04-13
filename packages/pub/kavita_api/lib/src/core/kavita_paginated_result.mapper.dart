@@ -50,8 +50,7 @@ class KavitaPaginatedResultMapper
   };
 
   static KavitaPaginatedResult<T> _instantiate<T>(DecodingData data) {
-    return KavitaPaginatedResult(
-        results: data.dec(_f$results),
+    return KavitaPaginatedResult(data.dec(_f$results),
         itemsPerPage: data.dec(_f$itemsPerPage),
         totalResults: data.dec(_f$totalResults),
         totalPages: data.dec(_f$totalPages),

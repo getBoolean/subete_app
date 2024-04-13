@@ -137,7 +137,7 @@ extension PaginatedResponseExtension<BodyType>
   KavitaResponse<PaginatedResult<BodyType>> paginated() {
     return wrap<KavitaPaginatedResult<BodyType>>((self, body) {
       return KavitaPaginatedResult<BodyType>(
-        results: body ?? [],
+        body ?? [],
         itemsPerPage: self.paginationHeader?.itemsPerPage ?? 0,
         totalResults: self.paginationHeader?.totalItems ?? 0,
         totalPages: self.paginationHeader?.totalPages ?? 0,

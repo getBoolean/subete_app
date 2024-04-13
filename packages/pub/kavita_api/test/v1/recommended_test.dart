@@ -9,7 +9,7 @@ void main() {
   group('Test Kavita API v1 Recommended', () {
     test('Test Get Quick Reads', () async {
       // Given
-      const expected = [SeriesDto()];
+      const expected = KavitaPaginatedResult([SeriesDto()]);
       when(() => kavita.rawApi.apiRecommendedQuickReadsGet(
             libraryId: 1,
             pageNumber: 1,
@@ -28,7 +28,7 @@ void main() {
 
     test('Test Get Quick Catchup Reads', () async {
       // Given
-      const expected = [SeriesDto()];
+      const expected = KavitaPaginatedResult([SeriesDto()]);
       when(() => kavita.rawApi.apiRecommendedQuickCatchupReadsGet(
             libraryId: 1,
             pageNumber: 1,
@@ -47,7 +47,7 @@ void main() {
 
     test('Test Get Highly Rated', () async {
       // Given
-      const expected = [SeriesDto()];
+      const expected = KavitaPaginatedResult([SeriesDto()]);
       when(() => kavita.rawApi.apiRecommendedHighlyRatedGet(
             libraryId: 1,
             pageNumber: 1,
@@ -66,7 +66,7 @@ void main() {
 
     test('Test Get More In', () async {
       // Given
-      const expected = [SeriesDto()];
+      const expected = KavitaPaginatedResult([SeriesDto()]);
       when(() => kavita.rawApi.apiRecommendedMoreInGet(
             libraryId: 1,
             pageNumber: 1,
@@ -85,7 +85,7 @@ void main() {
 
     test('Test Get Rediscover', () async {
       // Given
-      const expected = [SeriesDto()];
+      const expected = KavitaPaginatedResult([SeriesDto()]);
       when(() => kavita.rawApi.apiRecommendedRediscoverGet(
             libraryId: 1,
             pageNumber: 1,
