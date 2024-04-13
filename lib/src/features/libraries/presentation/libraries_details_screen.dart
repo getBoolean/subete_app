@@ -42,7 +42,7 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final int libraryId = int.parse(widget.libraryId);
-    const pageSize = 21;
+    const pageSize = 25;
     return PaginatedView<SeriesDto>(
       pageSize: pageSize,
       restorationId: 'library-$libraryId',
