@@ -11,29 +11,55 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A simple way to implement paginated results using riverpod providers
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Paginated View
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+A `StatelessWidget` that can be used to display a paginated list of items.
 
 ```dart
-const like = 'sample';
+PaginatedView(
+  itemsProviderBuilder: (int page) => ref.watch(itemsProviderBuilder(
+    page: page,
+  )),
+  invalidateItemsProvider: () => ref.invalidate(itemsProviderBuilder),
+  invalidateItemPageProvider: (int page) =>
+      ref.invalidate(itemsProviderBuilder(
+    page: page,
+  )),
+  refreshItemPageProvider: (int page) async =>
+      await ref.watch(itemsProviderBuilder(
+    page: page,
+  )).future,
+  itemBuilder: (BuildContext context, T item, int indexInPage) => ...,
+  loadingItemBuilder: (BuildContext context, int page, int indexInPage) => ...,
+  errorItemBuilder: (BuildContext context, int page, int indexInPage, Object error, StackTrace stack) => ...,
+  shrinkWrap: true,
+  transitionDuration: const Duration(milliseconds: 650),
+  transitionCurve: Curves.easeInOut,
+  reverseTransitionCurve: null,
+  restorationId: null,
+)
 ```
 
-## Additional information
+### Paginated Result
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Implement a `PaginatedResult` for your API response. This result can then be used
+anywhere a `PaginatedResult` is expected, such as with `PaginatedView`.
+
+### Ref Timeout
+
+Keeps a `Provider` alive for a given `Duration`.
+
+```dart
+applyRefTimeout<T>(
+  AutoDisposeRef<T> ref, [
+  Duration duration = const Duration(seconds: 30),
+])
+```
+
+## Resources
+
+- [Andrea's Pagination article](https://codewithandrea.com/articles/flutter-riverpod-pagination/)

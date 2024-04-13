@@ -11,29 +11,55 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A simple way to implement paginated results in Dart applications, see also
+[pagination](/packages/pub/pagination/README.md).
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Paginated Result
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Implement a `PaginatedResult` for your API response. This result can then be used
+anywhere a `PaginatedResult` is expected, such as with [PaginatedView](/packages/pub/pagination/lib/src/paginated_view.dart).
 
 ```dart
-const like = 'sample';
+@MappableClass()
+class MyPaginatedResult<T> with MyPaginatedResultMappable<T>
+    implements PaginatedResult<T> {
+  const MyPaginatedResult({
+    required this.results,
+    this.itemsPerPage = 0,
+    this.totalResults = 0,
+    this.totalPages = 0,
+    this.currentPage = 0,
+  });
+
+  @override
+  final List<T> results;
+  @override
+  final int totalResults;
+  @override
+  final int totalPages;
+  @override
+  final int currentPage;
+  @override
+  final int itemsPerPage;
+
+  static const fromMap = MyPaginatedResultMapper.fromMap;
+  static const fromJson = MyPaginatedResultMapper.fromJson;
+}
 ```
 
-## Additional information
+### Ref Timeout
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Keeps a `Provider` alive for a given `Duration`.
+
+```dart
+applyRefTimeout<T>(
+  AutoDisposeRef<T> ref, [
+  Duration duration = const Duration(seconds: 30),
+])
+```
+
+## Resources
+
+- [Andrea's Pagination article](https://codewithandrea.com/articles/flutter-riverpod-pagination/)
