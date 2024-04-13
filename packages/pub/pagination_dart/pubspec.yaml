@@ -1,7 +1,10 @@
 name: pagination_dart
-description: A starting point for Dart libraries or applications.
+description: Core code used to implment paginated results in Dart libraries
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/getBoolean/subete_app/packages/pub/pagination_dart
+homepage: https://subete.dev
+issue_tracker: https://github.com/getBoolean/subete_app/issues
+publish_to: none
 
 environment:
   sdk: ^3.3.3

@@ -1,9 +1,9 @@
 name: pagination
 description: "An implementation of Anrea's Pagination article"
 version: 0.0.1
-homepage: https://github.com/getBoolean/subete_app/packages/pub/pagination
 repository: https://github.com/getBoolean/subete_app
-
+homepage: https://subete.dev
+issue_tracker: https://github.com/getBoolean/subete_app/issues
 publish_to: none
 
 environment:
