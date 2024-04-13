@@ -36,14 +36,15 @@ this app provides some basic functionality for them.
 
 A preview of the application is deployed to [getboolean.github.io/subete_app](https://getboolean.github.io/subete_app).
 
-- Made with Flutter
-- Template by [@getBoolean](https://github.com/getBoolean)
+- Supports Kavita 0.7
 - Minimal OS Version:
   - iOS: 13.0
   - Android: 6.0 (SDK 23)
   - MacOS: 10.14.6
   - Windows 10
   - Linux: Any modern distribution
+- Made with Flutter
+- Template by [@getBoolean](https://github.com/getBoolean)
 
 ## Template: Getting Started
 
