@@ -13,7 +13,6 @@ Unofficial Kavita client for mobile and desktop (in progress)
 - [Template: Getting Started](#template-getting-started)
 - [Setup](#setup)
 - [Testing](#testing)
-  - [Integration Tests](#integration-tests)
 - [Building the App](#building-the-app)
   - [Flavors](#flavors)
 - [Architecture](#architecture)
@@ -71,13 +70,6 @@ A preview of the application is deployed to [getboolean.github.io/subete_app](ht
 ```bash
 melos run test
 ```
-
-### Integration Tests
-
-`patrol` provides visual feedback to the tester andtakes screenshots automatically.
-These integration tests are located in the `integration_test` directory.
-
-To run the tests, see the instructions in the [Patrol documentation](https://pub.dev/packages/patrol)
 
 ## Building the App
 

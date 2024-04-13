@@ -95,7 +95,6 @@ dev_dependencies:
   mocktail: ^1.0.3
   modddels: ^0.2.0
   msix: ^3.16.7
-  patrol: ^3.6.1
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
   solid_lints: ^0.1.5
@@ -107,12 +106,3 @@ flutter:
 msix_config:
   display_name: Flutter Template App
   install_certificate: false
-
-patrol:
-  app_name: Subete
-  android:
-    package_name: com.getboolean.subete
-  ios:
-    bundle_id: com.getboolean.subete
-  macos:
-    bundle_id: com.getboolean.subete
