@@ -79,8 +79,6 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     // patrol
     androidTestUtil "androidx.test:orchestrator:1.4.2"
 }
