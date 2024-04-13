@@ -7,7 +7,7 @@ import 'package:kavita_api/src/service/mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
 import 'package:meta/meta.dart';
-import 'package:pagination/pagination.dart';
+import 'package:pagination_dart/pagination_dart.dart';
 
 /// The Kavita API client
 class KavitaApi {

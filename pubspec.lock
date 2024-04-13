@@ -1180,6 +1180,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  pagination_dart:
+    dependency: "direct overridden"
+    description:
+      path: "packages/pub/pagination_dart"
+      relative: true
+    source: path
+    version: "1.0.0"
   path:
     dependency: "direct main"
     description:

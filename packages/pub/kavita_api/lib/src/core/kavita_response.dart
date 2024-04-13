@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:kavita_api/src/core/kavita_exception.dart';
 import 'package:kavita_api/src/core/kavita_paginated_result.dart';
 import 'package:meta/meta.dart';
-import 'package:pagination/pagination.dart';
+import 'package:pagination_dart/pagination_dart.dart';
 
 part 'kavita_response.mapper.dart';
 

@@ -1,5 +1,4 @@
 library pagination;
 
-export 'src/paginated_result.dart';
+export 'package:pagination_dart/pagination_dart.dart';
 export 'src/paginated_view.dart';
-export 'src/ref_timeout.dart';

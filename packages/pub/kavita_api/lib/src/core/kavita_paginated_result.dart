@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:pagination/pagination.dart';
+import 'package:pagination_dart/pagination_dart.dart';
 
 part 'kavita_paginated_result.mapper.dart';
 
