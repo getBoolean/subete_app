@@ -1243,22 +1243,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
-  patrol:
-    dependency: "direct dev"
-    description:
-      name: patrol
-      sha256: fefd5687993c4a8345666a8666f8d4c2135a8808a8767084156b4667c8634f15
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.6.1"
-  patrol_finders:
-    dependency: transitive
-    description:
-      name: patrol_finders
-      sha256: ac33527cc1b63e3aa131dbd7107cfda8ee2df0fb4a4a423c067174a2e60db77b
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   petitparser:
     dependency: transitive
     description:
