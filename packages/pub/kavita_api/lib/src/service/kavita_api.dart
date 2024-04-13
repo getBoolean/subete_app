@@ -7,6 +7,7 @@ import 'package:kavita_api/src/service/mappr.dart';
 import 'package:kavita_api/src/service/openapi_generated_code/kavita_api_v1.swagger.dart'
     as raw;
 import 'package:meta/meta.dart';
+import 'package:pagination_dart/pagination_dart.dart';
 
 /// The Kavita API client
 class KavitaApi {
@@ -2371,19 +2372,21 @@ class KavitaApiWantToRead {
 
   /// Return all Series that are in the current logged in user's Want to Read
   /// list, filtered
-  Future<KavitaResponse<List<SeriesDto>>> getAllWantToRead({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getAllWantToRead({
     required int pageNumber,
     required int pageSize,
     required FilterV2Dto filter,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiWantToReadV2Post(
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiWantToReadV2Post(
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+          ),
+        )
+        .paginated();
   }
 
   /// Given a list of Series Ids, add them to the current logged in user's
@@ -3441,21 +3444,23 @@ class KavitaApiReadingList {
   /// - [pageSize] If set to 0, will set as MaxInt
   /// - [includePromoted] Include Promoted Reading Lists along with user's Reading Lists.
   /// - [sortByLastModified] Sort by last modified (most recent first) or by title (alphabetical)
-  Future<KavitaResponse<List<ReadingListDto>>> getAllReadingLists({
+  Future<KavitaResponse<PaginatedResult<ReadingListDto>>> getAllReadingLists({
     required int pageNumber,
     required int pageSize,
     bool includePromoted = true,
     bool sortByLastModified = false,
   }) async {
-    return mappr.convert<ch.Response<List<raw.ReadingListDto>>,
-        KavitaResponse<List<ReadingListDto>>>(
-      await context.api.apiReadingListListsPost(
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        includePromoted: includePromoted,
-        sortByLastModified: sortByLastModified,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.ReadingListDto>>,
+            KavitaResponse<List<ReadingListDto>>>(
+          await context.api.apiReadingListListsPost(
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            includePromoted: includePromoted,
+            sortByLastModified: sortByLastModified,
+          ),
+        )
+        .paginated();
   }
 
   /// Returns all [ReadingListDto]s the user has access to that have a [Series] within it.
@@ -3719,85 +3724,95 @@ class KavitaApiRecommended {
 
   /// Quick Reads are series that should be readable in less than 10 in total
   /// and are not Ongoing in release.
-  Future<KavitaResponse<List<SeriesDto>>> getQuickReads({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getQuickReads({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiRecommendedQuickReadsGet(
-        libraryId: libraryId,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiRecommendedQuickReadsGet(
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+          ),
+        )
+        .paginated();
   }
 
   /// Quick Catchup Reads are series that should be readable in less than 10
   /// in total and are Ongoing in release.
-  Future<KavitaResponse<List<SeriesDto>>> getQuickCatchupReads({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getQuickCatchupReads({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiRecommendedQuickCatchupReadsGet(
-        libraryId: libraryId,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiRecommendedQuickCatchupReadsGet(
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+          ),
+        )
+        .paginated();
   }
 
   /// Highly Rated based on other users ratings. Will pull series with ratings > 4.0,
   /// weighted by count of other users.
-  Future<KavitaResponse<List<SeriesDto>>> getHighlyRated({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getHighlyRated({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiRecommendedHighlyRatedGet(
-        libraryId: libraryId,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiRecommendedHighlyRatedGet(
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+          ),
+        )
+        .paginated();
   }
 
   /// Chooses a random genre and shows series that are in that without reading progress
-  Future<KavitaResponse<List<SeriesDto>>> getMoreIn({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getMoreIn({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiRecommendedMoreInGet(
-        libraryId: libraryId,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiRecommendedMoreInGet(
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+          ),
+        )
+        .paginated();
   }
 
   /// Series that are fully read by the user in no particular order
-  Future<KavitaResponse<List<SeriesDto>>> getRediscover({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getRediscover({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiRecommendedRediscoverGet(
-        libraryId: libraryId,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiRecommendedRediscoverGet(
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+          ),
+        )
+        .paginated();
   }
 }
 
@@ -3894,21 +3909,23 @@ class KavitaApiScrobbling {
   /// Returns the scrobbling history for the user
   ///
   /// User must have a valid license for Kavita+
-  Future<KavitaResponse<List<ScrobbleEventDto>>> getScrobbleEvents({
+  Future<KavitaResponse<PaginatedResult<ScrobbleEventDto>>> getScrobbleEvents({
     required int pageNumber,
     required int pageSize,
     ScrobbleEventFilter? filter,
   }) async {
-    return mappr.convert<ch.Response<List<raw.ScrobbleEventDto>>,
-        KavitaResponse<List<ScrobbleEventDto>>>(
-      await context.api.apiScrobblingScrobbleEventsPost(
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        body: mappr.convert<ScrobbleEventFilter, raw.ScrobbleEventFilter>(
-          filter,
-        ),
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.ScrobbleEventDto>>,
+            KavitaResponse<List<ScrobbleEventDto>>>(
+          await context.api.apiScrobblingScrobbleEventsPost(
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            body: mappr.convert<ScrobbleEventFilter, raw.ScrobbleEventFilter>(
+              filter,
+            ),
+          ),
+        )
+        .paginated();
   }
 
   /// Returns all scrobble holds for the current user
@@ -3978,19 +3995,20 @@ class KavitaApiSeries {
   /// - [filter]
   /// - [pageNumber]
   /// - [pageSize] - If set to 0, will set as MaxInt
-  Future<KavitaResponse<List<Series>>> getSeriesByFilter({
+  Future<KavitaResponse<PaginatedResult<Series>>> getSeriesByFilter({
     required FilterV2Dto filter,
     required int pageNumber,
     required int pageSize,
   }) async {
     return mappr
         .convert<ch.Response<List<raw.Series>>, KavitaResponse<List<Series>>>(
-      await context.api.apiSeriesV2Post(
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
-      ),
-    );
+          await context.api.apiSeriesV2Post(
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+          ),
+        )
+        .paginated();
   }
 
   /// Fetches a [Series] for a given [id]
@@ -4094,19 +4112,21 @@ class KavitaApiSeries {
   }
 
   /// Gets all recently added [Series]
-  Future<KavitaResponse<List<SeriesDto>>> getRecentlyAddedSeries({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getRecentlyAddedSeries({
     required int pageNumber,
     required int pageSize,
     required FilterV2Dto filter,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiSeriesRecentlyAddedV2Post(
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiSeriesRecentlyAddedV2Post(
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(filter),
+          ),
+        )
+        .paginated();
   }
 
   /// Returns [Series] that were recently updated, like adding or removing a chapter
@@ -4121,7 +4141,7 @@ class KavitaApiSeries {
   /// Returns all [Series] for the library
   ///
   /// If [mergeWithDefaultFilter] is enabled, the filter forced to use [FilterCombination.and]
-  Future<KavitaResponse<List<SeriesDto>>> getAllSeries({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getAllSeries({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
@@ -4142,37 +4162,41 @@ class KavitaApiSeries {
       limitTo: 0,
     );
 
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiSeriesAllV2Post(
-        libraryId: libraryId,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(
-          mergeWithDefaultFilter
-              ? defaultFilter
-                  .merge(filter)
-                  .copyWith(combination: FilterCombination.and)
-              : filter ?? defaultFilter,
-        ),
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiSeriesAllV2Post(
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            body: mappr.convert<FilterV2Dto, raw.FilterV2Dto>(
+              mergeWithDefaultFilter
+                  ? defaultFilter
+                      .merge(filter)
+                      .copyWith(combination: FilterCombination.and)
+                  : filter ?? defaultFilter,
+            ),
+          ),
+        )
+        .paginated();
   }
 
   /// Fetches [Series] that are on deck aka have progress on them.
-  Future<KavitaResponse<List<SeriesDto>>> getOnDeckSeries({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getOnDeckSeries({
     required int libraryId,
     required int pageNumber,
     required int pageSize,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiSeriesOnDeckPost(
-        libraryId: libraryId,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiSeriesOnDeckPost(
+            libraryId: libraryId,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+          ),
+        )
+        .paginated();
   }
 
   /// Removes a [Series] from displaying on deck until the next read event on that series
@@ -4272,19 +4296,21 @@ class KavitaApiSeries {
   }
 
   /// Returns all [Series] grouped by the passed Collection Id with Pagination.
-  Future<KavitaResponse<List<SeriesDto>>> getSeriesByCollection({
+  Future<KavitaResponse<PaginatedResult<SeriesDto>>> getSeriesByCollection({
     int? id,
     int? pageNumber,
     int? pageSize,
   }) async {
-    return mappr.convert<ch.Response<List<raw.SeriesDto>>,
-        KavitaResponse<List<SeriesDto>>>(
-      await context.api.apiSeriesSeriesByCollectionGet(
-        collectionId: id,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-      ),
-    );
+    return mappr
+        .convert<ch.Response<List<raw.SeriesDto>>,
+            KavitaResponse<List<SeriesDto>>>(
+          await context.api.apiSeriesSeriesByCollectionGet(
+            collectionId: id,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+          ),
+        )
+        .paginated();
   }
 
   /// Fetches [Series] for a set of Ids. This will check User for permission access

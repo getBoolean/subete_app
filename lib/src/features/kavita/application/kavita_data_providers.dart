@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:kavita_api/kavita_api.dart';
+import 'package:pagination/pagination.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 
@@ -19,7 +20,7 @@ Future<List<LibraryDto>> libraries(LibrariesRef ref) async {
 }
 
 @riverpod
-Future<List<SeriesDto>> seriesPaginated(
+Future<PaginatedResult<SeriesDto>> seriesPaginated(
   SeriesPaginatedRef ref, {
   required int libraryId,
   required int pageNumber,
@@ -27,6 +28,7 @@ Future<List<SeriesDto>> seriesPaginated(
   String? query,
 }) async {
   final kavita = ref.watch(kavitaProvider);
+  ref.keepAliveDuration();
 
   final response = await kavita.series.getAllSeries(
       libraryId: libraryId,
@@ -44,7 +46,7 @@ Future<List<SeriesDto>> seriesPaginated(
               ],
             ));
   if (response.isSuccessful) {
-    return response.body ?? [];
+    return response.body ?? PaginatedResult.empty();
   }
   throw Exception('Failed to get series');
 }

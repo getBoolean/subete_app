@@ -19,6 +19,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/utils/utils.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class SeriesDetailsScreen extends ConsumerWidget {
   const SeriesDetailsScreen({
@@ -41,7 +42,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
       switchOutCurve: Curves.easeInOut,
       child: series.when(
         data: (series) {
-          return ListView.builder(
+          return SuperListView.builder(
             key: const ValueKey('SeriesDetailsScreen-list'),
             itemCount: series.length,
             itemBuilder: (context, index) {

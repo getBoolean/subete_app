@@ -8,6 +8,7 @@ import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/router/router.dart';
 import 'package:subete/utils/utils.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class LibrariesScreen extends ConsumerWidget {
   const LibrariesScreen({
@@ -28,7 +29,7 @@ class LibrariesScreen extends ConsumerWidget {
             final lightNovelLibraries = data
                 .where((library) => library.type == LibraryType.book)
                 .toList();
-            return ListView.builder(
+            return SuperListView.builder(
               key: const ValueKey('LibrariesScreen-list'),
               itemCount: lightNovelLibraries.length,
               itemBuilder: (context, index) {

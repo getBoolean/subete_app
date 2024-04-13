@@ -4,6 +4,7 @@ version: 0.0.1
 repository: https://github.com/getBoolean/subete_app
 homepage: https://subete.dev
 issue_tracker: https://github.com/getBoolean/subete_app/issues
+publish_to: none
 
 environment:
   sdk: ^3.3.0
@@ -16,10 +17,13 @@ dependencies:
   http: ^1.0.0
   json_annotation: ^4.0.0
   meta: ^1.0.0
+  pagination_dart:
+    path: ../pagination_dart
 
 dev_dependencies:
   auto_mappr: ^2.3.0
   build_runner: ^2.4.8
+  build_verify: ^3.1.0
   chopper_generator: ^7.1.1
   dart_mappable_builder: ^4.2.0
   dotenv: ^4.2.0

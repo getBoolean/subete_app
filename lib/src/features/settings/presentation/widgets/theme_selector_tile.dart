@@ -3,6 +3,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:subete/utils/utils.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class ThemeSelectorTile extends StatefulWidget {
   const ThemeSelectorTile({
@@ -56,7 +57,7 @@ class _ThemeSelectorTileState extends State<ThemeSelectorTile> {
             constraints: const BoxConstraints.tightFor(
               height: 160,
             ),
-            child: ListView.builder(
+            child: SuperListView.builder(
               controller: _scrollController,
               padding: const EdgeInsetsDirectional.only(start: 8, end: 16),
               scrollDirection: Axis.horizontal,
