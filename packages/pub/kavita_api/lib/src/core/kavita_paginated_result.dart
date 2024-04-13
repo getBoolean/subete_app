@@ -5,7 +5,8 @@ import 'package:pagination_dart/pagination_dart.dart';
 
 part 'kavita_paginated_result.mapper.dart';
 
-@MappableClass()
+@MappableClass(
+    generateMethods: GenerateMethods.equals | GenerateMethods.stringify)
 class KavitaPaginatedResult<T>
     with KavitaPaginatedResultMappable<T>
     implements PaginatedResult<T> {
@@ -27,7 +28,4 @@ class KavitaPaginatedResult<T>
   final int currentPage;
   @override
   final int itemsPerPage;
-
-  static const fromMap = KavitaPaginatedResultMapper.fromMap;
-  static const fromJson = KavitaPaginatedResultMapper.fromJson;
 }

@@ -60,31 +60,9 @@ class KavitaPaginatedResultMapper
 
   @override
   final Function instantiate = _instantiate;
-
-  static KavitaPaginatedResult<T> fromMap<T>(Map<String, dynamic> map) {
-    return ensureInitialized().decodeMap<KavitaPaginatedResult<T>>(map);
-  }
-
-  static KavitaPaginatedResult<T> fromJson<T>(String json) {
-    return ensureInitialized().decodeJson<KavitaPaginatedResult<T>>(json);
-  }
 }
 
 mixin KavitaPaginatedResultMappable<T> {
-  String toJson() {
-    return KavitaPaginatedResultMapper.ensureInitialized()
-        .encodeJson<KavitaPaginatedResult<T>>(this as KavitaPaginatedResult<T>);
-  }
-
-  Map<String, dynamic> toMap() {
-    return KavitaPaginatedResultMapper.ensureInitialized()
-        .encodeMap<KavitaPaginatedResult<T>>(this as KavitaPaginatedResult<T>);
-  }
-
-  KavitaPaginatedResultCopyWith<KavitaPaginatedResult<T>,
-          KavitaPaginatedResult<T>, KavitaPaginatedResult<T>, T>
-      get copyWith => _KavitaPaginatedResultCopyWithImpl(
-          this as KavitaPaginatedResult<T>, $identity, $identity);
   @override
   String toString() {
     return KavitaPaginatedResultMapper.ensureInitialized()
@@ -104,69 +82,4 @@ mixin KavitaPaginatedResultMappable<T> {
     return KavitaPaginatedResultMapper.ensureInitialized()
         .hashValue(this as KavitaPaginatedResult<T>);
   }
-}
-
-extension KavitaPaginatedResultValueCopy<$R, $Out, T>
-    on ObjectCopyWith<$R, KavitaPaginatedResult<T>, $Out> {
-  KavitaPaginatedResultCopyWith<$R, KavitaPaginatedResult<T>, $Out, T>
-      get $asKavitaPaginatedResult =>
-          $base.as((v, t, t2) => _KavitaPaginatedResultCopyWithImpl(v, t, t2));
-}
-
-abstract class KavitaPaginatedResultCopyWith<
-    $R,
-    $In extends KavitaPaginatedResult<T>,
-    $Out,
-    T> implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, T, ObjectCopyWith<$R, T, T>> get results;
-  $R call(
-      {List<T>? results,
-      int? itemsPerPage,
-      int? totalResults,
-      int? totalPages,
-      int? currentPage});
-  KavitaPaginatedResultCopyWith<$R2, $In, $Out2, T> $chain<$R2, $Out2>(
-      Then<$Out2, $R2> t);
-}
-
-class _KavitaPaginatedResultCopyWithImpl<$R, $Out, T>
-    extends ClassCopyWithBase<$R, KavitaPaginatedResult<T>, $Out>
-    implements
-        KavitaPaginatedResultCopyWith<$R, KavitaPaginatedResult<T>, $Out, T> {
-  _KavitaPaginatedResultCopyWithImpl(super.value, super.then, super.then2);
-
-  @override
-  late final ClassMapperBase<KavitaPaginatedResult> $mapper =
-      KavitaPaginatedResultMapper.ensureInitialized();
-  @override
-  ListCopyWith<$R, T, ObjectCopyWith<$R, T, T>> get results => ListCopyWith(
-      $value.results,
-      (v, t) => ObjectCopyWith(v, $identity, t),
-      (v) => call(results: v));
-  @override
-  $R call(
-          {List<T>? results,
-          int? itemsPerPage,
-          int? totalResults,
-          int? totalPages,
-          int? currentPage}) =>
-      $apply(FieldCopyWithData({
-        if (results != null) #results: results,
-        if (itemsPerPage != null) #itemsPerPage: itemsPerPage,
-        if (totalResults != null) #totalResults: totalResults,
-        if (totalPages != null) #totalPages: totalPages,
-        if (currentPage != null) #currentPage: currentPage
-      }));
-  @override
-  KavitaPaginatedResult<T> $make(CopyWithData data) => KavitaPaginatedResult(
-      results: data.get(#results, or: $value.results),
-      itemsPerPage: data.get(#itemsPerPage, or: $value.itemsPerPage),
-      totalResults: data.get(#totalResults, or: $value.totalResults),
-      totalPages: data.get(#totalPages, or: $value.totalPages),
-      currentPage: data.get(#currentPage, or: $value.currentPage));
-
-  @override
-  KavitaPaginatedResultCopyWith<$R2, KavitaPaginatedResult<T>, $Out2, T>
-      $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-          _KavitaPaginatedResultCopyWithImpl($value, $cast, t);
 }
