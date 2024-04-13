@@ -26,7 +26,7 @@ packages:
     source: hosted
     version: "0.11.3"
   app_lints:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "../app_lints"
       relative: true

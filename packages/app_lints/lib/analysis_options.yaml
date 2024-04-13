@@ -1,8 +1,6 @@
 include: package:solid_lints/analysis_options.yaml
 
 analyzer:
-  plugins:
-    - custom_lint
   language:
     strict-inference: true
 

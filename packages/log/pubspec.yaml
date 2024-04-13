@@ -14,8 +14,6 @@ dependencies:
   logging: ^1.2.0
 
 dev_dependencies:
-  app_lints:
-    path: ../app_lints
   flutter_test:
     sdk: flutter
 

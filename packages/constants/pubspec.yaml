@@ -16,8 +16,6 @@ dependencies:
   gap: ^3.0.1
 
 dev_dependencies:
-  app_lints:
-    path: ../app_lints
   flutter_test:
     sdk: flutter
 

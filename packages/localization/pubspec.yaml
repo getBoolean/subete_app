@@ -17,8 +17,6 @@ dependencies:
   intl: any
 
 dev_dependencies:
-  app_lints:
-    path: ../app_lints
   build_verify: ^3.1.0
   flutter_test:
     sdk: flutter
