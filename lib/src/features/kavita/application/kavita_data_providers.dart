@@ -28,6 +28,7 @@ Future<PaginatedResult<SeriesDto>> seriesPaginated(
   String? query,
 }) async {
   final kavita = ref.watch(kavitaProvider);
+  ref.keepAliveDuration();
 
   final response = await kavita.series.getAllSeries(
       libraryId: libraryId,
