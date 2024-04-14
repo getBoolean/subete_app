@@ -51,7 +51,13 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
           viewHintText: 'Search $libraryName',
-          viewLeading: const BackButton(),
+          viewLeading: BackButton(
+            onPressed: () {
+              widget.focusNode.unfocus();
+              Navigator.of(context).pop();
+              widget.focusNode.unfocus();
+            },
+          ),
           viewTrailing: [
             IconButton(
               icon: const Icon(Icons.close),
@@ -110,6 +116,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
                         if (!controller.isOpen) controller.openView();
                       },
                       onChanged: (_) {
+                        widget.focusNode.unfocus();
                         if (!controller.isOpen) controller.openView();
                       },
                       hintText: 'Search $libraryName',
