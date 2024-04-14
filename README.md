@@ -35,7 +35,7 @@ this app provides some basic functionality for them.
 
 A preview of the application is deployed to [getboolean.github.io/subete_app](https://getboolean.github.io/subete_app).
 
-- Supports Kavita 0.7
+- Supports Kavita 0.8
 - Minimal OS Version:
   - iOS: 13.0
   - Android: 6.0 (SDK 23)
