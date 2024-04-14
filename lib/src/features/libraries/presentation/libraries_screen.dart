@@ -31,24 +31,20 @@ class LibrariesScreen extends ConsumerWidget {
                 .toList();
             return KeyedSubtree(
               key: const ValueKey('LibrariesScreen-list'),
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: Scrollbar(
-                  child: ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(context).copyWith(
-                      scrollbars: false,
-                    ),
-                    child: SuperListView.builder(
-                      itemCount: lightNovelLibraries.length,
-                      itemBuilder: (context, index) {
-                        final library = lightNovelLibraries[index];
-                        return _SingleLibraryItemWidget(
-                          key: ValueKey(library.id ?? index),
-                          library: library,
-                        );
-                      },
-                    ),
+              child: Scrollbar(
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    scrollbars: false,
+                  ),
+                  child: SuperListView.builder(
+                    itemCount: lightNovelLibraries.length,
+                    itemBuilder: (context, index) {
+                      final library = lightNovelLibraries[index];
+                      return _SingleLibraryItemWidget(
+                        key: ValueKey(library.id ?? index),
+                        library: library,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -72,19 +68,15 @@ class LibrariesScreen extends ConsumerWidget {
           },
           loading: () => Skeletonizer(
             key: const ValueKey('LibrariesScreen-loading'),
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const Card(
-                    child: ListTile(
-                      title: Text('Loading Library'),
-                    ),
-                  );
-                },
-              ),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const Card(
+                  child: ListTile(
+                    title: Text('Loading Library'),
+                  ),
+                );
+              },
             ),
           ),
         ),

@@ -42,27 +42,23 @@ class SeriesDetailsScreen extends ConsumerWidget {
         data: (volumes) {
           return KeyedSubtree(
             key: const ValueKey('SeriesDetailsScreen-list'),
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: Scrollbar(
-                child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context).copyWith(
-                    scrollbars: false,
-                  ),
-                  child: SuperListView.builder(
-                    itemCount: volumes.length,
-                    itemBuilder: (context, index) {
-                      final VolumeDto volumeItem = volumes[index];
-                      return Builder(builder: (context) {
-                        return _VolumeWidget(
-                          key: ValueKey(volumeItem.id ?? index),
-                          volumeItem: volumeItem,
-                          seriesName: series.valueOrNull?.name ?? '',
-                        );
-                      });
-                    },
-                  ),
+            child: Scrollbar(
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context).copyWith(
+                  scrollbars: false,
+                ),
+                child: SuperListView.builder(
+                  itemCount: volumes.length,
+                  itemBuilder: (context, index) {
+                    final VolumeDto volumeItem = volumes[index];
+                    return Builder(builder: (context) {
+                      return _VolumeWidget(
+                        key: ValueKey(volumeItem.id ?? index),
+                        volumeItem: volumeItem,
+                        seriesName: series.valueOrNull?.name ?? '',
+                      );
+                    });
+                  },
                 ),
               ),
             ),
@@ -87,22 +83,18 @@ class SeriesDetailsScreen extends ConsumerWidget {
         loading: () {
           return Skeletonizer(
             key: const ValueKey('SeriesDetailsScreen-loading'),
-            child: MediaQuery.removePadding(
-              context: context,
-              removeTop: true,
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const Card(
-                    child: ListTile(
-                      leading: Icon(Icons.library_books),
-                      minLeadingWidth: 40,
-                      title: Text('Loading...'),
-                      subtitle: Text('Hours...'),
-                    ),
-                  );
-                },
-              ),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const Card(
+                  child: ListTile(
+                    leading: Icon(Icons.library_books),
+                    minLeadingWidth: 40,
+                    title: Text('Loading...'),
+                    subtitle: Text('Hours...'),
+                  ),
+                );
+              },
             ),
           );
         },
