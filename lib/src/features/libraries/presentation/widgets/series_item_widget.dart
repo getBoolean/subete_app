@@ -21,14 +21,15 @@ class SeriesItemWidget extends ConsumerWidget {
     final kavita = ref.watch(kavitaProvider);
     final (:headers, :url) =
         kavita.image.getSeriesCoverUrl(id: seriesItem.id ?? -1);
+    const imageWidth = 40.0;
     return Card(
       child: ListTile(
-        minLeadingWidth: 40,
+        minLeadingWidth: imageWidth,
         leading: ExtendedImage.network(
           url.toString(),
           headers: headers,
-          width: 40,
-          fit: BoxFit.fill,
+          width: imageWidth,
+          fit: BoxFit.cover,
           shape: BoxShape.rectangle,
           handleLoadingProgress: true,
           borderRadius:
