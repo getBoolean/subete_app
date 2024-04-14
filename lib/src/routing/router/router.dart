@@ -6,7 +6,7 @@ import 'package:subete/src/routing/presentation/routes/libraries_route.dart';
 import 'package:subete/src/routing/presentation/routes/library_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/profile_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/profile_route.dart';
-import 'package:subete/src/routing/presentation/routes/seroes_details_route.dart';
+import 'package:subete/src/routing/presentation/routes/series_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/setting_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/settings_route.dart';
 import 'package:subete/src/routing/presentation/widgets/implicitly_animated_page_switcher.dart';
