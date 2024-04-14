@@ -23,28 +23,33 @@ class SeriesItemWidget extends ConsumerWidget {
         kavita.image.getSeriesCoverUrl(id: seriesItem.id ?? -1);
     const imageWidth = 40.0;
     return Card(
-      child: ListTile(
-        minLeadingWidth: imageWidth,
-        leading: ExtendedImage.network(
-          url.toString(),
-          headers: headers,
-          width: imageWidth,
-          fit: BoxFit.cover,
-          shape: BoxShape.rectangle,
-          handleLoadingProgress: true,
-          borderRadius:
-              // ignore: avoid_using_api
-              const BorderRadius.all(Radius.circular(8.0)),
+      child: Tooltip(
+        message: seriesItem.name ?? 'Unnamed Series',
+        triggerMode: TooltipTriggerMode.longPress,
+        excludeFromSemantics: true,
+        child: ListTile(
+          minLeadingWidth: imageWidth,
+          leading: ExtendedImage.network(
+            url.toString(),
+            headers: headers,
+            width: imageWidth,
+            fit: BoxFit.cover,
+            shape: BoxShape.rectangle,
+            handleLoadingProgress: true,
+            borderRadius:
+                // ignore: avoid_using_api
+                const BorderRadius.all(Radius.circular(8.0)),
+          ),
+          title: Text(
+            seriesItem.name ?? 'Unnamed Series',
+            maxLines: titleElipsis ? 1 : null,
+            overflow: titleElipsis ? TextOverflow.ellipsis : null,
+          ),
+          subtitle: Text(
+            'Hours: ${seriesItem.avgHoursToRead}',
+          ),
+          onTap: onTap,
         ),
-        title: Text(
-          seriesItem.name ?? 'Unnamed Series',
-          maxLines: titleElipsis ? 1 : null,
-          overflow: titleElipsis ? TextOverflow.ellipsis : null,
-        ),
-        subtitle: Text(
-          'Hours: ${seriesItem.avgHoursToRead}',
-        ),
-        onTap: onTap,
       ),
     );
   }

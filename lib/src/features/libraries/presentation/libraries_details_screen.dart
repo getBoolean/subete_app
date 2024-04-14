@@ -54,6 +54,7 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
         key: ValueKey(
             'library-${widget.libraryId}-series-${item.id ?? indexInPage}'),
         seriesItem: item,
+        titleElipsis: true,
         onTap: () => context.goNamed(
           RouteName.seriesDetails.name,
           pathParameters: {
