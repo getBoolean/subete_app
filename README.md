@@ -84,6 +84,7 @@ melos run test
 1. Initiallize the Flutter project using [melos](https://pub.dev/packages/melos).
 
     ```bash
+    flutter pub get
     dart pub global activate melos
     melos bootstrap
     ```
