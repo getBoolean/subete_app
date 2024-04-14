@@ -95,7 +95,7 @@ KAVITA_PASSWORD=password_here
 
 ```
 
-1. Initiallize the Flutter project using [melos](https://pub.dev/packages/melos).
+1. Initialize the Flutter project using [melos](https://pub.dev/packages/melos).
 
     ```bash
     flutter pub get
