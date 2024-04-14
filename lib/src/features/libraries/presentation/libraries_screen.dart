@@ -114,8 +114,6 @@ class _SingleLibraryItemWidget extends ConsumerWidget {
 
           context.goNamed(RouteName.libraryDetails.name, pathParameters: {
             'libraryId': id.toString(),
-          }, queryParameters: {
-            'libraryName': library.name ?? 'Unnamed Library',
           });
         },
       ),

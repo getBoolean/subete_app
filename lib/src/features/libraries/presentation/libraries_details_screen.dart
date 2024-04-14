@@ -60,9 +60,6 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
             'seriesId': item.id.toString(),
             'libraryId': widget.libraryId.toString(),
           },
-          queryParameters: {
-            'seriesName': item.name ?? 'Unnamed Series',
-          },
         ),
       ),
       loadingItemBuilder: (BuildContext context, int page, int indexInPage) =>
