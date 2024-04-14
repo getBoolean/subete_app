@@ -8,6 +8,7 @@ import 'package:subete/src/features/kavita/application/kavita_data_providers.dar
 import 'package:subete/src/features/libraries/presentation/application/series_search_query_notifier.dart';
 import 'package:subete/src/features/libraries/presentation/widgets/series_item_widget.dart';
 import 'package:subete/src/routing/router/router.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class SearchSeriesButton extends ConsumerStatefulWidget {
   const SearchSeriesButton({
@@ -26,16 +27,22 @@ class SearchSeriesButton extends ConsumerStatefulWidget {
 
 class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
   late SearchController searchController;
+  late ListController listController;
+  late ScrollController scrollController;
 
   @override
   void initState() {
     searchController = SearchController();
+    listController = ListController();
+    scrollController = ScrollController();
     super.initState();
   }
 
   @override
   void dispose() {
     searchController.dispose();
+    listController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -73,14 +80,26 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
               },
             )
           ],
-          viewOnChanged: (query) => ref
-              .read(seriesSearchQueryNotifierProvider.notifier)
-              .setQuery(query),
+          viewOnChanged: (query) {
+            ref
+                .read(seriesSearchQueryNotifierProvider.notifier)
+                .setQuery(query);
+            listController.animateToItem(
+              index: 0,
+              scrollController: scrollController,
+              alignment: 0,
+              duration: (estimatedDistance) =>
+                  const Duration(milliseconds: 300),
+              curve: (estimatedDistance) => Curves.easeInOut,
+            );
+          },
           viewBuilder: (_) {
             return Consumer(
               builder: (context, ref, child) {
                 final query = ref.watch(seriesSearchQueryNotifierProvider);
                 return PaginatedView<SeriesDto>(
+                  controller: scrollController,
+                  listController: listController,
                   pageSize: pageSize,
                   restorationId: 'search-$libraryId',
                   provider: seriesPaginatedProvider,
@@ -97,7 +116,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
                   ) =>
                       SeriesItemWidget(
                     key: ValueKey(
-                        'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-$searchQuery'),
+                        'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-$query'),
                     seriesItem: eachSeries,
                     titleElipsis: true,
                     onTap: () => context.goNamed(
@@ -116,7 +135,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
                       (BuildContext context, int page, int indexInPage) =>
                           Skeletonizer(
                     key: ValueKey(
-                        'search-library-loading-$libraryId-series-$searchQuery-$page-$indexInPage'),
+                        'search-library-loading-$libraryId-series-$query-$page-$indexInPage'),
                     child: const Card(
                       child: ListTile(
                         leading: Bone.icon(),
