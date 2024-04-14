@@ -1,12 +1,11 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:pagination/pagination.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
+import 'package:subete/src/features/libraries/presentation/widgets/series_item_widget.dart';
 import 'package:subete/src/routing/router/router.dart';
 
 class LibraryDetailsScreen extends ConsumerStatefulWidget {
@@ -54,8 +53,8 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
         pageSize: pageSize,
       ),
       itemBuilder: (BuildContext context, SeriesDto item, int indexInPage) =>
-          _SeriesItemWidget(
-        key: ValueKey(item.id ?? indexInPage),
+          SeriesItemWidget(
+        key: ValueKey('library-$libraryId-series-${item.id ?? indexInPage}'),
         seriesItem: item,
         onTap: () => context.goNamed(
           RouteName.seriesDetails.name,
@@ -79,45 +78,6 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
             subtitle: Bone.text(),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _SeriesItemWidget extends ConsumerWidget {
-  const _SeriesItemWidget({
-    required this.seriesItem,
-    super.key,
-    this.onTap,
-  });
-
-  final SeriesDto seriesItem;
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final kavita = ref.watch(kavitaProvider);
-    final (:headers, :url) =
-        kavita.image.getSeriesCoverUrl(id: seriesItem.id ?? -1);
-    return Card(
-      child: ListTile(
-        minLeadingWidth: 40,
-        leading: ExtendedImage.network(
-          url.toString(),
-          headers: headers,
-          width: 40,
-          fit: BoxFit.fill,
-          shape: BoxShape.rectangle,
-          handleLoadingProgress: true,
-          borderRadius:
-              // ignore: avoid_using_api
-              const BorderRadius.all(Radius.circular(8.0)),
-        ),
-        title: Text(seriesItem.name ?? 'Unnamed Series'),
-        subtitle: Text(
-          'Hours: ${seriesItem.avgHoursToRead}',
-        ),
-        onTap: onTap,
       ),
     );
   }

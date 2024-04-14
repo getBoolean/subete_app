@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:pagination/pagination.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
+import 'package:subete/src/features/libraries/presentation/widgets/series_item_widget.dart';
 import 'package:subete/src/routing/router/router.dart';
 
 class SearchSeriesButton extends ConsumerStatefulWidget {
@@ -39,9 +41,10 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
   @override
   Widget build(BuildContext context) {
     final routeState = GoRouterState.of(context);
-    final libraryId = routeState.pathParameters['libraryId'] ?? '-1';
+    final libraryId = int.parse(routeState.pathParameters['libraryId'] ?? '-1');
     final libraryName =
         routeState.uri.queryParameters['libraryName'] ?? 'Library';
+    const pageSize = 25;
     return Padding(
       padding: const EdgeInsetsDirectional.all(8.0),
       child: Semantics(
@@ -67,44 +70,56 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
               },
             )
           ],
-          suggestionsBuilder:
-              (BuildContext context, SearchController controller) async {
-            if (controller.text.isEmpty || !context.mounted) {
-              return [];
-            }
-            final PaginatedResult<SeriesDto> series =
-                await ref.read(seriesPaginatedProvider(
-              libraryId: int.parse(libraryId),
-              pageNumber: 1,
-              pageSize: 25,
-              query: controller.text,
-            ).future);
-            return series.results
-                .map(
-                  (eachSeries) => Material(
-                    color: Colors.transparent,
-                    child: Card(
-                      child: ListTile(
-                        title: Text(eachSeries.name ?? 'Unnamed Series'),
-                        onTap: () {
-                          controller.closeView(null);
-                          context.goNamed(RouteName.seriesDetails.name,
-                              pathParameters: {
-                                'seriesId': eachSeries.id.toString(),
-                                'libraryId': libraryId,
-                              },
-                              queryParameters: {
-                                'seriesName': eachSeries.name ?? 'Series',
-                                'libraryName':
-                                    eachSeries.libraryName ?? 'Library',
-                              });
-                        },
-                      ),
-                    ),
+          viewBuilder: (_) {
+            return PaginatedView<SeriesDto>(
+              pageSize: pageSize,
+              restorationId: 'search-$libraryId',
+              provider: seriesPaginatedProvider,
+              pageItemsProvider: (int page) => seriesPaginatedProvider(
+                libraryId: libraryId,
+                pageNumber: page,
+                pageSize: pageSize,
+                query: searchController.text,
+              ),
+              itemBuilder: (
+                BuildContext context,
+                SeriesDto eachSeries,
+                int indexInPage,
+              ) =>
+                  SeriesItemWidget(
+                key: ValueKey(
+                    'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-${searchController.text}'),
+                seriesItem: eachSeries,
+                titleElipsis: true,
+                onTap: () => context.goNamed(
+                  RouteName.seriesDetails.name,
+                  pathParameters: {
+                    'seriesId': eachSeries.id.toString(),
+                    'libraryId': libraryId.toString(),
+                  },
+                  queryParameters: {
+                    'libraryName': eachSeries.libraryName ?? 'Library',
+                    'seriesName': eachSeries.name ?? 'Series',
+                  },
+                ),
+              ),
+              loadingItemBuilder:
+                  (BuildContext context, int page, int indexInPage) =>
+                      Skeletonizer(
+                key: ValueKey(
+                    'search-library-loading-$libraryId-series-${searchController.text}-$page-$indexInPage'),
+                child: const Card(
+                  child: ListTile(
+                    leading: Bone.icon(),
+                    minLeadingWidth: 40,
+                    title: Bone.text(words: 15),
+                    subtitle: Bone.text(),
                   ),
-                )
-                .toList();
+                ),
+              ),
+            );
           },
+          suggestionsBuilder: (_, __) => [],
           builder: (context, SearchController controller) {
             return widget.expanded
                 ? IntrinsicWidth(

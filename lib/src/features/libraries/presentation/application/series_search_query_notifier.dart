@@ -7,7 +7,7 @@ part 'series_search_query_notifier.g.dart';
 
 @riverpod
 class SeriesSearchQueryNotifier extends _$SeriesSearchQueryNotifier {
-  final log = Logger('MoviesSearchQueryNotifier');
+  final _log = Logger('MoviesSearchQueryNotifier');
   final _searchQueryController = StreamController<String>.broadcast();
   Timer? _debounceTimer;
   late final StreamSubscription<String> _subscription;
@@ -34,11 +34,15 @@ class SeriesSearchQueryNotifier extends _$SeriesSearchQueryNotifier {
 
   void _updateState(String query) {
     state = query;
-    log.fine('debounce state: $query');
+    _log.fine('debounce state: $query');
   }
 
   void setQuery(String query) {
     _searchQueryController.sink.add(query);
-    log.fine('debounce query: $query');
+    _log.fine('debounce query: $query');
+  }
+
+  void clear() {
+    _searchQueryController.sink.add('');
   }
 }
