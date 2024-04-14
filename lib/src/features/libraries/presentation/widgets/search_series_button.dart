@@ -106,6 +106,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
                       controller: controller,
                       focusNode: widget.focusNode,
                       onTap: () {
+                        widget.focusNode.unfocus();
                         if (!controller.isOpen) controller.openView();
                       },
                       onChanged: (_) {
