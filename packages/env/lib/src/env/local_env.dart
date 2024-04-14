@@ -17,7 +17,7 @@ class LocalEnv implements EnvFlavor, EnvFields {
   final bool usePathUrlStrategy = _Env.usePathUrlStrategy;
 
   @override
-  @EnviedField(varName: 'KAVITA_BASE_URL', defaultValue: kKavitaBaseUrlDemo)
+  @EnviedField(varName: 'KAVITA_BASE_URL')
   final String kavitaBaseUrl = _Env.kavitaBaseUrl;
 
   @override
@@ -30,16 +30,10 @@ class LocalEnv implements EnvFlavor, EnvFields {
   final String? kavitaApiKey = _Env.kavitaApiKey;
 
   @override
-  @EnviedField(
-      varName: 'KAVITA_USERNAME',
-      defaultValue: kKavitaUsernameDemo,
-      obfuscate: true)
-  final String kavitaUsername = _Env.kavitaUsername;
+  @EnviedField(varName: 'KAVITA_USERNAME', optional: true, obfuscate: true)
+  final String? kavitaUsername = _Env.kavitaUsername;
 
   @override
-  @EnviedField(
-      varName: 'KAVITA_PASSWORD',
-      defaultValue: kKavitaPasswordDemo,
-      obfuscate: true)
-  final String kavitaPassword = _Env.kavitaPassword;
+  @EnviedField(varName: 'KAVITA_PASSWORD', optional: true, obfuscate: true)
+  final String? kavitaPassword = _Env.kavitaPassword;
 }
