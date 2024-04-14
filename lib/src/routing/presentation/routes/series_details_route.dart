@@ -4,11 +4,9 @@ import 'package:subete/src/features/libraries/presentation/series_details_screen
 class SeriesDetailsRoute extends StatefulWidget {
   const SeriesDetailsRoute({
     required this.seriesId,
-    required this.seriesName,
     super.key,
   });
-  final String seriesId;
-  final String seriesName;
+  final int seriesId;
 
   @override
   State<SeriesDetailsRoute> createState() => _SeriesDetailsRouteState();
@@ -19,7 +17,6 @@ class _SeriesDetailsRouteState extends State<SeriesDetailsRoute> {
   Widget build(BuildContext context) {
     return SeriesDetailsScreen(
       seriesId: widget.seriesId,
-      seriesName: widget.seriesName,
     );
   }
 }

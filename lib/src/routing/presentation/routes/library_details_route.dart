@@ -4,11 +4,9 @@ import 'package:subete/src/features/libraries/presentation/libraries_details_scr
 class LibraryDetailsRoute extends StatefulWidget {
   const LibraryDetailsRoute({
     required this.libraryId,
-    required this.libraryName,
     super.key,
   });
-  final String libraryId;
-  final String libraryName;
+  final int libraryId;
 
   @override
   State<LibraryDetailsRoute> createState() => _LibraryDetailsRouteState();
@@ -17,7 +15,6 @@ class LibraryDetailsRoute extends StatefulWidget {
 class _LibraryDetailsRouteState extends State<LibraryDetailsRoute> {
   @override
   Widget build(BuildContext context) {
-    return LibraryDetailsScreen(
-        libraryId: widget.libraryId, libraryName: widget.libraryName);
+    return LibraryDetailsScreen(libraryId: widget.libraryId);
   }
 }

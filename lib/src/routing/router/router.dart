@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:log/log.dart';
+import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/src/routing/presentation/routes/libraries_route.dart';
 import 'package:subete/src/routing/presentation/routes/library_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/profile_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/profile_route.dart';
-import 'package:subete/src/routing/presentation/routes/seroes_details_route.dart';
+import 'package:subete/src/routing/presentation/routes/series_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/setting_details_route.dart';
 import 'package:subete/src/routing/presentation/routes/settings_route.dart';
 import 'package:subete/src/routing/presentation/widgets/implicitly_animated_page_switcher.dart';
@@ -37,46 +38,70 @@ enum RouteName {
 
   const RouteName(this.titleBuilder);
 
-  final String Function(BuildContext context, GoRouterState state) titleBuilder;
+  final String Function(
+      BuildContext context, WidgetRef ref, GoRouterState state) titleBuilder;
 
   static String _librariesTitleBuilder(
-          BuildContext context, GoRouterState state) =>
+    BuildContext context,
+    WidgetRef ref,
+    GoRouterState state,
+  ) =>
       'Libraries';
 
   static String _libraryDetailsTitleBuilder(
     BuildContext context,
+    WidgetRef ref,
     GoRouterState state,
-  ) =>
-      state.uri.queryParameters['libraryName'] ??
-      'Library #${state.pathParameters['libraryId'] ?? -1}';
+  ) {
+    final libraryId =
+        int.tryParse(state.pathParameters['libraryId'] ?? '-1') ?? -1;
+    final libraries = ref.watch(findLibraryProvider(libraryId));
+    return libraries.when(
+      data: (data) => data.name ?? 'Library',
+      error: (error, stackTrace) => 'Unable to load libraries',
+      loading: () => '',
+    );
+  }
 
   static String _seriesDetailsTitleBuilder(
     BuildContext context,
+    WidgetRef ref,
     GoRouterState state,
-  ) =>
-      state.uri.queryParameters['seriesName'] ??
-      'Series #${state.pathParameters['seriesId'] ?? -1}';
+  ) {
+    final seriesId =
+        int.tryParse(state.pathParameters['seriesId'] ?? '-1') ?? -1;
+    final series = ref.watch(findSeriesProvider(seriesId));
+    return series.when(
+      data: (data) => data.name ?? 'Series',
+      error: (error, stackTrace) => 'Unable to load series',
+      loading: () => '',
+    );
+  }
 
   static String _profileTitleBuilder(
     BuildContext context,
+    WidgetRef ref,
     GoRouterState state,
   ) =>
       'Profile';
 
   static String _profileDetailsTitleBuilder(
     BuildContext context,
+    WidgetRef ref,
     GoRouterState state,
   ) =>
       'Profile Details';
 
   static String _settingsTitleBuilder(
     BuildContext context,
+    WidgetRef ref,
     GoRouterState state,
   ) =>
       'Settings';
 
   static String _settingsDetailsTitleBuilder(
     BuildContext context,
+    WidgetRef ref,
     GoRouterState state,
   ) {
     final id = state.pathParameters['id'];
@@ -138,10 +163,14 @@ GoRouter createRouter({required Logger log}) {
           GoRouterState state,
           StatefulNavigationShell navigationShell,
         ) {
-          return RootScaffoldShell(
-            navigationShell: navigationShell,
-            destinations: _destinations,
-            title: state.titleBuilder(context) ?? 'No Title',
+          return Consumer(
+            builder: (context, ref, child) {
+              return RootScaffoldShell(
+                navigationShell: navigationShell,
+                destinations: _destinations,
+                title: state.titleBuilder(context, ref) ?? 'No Title',
+              );
+            },
           );
         },
         branches: <StatefulShellBranch>[
@@ -232,22 +261,22 @@ StatefulShellBranch _buildBooksBranch(RouterDestination destination) {
                 return null;
               },
               builder: (BuildContext context, GoRouterState state) {
-                final libraryId = state.pathParameters['libraryId'] ?? '-1';
-                final libraryName =
-                    state.uri.queryParameters['libraryName'] ?? '-1';
+                final libraryId =
+                    int.tryParse(state.pathParameters['libraryId'] ?? '-1') ??
+                        -1;
                 return LibraryDetailsRoute(
-                    libraryId: libraryId, libraryName: libraryName);
+                  libraryId: libraryId,
+                );
               },
               routes: [
                 GoRoute(
                   name: RouteName.seriesDetails.name,
                   path: ':seriesId',
                   builder: (BuildContext context, GoRouterState state) {
-                    final seriesId = state.pathParameters['seriesId'] ?? '-1';
-                    final seriesName =
-                        state.uri.queryParameters['seriesName'] ?? '-1';
-                    return SeriesDetailsRoute(
-                        seriesId: seriesId, seriesName: seriesName);
+                    final seriesId = int.tryParse(
+                            state.pathParameters['seriesId'] ?? '-1') ??
+                        -1;
+                    return SeriesDetailsRoute(seriesId: seriesId);
                   },
                   redirect: (context, state) {
                     final seriesId = state.pathParameters['seriesId'];
@@ -265,9 +294,9 @@ StatefulShellBranch _buildBooksBranch(RouterDestination destination) {
 }
 
 extension GoRouterStateTitleBuilder on GoRouterState {
-  String? titleBuilder(BuildContext context) {
+  String? titleBuilder(BuildContext context, WidgetRef ref) {
     final routeName = topRoute?.name;
     if (routeName == null) return null;
-    return RouteName.values.byName(routeName).titleBuilder(context, this);
+    return RouteName.values.byName(routeName).titleBuilder(context, ref, this);
   }
 }

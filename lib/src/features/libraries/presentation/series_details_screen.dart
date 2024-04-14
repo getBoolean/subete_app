@@ -19,38 +19,37 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/utils/utils.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class SeriesDetailsScreen extends ConsumerWidget {
   const SeriesDetailsScreen({
     required this.seriesId,
-    required this.seriesName,
     super.key,
   });
-  final String seriesId;
-  final String seriesName;
+  final int seriesId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int seriesId = int.parse(this.seriesId);
-    final AsyncValue<List<VolumeDto>> series = ref.watch(volumesProvider(
+    final series = ref.watch(findSeriesProvider(seriesId));
+    final AsyncValue<List<VolumeDto>> seriesVolumes = ref.watch(volumesProvider(
       seriesId: seriesId,
     ));
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 650),
       switchInCurve: Curves.easeInOut,
       switchOutCurve: Curves.easeInOut,
-      child: series.when(
-        data: (series) {
-          return ListView.builder(
+      child: seriesVolumes.when(
+        data: (volumes) {
+          return SuperListView.builder(
             key: const ValueKey('SeriesDetailsScreen-list'),
-            itemCount: series.length,
+            itemCount: volumes.length,
             itemBuilder: (context, index) {
-              final VolumeDto volumeItem = series[index];
+              final VolumeDto volumeItem = volumes[index];
               return Builder(builder: (context) {
                 return _VolumeWidget(
                   key: ValueKey(volumeItem.id ?? index),
                   volumeItem: volumeItem,
-                  seriesName: seriesName,
+                  seriesName: series.valueOrNull?.name ?? '',
                 );
               });
             },

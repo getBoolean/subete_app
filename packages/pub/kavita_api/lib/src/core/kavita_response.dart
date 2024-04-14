@@ -5,7 +5,9 @@ import 'package:chopper/chopper.dart' as ch show Converter;
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:http/http.dart' as http;
 import 'package:kavita_api/src/core/kavita_exception.dart';
+import 'package:kavita_api/src/core/kavita_paginated_result.dart';
 import 'package:meta/meta.dart';
+import 'package:pagination_dart/pagination_dart.dart';
 
 part 'kavita_response.mapper.dart';
 
@@ -112,5 +114,35 @@ final class KavitaResponse<BodyType> with KavitaResponseMappable<BodyType> {
       mapper(body),
       error: error,
     );
+  }
+
+  /// Wraps the response body
+  KavitaResponse<NewBodyType> wrap<NewBodyType>(
+    NewBodyType? Function(KavitaResponse<BodyType> self, BodyType? body) mapper,
+  ) {
+    return KavitaResponse<NewBodyType>(
+      base,
+      mapper(this, body),
+      error: error,
+    );
+  }
+}
+
+/// Extension to convert a [KavitaResponse] list body to a [PaginatedResult]
+@internal
+extension PaginatedResponseExtension<BodyType>
+    on KavitaResponse<List<BodyType>> {
+  /// Maps the response body to a paginated [BodyType]
+  @internal
+  KavitaResponse<PaginatedResult<BodyType>> paginated() {
+    return wrap<KavitaPaginatedResult<BodyType>>((self, body) {
+      return KavitaPaginatedResult<BodyType>(
+        body ?? [],
+        itemsPerPage: self.paginationHeader?.itemsPerPage ?? 0,
+        totalResults: self.paginationHeader?.totalItems ?? 0,
+        totalPages: self.paginationHeader?.totalPages ?? 0,
+        currentPage: self.paginationHeader?.currentPage ?? 0,
+      );
+    });
   }
 }

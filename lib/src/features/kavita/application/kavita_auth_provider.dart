@@ -33,14 +33,14 @@ Stream<UserDto?> kavitaUser(
 
 Future<void> _authenticate(KavitaApi api) async {
   final String? apiKey = EnvFlavor.instance.kavitaApiKey;
-  final String? kavitaPassword = EnvFlavor.instance.kavitaPassword;
-  final String? kavitaUsername = EnvFlavor.instance.kavitaUsername;
+  final String kavitaPassword = EnvFlavor.instance.kavitaPassword;
+  final String kavitaUsername = EnvFlavor.instance.kavitaUsername;
   if (apiKey != null) {
     await api.plugin.authenticate(
       apiKey: apiKey,
       pluginName: EnvFlavor.instance.kavitaPluginName,
     );
-  } else if (kavitaUsername != null && kavitaPassword != null) {
+  } else {
     await api.account.login(username: kavitaUsername, password: kavitaPassword);
   }
 }

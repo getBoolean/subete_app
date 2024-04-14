@@ -27,7 +27,7 @@ class ConnectivityBuilder extends StatefulWidget {
 }
 
 class _ConnectivityBuilderState extends State<ConnectivityBuilder> {
-  List<ConnectivityResult> _connectivityResult = [];
+  List<ConnectivityResult> _connectivityResult = [ConnectivityResult.wifi];
   late final StreamSubscription<List<ConnectivityResult>>
       _connectivitySubscription;
   final _connectivity = Connectivity();

@@ -7,6 +7,7 @@ import 'package:subete/src/features/settings/data/dto/theme_type.dart';
 import 'package:subete/src/features/settings/presentation/extensions.dart';
 import 'package:subete/src/features/settings/presentation/widgets/segmented_button_tile.dart';
 import 'package:subete/src/features/settings/presentation/widgets/theme_selector_tile.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class AppearanceSettingsScreen extends ConsumerWidget {
   const AppearanceSettingsScreen({super.key});
@@ -17,7 +18,7 @@ class AppearanceSettingsScreen extends ConsumerWidget {
     final isLight = Theme.of(context).brightness == Brightness.light;
     final themes = ref.watch(themesProvider);
     return Material(
-      child: ListView(
+      child: SuperListView(
         shrinkWrap: true,
         children: <Widget>[
           SegmentedButtonTile(

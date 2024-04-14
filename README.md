@@ -13,7 +13,6 @@ Unofficial Kavita client for mobile and desktop (in progress)
 - [Template: Getting Started](#template-getting-started)
 - [Setup](#setup)
 - [Testing](#testing)
-  - [Integration Tests](#integration-tests)
 - [Building the App](#building-the-app)
   - [Flavors](#flavors)
 - [Architecture](#architecture)
@@ -36,14 +35,15 @@ this app provides some basic functionality for them.
 
 A preview of the application is deployed to [getboolean.github.io/subete_app](https://getboolean.github.io/subete_app).
 
-- Made with Flutter
-- Template by [@getBoolean](https://github.com/getBoolean)
+- Supports Kavita 0.7
 - Minimal OS Version:
   - iOS: 13.0
   - Android: 6.0 (SDK 23)
   - MacOS: 10.14.6
   - Windows 10
   - Linux: Any modern distribution
+- Made with Flutter
+- Template by [@getBoolean](https://github.com/getBoolean)
 
 ## Template: Getting Started
 
@@ -71,13 +71,6 @@ A preview of the application is deployed to [getboolean.github.io/subete_app](ht
 melos run test
 ```
 
-### Integration Tests
-
-`patrol` provides visual feedback to the tester andtakes screenshots automatically.
-These integration tests are located in the `integration_test` directory.
-
-To run the tests, see the instructions in the [Patrol documentation](https://pub.dev/packages/patrol)
-
 ## Building the App
 
 1. To run and build this app, you need to have [Flutter SDK](https://docs.flutter.dev/get-started/install) installed on your system. Check for any problems with the command below.
@@ -91,6 +84,7 @@ To run the tests, see the instructions in the [Patrol documentation](https://pub
 1. Initiallize the Flutter project using [melos](https://pub.dev/packages/melos).
 
     ```bash
+    flutter pub get
     dart pub global activate melos
     melos bootstrap
     ```
@@ -102,12 +96,54 @@ To run the tests, see the instructions in the [Patrol documentation](https://pub
     melos run generate:pkg # choose "env" when prompted
     ```
 
-1. Then, you can run the app normally with `flutter run` or build the app with the following commands.
+1. Then, you can run the app normally with `flutter run` or build the app executables with the following commands.
 
-    ```bash
-    flutter build ios --release --no-codesign --dart-define FLUTTER_APP_FLAVOR=local --no-tree-shake-icons
-    cd build/ios/iphoneos && rm -rf Payload && mkdir Payload && cd Payload && ln -s ../Runner.app && cd .. && zip -r subete-release.ipa Payload && cd ../../..
-    ```
+    - iOS IPA
+
+        ```bash
+        flutter build ios --release --no-codesign --dart-define FLUTTER_APP_FLAVOR=local --no-tree-shake-icons
+        cd build/ios/iphoneos && rm -rf Payload && mkdir Payload && cd Payload && ln -s ../Runner.app && cd .. && zip -r subete-release.ipa Payload && cd ../../..
+        ```
+
+    - Android APK
+
+        ```bash
+        flutter build apk --release --dart-define FLUTTER_APP_FLAVOR=local --no-tree-shake-icons
+        cd build/app/outputs/flutter-apk && mv app-release.apk subete-release.apk
+        ```
+
+    - Windows MSIX
+
+        ```bash
+        flutter build windows --dart-define FLUTTER_APP_FLAVOR=local
+        dart run msix:create --build-windows false
+        cd build/windows/x64/runner/Release && mv subete.msix subete-release.msix
+        ```
+
+    - MacOS DMG
+
+        ```bash
+        git config --global core.longpaths true
+        brew install create-dmg
+        flutter build macos --release --dart-define FLUTTER_APP_FLAVOR=local --no-tree-shake-icons
+        create-dmg --volname subete-release-macos --window-pos 200 120 --window-size 800 450 --icon-size 100 --app-drop-link 600 185 subete-release-macos.dmg build/macos/Build/Products/Release/subete.app
+        ```
+
+    - Linux AppImage
+
+        ```bash
+        sudo apt-get update
+        sudo apt install webkit2gtk-4.1 clang cmake ninja-build pkg-config libgtk-3-dev mpv libmpv-dev dpkg-dev libfuse2
+        flutter build linux --release --dart-define FLUTTER_APP_FLAVOR=local
+        curl -JOL <https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage>
+        chmod a+x appimagetool-x86_64.AppImage
+        mv appimagetool-x86_64.AppImage appimagetool
+
+        mv build/linux/x64/release/bundle/{subete,AppRun}
+        cp linux/appimage/*build/linux/x64/release/bundle/
+        ./appimagetool build/linux/x64/release/bundle/
+        mv*.AppImage build/subete-release.AppImage
+        ```
 
 ### Flavors
 

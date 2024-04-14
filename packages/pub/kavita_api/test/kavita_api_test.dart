@@ -1,4 +1,4 @@
-import 'package:kavita_api/raw_api.dart' as raw;
+import 'package:kavita_api/src/raw_api.dart' as raw;
 
 import 'tests.dart';
 

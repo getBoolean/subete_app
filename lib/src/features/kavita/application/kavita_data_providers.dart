@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:kavita_api/kavita_api.dart';
+import 'package:pagination/pagination.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 
@@ -19,7 +21,32 @@ Future<List<LibraryDto>> libraries(LibrariesRef ref) async {
 }
 
 @riverpod
-Future<List<SeriesDto>> seriesPaginated(
+Future<LibraryDto> findLibrary(FindLibraryRef ref, int libraryId) async {
+  final libraries = await ref.read(librariesProvider.future);
+
+  final library = libraries.firstWhereOrNull(
+    (library) => library.id == libraryId,
+  );
+  if (library == null) {
+    throw Exception('Library not found');
+  }
+  return library;
+}
+
+@riverpod
+Future<SeriesDto> findSeries(FindSeriesRef ref, int seriesId) async {
+  final kavita = ref.watch(kavitaProvider);
+
+  final response = await kavita.series.getSeries(id: seriesId);
+  if (response.isSuccessful && response.body != null) {
+    return response.body!;
+  }
+
+  throw Exception('Failed to get series');
+}
+
+@riverpod
+Future<PaginatedResult<SeriesDto>> seriesPaginated(
   SeriesPaginatedRef ref, {
   required int libraryId,
   required int pageNumber,
@@ -27,12 +54,13 @@ Future<List<SeriesDto>> seriesPaginated(
   String? query,
 }) async {
   final kavita = ref.watch(kavitaProvider);
+  ref.keepAliveDuration();
 
   final response = await kavita.series.getAllSeries(
       libraryId: libraryId,
       pageNumber: pageNumber,
       pageSize: pageSize,
-      filter: query == null
+      filter: query == null || query.isEmpty
           ? null
           : FilterV2Dto(
               statements: [
@@ -44,7 +72,7 @@ Future<List<SeriesDto>> seriesPaginated(
               ],
             ));
   if (response.isSuccessful) {
-    return response.body ?? [];
+    return response.body ?? PaginatedResult.empty();
   }
   throw Exception('Failed to get series');
 }

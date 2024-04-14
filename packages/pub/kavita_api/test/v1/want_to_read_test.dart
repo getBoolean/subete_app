@@ -1,4 +1,4 @@
-import 'package:kavita_api/raw_api.dart' as raw;
+import 'package:kavita_api/src/raw_api.dart' as raw;
 
 import '../tests.dart';
 
@@ -30,12 +30,12 @@ void main() {
           name: 'Test',
         ),
       ]);
-      final expected = [
-        const SeriesDto(
+      const expected = KavitaPaginatedResult([
+        SeriesDto(
           id: 1,
           name: 'Test',
         ),
-      ];
+      ]);
       final res = await kavita.underTest.wantToRead.getAllWantToRead(
         pageNumber: 1,
         pageSize: 1,

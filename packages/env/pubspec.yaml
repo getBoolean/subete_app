@@ -23,4 +23,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter: null
+flutter:
+  uses-material-design: true

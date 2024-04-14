@@ -1,4 +1,4 @@
-import 'package:kavita_api/raw_api.dart' as raw;
+import 'package:kavita_api/src/raw_api.dart' as raw;
 
 import '../tests.dart';
 
@@ -15,7 +15,7 @@ void main() {
             id: 1,
             name: 'test',
           ))).thenResponse([const raw.Series(id: 1, name: 'test')]);
-      const expected = [Series(id: 1, name: 'test')];
+      const expected = KavitaPaginatedResult([Series(id: 1, name: 'test')]);
       final res = await kavita.underTest.series.getSeriesByFilter(
           pageNumber: 1,
           pageSize: 1,
@@ -136,12 +136,12 @@ void main() {
           name: 'Test',
         ),
       ]);
-      final expected = [
-        const SeriesDto(
+      const expected = KavitaPaginatedResult([
+        SeriesDto(
           id: 1,
           name: 'Test',
         ),
-      ];
+      ]);
       final res = await kavita.underTest.series.getRecentlyAddedSeries(
         pageNumber: 1,
         pageSize: 1,
@@ -187,12 +187,12 @@ void main() {
           name: 'Test',
         ),
       ]);
-      final expected = [
-        const SeriesDto(
+      const expected = KavitaPaginatedResult([
+        SeriesDto(
           id: 1,
           name: 'Test',
         ),
-      ];
+      ]);
       final res = await kavita.underTest.series.getAllSeries(
         libraryId: 1,
         pageNumber: 1,
@@ -218,12 +218,12 @@ void main() {
           name: 'Test',
         ),
       ]);
-      final expected = [
-        const SeriesDto(
+      const expected = KavitaPaginatedResult([
+        SeriesDto(
           id: 1,
           name: 'Test',
         ),
-      ];
+      ]);
       final res = await kavita.underTest.series.getOnDeckSeries(
         libraryId: 1,
         pageNumber: 1,
@@ -325,9 +325,9 @@ void main() {
           )).thenResponse([
         const raw.SeriesDto(id: 1, name: 'test'),
       ]);
-      final expected = [
-        const SeriesDto(id: 1, name: 'test'),
-      ];
+      const expected = KavitaPaginatedResult([
+        SeriesDto(id: 1, name: 'test'),
+      ]);
       final res = await kavita.underTest.series.getSeriesByCollection(id: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
       expect(res.body, equals(expected));

@@ -20,7 +20,7 @@ final librariesProvider = AutoDisposeFutureProvider<List<LibraryDto>>.internal(
 );
 
 typedef LibrariesRef = AutoDisposeFutureProviderRef<List<LibraryDto>>;
-String _$seriesPaginatedHash() => r'505b1f0b8f5f19b9e6069ddf80ca3b71722a18ff';
+String _$findLibraryHash() => r'184c6f4e107a5ad50c39f662646f144377c1e29a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,12 +43,269 @@ class _SystemHash {
   }
 }
 
+/// See also [findLibrary].
+@ProviderFor(findLibrary)
+const findLibraryProvider = FindLibraryFamily();
+
+/// See also [findLibrary].
+class FindLibraryFamily extends Family<AsyncValue<LibraryDto>> {
+  /// See also [findLibrary].
+  const FindLibraryFamily();
+
+  /// See also [findLibrary].
+  FindLibraryProvider call(
+    int libraryId,
+  ) {
+    return FindLibraryProvider(
+      libraryId,
+    );
+  }
+
+  @override
+  FindLibraryProvider getProviderOverride(
+    covariant FindLibraryProvider provider,
+  ) {
+    return call(
+      provider.libraryId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'findLibraryProvider';
+}
+
+/// See also [findLibrary].
+class FindLibraryProvider extends AutoDisposeFutureProvider<LibraryDto> {
+  /// See also [findLibrary].
+  FindLibraryProvider(
+    int libraryId,
+  ) : this._internal(
+          (ref) => findLibrary(
+            ref as FindLibraryRef,
+            libraryId,
+          ),
+          from: findLibraryProvider,
+          name: r'findLibraryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$findLibraryHash,
+          dependencies: FindLibraryFamily._dependencies,
+          allTransitiveDependencies:
+              FindLibraryFamily._allTransitiveDependencies,
+          libraryId: libraryId,
+        );
+
+  FindLibraryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.libraryId,
+  }) : super.internal();
+
+  final int libraryId;
+
+  @override
+  Override overrideWith(
+    FutureOr<LibraryDto> Function(FindLibraryRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FindLibraryProvider._internal(
+        (ref) => create(ref as FindLibraryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        libraryId: libraryId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<LibraryDto> createElement() {
+    return _FindLibraryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FindLibraryProvider && other.libraryId == libraryId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, libraryId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FindLibraryRef on AutoDisposeFutureProviderRef<LibraryDto> {
+  /// The parameter `libraryId` of this provider.
+  int get libraryId;
+}
+
+class _FindLibraryProviderElement
+    extends AutoDisposeFutureProviderElement<LibraryDto> with FindLibraryRef {
+  _FindLibraryProviderElement(super.provider);
+
+  @override
+  int get libraryId => (origin as FindLibraryProvider).libraryId;
+}
+
+String _$findSeriesHash() => r'faee39102773ea0539082b5cbacc4aa1af92ef3e';
+
+/// See also [findSeries].
+@ProviderFor(findSeries)
+const findSeriesProvider = FindSeriesFamily();
+
+/// See also [findSeries].
+class FindSeriesFamily extends Family<AsyncValue<SeriesDto>> {
+  /// See also [findSeries].
+  const FindSeriesFamily();
+
+  /// See also [findSeries].
+  FindSeriesProvider call(
+    int seriesId,
+  ) {
+    return FindSeriesProvider(
+      seriesId,
+    );
+  }
+
+  @override
+  FindSeriesProvider getProviderOverride(
+    covariant FindSeriesProvider provider,
+  ) {
+    return call(
+      provider.seriesId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'findSeriesProvider';
+}
+
+/// See also [findSeries].
+class FindSeriesProvider extends AutoDisposeFutureProvider<SeriesDto> {
+  /// See also [findSeries].
+  FindSeriesProvider(
+    int seriesId,
+  ) : this._internal(
+          (ref) => findSeries(
+            ref as FindSeriesRef,
+            seriesId,
+          ),
+          from: findSeriesProvider,
+          name: r'findSeriesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$findSeriesHash,
+          dependencies: FindSeriesFamily._dependencies,
+          allTransitiveDependencies:
+              FindSeriesFamily._allTransitiveDependencies,
+          seriesId: seriesId,
+        );
+
+  FindSeriesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.seriesId,
+  }) : super.internal();
+
+  final int seriesId;
+
+  @override
+  Override overrideWith(
+    FutureOr<SeriesDto> Function(FindSeriesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FindSeriesProvider._internal(
+        (ref) => create(ref as FindSeriesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        seriesId: seriesId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<SeriesDto> createElement() {
+    return _FindSeriesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FindSeriesProvider && other.seriesId == seriesId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, seriesId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FindSeriesRef on AutoDisposeFutureProviderRef<SeriesDto> {
+  /// The parameter `seriesId` of this provider.
+  int get seriesId;
+}
+
+class _FindSeriesProviderElement
+    extends AutoDisposeFutureProviderElement<SeriesDto> with FindSeriesRef {
+  _FindSeriesProviderElement(super.provider);
+
+  @override
+  int get seriesId => (origin as FindSeriesProvider).seriesId;
+}
+
+String _$seriesPaginatedHash() => r'ec5990b7f071dc3c461b76651823b248004d1003';
+
 /// See also [seriesPaginated].
 @ProviderFor(seriesPaginated)
 const seriesPaginatedProvider = SeriesPaginatedFamily();
 
 /// See also [seriesPaginated].
-class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
+class SeriesPaginatedFamily
+    extends Family<AsyncValue<PaginatedResult<SeriesDto>>> {
   /// See also [seriesPaginated].
   const SeriesPaginatedFamily();
 
@@ -96,7 +353,7 @@ class SeriesPaginatedFamily extends Family<AsyncValue<List<SeriesDto>>> {
 
 /// See also [seriesPaginated].
 class SeriesPaginatedProvider
-    extends AutoDisposeFutureProvider<List<SeriesDto>> {
+    extends AutoDisposeFutureProvider<PaginatedResult<SeriesDto>> {
   /// See also [seriesPaginated].
   SeriesPaginatedProvider({
     required int libraryId,
@@ -146,7 +403,8 @@ class SeriesPaginatedProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<SeriesDto>> Function(SeriesPaginatedRef provider) create,
+    FutureOr<PaginatedResult<SeriesDto>> Function(SeriesPaginatedRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -166,7 +424,7 @@ class SeriesPaginatedProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<SeriesDto>> createElement() {
+  AutoDisposeFutureProviderElement<PaginatedResult<SeriesDto>> createElement() {
     return _SeriesPaginatedProviderElement(this);
   }
 
@@ -191,7 +449,8 @@ class SeriesPaginatedProvider
   }
 }
 
-mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<SeriesDto>> {
+mixin SeriesPaginatedRef
+    on AutoDisposeFutureProviderRef<PaginatedResult<SeriesDto>> {
   /// The parameter `libraryId` of this provider.
   int get libraryId;
 
@@ -206,7 +465,7 @@ mixin SeriesPaginatedRef on AutoDisposeFutureProviderRef<List<SeriesDto>> {
 }
 
 class _SeriesPaginatedProviderElement
-    extends AutoDisposeFutureProviderElement<List<SeriesDto>>
+    extends AutoDisposeFutureProviderElement<PaginatedResult<SeriesDto>>
     with SeriesPaginatedRef {
   _SeriesPaginatedProviderElement(super.provider);
 

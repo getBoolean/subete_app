@@ -3,7 +3,7 @@ description: Kavita client for mobile and desktop (coming soon)
 
 publish_to: none
 
-version: 0.0.5
+version: 0.0.6
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -11,12 +11,12 @@ environment:
 
 dependencies:
   accessibility_tools: ^1.0.1
-  android_intent_plus: ^5.0.1
+  android_intent_plus: ^5.0.2
   assets:
     path: packages/assets
   awesome_flutter_extensions: ^1.2.0
   collection: ^1.18.0
-  connectivity_plus: ^6.0.1
+  connectivity_plus: ^6.0.2
   constants:
     path: packages/constants
   cross_file: ^0.3.3+8
@@ -39,7 +39,7 @@ dependencies:
     sdk: flutter
   fpdart: ^1.1.0
   freezed_annotation: ^2.2.0
-  go_router: ^13.2.2
+  go_router: ^13.2.4
   google_fonts: ^6.2.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -53,21 +53,24 @@ dependencies:
     path: packages/log
   modddels_annotation_fpdart: ^0.2.0
   open_filex: ^4.4.0
-  package_info_plus: ^6.0.0
+  package_info_plus: ^7.0.0
+  pagination:
+    path: packages/pub/pagination
   path: ^1.9.0
-  path_provider: ^2.1.2
+  path_provider: ^2.1.3
   path_provider_foundation: ^2.3.2
   path_provider_platform_interface: ^2.1.2
   riverpod: ^2.5.1
   riverpod_annotation: ^2.3.5
-  share_plus: ^8.0.2
+  share_plus: ^8.0.3
   sidebarx:
     path: packages/pub/sidebarx
   skeletonizer: ^1.1.1
   stock: ^1.0.1
-  super_clipboard: ^0.8.10
+  super_clipboard: ^0.8.11
+  super_sliver_list: ^0.4.1
   universal_html: ^2.2.4
-  url_launcher: ^6.2.5
+  url_launcher: ^6.2.6
   window_manager: ^0.3.8
   wolt_modal_sheet: ^0.5.0
 
@@ -83,7 +86,7 @@ dev_dependencies:
   flutter_lints: ^3.0.2
   flutter_test:
     sdk: flutter
-  freezed: ^2.4.7
+  freezed: ^2.5.2
   hive_generator: ^2.0.1
   integration_test:
     sdk: flutter
@@ -92,7 +95,6 @@ dev_dependencies:
   mocktail: ^1.0.3
   modddels: ^0.2.0
   msix: ^3.16.7
-  patrol: ^3.6.1
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
   solid_lints: ^0.1.5
@@ -104,12 +106,3 @@ flutter:
 msix_config:
   display_name: Flutter Template App
   install_certificate: false
-
-patrol:
-  app_name: Subete
-  android:
-    package_name: com.getboolean.subete
-  ios:
-    bundle_id: com.getboolean.subete
-  macos:
-    bundle_id: com.getboolean.subete

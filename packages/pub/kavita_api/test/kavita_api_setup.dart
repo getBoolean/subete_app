@@ -2,7 +2,7 @@ import 'package:chopper/chopper.dart' as ch show ChopperClient, Response;
 import 'package:dotenv/dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:kavita_api/kavita_api.dart';
-import 'package:kavita_api/raw_api.dart' as raw;
+import 'package:kavita_api/src/raw_api.dart' as raw;
 import 'package:mocktail/mocktail.dart';
 
 class MockRawKavitaApiV1 extends Mock implements raw.KavitaApiV1 {}
