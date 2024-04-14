@@ -62,17 +62,18 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
           },
         ),
       ),
-      loadingItemBuilder: (BuildContext context, int page, int indexInPage) =>
-          const Skeletonizer(
-        child: Card(
-          child: ListTile(
-            leading: Bone.icon(),
-            minLeadingWidth: 40,
-            title: Bone.text(),
-            subtitle: Bone.text(),
+      loadingItemBuilder: (BuildContext context, int page, int indexInPage) {
+        return const Skeletonizer(
+          child: Card(
+            child: ListTile(
+              leading: Bone.icon(),
+              minLeadingWidth: 40,
+              title: Bone.text(),
+              subtitle: Bone.text(),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
