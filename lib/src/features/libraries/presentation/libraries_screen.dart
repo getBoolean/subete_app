@@ -29,16 +29,29 @@ class LibrariesScreen extends ConsumerWidget {
             final lightNovelLibraries = data
                 .where((library) => library.type == LibraryType.book)
                 .toList();
-            return SuperListView.builder(
+            return KeyedSubtree(
               key: const ValueKey('LibrariesScreen-list'),
-              itemCount: lightNovelLibraries.length,
-              itemBuilder: (context, index) {
-                final library = lightNovelLibraries[index];
-                return _SingleLibraryItemWidget(
-                  key: ValueKey(library.id ?? index),
-                  library: library,
-                );
-              },
+              child: MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: Scrollbar(
+                  child: ScrollConfiguration(
+                    behavior: ScrollConfiguration.of(context).copyWith(
+                      scrollbars: false,
+                    ),
+                    child: SuperListView.builder(
+                      itemCount: lightNovelLibraries.length,
+                      itemBuilder: (context, index) {
+                        final library = lightNovelLibraries[index];
+                        return _SingleLibraryItemWidget(
+                          key: ValueKey(library.id ?? index),
+                          library: library,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
             );
           },
           error: (error, stackTrace) {
@@ -59,15 +72,19 @@ class LibrariesScreen extends ConsumerWidget {
           },
           loading: () => Skeletonizer(
             key: const ValueKey('LibrariesScreen-loading'),
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Card(
-                  child: ListTile(
-                    title: Text('Loading Library'),
-                  ),
-                );
-              },
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const Card(
+                    child: ListTile(
+                      title: Text('Loading Library'),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),

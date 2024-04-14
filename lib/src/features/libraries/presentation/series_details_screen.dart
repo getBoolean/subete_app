@@ -40,19 +40,32 @@ class SeriesDetailsScreen extends ConsumerWidget {
       switchOutCurve: Curves.easeInOut,
       child: seriesVolumes.when(
         data: (volumes) {
-          return SuperListView.builder(
+          return KeyedSubtree(
             key: const ValueKey('SeriesDetailsScreen-list'),
-            itemCount: volumes.length,
-            itemBuilder: (context, index) {
-              final VolumeDto volumeItem = volumes[index];
-              return Builder(builder: (context) {
-                return _VolumeWidget(
-                  key: ValueKey(volumeItem.id ?? index),
-                  volumeItem: volumeItem,
-                  seriesName: series.valueOrNull?.name ?? '',
-                );
-              });
-            },
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: Scrollbar(
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    scrollbars: false,
+                  ),
+                  child: SuperListView.builder(
+                    itemCount: volumes.length,
+                    itemBuilder: (context, index) {
+                      final VolumeDto volumeItem = volumes[index];
+                      return Builder(builder: (context) {
+                        return _VolumeWidget(
+                          key: ValueKey(volumeItem.id ?? index),
+                          volumeItem: volumeItem,
+                          seriesName: series.valueOrNull?.name ?? '',
+                        );
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ),
           );
         },
         error: (error, stackTrace) {
@@ -74,18 +87,22 @@ class SeriesDetailsScreen extends ConsumerWidget {
         loading: () {
           return Skeletonizer(
             key: const ValueKey('SeriesDetailsScreen-loading'),
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Card(
-                  child: ListTile(
-                    leading: Icon(Icons.library_books),
-                    minLeadingWidth: 40,
-                    title: Text('Loading...'),
-                    subtitle: Text('Hours...'),
-                  ),
-                );
-              },
+            child: MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const Card(
+                    child: ListTile(
+                      leading: Icon(Icons.library_books),
+                      minLeadingWidth: 40,
+                      title: Text('Loading...'),
+                      subtitle: Text('Hours...'),
+                    ),
+                  );
+                },
+              ),
             ),
           );
         },
