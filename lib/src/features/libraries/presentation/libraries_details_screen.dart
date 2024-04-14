@@ -43,29 +43,16 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
   Widget build(BuildContext context) {
     final int libraryId = int.parse(widget.libraryId);
     const pageSize = 25;
+
     return PaginatedView<SeriesDto>(
       pageSize: pageSize,
       restorationId: 'library-$libraryId',
-      itemsProviderBuilder: (int page) => ref.watch(
-        seriesPaginatedProvider(
-          libraryId: libraryId,
-          pageNumber: page,
-          pageSize: pageSize,
-        ),
+      provider: seriesPaginatedProvider,
+      pageItemsProvider: (int page) => seriesPaginatedProvider(
+        libraryId: libraryId,
+        pageNumber: page,
+        pageSize: pageSize,
       ),
-      invalidateItemsProvider: () => ref.invalidate(seriesPaginatedProvider),
-      invalidateItemPageProvider: (int page) =>
-          ref.invalidate(seriesPaginatedProvider(
-        libraryId: libraryId,
-        pageNumber: page,
-        pageSize: 20,
-      )),
-      refreshItemPageProvider: (int page) async =>
-          await ref.watch(seriesPaginatedProvider(
-        libraryId: libraryId,
-        pageNumber: page,
-        pageSize: 20,
-      ).future),
       itemBuilder: (BuildContext context, SeriesDto item, int indexInPage) =>
           _SeriesItemWidget(
         key: ValueKey(item.id ?? indexInPage),
