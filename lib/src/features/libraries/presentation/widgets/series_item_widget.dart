@@ -27,6 +27,7 @@ class SeriesItemWidget extends ConsumerWidget {
         message: seriesItem.name ?? 'Unnamed Series',
         triggerMode: TooltipTriggerMode.longPress,
         excludeFromSemantics: true,
+        waitDuration: const Duration(milliseconds: 300),
         child: ListTile(
           minLeadingWidth: imageWidth,
           leading: ExtendedImage.network(
