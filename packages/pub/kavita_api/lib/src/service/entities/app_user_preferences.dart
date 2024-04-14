@@ -32,7 +32,6 @@ class AppUserPreferences with AppUserPreferencesMappable {
     this.bookReaderImmersiveMode,
     this.pdfTheme,
     this.pdfScrollMode,
-    this.pdfLayoutMode,
     this.pdfSpreadMode,
     this.globalPageLayoutMode,
     this.blurUnreadSummaries,
@@ -126,9 +125,6 @@ class AppUserPreferences with AppUserPreferencesMappable {
 
   /// PDF Reader: Scroll mode of the reader
   final PdfScrollMode? pdfScrollMode;
-
-  /// PDF Reader: Layout Mode of the reader
-  final PdfLayoutMode? pdfLayoutMode;
 
   /// PDF Reader: Spread Mode of the reader
   final PdfSpreadMode? pdfSpreadMode;

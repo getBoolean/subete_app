@@ -16,7 +16,7 @@ targets:
           input_folder: "openapi_specs/"
           output_folder: "lib/src/service/openapi_generated_code/"
           input_urls:
-            - url: https://raw.githubusercontent.com/Kareadita/Kavita/7b7609652c32a4e8e4ac0b1ab64f7a0dbeaef1dc/openapi.json
+            - url: https://raw.githubusercontent.com/Kareadita/Kavita/v0.8.0/openapi.json
               file_name: kavita_api_v1.json
           include_if_null: false
           override_equals_and_hashcode: true

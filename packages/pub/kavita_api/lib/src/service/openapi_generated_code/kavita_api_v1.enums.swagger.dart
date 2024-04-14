@@ -419,20 +419,6 @@ enum AppUserPreferencesPdfScrollMode {
   const AppUserPreferencesPdfScrollMode(this.value);
 }
 
-enum AppUserPreferencesPdfLayoutMode {
-  @JsonValue(null)
-  swaggerGeneratedUnknown(null),
-
-  @JsonValue(0)
-  value_0(0),
-  @JsonValue(2)
-  value_2(2);
-
-  final int? value;
-
-  const AppUserPreferencesPdfLayoutMode(this.value);
-}
-
 enum AppUserPreferencesPdfSpreadMode {
   @JsonValue(null)
   swaggerGeneratedUnknown(null),
