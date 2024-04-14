@@ -147,7 +147,8 @@ KAVITA_PASSWORD=password_here
 
         ```bash
         sudo apt-get update
-        sudo apt install webkit2gtk-4.1 clang cmake ninja-build pkg-config libgtk-3-dev mpv libmpv-dev dpkg-dev libfuse2
+        sudo apt-get install webkit2gtk-4.1 clang cmake ninja-build pkg-config libgtk-3-dev mpv libmpv-dev dpkg-dev
+        sudo apt install -y libfuse2
         flutter build linux --release --dart-define FLUTTER_APP_FLAVOR=local
         curl -JOL <https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage>
         chmod a+x appimagetool-x86_64.AppImage
