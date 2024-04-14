@@ -5,6 +5,7 @@ import 'package:kavita_api/kavita_api.dart';
 import 'package:pagination/pagination.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
+import 'package:subete/src/features/libraries/presentation/application/series_search_query_notifier.dart';
 import 'package:subete/src/features/libraries/presentation/widgets/series_item_widget.dart';
 import 'package:subete/src/routing/router/router.dart';
 
@@ -45,6 +46,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
     final libraryName =
         routeState.uri.queryParameters['libraryName'] ?? 'Library';
     const pageSize = 25;
+    final searchQuery = ref.watch(seriesSearchQueryNotifierProvider);
     return Padding(
       padding: const EdgeInsetsDirectional.all(8.0),
       child: Semantics(
@@ -66,57 +68,66 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
               icon: const Icon(Icons.close),
               tooltip: 'Clear',
               onPressed: () {
+                ref.read(seriesSearchQueryNotifierProvider.notifier).clear();
                 searchController.clear();
               },
             )
           ],
+          viewOnChanged: (query) => ref
+              .read(seriesSearchQueryNotifierProvider.notifier)
+              .setQuery(query),
           viewBuilder: (_) {
-            return PaginatedView<SeriesDto>(
-              pageSize: pageSize,
-              restorationId: 'search-$libraryId',
-              provider: seriesPaginatedProvider,
-              pageItemsProvider: (int page) => seriesPaginatedProvider(
-                libraryId: libraryId,
-                pageNumber: page,
-                pageSize: pageSize,
-                query: searchController.text,
-              ),
-              itemBuilder: (
-                BuildContext context,
-                SeriesDto eachSeries,
-                int indexInPage,
-              ) =>
-                  SeriesItemWidget(
-                key: ValueKey(
-                    'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-${searchController.text}'),
-                seriesItem: eachSeries,
-                titleElipsis: true,
-                onTap: () => context.goNamed(
-                  RouteName.seriesDetails.name,
-                  pathParameters: {
-                    'seriesId': eachSeries.id.toString(),
-                    'libraryId': libraryId.toString(),
-                  },
-                  queryParameters: {
-                    'libraryName': eachSeries.libraryName ?? 'Library',
-                    'seriesName': eachSeries.name ?? 'Series',
-                  },
-                ),
-              ),
-              loadingItemBuilder:
-                  (BuildContext context, int page, int indexInPage) =>
-                      Skeletonizer(
-                key: ValueKey(
-                    'search-library-loading-$libraryId-series-${searchController.text}-$page-$indexInPage'),
-                child: const Card(
-                  child: ListTile(
-                    leading: Bone.icon(),
-                    minLeadingWidth: 40,
-                    title: Bone.text(words: 15),
-                    subtitle: Bone.text(),
+            return Consumer(
+              builder: (context, ref, child) {
+                final query = ref.watch(seriesSearchQueryNotifierProvider);
+                return PaginatedView<SeriesDto>(
+                  pageSize: pageSize,
+                  restorationId: 'search-$libraryId',
+                  provider: seriesPaginatedProvider,
+                  pageItemsProvider: (int page) => seriesPaginatedProvider(
+                    libraryId: libraryId,
+                    pageNumber: page,
+                    pageSize: pageSize,
+                    query: query,
                   ),
-                ),
-              ),
+                  itemBuilder: (
+                    BuildContext context,
+                    SeriesDto eachSeries,
+                    int indexInPage,
+                  ) =>
+                      SeriesItemWidget(
+                    key: ValueKey(
+                        'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-$searchQuery'),
+                    seriesItem: eachSeries,
+                    titleElipsis: true,
+                    onTap: () => context.goNamed(
+                      RouteName.seriesDetails.name,
+                      pathParameters: {
+                        'seriesId': eachSeries.id.toString(),
+                        'libraryId': libraryId.toString(),
+                      },
+                      queryParameters: {
+                        'libraryName': eachSeries.libraryName ?? 'Library',
+                        'seriesName': eachSeries.name ?? 'Series',
+                      },
+                    ),
+                  ),
+                  loadingItemBuilder:
+                      (BuildContext context, int page, int indexInPage) =>
+                          Skeletonizer(
+                    key: ValueKey(
+                        'search-library-loading-$libraryId-series-$searchQuery-$page-$indexInPage'),
+                    child: const Card(
+                      child: ListTile(
+                        leading: Bone.icon(),
+                        minLeadingWidth: 40,
+                        title: Bone.text(words: 15),
+                        subtitle: Bone.text(),
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
           suggestionsBuilder: (_, __) => [],
@@ -124,14 +135,16 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
             return widget.expanded
                 ? IntrinsicWidth(
                     child: SearchBar(
-                      controller: controller,
                       focusNode: widget.focusNode,
                       onTap: () {
                         widget.focusNode.unfocus();
                         if (!controller.isOpen) controller.openView();
                       },
-                      onChanged: (_) {
+                      onChanged: (query) {
                         widget.focusNode.unfocus();
+                        ref
+                            .read(seriesSearchQueryNotifierProvider.notifier)
+                            .setQuery(query);
                         if (!controller.isOpen) controller.openView();
                       },
                       hintText: 'Search $libraryName',

@@ -34,7 +34,7 @@ Future<PaginatedResult<SeriesDto>> seriesPaginated(
       libraryId: libraryId,
       pageNumber: pageNumber,
       pageSize: pageSize,
-      filter: query == null
+      filter: query == null || query.isEmpty
           ? null
           : FilterV2Dto(
               statements: [
