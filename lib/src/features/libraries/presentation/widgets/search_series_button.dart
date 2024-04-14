@@ -49,9 +49,10 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
   @override
   Widget build(BuildContext context) {
     final routeState = GoRouterState.of(context);
-    final libraryId = int.parse(routeState.pathParameters['libraryId'] ?? '-1');
-    final libraryName =
-        routeState.uri.queryParameters['libraryName'] ?? 'Library';
+    final libraryId =
+        int.tryParse(routeState.pathParameters['libraryId'] ?? '-1') ?? -1;
+    final library = ref.watch(findLibraryProvider(libraryId));
+    final libraryName = library.valueOrNull?.name ?? '';
     const pageSize = 25;
     return Padding(
       padding: const EdgeInsetsDirectional.all(8.0),

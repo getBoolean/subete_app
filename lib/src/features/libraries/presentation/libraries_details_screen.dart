@@ -11,11 +11,9 @@ import 'package:subete/src/routing/router/router.dart';
 class LibraryDetailsScreen extends ConsumerStatefulWidget {
   const LibraryDetailsScreen({
     required this.libraryId,
-    required this.libraryName,
     super.key,
   });
-  final String libraryId;
-  final String libraryName;
+  final int libraryId;
 
   @override
   ConsumerState<LibraryDetailsScreen> createState() =>
@@ -40,30 +38,29 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final int libraryId = int.parse(widget.libraryId);
     const pageSize = 25;
 
     return PaginatedView<SeriesDto>(
       pageSize: pageSize,
-      restorationId: 'library-$libraryId',
+      restorationId: 'library-${widget.libraryId}',
       provider: seriesPaginatedProvider,
       pageItemsProvider: (int page) => seriesPaginatedProvider(
-        libraryId: libraryId,
+        libraryId: widget.libraryId,
         pageNumber: page,
         pageSize: pageSize,
       ),
       itemBuilder: (BuildContext context, SeriesDto item, int indexInPage) =>
           SeriesItemWidget(
-        key: ValueKey('library-$libraryId-series-${item.id ?? indexInPage}'),
+        key: ValueKey(
+            'library-${widget.libraryId}-series-${item.id ?? indexInPage}'),
         seriesItem: item,
         onTap: () => context.goNamed(
           RouteName.seriesDetails.name,
           pathParameters: {
             'seriesId': item.id.toString(),
-            'libraryId': libraryId.toString(),
+            'libraryId': widget.libraryId.toString(),
           },
           queryParameters: {
-            'libraryName': widget.libraryName,
             'seriesName': item.name ?? 'Unnamed Series',
           },
         ),

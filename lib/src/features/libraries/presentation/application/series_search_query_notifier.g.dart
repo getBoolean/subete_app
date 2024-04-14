@@ -7,7 +7,7 @@ part of 'series_search_query_notifier.dart';
 // **************************************************************************
 
 String _$seriesSearchQueryNotifierHash() =>
-    r'60cddc478107c8f56b90d23e87fac4643a35e8bf';
+    r'36b8ad0420dad6dfb2944d703df8d9addf13e7cb';
 
 /// See also [SeriesSearchQueryNotifier].
 @ProviderFor(SeriesSearchQueryNotifier)

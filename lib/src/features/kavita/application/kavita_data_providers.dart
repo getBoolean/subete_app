@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:pagination/pagination.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -17,6 +18,31 @@ Future<List<LibraryDto>> libraries(LibrariesRef ref) async {
   }
 
   throw Exception('Failed to get libraries');
+}
+
+@riverpod
+Future<LibraryDto> findLibrary(FindLibraryRef ref, int libraryId) async {
+  final libraries = await ref.read(librariesProvider.future);
+
+  final library = libraries.firstWhereOrNull(
+    (library) => library.id == libraryId,
+  );
+  if (library == null) {
+    throw Exception('Library not found');
+  }
+  return library;
+}
+
+@riverpod
+Future<SeriesDto> findSeries(FindSeriesRef ref, int seriesId) async {
+  final kavita = ref.watch(kavitaProvider);
+
+  final response = await kavita.series.getSeries(id: seriesId);
+  if (response.isSuccessful && response.body != null) {
+    return response.body!;
+  }
+
+  throw Exception('Failed to get series');
 }
 
 @riverpod
