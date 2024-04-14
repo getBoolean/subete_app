@@ -43,6 +43,6 @@ Future<void> _authenticate(KavitaApi api) async {
   } else if (kavitaUsername != null && kavitaPassword != null) {
     await api.account.login(username: kavitaUsername, password: kavitaPassword);
   } else {
-    throw Exception('No API key or username/password provided');
+    throw ArgumentError('No API key or username/password provided');
   }
 }
