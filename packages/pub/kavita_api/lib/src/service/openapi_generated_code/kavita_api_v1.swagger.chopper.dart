@@ -1092,7 +1092,7 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
   }
 
   @override
-  Future<Response<List<LibraryDto>>> _apiLibraryGet({int? libraryId}) {
+  Future<Response<LibraryDto>> _apiLibraryGet({int? libraryId}) {
     final Uri $url = Uri.parse('/api/Library');
     final Map<String, dynamic> $params = <String, dynamic>{
       'libraryId': libraryId
@@ -1103,18 +1103,18 @@ final class _$KavitaApiV1 extends KavitaApiV1 {
       client.baseUrl,
       parameters: $params,
     );
-    return client.send<List<LibraryDto>, LibraryDto>($request);
+    return client.send<LibraryDto, LibraryDto>($request);
   }
 
   @override
-  Future<Response<String>> _apiLibraryLibrariesGet() {
+  Future<Response<List<LibraryDto>>> _apiLibraryLibrariesGet() {
     final Uri $url = Uri.parse('/api/Library/libraries');
     final Request $request = Request(
       'GET',
       $url,
       client.baseUrl,
     );
-    return client.send<String, String>($request);
+    return client.send<List<LibraryDto>, LibraryDto>($request);
   }
 
   @override

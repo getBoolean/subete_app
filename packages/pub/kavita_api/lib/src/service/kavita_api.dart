@@ -2607,11 +2607,9 @@ class KavitaApiLibrary {
     required int id,
   }) async {
     return mappr
-        .convert<ch.Response<List<raw.LibraryDto>>,
-            KavitaResponse<List<LibraryDto>>>(
-          await context.api.apiLibraryGet(libraryId: id),
-        )
-        .map((body) => body?.firstOrNull);
+        .convert<ch.Response<raw.LibraryDto>, KavitaResponse<LibraryDto>>(
+      await context.api.apiLibraryGet(libraryId: id),
+    );
   }
 
   /// Creates a new Library. Upon library creation, adds new library to all Admin accounts.
@@ -2665,7 +2663,7 @@ class KavitaApiLibrary {
   Future<KavitaResponse<List<LibraryDto>>> getAllLibraries() async {
     return mappr.convert<ch.Response<List<raw.LibraryDto>>,
         KavitaResponse<List<LibraryDto>>>(
-      await context.api.apiLibraryGet(),
+      await context.api.apiLibraryLibrariesGet(),
     );
   }
 

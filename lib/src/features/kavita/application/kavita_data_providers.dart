@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:collection/collection.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:pagination/pagination.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -22,15 +21,13 @@ Future<List<LibraryDto>> libraries(LibrariesRef ref) async {
 
 @riverpod
 Future<LibraryDto> findLibrary(FindLibraryRef ref, int libraryId) async {
-  final libraries = await ref.read(librariesProvider.future);
+  final kavita = ref.watch(kavitaProvider);
 
-  final library = libraries.firstWhereOrNull(
-    (library) => library.id == libraryId,
-  );
-  if (library == null) {
-    throw Exception('Library not found');
+  final response = await kavita.library.getLibrary(id: libraryId);
+  if (response.isSuccessful && response.body != null) {
+    return response.body!;
   }
-  return library;
+  throw Exception('Failed to get library');
 }
 
 @riverpod

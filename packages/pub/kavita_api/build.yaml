@@ -25,9 +25,3 @@ targets:
             - url: "/api/Users/myself"
               method: get
               overridden_value: "MemberDto"
-            - url: "/api/Library/libraries"
-              method: get
-              overridden_value: "String"
-            - url: "/api/Library"
-              method: get
-              overridden_value: "List<LibraryDto>"

@@ -8,13 +8,37 @@ void main() {
 
   group('Test Kavita API v1 Library', () {
     test('Test Get Library', () async {
-      when(() => kavita.rawApi.apiLibraryGet(
-            libraryId: 1,
-          )).thenResponse([
-        const raw.LibraryDto(id: 1),
-      ]);
+      when(() => kavita.rawApi.apiLibraryGet(libraryId: 1)).thenResponse(
+        const raw.LibraryDto(
+          id: 1,
+          name: 'Test',
+          type: 1,
+          folders: [],
+          folderWatching: true,
+          includeInDashboard: true,
+          includeInRecommended: true,
+          includeInSearch: true,
+          manageCollections: true,
+          manageReadingLists: true,
+          allowScrobbling: true,
+          libraryFileTypes: [],
+          excludePatterns: [],
+        ),
+      );
       const expected = LibraryDto(
         id: 1,
+        name: 'Test',
+        type: LibraryType.comic,
+        folders: [],
+        folderWatching: true,
+        includeInDashboard: true,
+        includeInRecommended: true,
+        manageCollections: true,
+        manageReadingLists: true,
+        includeInSearch: true,
+        allowScrobbling: true,
+        libraryFileTypes: [],
+        excludePatterns: [],
       );
       final res = await kavita.underTest.library.getLibrary(id: 1);
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
@@ -78,7 +102,7 @@ void main() {
     });
 
     test('Test Get Libraries', () async {
-      when(() => kavita.rawApi.apiLibraryGet()).thenResponse([
+      when(() => kavita.rawApi.apiLibraryLibrariesGet()).thenResponse([
         const raw.LibraryDto(
           id: 1,
           name: 'Test',
