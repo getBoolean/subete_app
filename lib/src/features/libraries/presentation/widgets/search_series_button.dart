@@ -53,7 +53,6 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
     final libraryName =
         routeState.uri.queryParameters['libraryName'] ?? 'Library';
     const pageSize = 25;
-    final searchQuery = ref.watch(seriesSearchQueryNotifierProvider);
     return Padding(
       padding: const EdgeInsetsDirectional.all(8.0),
       child: Semantics(
