@@ -354,6 +354,20 @@ abstract class KavitaApiV1 extends ChopperService {
   @Get(path: '/api/Admin/exists')
   Future<chopper.Response<bool>> _apiAdminExistsGet();
 
+  ///Set the progress information for a particular user
+  Future<chopper.Response<bool>> apiAdminUpdateChapterProgressPost(
+      {required UpdateUserProgressDto? body}) {
+    return _apiAdminUpdateChapterProgressPost(body: body);
+  }
+
+  ///Set the progress information for a particular user
+  @Post(
+    path: '/api/Admin/update-chapter-progress',
+    optionalBody: true,
+  )
+  Future<chopper.Response<bool>> _apiAdminUpdateChapterProgressPost(
+      {@Body() required UpdateUserProgressDto? body});
+
   ///Retrieves information for the PDF and Epub reader
   ///@param chapterId
   Future<chopper.Response<BookInfoDto>> apiBookChapterIdBookInfoGet(
@@ -437,6 +451,7 @@ abstract class KavitaApiV1 extends ChopperService {
     int? length,
     String? name,
     String? fileName,
+    bool? comicVineMatching,
   }) {
     generatedMapping.putIfAbsent(
         CblImportSummaryDto, () => CblImportSummaryDto.fromJsonFactory);
@@ -447,7 +462,8 @@ abstract class KavitaApiV1 extends ChopperService {
         headers: headers,
         length: length,
         name: name,
-        fileName: fileName);
+        fileName: fileName,
+        comicVineMatching: comicVineMatching);
   }
 
   ///The first step in a cbl import. This validates the cbl file that if an import occured, would it be successful.
@@ -464,6 +480,7 @@ abstract class KavitaApiV1 extends ChopperService {
     @Part('Length') int? length,
     @Part('Name') String? name,
     @Part('FileName') String? fileName,
+    @Part('comicVineMatching') bool? comicVineMatching,
   });
 
   ///Performs the actual import (assuming dryRun = false)
@@ -475,6 +492,7 @@ abstract class KavitaApiV1 extends ChopperService {
     String? name,
     String? fileName,
     bool? dryRun,
+    bool? comicVineMatching,
   }) {
     generatedMapping.putIfAbsent(
         CblImportSummaryDto, () => CblImportSummaryDto.fromJsonFactory);
@@ -486,7 +504,8 @@ abstract class KavitaApiV1 extends ChopperService {
         length: length,
         name: name,
         fileName: fileName,
-        dryRun: dryRun);
+        dryRun: dryRun,
+        comicVineMatching: comicVineMatching);
   }
 
   ///Performs the actual import (assuming dryRun = false)
@@ -503,48 +522,59 @@ abstract class KavitaApiV1 extends ChopperService {
     @Part('Name') String? name,
     @Part('FileName') String? fileName,
     @Part('dryRun') bool? dryRun,
+    @Part('comicVineMatching') bool? comicVineMatching,
   });
 
-  ///Return a list of all collection tags on the server for the logged in user.
-  Future<chopper.Response<List<CollectionTagDto>>> apiCollectionGet() {
+  ///Returns all Collection tags for a given User
+  ///@param ownedOnly
+  Future<chopper.Response<List<AppUserCollectionDto>>> apiCollectionGet(
+      {bool? ownedOnly}) {
     generatedMapping.putIfAbsent(
-        CollectionTagDto, () => CollectionTagDto.fromJsonFactory);
+        AppUserCollectionDto, () => AppUserCollectionDto.fromJsonFactory);
 
-    return _apiCollectionGet();
+    return _apiCollectionGet(ownedOnly: ownedOnly);
   }
 
-  ///Return a list of all collection tags on the server for the logged in user.
+  ///Returns all Collection tags for a given User
+  ///@param ownedOnly
   @Get(path: '/api/Collection')
-  Future<chopper.Response<List<CollectionTagDto>>> _apiCollectionGet();
+  Future<chopper.Response<List<AppUserCollectionDto>>> _apiCollectionGet(
+      {@Query('ownedOnly') bool? ownedOnly});
 
-  ///Removes the collection tag from all Series it was attached to
+  ///Removes the collection tag from the user
   ///@param tagId
   Future<chopper.Response> apiCollectionDelete({int? tagId}) {
     return _apiCollectionDelete(tagId: tagId);
   }
 
-  ///Removes the collection tag from all Series it was attached to
+  ///Removes the collection tag from the user
   ///@param tagId
   @Delete(path: '/api/Collection')
   Future<chopper.Response> _apiCollectionDelete({@Query('tagId') int? tagId});
 
-  ///Searches against the collection tags on the DB and returns matches that meet the search criteria.
-  ///<remarks>Search strings will be cleaned of certain fields, like %</remarks>
-  ///@param queryString Search term
-  Future<chopper.Response<List<CollectionTagDto>>> apiCollectionSearchGet(
-      {String? queryString}) {
+  ///Returns all collections that contain the Series for the user with the option to allow for promoted collections (non-user owned)
+  ///@param seriesId
+  ///@param ownedOnly
+  Future<chopper.Response<List<AppUserCollectionDto>>>
+      apiCollectionAllSeriesGet({
+    int? seriesId,
+    bool? ownedOnly,
+  }) {
     generatedMapping.putIfAbsent(
-        CollectionTagDto, () => CollectionTagDto.fromJsonFactory);
+        AppUserCollectionDto, () => AppUserCollectionDto.fromJsonFactory);
 
-    return _apiCollectionSearchGet(queryString: queryString);
+    return _apiCollectionAllSeriesGet(seriesId: seriesId, ownedOnly: ownedOnly);
   }
 
-  ///Searches against the collection tags on the DB and returns matches that meet the search criteria.
-  ///<remarks>Search strings will be cleaned of certain fields, like %</remarks>
-  ///@param queryString Search term
-  @Get(path: '/api/Collection/search')
-  Future<chopper.Response<List<CollectionTagDto>>> _apiCollectionSearchGet(
-      {@Query('queryString') String? queryString});
+  ///Returns all collections that contain the Series for the user with the option to allow for promoted collections (non-user owned)
+  ///@param seriesId
+  ///@param ownedOnly
+  @Get(path: '/api/Collection/all-series')
+  Future<chopper.Response<List<AppUserCollectionDto>>>
+      _apiCollectionAllSeriesGet({
+    @Query('seriesId') int? seriesId,
+    @Query('ownedOnly') bool? ownedOnly,
+  });
 
   ///Checks if a collection exists with the name
   ///@param name If empty or null, will return true as that is invalid
@@ -561,7 +591,7 @@ abstract class KavitaApiV1 extends ChopperService {
   ///Updates an existing tag with a new title, promotion status, and summary.
   ///<remarks>UI does not contain controls to update title</remarks>
   Future<chopper.Response> apiCollectionUpdatePost(
-      {required CollectionTagDto? body}) {
+      {required AppUserCollectionDto? body}) {
     return _apiCollectionUpdatePost(body: body);
   }
 
@@ -572,15 +602,43 @@ abstract class KavitaApiV1 extends ChopperService {
     optionalBody: true,
   )
   Future<chopper.Response> _apiCollectionUpdatePost(
-      {@Body() required CollectionTagDto? body});
+      {@Body() required AppUserCollectionDto? body});
 
-  ///Adds a collection tag onto multiple Series. If tag id is 0, this will create a new tag.
+  ///Promote/UnPromote multiple collections in one go. Will only update the authenticated user's collections and will only work if the user has promotion role
+  Future<chopper.Response> apiCollectionPromoteMultiplePost(
+      {required PromoteCollectionsDto? body}) {
+    return _apiCollectionPromoteMultiplePost(body: body);
+  }
+
+  ///Promote/UnPromote multiple collections in one go. Will only update the authenticated user's collections and will only work if the user has promotion role
+  @Post(
+    path: '/api/Collection/promote-multiple',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _apiCollectionPromoteMultiplePost(
+      {@Body() required PromoteCollectionsDto? body});
+
+  ///Promote/UnPromote multiple collections in one go
+  Future<chopper.Response> apiCollectionDeleteMultiplePost(
+      {required PromoteCollectionsDto? body}) {
+    return _apiCollectionDeleteMultiplePost(body: body);
+  }
+
+  ///Promote/UnPromote multiple collections in one go
+  @Post(
+    path: '/api/Collection/delete-multiple',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _apiCollectionDeleteMultiplePost(
+      {@Body() required PromoteCollectionsDto? body});
+
+  ///Adds multiple series to a collection. If tag id is 0, this will create a new tag.
   Future<chopper.Response> apiCollectionUpdateForSeriesPost(
       {required CollectionTagBulkAddDto? body}) {
     return _apiCollectionUpdateForSeriesPost(body: body);
   }
 
-  ///Adds a collection tag onto multiple Series. If tag id is 0, this will create a new tag.
+  ///Adds multiple series to a collection. If tag id is 0, this will create a new tag.
   @Post(
     path: '/api/Collection/update-for-series',
     optionalBody: true,
@@ -601,6 +659,20 @@ abstract class KavitaApiV1 extends ChopperService {
   )
   Future<chopper.Response> _apiCollectionUpdateSeriesPost(
       {@Body() required UpdateSeriesForTagDto? body});
+
+  ///For the authenticated user, if they have an active Kavita+ subscription and a MAL username on record,
+  ///fetch their Mal interest stacks (including restacks)
+  Future<chopper.Response<List<MalStackDto>>> apiCollectionMalStacksGet() {
+    generatedMapping.putIfAbsent(
+        MalStackDto, () => MalStackDto.fromJsonFactory);
+
+    return _apiCollectionMalStacksGet();
+  }
+
+  ///For the authenticated user, if they have an active Kavita+ subscription and a MAL username on record,
+  ///fetch their Mal interest stacks (including restacks)
+  @Get(path: '/api/Collection/mal-stacks')
+  Future<chopper.Response<List<MalStackDto>>> _apiCollectionMalStacksGet();
 
   ///
   Future<chopper.Response> apiDeviceCreatePost(
@@ -918,7 +990,7 @@ abstract class KavitaApiV1 extends ChopperService {
     @Query('apiKey') String? apiKey,
   });
 
-  ///Returns cover image for Collection Tag
+  ///Returns cover image for Collection
   ///@param collectionTagId
   ///@param apiKey
   Future<chopper.Response> apiImageCollectionCoverGet({
@@ -929,7 +1001,7 @@ abstract class KavitaApiV1 extends ChopperService {
         collectionTagId: collectionTagId, apiKey: apiKey);
   }
 
-  ///Returns cover image for Collection Tag
+  ///Returns cover image for Collection
   ///@param collectionTagId
   ///@param apiKey
   @Get(path: '/api/Image/collection-cover')
@@ -1050,16 +1122,28 @@ abstract class KavitaApiV1 extends ChopperService {
   Future<chopper.Response<List<DirectoryDto>>> _apiLibraryListGet(
       {@Query('path') String? path});
 
-  ///Return all libraries in the Server
-  Future<chopper.Response<List<LibraryDto>>> apiLibraryGet() {
+  ///Return a specific library
+  ///@param libraryId
+  Future<chopper.Response<List<LibraryDto>>> apiLibraryGet({int? libraryId}) {
     generatedMapping.putIfAbsent(LibraryDto, () => LibraryDto.fromJsonFactory);
 
-    return _apiLibraryGet();
+    return _apiLibraryGet(libraryId: libraryId);
+  }
+
+  ///Return a specific library
+  ///@param libraryId
+  @Get(path: '/api/Library')
+  Future<chopper.Response<List<LibraryDto>>> _apiLibraryGet(
+      {@Query('libraryId') int? libraryId});
+
+  ///Return all libraries in the Server
+  Future<chopper.Response<String>> apiLibraryLibrariesGet() {
+    return _apiLibraryLibrariesGet();
   }
 
   ///Return all libraries in the Server
-  @Get(path: '/api/Library')
-  Future<chopper.Response<List<LibraryDto>>> _apiLibraryGet();
+  @Get(path: '/api/Library/libraries')
+  Future<chopper.Response<String>> _apiLibraryLibrariesGet();
 
   ///For a given library, generate the jump bar information
   ///@param libraryId
@@ -2647,6 +2731,22 @@ abstract class KavitaApiV1 extends ChopperService {
   Future<chopper.Response> _apiReaderCreatePtocPost(
       {@Body() required CreatePersonalToCDto? body});
 
+  ///Get all progress events for a given chapter
+  ///@param chapterId
+  Future<chopper.Response<List<FullProgressDto>>>
+      apiReaderAllChapterProgressGet({int? chapterId}) {
+    generatedMapping.putIfAbsent(
+        FullProgressDto, () => FullProgressDto.fromJsonFactory);
+
+    return _apiReaderAllChapterProgressGet(chapterId: chapterId);
+  }
+
+  ///Get all progress events for a given chapter
+  ///@param chapterId
+  @Get(path: '/api/Reader/all-chapter-progress')
+  Future<chopper.Response<List<FullProgressDto>>>
+      _apiReaderAllChapterProgressGet({@Query('chapterId') int? chapterId});
+
   ///Fetches a single Reading List
   ///@param readingListId
   Future<chopper.Response<List<ReadingListDto>>> apiReadingListGet(
@@ -3130,6 +3230,18 @@ abstract class KavitaApiV1 extends ChopperService {
   @Get(path: '/api/Scrobbling/anilist-token')
   Future<chopper.Response<String>> _apiScrobblingAnilistTokenGet();
 
+  ///
+  Future<chopper.Response<MalUserInfoDto>> apiScrobblingMalTokenGet() {
+    generatedMapping.putIfAbsent(
+        MalUserInfoDto, () => MalUserInfoDto.fromJsonFactory);
+
+    return _apiScrobblingMalTokenGet();
+  }
+
+  ///
+  @Get(path: '/api/Scrobbling/mal-token')
+  Future<chopper.Response<MalUserInfoDto>> _apiScrobblingMalTokenGet();
+
   ///Update the current user's AniList token
   Future<chopper.Response> apiScrobblingUpdateAnilistTokenPost(
       {required AniListUpdateDto? body}) {
@@ -3143,6 +3255,20 @@ abstract class KavitaApiV1 extends ChopperService {
   )
   Future<chopper.Response> _apiScrobblingUpdateAnilistTokenPost(
       {@Body() required AniListUpdateDto? body});
+
+  ///Update the current user's MAL token (Client ID) and Username
+  Future<chopper.Response> apiScrobblingUpdateMalTokenPost(
+      {required MalUserInfoDto? body}) {
+    return _apiScrobblingUpdateMalTokenPost(body: body);
+  }
+
+  ///Update the current user's MAL token (Client ID) and Username
+  @Post(
+    path: '/api/Scrobbling/update-mal-token',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _apiScrobblingUpdateMalTokenPost(
+      {@Body() required MalUserInfoDto? body});
 
   ///Checks if the current Scrobbling token for the given Provider has expired for the current user
   ///@param provider Misleading name but is the source of data (like a review coming from AniList)
@@ -4492,6 +4618,20 @@ abstract class KavitaApiV1 extends ChopperService {
   Future<chopper.Response<List<Int32StatCount>>> _apiStatsWordsPerYearGet(
       {@Query('userId') int? userId});
 
+  ///Returns for Kavita+ the number of Series that have been processed, errored, and not processed
+  Future<chopper.Response<List<Int32StatCount>>>
+      apiStatsKavitaplusMetadataBreakdownGet() {
+    generatedMapping.putIfAbsent(
+        Int32StatCount, () => Int32StatCount.fromJsonFactory);
+
+    return _apiStatsKavitaplusMetadataBreakdownGet();
+  }
+
+  ///Returns for Kavita+ the number of Series that have been processed, errored, and not processed
+  @Get(path: '/api/Stats/kavitaplus-metadata-breakdown')
+  Future<chopper.Response<List<Int32StatCount>>>
+      _apiStatsKavitaplusMetadataBreakdownGet();
+
   ///Returns the layout of the user's dashboard
   ///@param visibleOnly
   Future<chopper.Response<List<DashboardStreamDto>>> apiStreamDashboardGet(
@@ -5403,6 +5543,7 @@ class AppUser {
     this.userPreferences,
     this.bookmarks,
     this.readingLists,
+    this.collections,
     this.wantToRead,
     this.devices,
     this.tableOfContents,
@@ -5411,6 +5552,8 @@ class AppUser {
     this.ageRestriction,
     this.ageRestrictionIncludeUnknowns,
     this.aniListAccessToken,
+    this.malUserName,
+    this.malAccessToken,
     this.scrobbleHolds,
     this.smartFilters,
     this.dashboardStreams,
@@ -5487,6 +5630,11 @@ class AppUser {
       name: 'readingLists', includeIfNull: false, defaultValue: <ReadingList>[])
   final List<ReadingList>? readingLists;
   @JsonKey(
+      name: 'collections',
+      includeIfNull: false,
+      defaultValue: <AppUserCollection>[])
+  final List<AppUserCollection>? collections;
+  @JsonKey(
       name: 'wantToRead',
       includeIfNull: false,
       defaultValue: <AppUserWantToRead>[])
@@ -5508,6 +5656,10 @@ class AppUser {
   final bool? ageRestrictionIncludeUnknowns;
   @JsonKey(name: 'aniListAccessToken', includeIfNull: false)
   final String? aniListAccessToken;
+  @JsonKey(name: 'malUserName', includeIfNull: false)
+  final String? malUserName;
+  @JsonKey(name: 'malAccessToken', includeIfNull: false)
+  final String? malAccessToken;
   @JsonKey(
       name: 'scrobbleHolds',
       includeIfNull: false,
@@ -5610,6 +5762,7 @@ class AppUser {
             (identical(other.userPreferences, userPreferences) || const DeepCollectionEquality().equals(other.userPreferences, userPreferences)) &&
             (identical(other.bookmarks, bookmarks) || const DeepCollectionEquality().equals(other.bookmarks, bookmarks)) &&
             (identical(other.readingLists, readingLists) || const DeepCollectionEquality().equals(other.readingLists, readingLists)) &&
+            (identical(other.collections, collections) || const DeepCollectionEquality().equals(other.collections, collections)) &&
             (identical(other.wantToRead, wantToRead) || const DeepCollectionEquality().equals(other.wantToRead, wantToRead)) &&
             (identical(other.devices, devices) || const DeepCollectionEquality().equals(other.devices, devices)) &&
             (identical(other.tableOfContents, tableOfContents) || const DeepCollectionEquality().equals(other.tableOfContents, tableOfContents)) &&
@@ -5618,6 +5771,8 @@ class AppUser {
             (identical(other.ageRestriction, ageRestriction) || const DeepCollectionEquality().equals(other.ageRestriction, ageRestriction)) &&
             (identical(other.ageRestrictionIncludeUnknowns, ageRestrictionIncludeUnknowns) || const DeepCollectionEquality().equals(other.ageRestrictionIncludeUnknowns, ageRestrictionIncludeUnknowns)) &&
             (identical(other.aniListAccessToken, aniListAccessToken) || const DeepCollectionEquality().equals(other.aniListAccessToken, aniListAccessToken)) &&
+            (identical(other.malUserName, malUserName) || const DeepCollectionEquality().equals(other.malUserName, malUserName)) &&
+            (identical(other.malAccessToken, malAccessToken) || const DeepCollectionEquality().equals(other.malAccessToken, malAccessToken)) &&
             (identical(other.scrobbleHolds, scrobbleHolds) || const DeepCollectionEquality().equals(other.scrobbleHolds, scrobbleHolds)) &&
             (identical(other.smartFilters, smartFilters) || const DeepCollectionEquality().equals(other.smartFilters, smartFilters)) &&
             (identical(other.dashboardStreams, dashboardStreams) || const DeepCollectionEquality().equals(other.dashboardStreams, dashboardStreams)) &&
@@ -5657,6 +5812,7 @@ class AppUser {
       const DeepCollectionEquality().hash(userPreferences) ^
       const DeepCollectionEquality().hash(bookmarks) ^
       const DeepCollectionEquality().hash(readingLists) ^
+      const DeepCollectionEquality().hash(collections) ^
       const DeepCollectionEquality().hash(wantToRead) ^
       const DeepCollectionEquality().hash(devices) ^
       const DeepCollectionEquality().hash(tableOfContents) ^
@@ -5665,6 +5821,8 @@ class AppUser {
       const DeepCollectionEquality().hash(ageRestriction) ^
       const DeepCollectionEquality().hash(ageRestrictionIncludeUnknowns) ^
       const DeepCollectionEquality().hash(aniListAccessToken) ^
+      const DeepCollectionEquality().hash(malUserName) ^
+      const DeepCollectionEquality().hash(malAccessToken) ^
       const DeepCollectionEquality().hash(scrobbleHolds) ^
       const DeepCollectionEquality().hash(smartFilters) ^
       const DeepCollectionEquality().hash(dashboardStreams) ^
@@ -5702,6 +5860,7 @@ extension $AppUserExtension on AppUser {
       AppUserPreferences? userPreferences,
       List<AppUserBookmark>? bookmarks,
       List<ReadingList>? readingLists,
+      List<AppUserCollection>? collections,
       List<AppUserWantToRead>? wantToRead,
       List<Device>? devices,
       List<AppUserTableOfContent>? tableOfContents,
@@ -5710,6 +5869,8 @@ extension $AppUserExtension on AppUser {
       int? ageRestriction,
       bool? ageRestrictionIncludeUnknowns,
       String? aniListAccessToken,
+      String? malUserName,
+      String? malAccessToken,
       List<ScrobbleHold>? scrobbleHolds,
       List<AppUserSmartFilter>? smartFilters,
       List<AppUserDashboardStream>? dashboardStreams,
@@ -5743,6 +5904,7 @@ extension $AppUserExtension on AppUser {
         userPreferences: userPreferences ?? this.userPreferences,
         bookmarks: bookmarks ?? this.bookmarks,
         readingLists: readingLists ?? this.readingLists,
+        collections: collections ?? this.collections,
         wantToRead: wantToRead ?? this.wantToRead,
         devices: devices ?? this.devices,
         tableOfContents: tableOfContents ?? this.tableOfContents,
@@ -5752,6 +5914,8 @@ extension $AppUserExtension on AppUser {
         ageRestrictionIncludeUnknowns:
             ageRestrictionIncludeUnknowns ?? this.ageRestrictionIncludeUnknowns,
         aniListAccessToken: aniListAccessToken ?? this.aniListAccessToken,
+        malUserName: malUserName ?? this.malUserName,
+        malAccessToken: malAccessToken ?? this.malAccessToken,
         scrobbleHolds: scrobbleHolds ?? this.scrobbleHolds,
         smartFilters: smartFilters ?? this.smartFilters,
         dashboardStreams: dashboardStreams ?? this.dashboardStreams,
@@ -5787,6 +5951,7 @@ extension $AppUserExtension on AppUser {
       Wrapped<AppUserPreferences?>? userPreferences,
       Wrapped<List<AppUserBookmark>?>? bookmarks,
       Wrapped<List<ReadingList>?>? readingLists,
+      Wrapped<List<AppUserCollection>?>? collections,
       Wrapped<List<AppUserWantToRead>?>? wantToRead,
       Wrapped<List<Device>?>? devices,
       Wrapped<List<AppUserTableOfContent>?>? tableOfContents,
@@ -5795,6 +5960,8 @@ extension $AppUserExtension on AppUser {
       Wrapped<int?>? ageRestriction,
       Wrapped<bool?>? ageRestrictionIncludeUnknowns,
       Wrapped<String?>? aniListAccessToken,
+      Wrapped<String?>? malUserName,
+      Wrapped<String?>? malAccessToken,
       Wrapped<List<ScrobbleHold>?>? scrobbleHolds,
       Wrapped<List<AppUserSmartFilter>?>? smartFilters,
       Wrapped<List<AppUserDashboardStream>?>? dashboardStreams,
@@ -5851,6 +6018,8 @@ extension $AppUserExtension on AppUser {
         bookmarks: (bookmarks != null ? bookmarks.value : this.bookmarks),
         readingLists:
             (readingLists != null ? readingLists.value : this.readingLists),
+        collections:
+            (collections != null ? collections.value : this.collections),
         wantToRead: (wantToRead != null ? wantToRead.value : this.wantToRead),
         devices: (devices != null ? devices.value : this.devices),
         tableOfContents: (tableOfContents != null
@@ -5869,6 +6038,11 @@ extension $AppUserExtension on AppUser {
         aniListAccessToken: (aniListAccessToken != null
             ? aniListAccessToken.value
             : this.aniListAccessToken),
+        malUserName:
+            (malUserName != null ? malUserName.value : this.malUserName),
+        malAccessToken: (malAccessToken != null
+            ? malAccessToken.value
+            : this.malAccessToken),
         scrobbleHolds:
             (scrobbleHolds != null ? scrobbleHolds.value : this.scrobbleHolds),
         smartFilters:
@@ -6042,6 +6216,402 @@ extension $AppUserBookmarkExtension on AppUserBookmark {
         lastModifiedUtc: (lastModifiedUtc != null
             ? lastModifiedUtc.value
             : this.lastModifiedUtc));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class AppUserCollection {
+  const AppUserCollection({
+    this.id,
+    this.title,
+    this.normalizedTitle,
+    this.summary,
+    this.promoted,
+    this.coverImage,
+    this.coverImageLocked,
+    this.ageRating,
+    this.items,
+    this.created,
+    this.lastModified,
+    this.createdUtc,
+    this.lastModifiedUtc,
+    this.lastSyncUtc,
+    this.source,
+    this.sourceUrl,
+    this.appUser,
+    this.appUserId,
+  });
+
+  factory AppUserCollection.fromJson(Map<String, dynamic> json) =>
+      _$AppUserCollectionFromJson(json);
+
+  static const toJsonFactory = _$AppUserCollectionToJson;
+  Map<String, dynamic> toJson() => _$AppUserCollectionToJson(this);
+
+  @JsonKey(name: 'id', includeIfNull: false)
+  final int? id;
+  @JsonKey(name: 'title', includeIfNull: false)
+  final String? title;
+  @JsonKey(name: 'normalizedTitle', includeIfNull: false)
+  final String? normalizedTitle;
+  @JsonKey(name: 'summary', includeIfNull: false)
+  final String? summary;
+  @JsonKey(name: 'promoted', includeIfNull: false)
+  final bool? promoted;
+  @JsonKey(name: 'coverImage', includeIfNull: false)
+  final String? coverImage;
+  @JsonKey(name: 'coverImageLocked', includeIfNull: false)
+  final bool? coverImageLocked;
+  @JsonKey(name: 'ageRating', includeIfNull: false)
+  final int? ageRating;
+  @JsonKey(name: 'items', includeIfNull: false, defaultValue: <Series>[])
+  final List<Series>? items;
+  @JsonKey(name: 'created', includeIfNull: false)
+  final DateTime? created;
+  @JsonKey(name: 'lastModified', includeIfNull: false)
+  final DateTime? lastModified;
+  @JsonKey(name: 'createdUtc', includeIfNull: false)
+  final DateTime? createdUtc;
+  @JsonKey(name: 'lastModifiedUtc', includeIfNull: false)
+  final DateTime? lastModifiedUtc;
+  @JsonKey(name: 'lastSyncUtc', includeIfNull: false)
+  final DateTime? lastSyncUtc;
+  @JsonKey(name: 'source', includeIfNull: false)
+  final int? source;
+  @JsonKey(name: 'sourceUrl', includeIfNull: false)
+  final String? sourceUrl;
+  @JsonKey(name: 'appUser', includeIfNull: false)
+  final AppUser? appUser;
+  @JsonKey(name: 'appUserId', includeIfNull: false)
+  final int? appUserId;
+  static const fromJsonFactory = _$AppUserCollectionFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AppUserCollection &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.title, title) ||
+                const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.normalizedTitle, normalizedTitle) ||
+                const DeepCollectionEquality()
+                    .equals(other.normalizedTitle, normalizedTitle)) &&
+            (identical(other.summary, summary) ||
+                const DeepCollectionEquality()
+                    .equals(other.summary, summary)) &&
+            (identical(other.promoted, promoted) ||
+                const DeepCollectionEquality()
+                    .equals(other.promoted, promoted)) &&
+            (identical(other.coverImage, coverImage) ||
+                const DeepCollectionEquality()
+                    .equals(other.coverImage, coverImage)) &&
+            (identical(other.coverImageLocked, coverImageLocked) ||
+                const DeepCollectionEquality()
+                    .equals(other.coverImageLocked, coverImageLocked)) &&
+            (identical(other.ageRating, ageRating) ||
+                const DeepCollectionEquality()
+                    .equals(other.ageRating, ageRating)) &&
+            (identical(other.items, items) ||
+                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.created, created) ||
+                const DeepCollectionEquality()
+                    .equals(other.created, created)) &&
+            (identical(other.lastModified, lastModified) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastModified, lastModified)) &&
+            (identical(other.createdUtc, createdUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdUtc, createdUtc)) &&
+            (identical(other.lastModifiedUtc, lastModifiedUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastModifiedUtc, lastModifiedUtc)) &&
+            (identical(other.lastSyncUtc, lastSyncUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastSyncUtc, lastSyncUtc)) &&
+            (identical(other.source, source) ||
+                const DeepCollectionEquality().equals(other.source, source)) &&
+            (identical(other.sourceUrl, sourceUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.sourceUrl, sourceUrl)) &&
+            (identical(other.appUser, appUser) ||
+                const DeepCollectionEquality()
+                    .equals(other.appUser, appUser)) &&
+            (identical(other.appUserId, appUserId) ||
+                const DeepCollectionEquality()
+                    .equals(other.appUserId, appUserId)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(normalizedTitle) ^
+      const DeepCollectionEquality().hash(summary) ^
+      const DeepCollectionEquality().hash(promoted) ^
+      const DeepCollectionEquality().hash(coverImage) ^
+      const DeepCollectionEquality().hash(coverImageLocked) ^
+      const DeepCollectionEquality().hash(ageRating) ^
+      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(created) ^
+      const DeepCollectionEquality().hash(lastModified) ^
+      const DeepCollectionEquality().hash(createdUtc) ^
+      const DeepCollectionEquality().hash(lastModifiedUtc) ^
+      const DeepCollectionEquality().hash(lastSyncUtc) ^
+      const DeepCollectionEquality().hash(source) ^
+      const DeepCollectionEquality().hash(sourceUrl) ^
+      const DeepCollectionEquality().hash(appUser) ^
+      const DeepCollectionEquality().hash(appUserId) ^
+      runtimeType.hashCode;
+}
+
+extension $AppUserCollectionExtension on AppUserCollection {
+  AppUserCollection copyWith(
+      {int? id,
+      String? title,
+      String? normalizedTitle,
+      String? summary,
+      bool? promoted,
+      String? coverImage,
+      bool? coverImageLocked,
+      int? ageRating,
+      List<Series>? items,
+      DateTime? created,
+      DateTime? lastModified,
+      DateTime? createdUtc,
+      DateTime? lastModifiedUtc,
+      DateTime? lastSyncUtc,
+      int? source,
+      String? sourceUrl,
+      AppUser? appUser,
+      int? appUserId}) {
+    return AppUserCollection(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        normalizedTitle: normalizedTitle ?? this.normalizedTitle,
+        summary: summary ?? this.summary,
+        promoted: promoted ?? this.promoted,
+        coverImage: coverImage ?? this.coverImage,
+        coverImageLocked: coverImageLocked ?? this.coverImageLocked,
+        ageRating: ageRating ?? this.ageRating,
+        items: items ?? this.items,
+        created: created ?? this.created,
+        lastModified: lastModified ?? this.lastModified,
+        createdUtc: createdUtc ?? this.createdUtc,
+        lastModifiedUtc: lastModifiedUtc ?? this.lastModifiedUtc,
+        lastSyncUtc: lastSyncUtc ?? this.lastSyncUtc,
+        source: source ?? this.source,
+        sourceUrl: sourceUrl ?? this.sourceUrl,
+        appUser: appUser ?? this.appUser,
+        appUserId: appUserId ?? this.appUserId);
+  }
+
+  AppUserCollection copyWithWrapped(
+      {Wrapped<int?>? id,
+      Wrapped<String?>? title,
+      Wrapped<String?>? normalizedTitle,
+      Wrapped<String?>? summary,
+      Wrapped<bool?>? promoted,
+      Wrapped<String?>? coverImage,
+      Wrapped<bool?>? coverImageLocked,
+      Wrapped<int?>? ageRating,
+      Wrapped<List<Series>?>? items,
+      Wrapped<DateTime?>? created,
+      Wrapped<DateTime?>? lastModified,
+      Wrapped<DateTime?>? createdUtc,
+      Wrapped<DateTime?>? lastModifiedUtc,
+      Wrapped<DateTime?>? lastSyncUtc,
+      Wrapped<int?>? source,
+      Wrapped<String?>? sourceUrl,
+      Wrapped<AppUser?>? appUser,
+      Wrapped<int?>? appUserId}) {
+    return AppUserCollection(
+        id: (id != null ? id.value : this.id),
+        title: (title != null ? title.value : this.title),
+        normalizedTitle: (normalizedTitle != null
+            ? normalizedTitle.value
+            : this.normalizedTitle),
+        summary: (summary != null ? summary.value : this.summary),
+        promoted: (promoted != null ? promoted.value : this.promoted),
+        coverImage: (coverImage != null ? coverImage.value : this.coverImage),
+        coverImageLocked: (coverImageLocked != null
+            ? coverImageLocked.value
+            : this.coverImageLocked),
+        ageRating: (ageRating != null ? ageRating.value : this.ageRating),
+        items: (items != null ? items.value : this.items),
+        created: (created != null ? created.value : this.created),
+        lastModified:
+            (lastModified != null ? lastModified.value : this.lastModified),
+        createdUtc: (createdUtc != null ? createdUtc.value : this.createdUtc),
+        lastModifiedUtc: (lastModifiedUtc != null
+            ? lastModifiedUtc.value
+            : this.lastModifiedUtc),
+        lastSyncUtc:
+            (lastSyncUtc != null ? lastSyncUtc.value : this.lastSyncUtc),
+        source: (source != null ? source.value : this.source),
+        sourceUrl: (sourceUrl != null ? sourceUrl.value : this.sourceUrl),
+        appUser: (appUser != null ? appUser.value : this.appUser),
+        appUserId: (appUserId != null ? appUserId.value : this.appUserId));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class AppUserCollectionDto {
+  const AppUserCollectionDto({
+    this.id,
+    this.title,
+    this.summary,
+    this.promoted,
+    this.ageRating,
+    this.coverImage,
+    this.coverImageLocked,
+    this.owner,
+    this.lastSyncUtc,
+    this.source,
+    this.sourceUrl,
+  });
+
+  factory AppUserCollectionDto.fromJson(Map<String, dynamic> json) =>
+      _$AppUserCollectionDtoFromJson(json);
+
+  static const toJsonFactory = _$AppUserCollectionDtoToJson;
+  Map<String, dynamic> toJson() => _$AppUserCollectionDtoToJson(this);
+
+  @JsonKey(name: 'id', includeIfNull: false)
+  final int? id;
+  @JsonKey(name: 'title', includeIfNull: false)
+  final String? title;
+  @JsonKey(name: 'summary', includeIfNull: false)
+  final String? summary;
+  @JsonKey(name: 'promoted', includeIfNull: false)
+  final bool? promoted;
+  @JsonKey(name: 'ageRating', includeIfNull: false)
+  final int? ageRating;
+  @JsonKey(name: 'coverImage', includeIfNull: false)
+  final String? coverImage;
+  @JsonKey(name: 'coverImageLocked', includeIfNull: false)
+  final bool? coverImageLocked;
+  @JsonKey(name: 'owner', includeIfNull: false)
+  final String? owner;
+  @JsonKey(name: 'lastSyncUtc', includeIfNull: false)
+  final DateTime? lastSyncUtc;
+  @JsonKey(name: 'source', includeIfNull: false)
+  final int? source;
+  @JsonKey(name: 'sourceUrl', includeIfNull: false)
+  final String? sourceUrl;
+  static const fromJsonFactory = _$AppUserCollectionDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is AppUserCollectionDto &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.title, title) ||
+                const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.summary, summary) ||
+                const DeepCollectionEquality()
+                    .equals(other.summary, summary)) &&
+            (identical(other.promoted, promoted) ||
+                const DeepCollectionEquality()
+                    .equals(other.promoted, promoted)) &&
+            (identical(other.ageRating, ageRating) ||
+                const DeepCollectionEquality()
+                    .equals(other.ageRating, ageRating)) &&
+            (identical(other.coverImage, coverImage) ||
+                const DeepCollectionEquality()
+                    .equals(other.coverImage, coverImage)) &&
+            (identical(other.coverImageLocked, coverImageLocked) ||
+                const DeepCollectionEquality()
+                    .equals(other.coverImageLocked, coverImageLocked)) &&
+            (identical(other.owner, owner) ||
+                const DeepCollectionEquality().equals(other.owner, owner)) &&
+            (identical(other.lastSyncUtc, lastSyncUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastSyncUtc, lastSyncUtc)) &&
+            (identical(other.source, source) ||
+                const DeepCollectionEquality().equals(other.source, source)) &&
+            (identical(other.sourceUrl, sourceUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.sourceUrl, sourceUrl)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(summary) ^
+      const DeepCollectionEquality().hash(promoted) ^
+      const DeepCollectionEquality().hash(ageRating) ^
+      const DeepCollectionEquality().hash(coverImage) ^
+      const DeepCollectionEquality().hash(coverImageLocked) ^
+      const DeepCollectionEquality().hash(owner) ^
+      const DeepCollectionEquality().hash(lastSyncUtc) ^
+      const DeepCollectionEquality().hash(source) ^
+      const DeepCollectionEquality().hash(sourceUrl) ^
+      runtimeType.hashCode;
+}
+
+extension $AppUserCollectionDtoExtension on AppUserCollectionDto {
+  AppUserCollectionDto copyWith(
+      {int? id,
+      String? title,
+      String? summary,
+      bool? promoted,
+      int? ageRating,
+      String? coverImage,
+      bool? coverImageLocked,
+      String? owner,
+      DateTime? lastSyncUtc,
+      int? source,
+      String? sourceUrl}) {
+    return AppUserCollectionDto(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        summary: summary ?? this.summary,
+        promoted: promoted ?? this.promoted,
+        ageRating: ageRating ?? this.ageRating,
+        coverImage: coverImage ?? this.coverImage,
+        coverImageLocked: coverImageLocked ?? this.coverImageLocked,
+        owner: owner ?? this.owner,
+        lastSyncUtc: lastSyncUtc ?? this.lastSyncUtc,
+        source: source ?? this.source,
+        sourceUrl: sourceUrl ?? this.sourceUrl);
+  }
+
+  AppUserCollectionDto copyWithWrapped(
+      {Wrapped<int?>? id,
+      Wrapped<String?>? title,
+      Wrapped<String?>? summary,
+      Wrapped<bool?>? promoted,
+      Wrapped<int?>? ageRating,
+      Wrapped<String?>? coverImage,
+      Wrapped<bool?>? coverImageLocked,
+      Wrapped<String?>? owner,
+      Wrapped<DateTime?>? lastSyncUtc,
+      Wrapped<int?>? source,
+      Wrapped<String?>? sourceUrl}) {
+    return AppUserCollectionDto(
+        id: (id != null ? id.value : this.id),
+        title: (title != null ? title.value : this.title),
+        summary: (summary != null ? summary.value : this.summary),
+        promoted: (promoted != null ? promoted.value : this.promoted),
+        ageRating: (ageRating != null ? ageRating.value : this.ageRating),
+        coverImage: (coverImage != null ? coverImage.value : this.coverImage),
+        coverImageLocked: (coverImageLocked != null
+            ? coverImageLocked.value
+            : this.coverImageLocked),
+        owner: (owner != null ? owner.value : this.owner),
+        lastSyncUtc:
+            (lastSyncUtc != null ? lastSyncUtc.value : this.lastSyncUtc),
+        source: (source != null ? source.value : this.source),
+        sourceUrl: (sourceUrl != null ? sourceUrl.value : this.sourceUrl));
   }
 }
 
@@ -6297,10 +6867,13 @@ class AppUserPreferences {
     this.bookReaderTapToPaginate,
     this.bookReaderReadingDirection,
     this.bookReaderWritingStyle,
-    this.theme,
     this.bookThemeName,
     this.bookReaderLayoutMode,
     this.bookReaderImmersiveMode,
+    this.pdfTheme,
+    this.pdfScrollMode,
+    this.pdfSpreadMode,
+    this.theme,
     this.globalPageLayoutMode,
     this.blurUnreadSummaries,
     this.promptForDownloadSize,
@@ -6354,14 +6927,20 @@ class AppUserPreferences {
   final int? bookReaderReadingDirection;
   @JsonKey(name: 'bookReaderWritingStyle', includeIfNull: false)
   final int? bookReaderWritingStyle;
-  @JsonKey(name: 'theme', includeIfNull: false)
-  final SiteTheme? theme;
   @JsonKey(name: 'bookThemeName', includeIfNull: false)
   final String? bookThemeName;
   @JsonKey(name: 'bookReaderLayoutMode', includeIfNull: false)
   final int? bookReaderLayoutMode;
   @JsonKey(name: 'bookReaderImmersiveMode', includeIfNull: false)
   final bool? bookReaderImmersiveMode;
+  @JsonKey(name: 'pdfTheme', includeIfNull: false)
+  final int? pdfTheme;
+  @JsonKey(name: 'pdfScrollMode', includeIfNull: false)
+  final int? pdfScrollMode;
+  @JsonKey(name: 'pdfSpreadMode', includeIfNull: false)
+  final int? pdfSpreadMode;
+  @JsonKey(name: 'theme', includeIfNull: false)
+  final SiteTheme? theme;
   @JsonKey(name: 'globalPageLayoutMode', includeIfNull: false)
   final int? globalPageLayoutMode;
   @JsonKey(name: 'blurUnreadSummaries', includeIfNull: false)
@@ -6440,13 +7019,16 @@ class AppUserPreferences {
             (identical(other.bookReaderWritingStyle, bookReaderWritingStyle) ||
                 const DeepCollectionEquality().equals(
                     other.bookReaderWritingStyle, bookReaderWritingStyle)) &&
-            (identical(other.theme, theme) ||
-                const DeepCollectionEquality().equals(other.theme, theme)) &&
             (identical(other.bookThemeName, bookThemeName) ||
                 const DeepCollectionEquality()
                     .equals(other.bookThemeName, bookThemeName)) &&
-            (identical(other.bookReaderLayoutMode, bookReaderLayoutMode) || const DeepCollectionEquality().equals(other.bookReaderLayoutMode, bookReaderLayoutMode)) &&
+            (identical(other.bookReaderLayoutMode, bookReaderLayoutMode) ||
+                const DeepCollectionEquality().equals(other.bookReaderLayoutMode, bookReaderLayoutMode)) &&
             (identical(other.bookReaderImmersiveMode, bookReaderImmersiveMode) || const DeepCollectionEquality().equals(other.bookReaderImmersiveMode, bookReaderImmersiveMode)) &&
+            (identical(other.pdfTheme, pdfTheme) || const DeepCollectionEquality().equals(other.pdfTheme, pdfTheme)) &&
+            (identical(other.pdfScrollMode, pdfScrollMode) || const DeepCollectionEquality().equals(other.pdfScrollMode, pdfScrollMode)) &&
+            (identical(other.pdfSpreadMode, pdfSpreadMode) || const DeepCollectionEquality().equals(other.pdfSpreadMode, pdfSpreadMode)) &&
+            (identical(other.theme, theme) || const DeepCollectionEquality().equals(other.theme, theme)) &&
             (identical(other.globalPageLayoutMode, globalPageLayoutMode) || const DeepCollectionEquality().equals(other.globalPageLayoutMode, globalPageLayoutMode)) &&
             (identical(other.blurUnreadSummaries, blurUnreadSummaries) || const DeepCollectionEquality().equals(other.blurUnreadSummaries, blurUnreadSummaries)) &&
             (identical(other.promptForDownloadSize, promptForDownloadSize) || const DeepCollectionEquality().equals(other.promptForDownloadSize, promptForDownloadSize)) &&
@@ -6481,10 +7063,13 @@ class AppUserPreferences {
       const DeepCollectionEquality().hash(bookReaderTapToPaginate) ^
       const DeepCollectionEquality().hash(bookReaderReadingDirection) ^
       const DeepCollectionEquality().hash(bookReaderWritingStyle) ^
-      const DeepCollectionEquality().hash(theme) ^
       const DeepCollectionEquality().hash(bookThemeName) ^
       const DeepCollectionEquality().hash(bookReaderLayoutMode) ^
       const DeepCollectionEquality().hash(bookReaderImmersiveMode) ^
+      const DeepCollectionEquality().hash(pdfTheme) ^
+      const DeepCollectionEquality().hash(pdfScrollMode) ^
+      const DeepCollectionEquality().hash(pdfSpreadMode) ^
+      const DeepCollectionEquality().hash(theme) ^
       const DeepCollectionEquality().hash(globalPageLayoutMode) ^
       const DeepCollectionEquality().hash(blurUnreadSummaries) ^
       const DeepCollectionEquality().hash(promptForDownloadSize) ^
@@ -6517,10 +7102,13 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
       bool? bookReaderTapToPaginate,
       int? bookReaderReadingDirection,
       int? bookReaderWritingStyle,
-      SiteTheme? theme,
       String? bookThemeName,
       int? bookReaderLayoutMode,
       bool? bookReaderImmersiveMode,
+      int? pdfTheme,
+      int? pdfScrollMode,
+      int? pdfSpreadMode,
+      SiteTheme? theme,
       int? globalPageLayoutMode,
       bool? blurUnreadSummaries,
       bool? promptForDownloadSize,
@@ -6553,11 +7141,14 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
             bookReaderReadingDirection ?? this.bookReaderReadingDirection,
         bookReaderWritingStyle:
             bookReaderWritingStyle ?? this.bookReaderWritingStyle,
-        theme: theme ?? this.theme,
         bookThemeName: bookThemeName ?? this.bookThemeName,
         bookReaderLayoutMode: bookReaderLayoutMode ?? this.bookReaderLayoutMode,
         bookReaderImmersiveMode:
             bookReaderImmersiveMode ?? this.bookReaderImmersiveMode,
+        pdfTheme: pdfTheme ?? this.pdfTheme,
+        pdfScrollMode: pdfScrollMode ?? this.pdfScrollMode,
+        pdfSpreadMode: pdfSpreadMode ?? this.pdfSpreadMode,
+        theme: theme ?? this.theme,
         globalPageLayoutMode: globalPageLayoutMode ?? this.globalPageLayoutMode,
         blurUnreadSummaries: blurUnreadSummaries ?? this.blurUnreadSummaries,
         promptForDownloadSize:
@@ -6590,10 +7181,13 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
       Wrapped<bool?>? bookReaderTapToPaginate,
       Wrapped<int?>? bookReaderReadingDirection,
       Wrapped<int?>? bookReaderWritingStyle,
-      Wrapped<SiteTheme?>? theme,
       Wrapped<String?>? bookThemeName,
       Wrapped<int?>? bookReaderLayoutMode,
       Wrapped<bool?>? bookReaderImmersiveMode,
+      Wrapped<int?>? pdfTheme,
+      Wrapped<int?>? pdfScrollMode,
+      Wrapped<int?>? pdfSpreadMode,
+      Wrapped<SiteTheme?>? theme,
       Wrapped<int?>? globalPageLayoutMode,
       Wrapped<bool?>? blurUnreadSummaries,
       Wrapped<bool?>? promptForDownloadSize,
@@ -6649,7 +7243,6 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
         bookReaderWritingStyle: (bookReaderWritingStyle != null
             ? bookReaderWritingStyle.value
             : this.bookReaderWritingStyle),
-        theme: (theme != null ? theme.value : this.theme),
         bookThemeName:
             (bookThemeName != null ? bookThemeName.value : this.bookThemeName),
         bookReaderLayoutMode: (bookReaderLayoutMode != null
@@ -6658,6 +7251,12 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
         bookReaderImmersiveMode: (bookReaderImmersiveMode != null
             ? bookReaderImmersiveMode.value
             : this.bookReaderImmersiveMode),
+        pdfTheme: (pdfTheme != null ? pdfTheme.value : this.pdfTheme),
+        pdfScrollMode:
+            (pdfScrollMode != null ? pdfScrollMode.value : this.pdfScrollMode),
+        pdfSpreadMode:
+            (pdfSpreadMode != null ? pdfSpreadMode.value : this.pdfSpreadMode),
+        theme: (theme != null ? theme.value : this.theme),
         globalPageLayoutMode: (globalPageLayoutMode != null
             ? globalPageLayoutMode.value
             : this.globalPageLayoutMode),
@@ -8526,6 +9125,9 @@ class Chapter {
     this.id,
     this.range,
     this.number,
+    this.minNumber,
+    this.maxNumber,
+    this.sortOrder,
     this.files,
     this.created,
     this.lastModified,
@@ -8574,7 +9176,14 @@ class Chapter {
   @JsonKey(name: 'range', includeIfNull: false)
   final String? range;
   @JsonKey(name: 'number', includeIfNull: false)
+  @deprecated
   final String? number;
+  @JsonKey(name: 'minNumber', includeIfNull: false)
+  final double? minNumber;
+  @JsonKey(name: 'maxNumber', includeIfNull: false)
+  final double? maxNumber;
+  @JsonKey(name: 'sortOrder', includeIfNull: false)
+  final double? sortOrder;
   @JsonKey(name: 'files', includeIfNull: false, defaultValue: <MangaFile>[])
   final List<MangaFile>? files;
   @JsonKey(name: 'created', includeIfNull: false)
@@ -8660,6 +9269,15 @@ class Chapter {
                 const DeepCollectionEquality().equals(other.range, range)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
+            (identical(other.minNumber, minNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.minNumber, minNumber)) &&
+            (identical(other.maxNumber, maxNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.maxNumber, maxNumber)) &&
+            (identical(other.sortOrder, sortOrder) ||
+                const DeepCollectionEquality()
+                    .equals(other.sortOrder, sortOrder)) &&
             (identical(other.files, files) ||
                 const DeepCollectionEquality().equals(other.files, files)) &&
             (identical(other.created, created) ||
@@ -8713,15 +9331,9 @@ class Chapter {
             (identical(other.storyArc, storyArc) ||
                 const DeepCollectionEquality()
                     .equals(other.storyArc, storyArc)) &&
-            (identical(other.storyArcNumber, storyArcNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.storyArcNumber, storyArcNumber)) &&
-            (identical(other.alternateNumber, alternateNumber) ||
-                const DeepCollectionEquality()
-                    .equals(other.alternateNumber, alternateNumber)) &&
-            (identical(other.alternateSeries, alternateSeries) ||
-                const DeepCollectionEquality()
-                    .equals(other.alternateSeries, alternateSeries)) &&
+            (identical(other.storyArcNumber, storyArcNumber) || const DeepCollectionEquality().equals(other.storyArcNumber, storyArcNumber)) &&
+            (identical(other.alternateNumber, alternateNumber) || const DeepCollectionEquality().equals(other.alternateNumber, alternateNumber)) &&
+            (identical(other.alternateSeries, alternateSeries) || const DeepCollectionEquality().equals(other.alternateSeries, alternateSeries)) &&
             (identical(other.alternateCount, alternateCount) || const DeepCollectionEquality().equals(other.alternateCount, alternateCount)) &&
             (identical(other.wordCount, wordCount) || const DeepCollectionEquality().equals(other.wordCount, wordCount)) &&
             (identical(other.minHoursToRead, minHoursToRead) || const DeepCollectionEquality().equals(other.minHoursToRead, minHoursToRead)) &&
@@ -8745,6 +9357,9 @@ class Chapter {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(range) ^
       const DeepCollectionEquality().hash(number) ^
+      const DeepCollectionEquality().hash(minNumber) ^
+      const DeepCollectionEquality().hash(maxNumber) ^
+      const DeepCollectionEquality().hash(sortOrder) ^
       const DeepCollectionEquality().hash(files) ^
       const DeepCollectionEquality().hash(created) ^
       const DeepCollectionEquality().hash(lastModified) ^
@@ -8788,6 +9403,9 @@ extension $ChapterExtension on Chapter {
       {int? id,
       String? range,
       String? number,
+      double? minNumber,
+      double? maxNumber,
+      double? sortOrder,
       List<MangaFile>? files,
       DateTime? created,
       DateTime? lastModified,
@@ -8827,6 +9445,9 @@ extension $ChapterExtension on Chapter {
         id: id ?? this.id,
         range: range ?? this.range,
         number: number ?? this.number,
+        minNumber: minNumber ?? this.minNumber,
+        maxNumber: maxNumber ?? this.maxNumber,
+        sortOrder: sortOrder ?? this.sortOrder,
         files: files ?? this.files,
         created: created ?? this.created,
         lastModified: lastModified ?? this.lastModified,
@@ -8868,6 +9489,9 @@ extension $ChapterExtension on Chapter {
       {Wrapped<int?>? id,
       Wrapped<String?>? range,
       Wrapped<String?>? number,
+      Wrapped<double?>? minNumber,
+      Wrapped<double?>? maxNumber,
+      Wrapped<double?>? sortOrder,
       Wrapped<List<MangaFile>?>? files,
       Wrapped<DateTime?>? created,
       Wrapped<DateTime?>? lastModified,
@@ -8907,6 +9531,9 @@ extension $ChapterExtension on Chapter {
         id: (id != null ? id.value : this.id),
         range: (range != null ? range.value : this.range),
         number: (number != null ? number.value : this.number),
+        minNumber: (minNumber != null ? minNumber.value : this.minNumber),
+        maxNumber: (maxNumber != null ? maxNumber.value : this.maxNumber),
+        sortOrder: (sortOrder != null ? sortOrder.value : this.sortOrder),
         files: (files != null ? files.value : this.files),
         created: (created != null ? created.value : this.created),
         lastModified:
@@ -8973,6 +9600,9 @@ class ChapterDto {
     this.id,
     this.range,
     this.number,
+    this.minNumber,
+    this.maxNumber,
+    this.sortOrder,
     this.pages,
     this.isSpecial,
     this.title,
@@ -9009,7 +9639,14 @@ class ChapterDto {
   @JsonKey(name: 'range', includeIfNull: false)
   final String? range;
   @JsonKey(name: 'number', includeIfNull: false)
+  @deprecated
   final String? number;
+  @JsonKey(name: 'minNumber', includeIfNull: false)
+  final double? minNumber;
+  @JsonKey(name: 'maxNumber', includeIfNull: false)
+  final double? maxNumber;
+  @JsonKey(name: 'sortOrder', includeIfNull: false)
+  final double? sortOrder;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
   @JsonKey(name: 'isSpecial', includeIfNull: false)
@@ -9068,6 +9705,15 @@ class ChapterDto {
                 const DeepCollectionEquality().equals(other.range, range)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
+            (identical(other.minNumber, minNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.minNumber, minNumber)) &&
+            (identical(other.maxNumber, maxNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.maxNumber, maxNumber)) &&
+            (identical(other.sortOrder, sortOrder) ||
+                const DeepCollectionEquality()
+                    .equals(other.sortOrder, sortOrder)) &&
             (identical(other.pages, pages) ||
                 const DeepCollectionEquality().equals(other.pages, pages)) &&
             (identical(other.isSpecial, isSpecial) ||
@@ -9119,15 +9765,9 @@ class ChapterDto {
             (identical(other.volumeTitle, volumeTitle) ||
                 const DeepCollectionEquality()
                     .equals(other.volumeTitle, volumeTitle)) &&
-            (identical(other.minHoursToRead, minHoursToRead) ||
-                const DeepCollectionEquality()
-                    .equals(other.minHoursToRead, minHoursToRead)) &&
-            (identical(other.maxHoursToRead, maxHoursToRead) ||
-                const DeepCollectionEquality()
-                    .equals(other.maxHoursToRead, maxHoursToRead)) &&
-            (identical(other.avgHoursToRead, avgHoursToRead) ||
-                const DeepCollectionEquality()
-                    .equals(other.avgHoursToRead, avgHoursToRead)) &&
+            (identical(other.minHoursToRead, minHoursToRead) || const DeepCollectionEquality().equals(other.minHoursToRead, minHoursToRead)) &&
+            (identical(other.maxHoursToRead, maxHoursToRead) || const DeepCollectionEquality().equals(other.maxHoursToRead, maxHoursToRead)) &&
+            (identical(other.avgHoursToRead, avgHoursToRead) || const DeepCollectionEquality().equals(other.avgHoursToRead, avgHoursToRead)) &&
             (identical(other.webLinks, webLinks) || const DeepCollectionEquality().equals(other.webLinks, webLinks)) &&
             (identical(other.isbn, isbn) || const DeepCollectionEquality().equals(other.isbn, isbn)));
   }
@@ -9140,6 +9780,9 @@ class ChapterDto {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(range) ^
       const DeepCollectionEquality().hash(number) ^
+      const DeepCollectionEquality().hash(minNumber) ^
+      const DeepCollectionEquality().hash(maxNumber) ^
+      const DeepCollectionEquality().hash(sortOrder) ^
       const DeepCollectionEquality().hash(pages) ^
       const DeepCollectionEquality().hash(isSpecial) ^
       const DeepCollectionEquality().hash(title) ^
@@ -9171,6 +9814,9 @@ extension $ChapterDtoExtension on ChapterDto {
       {int? id,
       String? range,
       String? number,
+      double? minNumber,
+      double? maxNumber,
+      double? sortOrder,
       int? pages,
       bool? isSpecial,
       String? title,
@@ -9198,6 +9844,9 @@ extension $ChapterDtoExtension on ChapterDto {
         id: id ?? this.id,
         range: range ?? this.range,
         number: number ?? this.number,
+        minNumber: minNumber ?? this.minNumber,
+        maxNumber: maxNumber ?? this.maxNumber,
+        sortOrder: sortOrder ?? this.sortOrder,
         pages: pages ?? this.pages,
         isSpecial: isSpecial ?? this.isSpecial,
         title: title ?? this.title,
@@ -9228,6 +9877,9 @@ extension $ChapterDtoExtension on ChapterDto {
       {Wrapped<int?>? id,
       Wrapped<String?>? range,
       Wrapped<String?>? number,
+      Wrapped<double?>? minNumber,
+      Wrapped<double?>? maxNumber,
+      Wrapped<double?>? sortOrder,
       Wrapped<int?>? pages,
       Wrapped<bool?>? isSpecial,
       Wrapped<String?>? title,
@@ -9255,6 +9907,9 @@ extension $ChapterDtoExtension on ChapterDto {
         id: (id != null ? id.value : this.id),
         range: (range != null ? range.value : this.range),
         number: (number != null ? number.value : this.number),
+        minNumber: (minNumber != null ? minNumber.value : this.minNumber),
+        maxNumber: (maxNumber != null ? maxNumber.value : this.maxNumber),
+        sortOrder: (sortOrder != null ? sortOrder.value : this.sortOrder),
         pages: (pages != null ? pages.value : this.pages),
         isSpecial: (isSpecial != null ? isSpecial.value : this.isSpecial),
         title: (title != null ? title.value : this.title),
@@ -9557,10 +10212,13 @@ class ChapterMetadataDto {
     this.characters,
     this.pencillers,
     this.inkers,
+    this.imprints,
     this.colorists,
     this.letterers,
     this.editors,
     this.translators,
+    this.teams,
+    this.locations,
     this.genres,
     this.tags,
     this.ageRating,
@@ -9601,6 +10259,8 @@ class ChapterMetadataDto {
   final List<PersonDto>? pencillers;
   @JsonKey(name: 'inkers', includeIfNull: false, defaultValue: <PersonDto>[])
   final List<PersonDto>? inkers;
+  @JsonKey(name: 'imprints', includeIfNull: false, defaultValue: <PersonDto>[])
+  final List<PersonDto>? imprints;
   @JsonKey(name: 'colorists', includeIfNull: false, defaultValue: <PersonDto>[])
   final List<PersonDto>? colorists;
   @JsonKey(name: 'letterers', includeIfNull: false, defaultValue: <PersonDto>[])
@@ -9610,6 +10270,10 @@ class ChapterMetadataDto {
   @JsonKey(
       name: 'translators', includeIfNull: false, defaultValue: <PersonDto>[])
   final List<PersonDto>? translators;
+  @JsonKey(name: 'teams', includeIfNull: false, defaultValue: <PersonDto>[])
+  final List<PersonDto>? teams;
+  @JsonKey(name: 'locations', includeIfNull: false, defaultValue: <PersonDto>[])
+  final List<PersonDto>? locations;
   @JsonKey(name: 'genres', includeIfNull: false, defaultValue: <GenreTagDto>[])
   final List<GenreTagDto>? genres;
   @JsonKey(name: 'tags', includeIfNull: false, defaultValue: <TagDto>[])
@@ -9660,6 +10324,9 @@ class ChapterMetadataDto {
                     .equals(other.pencillers, pencillers)) &&
             (identical(other.inkers, inkers) ||
                 const DeepCollectionEquality().equals(other.inkers, inkers)) &&
+            (identical(other.imprints, imprints) ||
+                const DeepCollectionEquality()
+                    .equals(other.imprints, imprints)) &&
             (identical(other.colorists, colorists) ||
                 const DeepCollectionEquality()
                     .equals(other.colorists, colorists)) &&
@@ -9672,6 +10339,11 @@ class ChapterMetadataDto {
             (identical(other.translators, translators) ||
                 const DeepCollectionEquality()
                     .equals(other.translators, translators)) &&
+            (identical(other.teams, teams) ||
+                const DeepCollectionEquality().equals(other.teams, teams)) &&
+            (identical(other.locations, locations) ||
+                const DeepCollectionEquality()
+                    .equals(other.locations, locations)) &&
             (identical(other.genres, genres) ||
                 const DeepCollectionEquality().equals(other.genres, genres)) &&
             (identical(other.tags, tags) ||
@@ -9696,9 +10368,7 @@ class ChapterMetadataDto {
             (identical(other.totalCount, totalCount) ||
                 const DeepCollectionEquality()
                     .equals(other.totalCount, totalCount)) &&
-            (identical(other.wordCount, wordCount) ||
-                const DeepCollectionEquality()
-                    .equals(other.wordCount, wordCount)));
+            (identical(other.wordCount, wordCount) || const DeepCollectionEquality().equals(other.wordCount, wordCount)));
   }
 
   @override
@@ -9715,10 +10385,13 @@ class ChapterMetadataDto {
       const DeepCollectionEquality().hash(characters) ^
       const DeepCollectionEquality().hash(pencillers) ^
       const DeepCollectionEquality().hash(inkers) ^
+      const DeepCollectionEquality().hash(imprints) ^
       const DeepCollectionEquality().hash(colorists) ^
       const DeepCollectionEquality().hash(letterers) ^
       const DeepCollectionEquality().hash(editors) ^
       const DeepCollectionEquality().hash(translators) ^
+      const DeepCollectionEquality().hash(teams) ^
+      const DeepCollectionEquality().hash(locations) ^
       const DeepCollectionEquality().hash(genres) ^
       const DeepCollectionEquality().hash(tags) ^
       const DeepCollectionEquality().hash(ageRating) ^
@@ -9743,10 +10416,13 @@ extension $ChapterMetadataDtoExtension on ChapterMetadataDto {
       List<PersonDto>? characters,
       List<PersonDto>? pencillers,
       List<PersonDto>? inkers,
+      List<PersonDto>? imprints,
       List<PersonDto>? colorists,
       List<PersonDto>? letterers,
       List<PersonDto>? editors,
       List<PersonDto>? translators,
+      List<PersonDto>? teams,
+      List<PersonDto>? locations,
       List<GenreTagDto>? genres,
       List<TagDto>? tags,
       int? ageRating,
@@ -9767,10 +10443,13 @@ extension $ChapterMetadataDtoExtension on ChapterMetadataDto {
         characters: characters ?? this.characters,
         pencillers: pencillers ?? this.pencillers,
         inkers: inkers ?? this.inkers,
+        imprints: imprints ?? this.imprints,
         colorists: colorists ?? this.colorists,
         letterers: letterers ?? this.letterers,
         editors: editors ?? this.editors,
         translators: translators ?? this.translators,
+        teams: teams ?? this.teams,
+        locations: locations ?? this.locations,
         genres: genres ?? this.genres,
         tags: tags ?? this.tags,
         ageRating: ageRating ?? this.ageRating,
@@ -9793,10 +10472,13 @@ extension $ChapterMetadataDtoExtension on ChapterMetadataDto {
       Wrapped<List<PersonDto>?>? characters,
       Wrapped<List<PersonDto>?>? pencillers,
       Wrapped<List<PersonDto>?>? inkers,
+      Wrapped<List<PersonDto>?>? imprints,
       Wrapped<List<PersonDto>?>? colorists,
       Wrapped<List<PersonDto>?>? letterers,
       Wrapped<List<PersonDto>?>? editors,
       Wrapped<List<PersonDto>?>? translators,
+      Wrapped<List<PersonDto>?>? teams,
+      Wrapped<List<PersonDto>?>? locations,
       Wrapped<List<GenreTagDto>?>? genres,
       Wrapped<List<TagDto>?>? tags,
       Wrapped<int?>? ageRating,
@@ -9818,11 +10500,14 @@ extension $ChapterMetadataDtoExtension on ChapterMetadataDto {
         characters: (characters != null ? characters.value : this.characters),
         pencillers: (pencillers != null ? pencillers.value : this.pencillers),
         inkers: (inkers != null ? inkers.value : this.inkers),
+        imprints: (imprints != null ? imprints.value : this.imprints),
         colorists: (colorists != null ? colorists.value : this.colorists),
         letterers: (letterers != null ? letterers.value : this.letterers),
         editors: (editors != null ? editors.value : this.editors),
         translators:
             (translators != null ? translators.value : this.translators),
+        teams: (teams != null ? teams.value : this.teams),
+        locations: (locations != null ? locations.value : this.locations),
         genres: (genres != null ? genres.value : this.genres),
         tags: (tags != null ? tags.value : this.tags),
         ageRating: (ageRating != null ? ageRating.value : this.ageRating),
@@ -13053,6 +13738,144 @@ extension $FolderPathExtension on FolderPath {
 }
 
 @JsonSerializable(explicitToJson: true)
+class FullProgressDto {
+  const FullProgressDto({
+    this.id,
+    this.chapterId,
+    this.pagesRead,
+    this.lastModified,
+    this.lastModifiedUtc,
+    this.created,
+    this.createdUtc,
+    this.appUserId,
+    this.userName,
+  });
+
+  factory FullProgressDto.fromJson(Map<String, dynamic> json) =>
+      _$FullProgressDtoFromJson(json);
+
+  static const toJsonFactory = _$FullProgressDtoToJson;
+  Map<String, dynamic> toJson() => _$FullProgressDtoToJson(this);
+
+  @JsonKey(name: 'id', includeIfNull: false)
+  final int? id;
+  @JsonKey(name: 'chapterId', includeIfNull: false)
+  final int? chapterId;
+  @JsonKey(name: 'pagesRead', includeIfNull: false)
+  final int? pagesRead;
+  @JsonKey(name: 'lastModified', includeIfNull: false)
+  final DateTime? lastModified;
+  @JsonKey(name: 'lastModifiedUtc', includeIfNull: false)
+  final DateTime? lastModifiedUtc;
+  @JsonKey(name: 'created', includeIfNull: false)
+  final DateTime? created;
+  @JsonKey(name: 'createdUtc', includeIfNull: false)
+  final DateTime? createdUtc;
+  @JsonKey(name: 'appUserId', includeIfNull: false)
+  final int? appUserId;
+  @JsonKey(name: 'userName', includeIfNull: false)
+  final String? userName;
+  static const fromJsonFactory = _$FullProgressDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is FullProgressDto &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.chapterId, chapterId) ||
+                const DeepCollectionEquality()
+                    .equals(other.chapterId, chapterId)) &&
+            (identical(other.pagesRead, pagesRead) ||
+                const DeepCollectionEquality()
+                    .equals(other.pagesRead, pagesRead)) &&
+            (identical(other.lastModified, lastModified) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastModified, lastModified)) &&
+            (identical(other.lastModifiedUtc, lastModifiedUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastModifiedUtc, lastModifiedUtc)) &&
+            (identical(other.created, created) ||
+                const DeepCollectionEquality()
+                    .equals(other.created, created)) &&
+            (identical(other.createdUtc, createdUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdUtc, createdUtc)) &&
+            (identical(other.appUserId, appUserId) ||
+                const DeepCollectionEquality()
+                    .equals(other.appUserId, appUserId)) &&
+            (identical(other.userName, userName) ||
+                const DeepCollectionEquality()
+                    .equals(other.userName, userName)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(chapterId) ^
+      const DeepCollectionEquality().hash(pagesRead) ^
+      const DeepCollectionEquality().hash(lastModified) ^
+      const DeepCollectionEquality().hash(lastModifiedUtc) ^
+      const DeepCollectionEquality().hash(created) ^
+      const DeepCollectionEquality().hash(createdUtc) ^
+      const DeepCollectionEquality().hash(appUserId) ^
+      const DeepCollectionEquality().hash(userName) ^
+      runtimeType.hashCode;
+}
+
+extension $FullProgressDtoExtension on FullProgressDto {
+  FullProgressDto copyWith(
+      {int? id,
+      int? chapterId,
+      int? pagesRead,
+      DateTime? lastModified,
+      DateTime? lastModifiedUtc,
+      DateTime? created,
+      DateTime? createdUtc,
+      int? appUserId,
+      String? userName}) {
+    return FullProgressDto(
+        id: id ?? this.id,
+        chapterId: chapterId ?? this.chapterId,
+        pagesRead: pagesRead ?? this.pagesRead,
+        lastModified: lastModified ?? this.lastModified,
+        lastModifiedUtc: lastModifiedUtc ?? this.lastModifiedUtc,
+        created: created ?? this.created,
+        createdUtc: createdUtc ?? this.createdUtc,
+        appUserId: appUserId ?? this.appUserId,
+        userName: userName ?? this.userName);
+  }
+
+  FullProgressDto copyWithWrapped(
+      {Wrapped<int?>? id,
+      Wrapped<int?>? chapterId,
+      Wrapped<int?>? pagesRead,
+      Wrapped<DateTime?>? lastModified,
+      Wrapped<DateTime?>? lastModifiedUtc,
+      Wrapped<DateTime?>? created,
+      Wrapped<DateTime?>? createdUtc,
+      Wrapped<int?>? appUserId,
+      Wrapped<String?>? userName}) {
+    return FullProgressDto(
+        id: (id != null ? id.value : this.id),
+        chapterId: (chapterId != null ? chapterId.value : this.chapterId),
+        pagesRead: (pagesRead != null ? pagesRead.value : this.pagesRead),
+        lastModified:
+            (lastModified != null ? lastModified.value : this.lastModified),
+        lastModifiedUtc: (lastModifiedUtc != null
+            ? lastModifiedUtc.value
+            : this.lastModifiedUtc),
+        created: (created != null ? created.value : this.created),
+        createdUtc: (createdUtc != null ? createdUtc.value : this.createdUtc),
+        appUserId: (appUserId != null ? appUserId.value : this.appUserId),
+        userName: (userName != null ? userName.value : this.userName));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class Genre {
   const Genre({
     this.id,
@@ -14531,9 +15354,180 @@ extension $LoginDtoExtension on LoginDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class MalStackDto {
+  const MalStackDto({
+    this.title,
+    this.stackId,
+    this.url,
+    this.author,
+    this.seriesCount,
+    this.restackCount,
+    this.existingId,
+  });
+
+  factory MalStackDto.fromJson(Map<String, dynamic> json) =>
+      _$MalStackDtoFromJson(json);
+
+  static const toJsonFactory = _$MalStackDtoToJson;
+  Map<String, dynamic> toJson() => _$MalStackDtoToJson(this);
+
+  @JsonKey(name: 'title', includeIfNull: false)
+  final String? title;
+  @JsonKey(name: 'stackId', includeIfNull: false)
+  final int? stackId;
+  @JsonKey(name: 'url', includeIfNull: false)
+  final String? url;
+  @JsonKey(name: 'author', includeIfNull: false)
+  final String? author;
+  @JsonKey(name: 'seriesCount', includeIfNull: false)
+  final int? seriesCount;
+  @JsonKey(name: 'restackCount', includeIfNull: false)
+  final int? restackCount;
+  @JsonKey(name: 'existingId', includeIfNull: false)
+  final int? existingId;
+  static const fromJsonFactory = _$MalStackDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is MalStackDto &&
+            (identical(other.title, title) ||
+                const DeepCollectionEquality().equals(other.title, title)) &&
+            (identical(other.stackId, stackId) ||
+                const DeepCollectionEquality()
+                    .equals(other.stackId, stackId)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
+            (identical(other.author, author) ||
+                const DeepCollectionEquality().equals(other.author, author)) &&
+            (identical(other.seriesCount, seriesCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.seriesCount, seriesCount)) &&
+            (identical(other.restackCount, restackCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.restackCount, restackCount)) &&
+            (identical(other.existingId, existingId) ||
+                const DeepCollectionEquality()
+                    .equals(other.existingId, existingId)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(stackId) ^
+      const DeepCollectionEquality().hash(url) ^
+      const DeepCollectionEquality().hash(author) ^
+      const DeepCollectionEquality().hash(seriesCount) ^
+      const DeepCollectionEquality().hash(restackCount) ^
+      const DeepCollectionEquality().hash(existingId) ^
+      runtimeType.hashCode;
+}
+
+extension $MalStackDtoExtension on MalStackDto {
+  MalStackDto copyWith(
+      {String? title,
+      int? stackId,
+      String? url,
+      String? author,
+      int? seriesCount,
+      int? restackCount,
+      int? existingId}) {
+    return MalStackDto(
+        title: title ?? this.title,
+        stackId: stackId ?? this.stackId,
+        url: url ?? this.url,
+        author: author ?? this.author,
+        seriesCount: seriesCount ?? this.seriesCount,
+        restackCount: restackCount ?? this.restackCount,
+        existingId: existingId ?? this.existingId);
+  }
+
+  MalStackDto copyWithWrapped(
+      {Wrapped<String?>? title,
+      Wrapped<int?>? stackId,
+      Wrapped<String?>? url,
+      Wrapped<String?>? author,
+      Wrapped<int?>? seriesCount,
+      Wrapped<int?>? restackCount,
+      Wrapped<int?>? existingId}) {
+    return MalStackDto(
+        title: (title != null ? title.value : this.title),
+        stackId: (stackId != null ? stackId.value : this.stackId),
+        url: (url != null ? url.value : this.url),
+        author: (author != null ? author.value : this.author),
+        seriesCount:
+            (seriesCount != null ? seriesCount.value : this.seriesCount),
+        restackCount:
+            (restackCount != null ? restackCount.value : this.restackCount),
+        existingId: (existingId != null ? existingId.value : this.existingId));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class MalUserInfoDto {
+  const MalUserInfoDto({
+    this.username,
+    this.accessToken,
+  });
+
+  factory MalUserInfoDto.fromJson(Map<String, dynamic> json) =>
+      _$MalUserInfoDtoFromJson(json);
+
+  static const toJsonFactory = _$MalUserInfoDtoToJson;
+  Map<String, dynamic> toJson() => _$MalUserInfoDtoToJson(this);
+
+  @JsonKey(name: 'username', includeIfNull: false)
+  final String? username;
+  @JsonKey(name: 'accessToken', includeIfNull: false)
+  final String? accessToken;
+  static const fromJsonFactory = _$MalUserInfoDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is MalUserInfoDto &&
+            (identical(other.username, username) ||
+                const DeepCollectionEquality()
+                    .equals(other.username, username)) &&
+            (identical(other.accessToken, accessToken) ||
+                const DeepCollectionEquality()
+                    .equals(other.accessToken, accessToken)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(username) ^
+      const DeepCollectionEquality().hash(accessToken) ^
+      runtimeType.hashCode;
+}
+
+extension $MalUserInfoDtoExtension on MalUserInfoDto {
+  MalUserInfoDto copyWith({String? username, String? accessToken}) {
+    return MalUserInfoDto(
+        username: username ?? this.username,
+        accessToken: accessToken ?? this.accessToken);
+  }
+
+  MalUserInfoDto copyWithWrapped(
+      {Wrapped<String?>? username, Wrapped<String?>? accessToken}) {
+    return MalUserInfoDto(
+        username: (username != null ? username.value : this.username),
+        accessToken:
+            (accessToken != null ? accessToken.value : this.accessToken));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class MangaFile {
   const MangaFile({
     this.id,
+    this.fileName,
     this.filePath,
     this.pages,
     this.format,
@@ -14557,6 +15551,8 @@ class MangaFile {
 
   @JsonKey(name: 'id', includeIfNull: false)
   final int? id;
+  @JsonKey(name: 'fileName', includeIfNull: false)
+  final String? fileName;
   @JsonKey(name: 'filePath', includeIfNull: false)
   final String? filePath;
   @JsonKey(name: 'pages', includeIfNull: false)
@@ -14591,6 +15587,9 @@ class MangaFile {
         (other is MangaFile &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.fileName, fileName) ||
+                const DeepCollectionEquality()
+                    .equals(other.fileName, fileName)) &&
             (identical(other.filePath, filePath) ||
                 const DeepCollectionEquality()
                     .equals(other.filePath, filePath)) &&
@@ -14635,6 +15634,7 @@ class MangaFile {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(fileName) ^
       const DeepCollectionEquality().hash(filePath) ^
       const DeepCollectionEquality().hash(pages) ^
       const DeepCollectionEquality().hash(format) ^
@@ -14654,6 +15654,7 @@ class MangaFile {
 extension $MangaFileExtension on MangaFile {
   MangaFile copyWith(
       {int? id,
+      String? fileName,
       String? filePath,
       int? pages,
       int? format,
@@ -14669,6 +15670,7 @@ extension $MangaFileExtension on MangaFile {
       int? chapterId}) {
     return MangaFile(
         id: id ?? this.id,
+        fileName: fileName ?? this.fileName,
         filePath: filePath ?? this.filePath,
         pages: pages ?? this.pages,
         format: format ?? this.format,
@@ -14686,6 +15688,7 @@ extension $MangaFileExtension on MangaFile {
 
   MangaFile copyWithWrapped(
       {Wrapped<int?>? id,
+      Wrapped<String?>? fileName,
       Wrapped<String?>? filePath,
       Wrapped<int?>? pages,
       Wrapped<int?>? format,
@@ -14701,6 +15704,7 @@ extension $MangaFileExtension on MangaFile {
       Wrapped<int?>? chapterId}) {
     return MangaFile(
         id: (id != null ? id.value : this.id),
+        fileName: (fileName != null ? fileName.value : this.fileName),
         filePath: (filePath != null ? filePath.value : this.filePath),
         pages: (pages != null ? pages.value : this.pages),
         format: (format != null ? format.value : this.format),
@@ -15772,6 +16776,63 @@ extension $ProgressDtoExtension on ProgressDto {
 }
 
 @JsonSerializable(explicitToJson: true)
+class PromoteCollectionsDto {
+  const PromoteCollectionsDto({
+    this.collectionIds,
+    this.promoted,
+  });
+
+  factory PromoteCollectionsDto.fromJson(Map<String, dynamic> json) =>
+      _$PromoteCollectionsDtoFromJson(json);
+
+  static const toJsonFactory = _$PromoteCollectionsDtoToJson;
+  Map<String, dynamic> toJson() => _$PromoteCollectionsDtoToJson(this);
+
+  @JsonKey(name: 'collectionIds', includeIfNull: false, defaultValue: <int>[])
+  final List<int>? collectionIds;
+  @JsonKey(name: 'promoted', includeIfNull: false)
+  final bool? promoted;
+  static const fromJsonFactory = _$PromoteCollectionsDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is PromoteCollectionsDto &&
+            (identical(other.collectionIds, collectionIds) ||
+                const DeepCollectionEquality()
+                    .equals(other.collectionIds, collectionIds)) &&
+            (identical(other.promoted, promoted) ||
+                const DeepCollectionEquality()
+                    .equals(other.promoted, promoted)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(collectionIds) ^
+      const DeepCollectionEquality().hash(promoted) ^
+      runtimeType.hashCode;
+}
+
+extension $PromoteCollectionsDtoExtension on PromoteCollectionsDto {
+  PromoteCollectionsDto copyWith({List<int>? collectionIds, bool? promoted}) {
+    return PromoteCollectionsDto(
+        collectionIds: collectionIds ?? this.collectionIds,
+        promoted: promoted ?? this.promoted);
+  }
+
+  PromoteCollectionsDto copyWithWrapped(
+      {Wrapped<List<int>?>? collectionIds, Wrapped<bool?>? promoted}) {
+    return PromoteCollectionsDto(
+        collectionIds:
+            (collectionIds != null ? collectionIds.value : this.collectionIds),
+        promoted: (promoted != null ? promoted.value : this.promoted));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class PublicationStatusStatCount {
   const PublicationStatusStatCount({
     this.$value,
@@ -15942,7 +17003,7 @@ class ReadHistoryEvent {
   @JsonKey(name: 'chapterId', includeIfNull: false)
   final int? chapterId;
   @JsonKey(name: 'chapterNumber', includeIfNull: false)
-  final String? chapterNumber;
+  final double? chapterNumber;
   static const fromJsonFactory = _$ReadHistoryEventFromJson;
 
   @override
@@ -15999,7 +17060,7 @@ extension $ReadHistoryEventExtension on ReadHistoryEvent {
       String? seriesName,
       DateTime? readDate,
       int? chapterId,
-      String? chapterNumber}) {
+      double? chapterNumber}) {
     return ReadHistoryEvent(
         userId: userId ?? this.userId,
         userName: userName ?? this.userName,
@@ -16019,7 +17080,7 @@ extension $ReadHistoryEventExtension on ReadHistoryEvent {
       Wrapped<String?>? seriesName,
       Wrapped<DateTime?>? readDate,
       Wrapped<int?>? chapterId,
-      Wrapped<String?>? chapterNumber}) {
+      Wrapped<double?>? chapterNumber}) {
     return ReadHistoryEvent(
         userId: (userId != null ? userId.value : this.userId),
         userName: (userName != null ? userName.value : this.userName),
@@ -17274,6 +18335,7 @@ class RelatedSeriesDto {
     this.doujinshis,
     this.parent,
     this.editions,
+    this.annuals,
   });
 
   factory RelatedSeriesDto.fromJson(Map<String, dynamic> json) =>
@@ -17320,6 +18382,8 @@ class RelatedSeriesDto {
   final List<SeriesDto>? parent;
   @JsonKey(name: 'editions', includeIfNull: false, defaultValue: <SeriesDto>[])
   final List<SeriesDto>? editions;
+  @JsonKey(name: 'annuals', includeIfNull: false, defaultValue: <SeriesDto>[])
+  final List<SeriesDto>? annuals;
   static const fromJsonFactory = _$RelatedSeriesDtoFromJson;
 
   @override
@@ -17365,7 +18429,9 @@ class RelatedSeriesDto {
                 const DeepCollectionEquality().equals(other.parent, parent)) &&
             (identical(other.editions, editions) ||
                 const DeepCollectionEquality()
-                    .equals(other.editions, editions)));
+                    .equals(other.editions, editions)) &&
+            (identical(other.annuals, annuals) ||
+                const DeepCollectionEquality().equals(other.annuals, annuals)));
   }
 
   @override
@@ -17387,6 +18453,7 @@ class RelatedSeriesDto {
       const DeepCollectionEquality().hash(doujinshis) ^
       const DeepCollectionEquality().hash(parent) ^
       const DeepCollectionEquality().hash(editions) ^
+      const DeepCollectionEquality().hash(annuals) ^
       runtimeType.hashCode;
 }
 
@@ -17405,7 +18472,8 @@ extension $RelatedSeriesDtoExtension on RelatedSeriesDto {
       List<SeriesDto>? alternativeVersions,
       List<SeriesDto>? doujinshis,
       List<SeriesDto>? parent,
-      List<SeriesDto>? editions}) {
+      List<SeriesDto>? editions,
+      List<SeriesDto>? annuals}) {
     return RelatedSeriesDto(
         sourceSeriesId: sourceSeriesId ?? this.sourceSeriesId,
         sequels: sequels ?? this.sequels,
@@ -17420,7 +18488,8 @@ extension $RelatedSeriesDtoExtension on RelatedSeriesDto {
         alternativeVersions: alternativeVersions ?? this.alternativeVersions,
         doujinshis: doujinshis ?? this.doujinshis,
         parent: parent ?? this.parent,
-        editions: editions ?? this.editions);
+        editions: editions ?? this.editions,
+        annuals: annuals ?? this.annuals);
   }
 
   RelatedSeriesDto copyWithWrapped(
@@ -17437,7 +18506,8 @@ extension $RelatedSeriesDtoExtension on RelatedSeriesDto {
       Wrapped<List<SeriesDto>?>? alternativeVersions,
       Wrapped<List<SeriesDto>?>? doujinshis,
       Wrapped<List<SeriesDto>?>? parent,
-      Wrapped<List<SeriesDto>?>? editions}) {
+      Wrapped<List<SeriesDto>?>? editions,
+      Wrapped<List<SeriesDto>?>? annuals}) {
     return RelatedSeriesDto(
         sourceSeriesId: (sourceSeriesId != null
             ? sourceSeriesId.value
@@ -17460,7 +18530,8 @@ extension $RelatedSeriesDtoExtension on RelatedSeriesDto {
             : this.alternativeVersions),
         doujinshis: (doujinshis != null ? doujinshis.value : this.doujinshis),
         parent: (parent != null ? parent.value : this.parent),
-        editions: (editions != null ? editions.value : this.editions));
+        editions: (editions != null ? editions.value : this.editions),
+        annuals: (annuals != null ? annuals.value : this.annuals));
   }
 }
 
@@ -18363,8 +19434,8 @@ class SearchResultGroupDto {
   @JsonKey(
       name: 'collections',
       includeIfNull: false,
-      defaultValue: <CollectionTagDto>[])
-  final List<CollectionTagDto>? collections;
+      defaultValue: <AppUserCollectionDto>[])
+  final List<AppUserCollectionDto>? collections;
   @JsonKey(
       name: 'readingLists',
       includeIfNull: false,
@@ -18441,7 +19512,7 @@ extension $SearchResultGroupDtoExtension on SearchResultGroupDto {
   SearchResultGroupDto copyWith(
       {List<LibraryDto>? libraries,
       List<SearchResultDto>? series,
-      List<CollectionTagDto>? collections,
+      List<AppUserCollectionDto>? collections,
       List<ReadingListDto>? readingLists,
       List<PersonDto>? persons,
       List<GenreTagDto>? genres,
@@ -18465,7 +19536,7 @@ extension $SearchResultGroupDtoExtension on SearchResultGroupDto {
   SearchResultGroupDto copyWithWrapped(
       {Wrapped<List<LibraryDto>?>? libraries,
       Wrapped<List<SearchResultDto>?>? series,
-      Wrapped<List<CollectionTagDto>?>? collections,
+      Wrapped<List<AppUserCollectionDto>?>? collections,
       Wrapped<List<ReadingListDto>?>? readingLists,
       Wrapped<List<PersonDto>?>? persons,
       Wrapped<List<GenreTagDto>?>? genres,
@@ -18619,6 +19690,7 @@ class Series {
     this.coverImageLocked,
     this.pages,
     this.folderPath,
+    this.lowestFolderPath,
     this.lastFolderScanned,
     this.lastFolderScannedUtc,
     this.format,
@@ -18634,6 +19706,7 @@ class Series {
     this.externalSeriesMetadata,
     this.ratings,
     this.progress,
+    this.collections,
     this.relations,
     this.relationOf,
     this.volumes,
@@ -18676,6 +19749,8 @@ class Series {
   final int? pages;
   @JsonKey(name: 'folderPath', includeIfNull: false)
   final String? folderPath;
+  @JsonKey(name: 'lowestFolderPath', includeIfNull: false)
+  final String? lowestFolderPath;
   @JsonKey(name: 'lastFolderScanned', includeIfNull: false)
   final DateTime? lastFolderScanned;
   @JsonKey(name: 'lastFolderScannedUtc', includeIfNull: false)
@@ -18708,6 +19783,11 @@ class Series {
   @JsonKey(
       name: 'progress', includeIfNull: false, defaultValue: <AppUserProgress>[])
   final List<AppUserProgress>? progress;
+  @JsonKey(
+      name: 'collections',
+      includeIfNull: false,
+      defaultValue: <AppUserCollection>[])
+  final List<AppUserCollection>? collections;
   @JsonKey(
       name: 'relations', includeIfNull: false, defaultValue: <SeriesRelation>[])
   final List<SeriesRelation>? relations;
@@ -18770,14 +19850,15 @@ class Series {
             (identical(other.folderPath, folderPath) ||
                 const DeepCollectionEquality()
                     .equals(other.folderPath, folderPath)) &&
+            (identical(other.lowestFolderPath, lowestFolderPath) ||
+                const DeepCollectionEquality()
+                    .equals(other.lowestFolderPath, lowestFolderPath)) &&
             (identical(other.lastFolderScanned, lastFolderScanned) ||
                 const DeepCollectionEquality()
                     .equals(other.lastFolderScanned, lastFolderScanned)) &&
             (identical(other.lastFolderScannedUtc, lastFolderScannedUtc) ||
-                const DeepCollectionEquality().equals(
-                    other.lastFolderScannedUtc, lastFolderScannedUtc)) &&
-            (identical(other.format, format) ||
-                const DeepCollectionEquality().equals(other.format, format)) &&
+                const DeepCollectionEquality().equals(other.lastFolderScannedUtc, lastFolderScannedUtc)) &&
+            (identical(other.format, format) || const DeepCollectionEquality().equals(other.format, format)) &&
             (identical(other.sortNameLocked, sortNameLocked) || const DeepCollectionEquality().equals(other.sortNameLocked, sortNameLocked)) &&
             (identical(other.localizedNameLocked, localizedNameLocked) || const DeepCollectionEquality().equals(other.localizedNameLocked, localizedNameLocked)) &&
             (identical(other.lastChapterAdded, lastChapterAdded) || const DeepCollectionEquality().equals(other.lastChapterAdded, lastChapterAdded)) &&
@@ -18790,6 +19871,7 @@ class Series {
             (identical(other.externalSeriesMetadata, externalSeriesMetadata) || const DeepCollectionEquality().equals(other.externalSeriesMetadata, externalSeriesMetadata)) &&
             (identical(other.ratings, ratings) || const DeepCollectionEquality().equals(other.ratings, ratings)) &&
             (identical(other.progress, progress) || const DeepCollectionEquality().equals(other.progress, progress)) &&
+            (identical(other.collections, collections) || const DeepCollectionEquality().equals(other.collections, collections)) &&
             (identical(other.relations, relations) || const DeepCollectionEquality().equals(other.relations, relations)) &&
             (identical(other.relationOf, relationOf) || const DeepCollectionEquality().equals(other.relationOf, relationOf)) &&
             (identical(other.volumes, volumes) || const DeepCollectionEquality().equals(other.volumes, volumes)) &&
@@ -18817,6 +19899,7 @@ class Series {
       const DeepCollectionEquality().hash(coverImageLocked) ^
       const DeepCollectionEquality().hash(pages) ^
       const DeepCollectionEquality().hash(folderPath) ^
+      const DeepCollectionEquality().hash(lowestFolderPath) ^
       const DeepCollectionEquality().hash(lastFolderScanned) ^
       const DeepCollectionEquality().hash(lastFolderScannedUtc) ^
       const DeepCollectionEquality().hash(format) ^
@@ -18832,6 +19915,7 @@ class Series {
       const DeepCollectionEquality().hash(externalSeriesMetadata) ^
       const DeepCollectionEquality().hash(ratings) ^
       const DeepCollectionEquality().hash(progress) ^
+      const DeepCollectionEquality().hash(collections) ^
       const DeepCollectionEquality().hash(relations) ^
       const DeepCollectionEquality().hash(relationOf) ^
       const DeepCollectionEquality().hash(volumes) ^
@@ -18857,6 +19941,7 @@ extension $SeriesExtension on Series {
       bool? coverImageLocked,
       int? pages,
       String? folderPath,
+      String? lowestFolderPath,
       DateTime? lastFolderScanned,
       DateTime? lastFolderScannedUtc,
       int? format,
@@ -18872,6 +19957,7 @@ extension $SeriesExtension on Series {
       ExternalSeriesMetadata? externalSeriesMetadata,
       List<AppUserRating>? ratings,
       List<AppUserProgress>? progress,
+      List<AppUserCollection>? collections,
       List<SeriesRelation>? relations,
       List<SeriesRelation>? relationOf,
       List<Volume>? volumes,
@@ -18894,6 +19980,7 @@ extension $SeriesExtension on Series {
         coverImageLocked: coverImageLocked ?? this.coverImageLocked,
         pages: pages ?? this.pages,
         folderPath: folderPath ?? this.folderPath,
+        lowestFolderPath: lowestFolderPath ?? this.lowestFolderPath,
         lastFolderScanned: lastFolderScanned ?? this.lastFolderScanned,
         lastFolderScannedUtc: lastFolderScannedUtc ?? this.lastFolderScannedUtc,
         format: format ?? this.format,
@@ -18910,6 +19997,7 @@ extension $SeriesExtension on Series {
             externalSeriesMetadata ?? this.externalSeriesMetadata,
         ratings: ratings ?? this.ratings,
         progress: progress ?? this.progress,
+        collections: collections ?? this.collections,
         relations: relations ?? this.relations,
         relationOf: relationOf ?? this.relationOf,
         volumes: volumes ?? this.volumes,
@@ -18933,6 +20021,7 @@ extension $SeriesExtension on Series {
       Wrapped<bool?>? coverImageLocked,
       Wrapped<int?>? pages,
       Wrapped<String?>? folderPath,
+      Wrapped<String?>? lowestFolderPath,
       Wrapped<DateTime?>? lastFolderScanned,
       Wrapped<DateTime?>? lastFolderScannedUtc,
       Wrapped<int?>? format,
@@ -18948,6 +20037,7 @@ extension $SeriesExtension on Series {
       Wrapped<ExternalSeriesMetadata?>? externalSeriesMetadata,
       Wrapped<List<AppUserRating>?>? ratings,
       Wrapped<List<AppUserProgress>?>? progress,
+      Wrapped<List<AppUserCollection>?>? collections,
       Wrapped<List<SeriesRelation>?>? relations,
       Wrapped<List<SeriesRelation>?>? relationOf,
       Wrapped<List<Volume>?>? volumes,
@@ -18980,6 +20070,9 @@ extension $SeriesExtension on Series {
             : this.coverImageLocked),
         pages: (pages != null ? pages.value : this.pages),
         folderPath: (folderPath != null ? folderPath.value : this.folderPath),
+        lowestFolderPath: (lowestFolderPath != null
+            ? lowestFolderPath.value
+            : this.lowestFolderPath),
         lastFolderScanned: (lastFolderScanned != null
             ? lastFolderScanned.value
             : this.lastFolderScanned),
@@ -19015,6 +20108,8 @@ extension $SeriesExtension on Series {
             : this.externalSeriesMetadata),
         ratings: (ratings != null ? ratings.value : this.ratings),
         progress: (progress != null ? progress.value : this.progress),
+        collections:
+            (collections != null ? collections.value : this.collections),
         relations: (relations != null ? relations.value : this.relations),
         relationOf: (relationOf != null ? relationOf.value : this.relationOf),
         volumes: (volumes != null ? volumes.value : this.volumes),
@@ -19655,10 +20750,13 @@ class SeriesMetadata {
     this.coloristLocked,
     this.editorLocked,
     this.inkerLocked,
+    this.imprintLocked,
     this.lettererLocked,
     this.pencillerLocked,
     this.publisherLocked,
     this.translatorLocked,
+    this.teamLocked,
+    this.locationLocked,
     this.coverArtistLocked,
     this.releaseYearLocked,
     this.series,
@@ -19680,6 +20778,7 @@ class SeriesMetadata {
       name: 'collectionTags',
       includeIfNull: false,
       defaultValue: <CollectionTag>[])
+  @deprecated
   final List<CollectionTag>? collectionTags;
   @JsonKey(name: 'genres', includeIfNull: false, defaultValue: <Genre>[])
   final List<Genre>? genres;
@@ -19723,6 +20822,8 @@ class SeriesMetadata {
   final bool? editorLocked;
   @JsonKey(name: 'inkerLocked', includeIfNull: false)
   final bool? inkerLocked;
+  @JsonKey(name: 'imprintLocked', includeIfNull: false)
+  final bool? imprintLocked;
   @JsonKey(name: 'lettererLocked', includeIfNull: false)
   final bool? lettererLocked;
   @JsonKey(name: 'pencillerLocked', includeIfNull: false)
@@ -19731,6 +20832,10 @@ class SeriesMetadata {
   final bool? publisherLocked;
   @JsonKey(name: 'translatorLocked', includeIfNull: false)
   final bool? translatorLocked;
+  @JsonKey(name: 'teamLocked', includeIfNull: false)
+  final bool? teamLocked;
+  @JsonKey(name: 'locationLocked', includeIfNull: false)
+  final bool? locationLocked;
   @JsonKey(name: 'coverArtistLocked', includeIfNull: false)
   final bool? coverArtistLocked;
   @JsonKey(name: 'releaseYearLocked', includeIfNull: false)
@@ -19812,10 +20917,13 @@ class SeriesMetadata {
             (identical(other.editorLocked, editorLocked) ||
                 const DeepCollectionEquality().equals(other.editorLocked, editorLocked)) &&
             (identical(other.inkerLocked, inkerLocked) || const DeepCollectionEquality().equals(other.inkerLocked, inkerLocked)) &&
+            (identical(other.imprintLocked, imprintLocked) || const DeepCollectionEquality().equals(other.imprintLocked, imprintLocked)) &&
             (identical(other.lettererLocked, lettererLocked) || const DeepCollectionEquality().equals(other.lettererLocked, lettererLocked)) &&
             (identical(other.pencillerLocked, pencillerLocked) || const DeepCollectionEquality().equals(other.pencillerLocked, pencillerLocked)) &&
             (identical(other.publisherLocked, publisherLocked) || const DeepCollectionEquality().equals(other.publisherLocked, publisherLocked)) &&
             (identical(other.translatorLocked, translatorLocked) || const DeepCollectionEquality().equals(other.translatorLocked, translatorLocked)) &&
+            (identical(other.teamLocked, teamLocked) || const DeepCollectionEquality().equals(other.teamLocked, teamLocked)) &&
+            (identical(other.locationLocked, locationLocked) || const DeepCollectionEquality().equals(other.locationLocked, locationLocked)) &&
             (identical(other.coverArtistLocked, coverArtistLocked) || const DeepCollectionEquality().equals(other.coverArtistLocked, coverArtistLocked)) &&
             (identical(other.releaseYearLocked, releaseYearLocked) || const DeepCollectionEquality().equals(other.releaseYearLocked, releaseYearLocked)) &&
             (identical(other.series, series) || const DeepCollectionEquality().equals(other.series, series)) &&
@@ -19852,10 +20960,13 @@ class SeriesMetadata {
       const DeepCollectionEquality().hash(coloristLocked) ^
       const DeepCollectionEquality().hash(editorLocked) ^
       const DeepCollectionEquality().hash(inkerLocked) ^
+      const DeepCollectionEquality().hash(imprintLocked) ^
       const DeepCollectionEquality().hash(lettererLocked) ^
       const DeepCollectionEquality().hash(pencillerLocked) ^
       const DeepCollectionEquality().hash(publisherLocked) ^
       const DeepCollectionEquality().hash(translatorLocked) ^
+      const DeepCollectionEquality().hash(teamLocked) ^
+      const DeepCollectionEquality().hash(locationLocked) ^
       const DeepCollectionEquality().hash(coverArtistLocked) ^
       const DeepCollectionEquality().hash(releaseYearLocked) ^
       const DeepCollectionEquality().hash(series) ^
@@ -19890,10 +21001,13 @@ extension $SeriesMetadataExtension on SeriesMetadata {
       bool? coloristLocked,
       bool? editorLocked,
       bool? inkerLocked,
+      bool? imprintLocked,
       bool? lettererLocked,
       bool? pencillerLocked,
       bool? publisherLocked,
       bool? translatorLocked,
+      bool? teamLocked,
+      bool? locationLocked,
       bool? coverArtistLocked,
       bool? releaseYearLocked,
       Series? series,
@@ -19925,10 +21039,13 @@ extension $SeriesMetadataExtension on SeriesMetadata {
         coloristLocked: coloristLocked ?? this.coloristLocked,
         editorLocked: editorLocked ?? this.editorLocked,
         inkerLocked: inkerLocked ?? this.inkerLocked,
+        imprintLocked: imprintLocked ?? this.imprintLocked,
         lettererLocked: lettererLocked ?? this.lettererLocked,
         pencillerLocked: pencillerLocked ?? this.pencillerLocked,
         publisherLocked: publisherLocked ?? this.publisherLocked,
         translatorLocked: translatorLocked ?? this.translatorLocked,
+        teamLocked: teamLocked ?? this.teamLocked,
+        locationLocked: locationLocked ?? this.locationLocked,
         coverArtistLocked: coverArtistLocked ?? this.coverArtistLocked,
         releaseYearLocked: releaseYearLocked ?? this.releaseYearLocked,
         series: series ?? this.series,
@@ -19961,10 +21078,13 @@ extension $SeriesMetadataExtension on SeriesMetadata {
       Wrapped<bool?>? coloristLocked,
       Wrapped<bool?>? editorLocked,
       Wrapped<bool?>? inkerLocked,
+      Wrapped<bool?>? imprintLocked,
       Wrapped<bool?>? lettererLocked,
       Wrapped<bool?>? pencillerLocked,
       Wrapped<bool?>? publisherLocked,
       Wrapped<bool?>? translatorLocked,
+      Wrapped<bool?>? teamLocked,
+      Wrapped<bool?>? locationLocked,
       Wrapped<bool?>? coverArtistLocked,
       Wrapped<bool?>? releaseYearLocked,
       Wrapped<Series?>? series,
@@ -20015,6 +21135,8 @@ extension $SeriesMetadataExtension on SeriesMetadata {
             (editorLocked != null ? editorLocked.value : this.editorLocked),
         inkerLocked:
             (inkerLocked != null ? inkerLocked.value : this.inkerLocked),
+        imprintLocked:
+            (imprintLocked != null ? imprintLocked.value : this.imprintLocked),
         lettererLocked: (lettererLocked != null
             ? lettererLocked.value
             : this.lettererLocked),
@@ -20027,6 +21149,10 @@ extension $SeriesMetadataExtension on SeriesMetadata {
         translatorLocked: (translatorLocked != null
             ? translatorLocked.value
             : this.translatorLocked),
+        teamLocked: (teamLocked != null ? teamLocked.value : this.teamLocked),
+        locationLocked: (locationLocked != null
+            ? locationLocked.value
+            : this.locationLocked),
         coverArtistLocked: (coverArtistLocked != null
             ? coverArtistLocked.value
             : this.coverArtistLocked),
@@ -20044,7 +21170,6 @@ class SeriesMetadataDto {
   const SeriesMetadataDto({
     this.id,
     this.summary,
-    this.collectionTags,
     this.genres,
     this.tags,
     this.writers,
@@ -20053,10 +21178,13 @@ class SeriesMetadataDto {
     this.characters,
     this.pencillers,
     this.inkers,
+    this.imprints,
     this.colorists,
     this.letterers,
     this.editors,
     this.translators,
+    this.teams,
+    this.locations,
     this.ageRating,
     this.releaseYear,
     this.language,
@@ -20075,10 +21203,13 @@ class SeriesMetadataDto {
     this.coloristLocked,
     this.editorLocked,
     this.inkerLocked,
+    this.imprintLocked,
     this.lettererLocked,
     this.pencillerLocked,
     this.publisherLocked,
     this.translatorLocked,
+    this.teamLocked,
+    this.locationLocked,
     this.coverArtistLocked,
     this.releaseYearLocked,
     this.seriesId,
@@ -20094,11 +21225,6 @@ class SeriesMetadataDto {
   final int? id;
   @JsonKey(name: 'summary', includeIfNull: false)
   final String? summary;
-  @JsonKey(
-      name: 'collectionTags',
-      includeIfNull: false,
-      defaultValue: <CollectionTagDto>[])
-  final List<CollectionTagDto>? collectionTags;
   @JsonKey(name: 'genres', includeIfNull: false, defaultValue: <GenreTagDto>[])
   final List<GenreTagDto>? genres;
   @JsonKey(name: 'tags', includeIfNull: false, defaultValue: <TagDto>[])
@@ -20119,6 +21245,8 @@ class SeriesMetadataDto {
   final List<PersonDto>? pencillers;
   @JsonKey(name: 'inkers', includeIfNull: false, defaultValue: <PersonDto>[])
   final List<PersonDto>? inkers;
+  @JsonKey(name: 'imprints', includeIfNull: false, defaultValue: <PersonDto>[])
+  final List<PersonDto>? imprints;
   @JsonKey(name: 'colorists', includeIfNull: false, defaultValue: <PersonDto>[])
   final List<PersonDto>? colorists;
   @JsonKey(name: 'letterers', includeIfNull: false, defaultValue: <PersonDto>[])
@@ -20128,6 +21256,10 @@ class SeriesMetadataDto {
   @JsonKey(
       name: 'translators', includeIfNull: false, defaultValue: <PersonDto>[])
   final List<PersonDto>? translators;
+  @JsonKey(name: 'teams', includeIfNull: false, defaultValue: <PersonDto>[])
+  final List<PersonDto>? teams;
+  @JsonKey(name: 'locations', includeIfNull: false, defaultValue: <PersonDto>[])
+  final List<PersonDto>? locations;
   @JsonKey(name: 'ageRating', includeIfNull: false)
   final int? ageRating;
   @JsonKey(name: 'releaseYear', includeIfNull: false)
@@ -20164,6 +21296,8 @@ class SeriesMetadataDto {
   final bool? editorLocked;
   @JsonKey(name: 'inkerLocked', includeIfNull: false)
   final bool? inkerLocked;
+  @JsonKey(name: 'imprintLocked', includeIfNull: false)
+  final bool? imprintLocked;
   @JsonKey(name: 'lettererLocked', includeIfNull: false)
   final bool? lettererLocked;
   @JsonKey(name: 'pencillerLocked', includeIfNull: false)
@@ -20172,6 +21306,10 @@ class SeriesMetadataDto {
   final bool? publisherLocked;
   @JsonKey(name: 'translatorLocked', includeIfNull: false)
   final bool? translatorLocked;
+  @JsonKey(name: 'teamLocked', includeIfNull: false)
+  final bool? teamLocked;
+  @JsonKey(name: 'locationLocked', includeIfNull: false)
+  final bool? locationLocked;
   @JsonKey(name: 'coverArtistLocked', includeIfNull: false)
   final bool? coverArtistLocked;
   @JsonKey(name: 'releaseYearLocked', includeIfNull: false)
@@ -20189,9 +21327,6 @@ class SeriesMetadataDto {
             (identical(other.summary, summary) ||
                 const DeepCollectionEquality()
                     .equals(other.summary, summary)) &&
-            (identical(other.collectionTags, collectionTags) ||
-                const DeepCollectionEquality()
-                    .equals(other.collectionTags, collectionTags)) &&
             (identical(other.genres, genres) ||
                 const DeepCollectionEquality().equals(other.genres, genres)) &&
             (identical(other.tags, tags) ||
@@ -20213,6 +21348,9 @@ class SeriesMetadataDto {
                     .equals(other.pencillers, pencillers)) &&
             (identical(other.inkers, inkers) ||
                 const DeepCollectionEquality().equals(other.inkers, inkers)) &&
+            (identical(other.imprints, imprints) ||
+                const DeepCollectionEquality()
+                    .equals(other.imprints, imprints)) &&
             (identical(other.colorists, colorists) ||
                 const DeepCollectionEquality()
                     .equals(other.colorists, colorists)) &&
@@ -20225,6 +21363,11 @@ class SeriesMetadataDto {
             (identical(other.translators, translators) ||
                 const DeepCollectionEquality()
                     .equals(other.translators, translators)) &&
+            (identical(other.teams, teams) ||
+                const DeepCollectionEquality().equals(other.teams, teams)) &&
+            (identical(other.locations, locations) ||
+                const DeepCollectionEquality()
+                    .equals(other.locations, locations)) &&
             (identical(other.ageRating, ageRating) ||
                 const DeepCollectionEquality()
                     .equals(other.ageRating, ageRating)) &&
@@ -20246,11 +21389,8 @@ class SeriesMetadataDto {
             (identical(other.webLinks, webLinks) ||
                 const DeepCollectionEquality()
                     .equals(other.webLinks, webLinks)) &&
-            (identical(other.languageLocked, languageLocked) ||
-                const DeepCollectionEquality()
-                    .equals(other.languageLocked, languageLocked)) &&
-            (identical(other.summaryLocked, summaryLocked) ||
-                const DeepCollectionEquality().equals(other.summaryLocked, summaryLocked)) &&
+            (identical(other.languageLocked, languageLocked) || const DeepCollectionEquality().equals(other.languageLocked, languageLocked)) &&
+            (identical(other.summaryLocked, summaryLocked) || const DeepCollectionEquality().equals(other.summaryLocked, summaryLocked)) &&
             (identical(other.ageRatingLocked, ageRatingLocked) || const DeepCollectionEquality().equals(other.ageRatingLocked, ageRatingLocked)) &&
             (identical(other.publicationStatusLocked, publicationStatusLocked) || const DeepCollectionEquality().equals(other.publicationStatusLocked, publicationStatusLocked)) &&
             (identical(other.genresLocked, genresLocked) || const DeepCollectionEquality().equals(other.genresLocked, genresLocked)) &&
@@ -20260,10 +21400,13 @@ class SeriesMetadataDto {
             (identical(other.coloristLocked, coloristLocked) || const DeepCollectionEquality().equals(other.coloristLocked, coloristLocked)) &&
             (identical(other.editorLocked, editorLocked) || const DeepCollectionEquality().equals(other.editorLocked, editorLocked)) &&
             (identical(other.inkerLocked, inkerLocked) || const DeepCollectionEquality().equals(other.inkerLocked, inkerLocked)) &&
+            (identical(other.imprintLocked, imprintLocked) || const DeepCollectionEquality().equals(other.imprintLocked, imprintLocked)) &&
             (identical(other.lettererLocked, lettererLocked) || const DeepCollectionEquality().equals(other.lettererLocked, lettererLocked)) &&
             (identical(other.pencillerLocked, pencillerLocked) || const DeepCollectionEquality().equals(other.pencillerLocked, pencillerLocked)) &&
             (identical(other.publisherLocked, publisherLocked) || const DeepCollectionEquality().equals(other.publisherLocked, publisherLocked)) &&
             (identical(other.translatorLocked, translatorLocked) || const DeepCollectionEquality().equals(other.translatorLocked, translatorLocked)) &&
+            (identical(other.teamLocked, teamLocked) || const DeepCollectionEquality().equals(other.teamLocked, teamLocked)) &&
+            (identical(other.locationLocked, locationLocked) || const DeepCollectionEquality().equals(other.locationLocked, locationLocked)) &&
             (identical(other.coverArtistLocked, coverArtistLocked) || const DeepCollectionEquality().equals(other.coverArtistLocked, coverArtistLocked)) &&
             (identical(other.releaseYearLocked, releaseYearLocked) || const DeepCollectionEquality().equals(other.releaseYearLocked, releaseYearLocked)) &&
             (identical(other.seriesId, seriesId) || const DeepCollectionEquality().equals(other.seriesId, seriesId)));
@@ -20276,7 +21419,6 @@ class SeriesMetadataDto {
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(summary) ^
-      const DeepCollectionEquality().hash(collectionTags) ^
       const DeepCollectionEquality().hash(genres) ^
       const DeepCollectionEquality().hash(tags) ^
       const DeepCollectionEquality().hash(writers) ^
@@ -20285,10 +21427,13 @@ class SeriesMetadataDto {
       const DeepCollectionEquality().hash(characters) ^
       const DeepCollectionEquality().hash(pencillers) ^
       const DeepCollectionEquality().hash(inkers) ^
+      const DeepCollectionEquality().hash(imprints) ^
       const DeepCollectionEquality().hash(colorists) ^
       const DeepCollectionEquality().hash(letterers) ^
       const DeepCollectionEquality().hash(editors) ^
       const DeepCollectionEquality().hash(translators) ^
+      const DeepCollectionEquality().hash(teams) ^
+      const DeepCollectionEquality().hash(locations) ^
       const DeepCollectionEquality().hash(ageRating) ^
       const DeepCollectionEquality().hash(releaseYear) ^
       const DeepCollectionEquality().hash(language) ^
@@ -20307,10 +21452,13 @@ class SeriesMetadataDto {
       const DeepCollectionEquality().hash(coloristLocked) ^
       const DeepCollectionEquality().hash(editorLocked) ^
       const DeepCollectionEquality().hash(inkerLocked) ^
+      const DeepCollectionEquality().hash(imprintLocked) ^
       const DeepCollectionEquality().hash(lettererLocked) ^
       const DeepCollectionEquality().hash(pencillerLocked) ^
       const DeepCollectionEquality().hash(publisherLocked) ^
       const DeepCollectionEquality().hash(translatorLocked) ^
+      const DeepCollectionEquality().hash(teamLocked) ^
+      const DeepCollectionEquality().hash(locationLocked) ^
       const DeepCollectionEquality().hash(coverArtistLocked) ^
       const DeepCollectionEquality().hash(releaseYearLocked) ^
       const DeepCollectionEquality().hash(seriesId) ^
@@ -20321,7 +21469,6 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
   SeriesMetadataDto copyWith(
       {int? id,
       String? summary,
-      List<CollectionTagDto>? collectionTags,
       List<GenreTagDto>? genres,
       List<TagDto>? tags,
       List<PersonDto>? writers,
@@ -20330,10 +21477,13 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
       List<PersonDto>? characters,
       List<PersonDto>? pencillers,
       List<PersonDto>? inkers,
+      List<PersonDto>? imprints,
       List<PersonDto>? colorists,
       List<PersonDto>? letterers,
       List<PersonDto>? editors,
       List<PersonDto>? translators,
+      List<PersonDto>? teams,
+      List<PersonDto>? locations,
       int? ageRating,
       int? releaseYear,
       String? language,
@@ -20352,17 +21502,19 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
       bool? coloristLocked,
       bool? editorLocked,
       bool? inkerLocked,
+      bool? imprintLocked,
       bool? lettererLocked,
       bool? pencillerLocked,
       bool? publisherLocked,
       bool? translatorLocked,
+      bool? teamLocked,
+      bool? locationLocked,
       bool? coverArtistLocked,
       bool? releaseYearLocked,
       int? seriesId}) {
     return SeriesMetadataDto(
         id: id ?? this.id,
         summary: summary ?? this.summary,
-        collectionTags: collectionTags ?? this.collectionTags,
         genres: genres ?? this.genres,
         tags: tags ?? this.tags,
         writers: writers ?? this.writers,
@@ -20371,10 +21523,13 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
         characters: characters ?? this.characters,
         pencillers: pencillers ?? this.pencillers,
         inkers: inkers ?? this.inkers,
+        imprints: imprints ?? this.imprints,
         colorists: colorists ?? this.colorists,
         letterers: letterers ?? this.letterers,
         editors: editors ?? this.editors,
         translators: translators ?? this.translators,
+        teams: teams ?? this.teams,
+        locations: locations ?? this.locations,
         ageRating: ageRating ?? this.ageRating,
         releaseYear: releaseYear ?? this.releaseYear,
         language: language ?? this.language,
@@ -20394,10 +21549,13 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
         coloristLocked: coloristLocked ?? this.coloristLocked,
         editorLocked: editorLocked ?? this.editorLocked,
         inkerLocked: inkerLocked ?? this.inkerLocked,
+        imprintLocked: imprintLocked ?? this.imprintLocked,
         lettererLocked: lettererLocked ?? this.lettererLocked,
         pencillerLocked: pencillerLocked ?? this.pencillerLocked,
         publisherLocked: publisherLocked ?? this.publisherLocked,
         translatorLocked: translatorLocked ?? this.translatorLocked,
+        teamLocked: teamLocked ?? this.teamLocked,
+        locationLocked: locationLocked ?? this.locationLocked,
         coverArtistLocked: coverArtistLocked ?? this.coverArtistLocked,
         releaseYearLocked: releaseYearLocked ?? this.releaseYearLocked,
         seriesId: seriesId ?? this.seriesId);
@@ -20406,7 +21564,6 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
   SeriesMetadataDto copyWithWrapped(
       {Wrapped<int?>? id,
       Wrapped<String?>? summary,
-      Wrapped<List<CollectionTagDto>?>? collectionTags,
       Wrapped<List<GenreTagDto>?>? genres,
       Wrapped<List<TagDto>?>? tags,
       Wrapped<List<PersonDto>?>? writers,
@@ -20415,10 +21572,13 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
       Wrapped<List<PersonDto>?>? characters,
       Wrapped<List<PersonDto>?>? pencillers,
       Wrapped<List<PersonDto>?>? inkers,
+      Wrapped<List<PersonDto>?>? imprints,
       Wrapped<List<PersonDto>?>? colorists,
       Wrapped<List<PersonDto>?>? letterers,
       Wrapped<List<PersonDto>?>? editors,
       Wrapped<List<PersonDto>?>? translators,
+      Wrapped<List<PersonDto>?>? teams,
+      Wrapped<List<PersonDto>?>? locations,
       Wrapped<int?>? ageRating,
       Wrapped<int?>? releaseYear,
       Wrapped<String?>? language,
@@ -20437,19 +21597,19 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
       Wrapped<bool?>? coloristLocked,
       Wrapped<bool?>? editorLocked,
       Wrapped<bool?>? inkerLocked,
+      Wrapped<bool?>? imprintLocked,
       Wrapped<bool?>? lettererLocked,
       Wrapped<bool?>? pencillerLocked,
       Wrapped<bool?>? publisherLocked,
       Wrapped<bool?>? translatorLocked,
+      Wrapped<bool?>? teamLocked,
+      Wrapped<bool?>? locationLocked,
       Wrapped<bool?>? coverArtistLocked,
       Wrapped<bool?>? releaseYearLocked,
       Wrapped<int?>? seriesId}) {
     return SeriesMetadataDto(
         id: (id != null ? id.value : this.id),
         summary: (summary != null ? summary.value : this.summary),
-        collectionTags: (collectionTags != null
-            ? collectionTags.value
-            : this.collectionTags),
         genres: (genres != null ? genres.value : this.genres),
         tags: (tags != null ? tags.value : this.tags),
         writers: (writers != null ? writers.value : this.writers),
@@ -20459,11 +21619,14 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
         characters: (characters != null ? characters.value : this.characters),
         pencillers: (pencillers != null ? pencillers.value : this.pencillers),
         inkers: (inkers != null ? inkers.value : this.inkers),
+        imprints: (imprints != null ? imprints.value : this.imprints),
         colorists: (colorists != null ? colorists.value : this.colorists),
         letterers: (letterers != null ? letterers.value : this.letterers),
         editors: (editors != null ? editors.value : this.editors),
         translators:
             (translators != null ? translators.value : this.translators),
+        teams: (teams != null ? teams.value : this.teams),
+        locations: (locations != null ? locations.value : this.locations),
         ageRating: (ageRating != null ? ageRating.value : this.ageRating),
         releaseYear:
             (releaseYear != null ? releaseYear.value : this.releaseYear),
@@ -20500,6 +21663,8 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
             (editorLocked != null ? editorLocked.value : this.editorLocked),
         inkerLocked:
             (inkerLocked != null ? inkerLocked.value : this.inkerLocked),
+        imprintLocked:
+            (imprintLocked != null ? imprintLocked.value : this.imprintLocked),
         lettererLocked: (lettererLocked != null
             ? lettererLocked.value
             : this.lettererLocked),
@@ -20512,6 +21677,10 @@ extension $SeriesMetadataDtoExtension on SeriesMetadataDto {
         translatorLocked: (translatorLocked != null
             ? translatorLocked.value
             : this.translatorLocked),
+        teamLocked: (teamLocked != null ? teamLocked.value : this.teamLocked),
+        locationLocked: (locationLocked != null
+            ? locationLocked.value
+            : this.locationLocked),
         coverArtistLocked: (coverArtistLocked != null
             ? coverArtistLocked.value
             : this.coverArtistLocked),
@@ -23999,6 +25168,7 @@ class UpdateRelatedSeriesDto {
     this.alternativeVersions,
     this.doujinshis,
     this.editions,
+    this.annuals,
   });
 
   factory UpdateRelatedSeriesDto.fromJson(Map<String, dynamic> json) =>
@@ -24035,6 +25205,8 @@ class UpdateRelatedSeriesDto {
   final List<int>? doujinshis;
   @JsonKey(name: 'editions', includeIfNull: false, defaultValue: <int>[])
   final List<int>? editions;
+  @JsonKey(name: 'annuals', includeIfNull: false, defaultValue: <int>[])
+  final List<int>? annuals;
   static const fromJsonFactory = _$UpdateRelatedSeriesDtoFromJson;
 
   @override
@@ -24078,7 +25250,9 @@ class UpdateRelatedSeriesDto {
                     .equals(other.doujinshis, doujinshis)) &&
             (identical(other.editions, editions) ||
                 const DeepCollectionEquality()
-                    .equals(other.editions, editions)));
+                    .equals(other.editions, editions)) &&
+            (identical(other.annuals, annuals) ||
+                const DeepCollectionEquality().equals(other.annuals, annuals)));
   }
 
   @override
@@ -24099,6 +25273,7 @@ class UpdateRelatedSeriesDto {
       const DeepCollectionEquality().hash(alternativeVersions) ^
       const DeepCollectionEquality().hash(doujinshis) ^
       const DeepCollectionEquality().hash(editions) ^
+      const DeepCollectionEquality().hash(annuals) ^
       runtimeType.hashCode;
 }
 
@@ -24116,7 +25291,8 @@ extension $UpdateRelatedSeriesDtoExtension on UpdateRelatedSeriesDto {
       List<int>? alternativeSettings,
       List<int>? alternativeVersions,
       List<int>? doujinshis,
-      List<int>? editions}) {
+      List<int>? editions,
+      List<int>? annuals}) {
     return UpdateRelatedSeriesDto(
         seriesId: seriesId ?? this.seriesId,
         adaptations: adaptations ?? this.adaptations,
@@ -24130,7 +25306,8 @@ extension $UpdateRelatedSeriesDtoExtension on UpdateRelatedSeriesDto {
         alternativeSettings: alternativeSettings ?? this.alternativeSettings,
         alternativeVersions: alternativeVersions ?? this.alternativeVersions,
         doujinshis: doujinshis ?? this.doujinshis,
-        editions: editions ?? this.editions);
+        editions: editions ?? this.editions,
+        annuals: annuals ?? this.annuals);
   }
 
   UpdateRelatedSeriesDto copyWithWrapped(
@@ -24146,7 +25323,8 @@ extension $UpdateRelatedSeriesDtoExtension on UpdateRelatedSeriesDto {
       Wrapped<List<int>?>? alternativeSettings,
       Wrapped<List<int>?>? alternativeVersions,
       Wrapped<List<int>?>? doujinshis,
-      Wrapped<List<int>?>? editions}) {
+      Wrapped<List<int>?>? editions,
+      Wrapped<List<int>?>? annuals}) {
     return UpdateRelatedSeriesDto(
         seriesId: (seriesId != null ? seriesId.value : this.seriesId),
         adaptations:
@@ -24166,7 +25344,8 @@ extension $UpdateRelatedSeriesDtoExtension on UpdateRelatedSeriesDto {
             ? alternativeVersions.value
             : this.alternativeVersions),
         doujinshis: (doujinshis != null ? doujinshis.value : this.doujinshis),
-        editions: (editions != null ? editions.value : this.editions));
+        editions: (editions != null ? editions.value : this.editions),
+        annuals: (annuals != null ? annuals.value : this.annuals));
   }
 }
 
@@ -24343,7 +25522,6 @@ extension $UpdateSeriesForTagDtoExtension on UpdateSeriesForTagDto {
 class UpdateSeriesMetadataDto {
   const UpdateSeriesMetadataDto({
     this.seriesMetadata,
-    this.collectionTags,
   });
 
   factory UpdateSeriesMetadataDto.fromJson(Map<String, dynamic> json) =>
@@ -24354,11 +25532,6 @@ class UpdateSeriesMetadataDto {
 
   @JsonKey(name: 'seriesMetadata', includeIfNull: false)
   final SeriesMetadataDto? seriesMetadata;
-  @JsonKey(
-      name: 'collectionTags',
-      includeIfNull: false,
-      defaultValue: <CollectionTagDto>[])
-  final List<CollectionTagDto>? collectionTags;
   static const fromJsonFactory = _$UpdateSeriesMetadataDtoFromJson;
 
   @override
@@ -24367,10 +25540,7 @@ class UpdateSeriesMetadataDto {
         (other is UpdateSeriesMetadataDto &&
             (identical(other.seriesMetadata, seriesMetadata) ||
                 const DeepCollectionEquality()
-                    .equals(other.seriesMetadata, seriesMetadata)) &&
-            (identical(other.collectionTags, collectionTags) ||
-                const DeepCollectionEquality()
-                    .equals(other.collectionTags, collectionTags)));
+                    .equals(other.seriesMetadata, seriesMetadata)));
   }
 
   @override
@@ -24379,29 +25549,21 @@ class UpdateSeriesMetadataDto {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(seriesMetadata) ^
-      const DeepCollectionEquality().hash(collectionTags) ^
       runtimeType.hashCode;
 }
 
 extension $UpdateSeriesMetadataDtoExtension on UpdateSeriesMetadataDto {
-  UpdateSeriesMetadataDto copyWith(
-      {SeriesMetadataDto? seriesMetadata,
-      List<CollectionTagDto>? collectionTags}) {
+  UpdateSeriesMetadataDto copyWith({SeriesMetadataDto? seriesMetadata}) {
     return UpdateSeriesMetadataDto(
-        seriesMetadata: seriesMetadata ?? this.seriesMetadata,
-        collectionTags: collectionTags ?? this.collectionTags);
+        seriesMetadata: seriesMetadata ?? this.seriesMetadata);
   }
 
   UpdateSeriesMetadataDto copyWithWrapped(
-      {Wrapped<SeriesMetadataDto?>? seriesMetadata,
-      Wrapped<List<CollectionTagDto>?>? collectionTags}) {
+      {Wrapped<SeriesMetadataDto?>? seriesMetadata}) {
     return UpdateSeriesMetadataDto(
         seriesMetadata: (seriesMetadata != null
             ? seriesMetadata.value
-            : this.seriesMetadata),
-        collectionTags: (collectionTags != null
-            ? collectionTags.value
-            : this.collectionTags));
+            : this.seriesMetadata));
   }
 }
 
@@ -24628,6 +25790,76 @@ extension $UpdateUserDtoExtension on UpdateUserDto {
         ageRestriction: (ageRestriction != null
             ? ageRestriction.value
             : this.ageRestriction));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class UpdateUserProgressDto {
+  const UpdateUserProgressDto({
+    this.pageNum,
+    this.lastModifiedUtc,
+    this.createdUtc,
+  });
+
+  factory UpdateUserProgressDto.fromJson(Map<String, dynamic> json) =>
+      _$UpdateUserProgressDtoFromJson(json);
+
+  static const toJsonFactory = _$UpdateUserProgressDtoToJson;
+  Map<String, dynamic> toJson() => _$UpdateUserProgressDtoToJson(this);
+
+  @JsonKey(name: 'pageNum', includeIfNull: false)
+  final int? pageNum;
+  @JsonKey(name: 'lastModifiedUtc', includeIfNull: false)
+  final DateTime? lastModifiedUtc;
+  @JsonKey(name: 'createdUtc', includeIfNull: false)
+  final DateTime? createdUtc;
+  static const fromJsonFactory = _$UpdateUserProgressDtoFromJson;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other is UpdateUserProgressDto &&
+            (identical(other.pageNum, pageNum) ||
+                const DeepCollectionEquality()
+                    .equals(other.pageNum, pageNum)) &&
+            (identical(other.lastModifiedUtc, lastModifiedUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastModifiedUtc, lastModifiedUtc)) &&
+            (identical(other.createdUtc, createdUtc) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdUtc, createdUtc)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(pageNum) ^
+      const DeepCollectionEquality().hash(lastModifiedUtc) ^
+      const DeepCollectionEquality().hash(createdUtc) ^
+      runtimeType.hashCode;
+}
+
+extension $UpdateUserProgressDtoExtension on UpdateUserProgressDto {
+  UpdateUserProgressDto copyWith(
+      {int? pageNum, DateTime? lastModifiedUtc, DateTime? createdUtc}) {
+    return UpdateUserProgressDto(
+        pageNum: pageNum ?? this.pageNum,
+        lastModifiedUtc: lastModifiedUtc ?? this.lastModifiedUtc,
+        createdUtc: createdUtc ?? this.createdUtc);
+  }
+
+  UpdateUserProgressDto copyWithWrapped(
+      {Wrapped<int?>? pageNum,
+      Wrapped<DateTime?>? lastModifiedUtc,
+      Wrapped<DateTime?>? createdUtc}) {
+    return UpdateUserProgressDto(
+        pageNum: (pageNum != null ? pageNum.value : this.pageNum),
+        lastModifiedUtc: (lastModifiedUtc != null
+            ? lastModifiedUtc.value
+            : this.lastModifiedUtc),
+        createdUtc: (createdUtc != null ? createdUtc.value : this.createdUtc));
   }
 }
 
@@ -25033,6 +26265,10 @@ class UserPreferencesDto {
     required this.collapseSeriesRelationships,
     required this.shareReviews,
     required this.locale,
+    required this.pdfTheme,
+    required this.pdfScrollMode,
+    required this.pdfLayoutMode,
+    required this.pdfSpreadMode,
   });
 
   factory UserPreferencesDto.fromJson(Map<String, dynamic> json) =>
@@ -25097,6 +26333,14 @@ class UserPreferencesDto {
   final bool shareReviews;
   @JsonKey(name: 'locale', includeIfNull: false)
   final String locale;
+  @JsonKey(name: 'pdfTheme', includeIfNull: false)
+  final int pdfTheme;
+  @JsonKey(name: 'pdfScrollMode', includeIfNull: false)
+  final int pdfScrollMode;
+  @JsonKey(name: 'pdfLayoutMode', includeIfNull: false)
+  final int pdfLayoutMode;
+  @JsonKey(name: 'pdfSpreadMode', includeIfNull: false)
+  final int pdfSpreadMode;
   static const fromJsonFactory = _$UserPreferencesDtoFromJson;
 
   @override
@@ -25169,7 +26413,11 @@ class UserPreferencesDto {
             (identical(other.noTransitions, noTransitions) || const DeepCollectionEquality().equals(other.noTransitions, noTransitions)) &&
             (identical(other.collapseSeriesRelationships, collapseSeriesRelationships) || const DeepCollectionEquality().equals(other.collapseSeriesRelationships, collapseSeriesRelationships)) &&
             (identical(other.shareReviews, shareReviews) || const DeepCollectionEquality().equals(other.shareReviews, shareReviews)) &&
-            (identical(other.locale, locale) || const DeepCollectionEquality().equals(other.locale, locale)));
+            (identical(other.locale, locale) || const DeepCollectionEquality().equals(other.locale, locale)) &&
+            (identical(other.pdfTheme, pdfTheme) || const DeepCollectionEquality().equals(other.pdfTheme, pdfTheme)) &&
+            (identical(other.pdfScrollMode, pdfScrollMode) || const DeepCollectionEquality().equals(other.pdfScrollMode, pdfScrollMode)) &&
+            (identical(other.pdfLayoutMode, pdfLayoutMode) || const DeepCollectionEquality().equals(other.pdfLayoutMode, pdfLayoutMode)) &&
+            (identical(other.pdfSpreadMode, pdfSpreadMode) || const DeepCollectionEquality().equals(other.pdfSpreadMode, pdfSpreadMode)));
   }
 
   @override
@@ -25205,6 +26453,10 @@ class UserPreferencesDto {
       const DeepCollectionEquality().hash(collapseSeriesRelationships) ^
       const DeepCollectionEquality().hash(shareReviews) ^
       const DeepCollectionEquality().hash(locale) ^
+      const DeepCollectionEquality().hash(pdfTheme) ^
+      const DeepCollectionEquality().hash(pdfScrollMode) ^
+      const DeepCollectionEquality().hash(pdfLayoutMode) ^
+      const DeepCollectionEquality().hash(pdfSpreadMode) ^
       runtimeType.hashCode;
 }
 
@@ -25237,7 +26489,11 @@ extension $UserPreferencesDtoExtension on UserPreferencesDto {
       bool? noTransitions,
       bool? collapseSeriesRelationships,
       bool? shareReviews,
-      String? locale}) {
+      String? locale,
+      int? pdfTheme,
+      int? pdfScrollMode,
+      int? pdfLayoutMode,
+      int? pdfSpreadMode}) {
     return UserPreferencesDto(
         readingDirection: readingDirection ?? this.readingDirection,
         scalingOption: scalingOption ?? this.scalingOption,
@@ -25273,7 +26529,11 @@ extension $UserPreferencesDtoExtension on UserPreferencesDto {
         collapseSeriesRelationships:
             collapseSeriesRelationships ?? this.collapseSeriesRelationships,
         shareReviews: shareReviews ?? this.shareReviews,
-        locale: locale ?? this.locale);
+        locale: locale ?? this.locale,
+        pdfTheme: pdfTheme ?? this.pdfTheme,
+        pdfScrollMode: pdfScrollMode ?? this.pdfScrollMode,
+        pdfLayoutMode: pdfLayoutMode ?? this.pdfLayoutMode,
+        pdfSpreadMode: pdfSpreadMode ?? this.pdfSpreadMode);
   }
 
   UserPreferencesDto copyWithWrapped(
@@ -25304,7 +26564,11 @@ extension $UserPreferencesDtoExtension on UserPreferencesDto {
       Wrapped<bool>? noTransitions,
       Wrapped<bool>? collapseSeriesRelationships,
       Wrapped<bool>? shareReviews,
-      Wrapped<String>? locale}) {
+      Wrapped<String>? locale,
+      Wrapped<int>? pdfTheme,
+      Wrapped<int>? pdfScrollMode,
+      Wrapped<int>? pdfLayoutMode,
+      Wrapped<int>? pdfSpreadMode}) {
     return UserPreferencesDto(
         readingDirection: (readingDirection != null
             ? readingDirection.value
@@ -25376,7 +26640,14 @@ extension $UserPreferencesDtoExtension on UserPreferencesDto {
             : this.collapseSeriesRelationships),
         shareReviews:
             (shareReviews != null ? shareReviews.value : this.shareReviews),
-        locale: (locale != null ? locale.value : this.locale));
+        locale: (locale != null ? locale.value : this.locale),
+        pdfTheme: (pdfTheme != null ? pdfTheme.value : this.pdfTheme),
+        pdfScrollMode:
+            (pdfScrollMode != null ? pdfScrollMode.value : this.pdfScrollMode),
+        pdfLayoutMode:
+            (pdfLayoutMode != null ? pdfLayoutMode.value : this.pdfLayoutMode),
+        pdfSpreadMode:
+            (pdfSpreadMode != null ? pdfSpreadMode.value : this.pdfSpreadMode));
   }
 }
 
@@ -25695,6 +26966,7 @@ class Volume {
   const Volume({
     this.id,
     this.name,
+    this.lookupName,
     this.number,
     this.minNumber,
     this.maxNumber,
@@ -25722,6 +26994,8 @@ class Volume {
   final int? id;
   @JsonKey(name: 'name', includeIfNull: false)
   final String? name;
+  @JsonKey(name: 'lookupName', includeIfNull: false)
+  final String? lookupName;
   @JsonKey(name: 'number', includeIfNull: false)
   @deprecated
   final int? number;
@@ -25765,6 +27039,9 @@ class Volume {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.lookupName, lookupName) ||
+                const DeepCollectionEquality()
+                    .equals(other.lookupName, lookupName)) &&
             (identical(other.number, number) ||
                 const DeepCollectionEquality().equals(other.number, number)) &&
             (identical(other.minNumber, minNumber) ||
@@ -25819,6 +27096,7 @@ class Volume {
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(lookupName) ^
       const DeepCollectionEquality().hash(number) ^
       const DeepCollectionEquality().hash(minNumber) ^
       const DeepCollectionEquality().hash(maxNumber) ^
@@ -25842,6 +27120,7 @@ extension $VolumeExtension on Volume {
   Volume copyWith(
       {int? id,
       String? name,
+      String? lookupName,
       int? number,
       double? minNumber,
       double? maxNumber,
@@ -25861,6 +27140,7 @@ extension $VolumeExtension on Volume {
     return Volume(
         id: id ?? this.id,
         name: name ?? this.name,
+        lookupName: lookupName ?? this.lookupName,
         number: number ?? this.number,
         minNumber: minNumber ?? this.minNumber,
         maxNumber: maxNumber ?? this.maxNumber,
@@ -25882,6 +27162,7 @@ extension $VolumeExtension on Volume {
   Volume copyWithWrapped(
       {Wrapped<int?>? id,
       Wrapped<String?>? name,
+      Wrapped<String?>? lookupName,
       Wrapped<int?>? number,
       Wrapped<double?>? minNumber,
       Wrapped<double?>? maxNumber,
@@ -25901,6 +27182,7 @@ extension $VolumeExtension on Volume {
     return Volume(
         id: (id != null ? id.value : this.id),
         name: (name != null ? name.value : this.name),
+        lookupName: (lookupName != null ? lookupName.value : this.lookupName),
         number: (number != null ? number.value : this.number),
         minNumber: (minNumber != null ? minNumber.value : this.minNumber),
         maxNumber: (maxNumber != null ? maxNumber.value : this.maxNumber),
@@ -25966,7 +27248,7 @@ class VolumeDto {
   final String? name;
   @JsonKey(name: 'number', includeIfNull: false)
   @deprecated
-  final double? number;
+  final int? number;
   @JsonKey(name: 'pages', includeIfNull: false)
   final int? pages;
   @JsonKey(name: 'pagesRead', includeIfNull: false)
@@ -26071,7 +27353,7 @@ extension $VolumeDtoExtension on VolumeDto {
       double? minNumber,
       double? maxNumber,
       String? name,
-      double? number,
+      int? number,
       int? pages,
       int? pagesRead,
       DateTime? lastModifiedUtc,
@@ -26107,7 +27389,7 @@ extension $VolumeDtoExtension on VolumeDto {
       Wrapped<double?>? minNumber,
       Wrapped<double?>? maxNumber,
       Wrapped<String?>? name,
-      Wrapped<double?>? number,
+      Wrapped<int?>? number,
       Wrapped<int?>? pages,
       Wrapped<int?>? pagesRead,
       Wrapped<DateTime?>? lastModifiedUtc,
@@ -26157,6 +27439,7 @@ class ApiCblValidatePost$RequestBody {
     this.length,
     this.name,
     this.fileName,
+    this.comicVineMatching,
   });
 
   factory ApiCblValidatePost$RequestBody.fromJson(Map<String, dynamic> json) =>
@@ -26177,6 +27460,8 @@ class ApiCblValidatePost$RequestBody {
   final String? name;
   @JsonKey(name: 'FileName', includeIfNull: false)
   final String? fileName;
+  @JsonKey(name: 'comicVineMatching', includeIfNull: false, defaultValue: false)
+  final bool? comicVineMatching;
   static const fromJsonFactory = _$ApiCblValidatePost$RequestBodyFromJson;
 
   @override
@@ -26198,7 +27483,10 @@ class ApiCblValidatePost$RequestBody {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.fileName, fileName) ||
                 const DeepCollectionEquality()
-                    .equals(other.fileName, fileName)));
+                    .equals(other.fileName, fileName)) &&
+            (identical(other.comicVineMatching, comicVineMatching) ||
+                const DeepCollectionEquality()
+                    .equals(other.comicVineMatching, comicVineMatching)));
   }
 
   @override
@@ -26212,6 +27500,7 @@ class ApiCblValidatePost$RequestBody {
       const DeepCollectionEquality().hash(length) ^
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(fileName) ^
+      const DeepCollectionEquality().hash(comicVineMatching) ^
       runtimeType.hashCode;
 }
 
@@ -26223,14 +27512,16 @@ extension $ApiCblValidatePost$RequestBodyExtension
       Map<String, dynamic>? headers,
       int? length,
       String? name,
-      String? fileName}) {
+      String? fileName,
+      bool? comicVineMatching}) {
     return ApiCblValidatePost$RequestBody(
         contentType: contentType ?? this.contentType,
         contentDisposition: contentDisposition ?? this.contentDisposition,
         headers: headers ?? this.headers,
         length: length ?? this.length,
         name: name ?? this.name,
-        fileName: fileName ?? this.fileName);
+        fileName: fileName ?? this.fileName,
+        comicVineMatching: comicVineMatching ?? this.comicVineMatching);
   }
 
   ApiCblValidatePost$RequestBody copyWithWrapped(
@@ -26239,7 +27530,8 @@ extension $ApiCblValidatePost$RequestBodyExtension
       Wrapped<Map<String, dynamic>?>? headers,
       Wrapped<int?>? length,
       Wrapped<String?>? name,
-      Wrapped<String?>? fileName}) {
+      Wrapped<String?>? fileName,
+      Wrapped<bool?>? comicVineMatching}) {
     return ApiCblValidatePost$RequestBody(
         contentType:
             (contentType != null ? contentType.value : this.contentType),
@@ -26249,7 +27541,10 @@ extension $ApiCblValidatePost$RequestBodyExtension
         headers: (headers != null ? headers.value : this.headers),
         length: (length != null ? length.value : this.length),
         name: (name != null ? name.value : this.name),
-        fileName: (fileName != null ? fileName.value : this.fileName));
+        fileName: (fileName != null ? fileName.value : this.fileName),
+        comicVineMatching: (comicVineMatching != null
+            ? comicVineMatching.value
+            : this.comicVineMatching));
   }
 }
 
@@ -26263,6 +27558,7 @@ class ApiCblImportPost$RequestBody {
     this.name,
     this.fileName,
     this.dryRun,
+    this.comicVineMatching,
   });
 
   factory ApiCblImportPost$RequestBody.fromJson(Map<String, dynamic> json) =>
@@ -26285,6 +27581,8 @@ class ApiCblImportPost$RequestBody {
   final String? fileName;
   @JsonKey(name: 'dryRun', includeIfNull: false, defaultValue: false)
   final bool? dryRun;
+  @JsonKey(name: 'comicVineMatching', includeIfNull: false, defaultValue: false)
+  final bool? comicVineMatching;
   static const fromJsonFactory = _$ApiCblImportPost$RequestBodyFromJson;
 
   @override
@@ -26308,7 +27606,10 @@ class ApiCblImportPost$RequestBody {
                 const DeepCollectionEquality()
                     .equals(other.fileName, fileName)) &&
             (identical(other.dryRun, dryRun) ||
-                const DeepCollectionEquality().equals(other.dryRun, dryRun)));
+                const DeepCollectionEquality().equals(other.dryRun, dryRun)) &&
+            (identical(other.comicVineMatching, comicVineMatching) ||
+                const DeepCollectionEquality()
+                    .equals(other.comicVineMatching, comicVineMatching)));
   }
 
   @override
@@ -26323,6 +27624,7 @@ class ApiCblImportPost$RequestBody {
       const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(fileName) ^
       const DeepCollectionEquality().hash(dryRun) ^
+      const DeepCollectionEquality().hash(comicVineMatching) ^
       runtimeType.hashCode;
 }
 
@@ -26335,7 +27637,8 @@ extension $ApiCblImportPost$RequestBodyExtension
       int? length,
       String? name,
       String? fileName,
-      bool? dryRun}) {
+      bool? dryRun,
+      bool? comicVineMatching}) {
     return ApiCblImportPost$RequestBody(
         contentType: contentType ?? this.contentType,
         contentDisposition: contentDisposition ?? this.contentDisposition,
@@ -26343,7 +27646,8 @@ extension $ApiCblImportPost$RequestBodyExtension
         length: length ?? this.length,
         name: name ?? this.name,
         fileName: fileName ?? this.fileName,
-        dryRun: dryRun ?? this.dryRun);
+        dryRun: dryRun ?? this.dryRun,
+        comicVineMatching: comicVineMatching ?? this.comicVineMatching);
   }
 
   ApiCblImportPost$RequestBody copyWithWrapped(
@@ -26353,7 +27657,8 @@ extension $ApiCblImportPost$RequestBodyExtension
       Wrapped<int?>? length,
       Wrapped<String?>? name,
       Wrapped<String?>? fileName,
-      Wrapped<bool?>? dryRun}) {
+      Wrapped<bool?>? dryRun,
+      Wrapped<bool?>? comicVineMatching}) {
     return ApiCblImportPost$RequestBody(
         contentType:
             (contentType != null ? contentType.value : this.contentType),
@@ -26364,7 +27669,10 @@ extension $ApiCblImportPost$RequestBodyExtension
         length: (length != null ? length.value : this.length),
         name: (name != null ? name.value : this.name),
         fileName: (fileName != null ? fileName.value : this.fileName),
-        dryRun: (dryRun != null ? dryRun.value : this.dryRun));
+        dryRun: (dryRun != null ? dryRun.value : this.dryRun),
+        comicVineMatching: (comicVineMatching != null
+            ? comicVineMatching.value
+            : this.comicVineMatching));
   }
 }
 
@@ -26581,6 +27889,300 @@ List<enums.AppUserAgeRestriction>? appUserAgeRestrictionNullableListFromJson(
 
   return appUserAgeRestriction
       .map((e) => appUserAgeRestrictionFromJson(e.toString()))
+      .toList();
+}
+
+int? appUserCollectionAgeRatingNullableToJson(
+    enums.AppUserCollectionAgeRating? appUserCollectionAgeRating) {
+  return appUserCollectionAgeRating?.value;
+}
+
+int? appUserCollectionAgeRatingToJson(
+    enums.AppUserCollectionAgeRating appUserCollectionAgeRating) {
+  return appUserCollectionAgeRating.value;
+}
+
+enums.AppUserCollectionAgeRating appUserCollectionAgeRatingFromJson(
+  Object? appUserCollectionAgeRating, [
+  enums.AppUserCollectionAgeRating? defaultValue,
+]) {
+  return enums.AppUserCollectionAgeRating.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionAgeRating) ??
+      defaultValue ??
+      enums.AppUserCollectionAgeRating.swaggerGeneratedUnknown;
+}
+
+enums.AppUserCollectionAgeRating? appUserCollectionAgeRatingNullableFromJson(
+  Object? appUserCollectionAgeRating, [
+  enums.AppUserCollectionAgeRating? defaultValue,
+]) {
+  if (appUserCollectionAgeRating == null) {
+    return null;
+  }
+  return enums.AppUserCollectionAgeRating.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionAgeRating) ??
+      defaultValue;
+}
+
+String appUserCollectionAgeRatingExplodedListToJson(
+    List<enums.AppUserCollectionAgeRating>? appUserCollectionAgeRating) {
+  return appUserCollectionAgeRating?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> appUserCollectionAgeRatingListToJson(
+    List<enums.AppUserCollectionAgeRating>? appUserCollectionAgeRating) {
+  if (appUserCollectionAgeRating == null) {
+    return [];
+  }
+
+  return appUserCollectionAgeRating.map((e) => e.value!).toList();
+}
+
+List<enums.AppUserCollectionAgeRating> appUserCollectionAgeRatingListFromJson(
+  List? appUserCollectionAgeRating, [
+  List<enums.AppUserCollectionAgeRating>? defaultValue,
+]) {
+  if (appUserCollectionAgeRating == null) {
+    return defaultValue ?? [];
+  }
+
+  return appUserCollectionAgeRating
+      .map((e) => appUserCollectionAgeRatingFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.AppUserCollectionAgeRating>?
+    appUserCollectionAgeRatingNullableListFromJson(
+  List? appUserCollectionAgeRating, [
+  List<enums.AppUserCollectionAgeRating>? defaultValue,
+]) {
+  if (appUserCollectionAgeRating == null) {
+    return defaultValue;
+  }
+
+  return appUserCollectionAgeRating
+      .map((e) => appUserCollectionAgeRatingFromJson(e.toString()))
+      .toList();
+}
+
+int? appUserCollectionSourceNullableToJson(
+    enums.AppUserCollectionSource? appUserCollectionSource) {
+  return appUserCollectionSource?.value;
+}
+
+int? appUserCollectionSourceToJson(
+    enums.AppUserCollectionSource appUserCollectionSource) {
+  return appUserCollectionSource.value;
+}
+
+enums.AppUserCollectionSource appUserCollectionSourceFromJson(
+  Object? appUserCollectionSource, [
+  enums.AppUserCollectionSource? defaultValue,
+]) {
+  return enums.AppUserCollectionSource.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionSource) ??
+      defaultValue ??
+      enums.AppUserCollectionSource.swaggerGeneratedUnknown;
+}
+
+enums.AppUserCollectionSource? appUserCollectionSourceNullableFromJson(
+  Object? appUserCollectionSource, [
+  enums.AppUserCollectionSource? defaultValue,
+]) {
+  if (appUserCollectionSource == null) {
+    return null;
+  }
+  return enums.AppUserCollectionSource.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionSource) ??
+      defaultValue;
+}
+
+String appUserCollectionSourceExplodedListToJson(
+    List<enums.AppUserCollectionSource>? appUserCollectionSource) {
+  return appUserCollectionSource?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> appUserCollectionSourceListToJson(
+    List<enums.AppUserCollectionSource>? appUserCollectionSource) {
+  if (appUserCollectionSource == null) {
+    return [];
+  }
+
+  return appUserCollectionSource.map((e) => e.value!).toList();
+}
+
+List<enums.AppUserCollectionSource> appUserCollectionSourceListFromJson(
+  List? appUserCollectionSource, [
+  List<enums.AppUserCollectionSource>? defaultValue,
+]) {
+  if (appUserCollectionSource == null) {
+    return defaultValue ?? [];
+  }
+
+  return appUserCollectionSource
+      .map((e) => appUserCollectionSourceFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.AppUserCollectionSource>?
+    appUserCollectionSourceNullableListFromJson(
+  List? appUserCollectionSource, [
+  List<enums.AppUserCollectionSource>? defaultValue,
+]) {
+  if (appUserCollectionSource == null) {
+    return defaultValue;
+  }
+
+  return appUserCollectionSource
+      .map((e) => appUserCollectionSourceFromJson(e.toString()))
+      .toList();
+}
+
+int? appUserCollectionDtoAgeRatingNullableToJson(
+    enums.AppUserCollectionDtoAgeRating? appUserCollectionDtoAgeRating) {
+  return appUserCollectionDtoAgeRating?.value;
+}
+
+int? appUserCollectionDtoAgeRatingToJson(
+    enums.AppUserCollectionDtoAgeRating appUserCollectionDtoAgeRating) {
+  return appUserCollectionDtoAgeRating.value;
+}
+
+enums.AppUserCollectionDtoAgeRating appUserCollectionDtoAgeRatingFromJson(
+  Object? appUserCollectionDtoAgeRating, [
+  enums.AppUserCollectionDtoAgeRating? defaultValue,
+]) {
+  return enums.AppUserCollectionDtoAgeRating.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionDtoAgeRating) ??
+      defaultValue ??
+      enums.AppUserCollectionDtoAgeRating.swaggerGeneratedUnknown;
+}
+
+enums.AppUserCollectionDtoAgeRating?
+    appUserCollectionDtoAgeRatingNullableFromJson(
+  Object? appUserCollectionDtoAgeRating, [
+  enums.AppUserCollectionDtoAgeRating? defaultValue,
+]) {
+  if (appUserCollectionDtoAgeRating == null) {
+    return null;
+  }
+  return enums.AppUserCollectionDtoAgeRating.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionDtoAgeRating) ??
+      defaultValue;
+}
+
+String appUserCollectionDtoAgeRatingExplodedListToJson(
+    List<enums.AppUserCollectionDtoAgeRating>? appUserCollectionDtoAgeRating) {
+  return appUserCollectionDtoAgeRating?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> appUserCollectionDtoAgeRatingListToJson(
+    List<enums.AppUserCollectionDtoAgeRating>? appUserCollectionDtoAgeRating) {
+  if (appUserCollectionDtoAgeRating == null) {
+    return [];
+  }
+
+  return appUserCollectionDtoAgeRating.map((e) => e.value!).toList();
+}
+
+List<enums.AppUserCollectionDtoAgeRating>
+    appUserCollectionDtoAgeRatingListFromJson(
+  List? appUserCollectionDtoAgeRating, [
+  List<enums.AppUserCollectionDtoAgeRating>? defaultValue,
+]) {
+  if (appUserCollectionDtoAgeRating == null) {
+    return defaultValue ?? [];
+  }
+
+  return appUserCollectionDtoAgeRating
+      .map((e) => appUserCollectionDtoAgeRatingFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.AppUserCollectionDtoAgeRating>?
+    appUserCollectionDtoAgeRatingNullableListFromJson(
+  List? appUserCollectionDtoAgeRating, [
+  List<enums.AppUserCollectionDtoAgeRating>? defaultValue,
+]) {
+  if (appUserCollectionDtoAgeRating == null) {
+    return defaultValue;
+  }
+
+  return appUserCollectionDtoAgeRating
+      .map((e) => appUserCollectionDtoAgeRatingFromJson(e.toString()))
+      .toList();
+}
+
+int? appUserCollectionDtoSourceNullableToJson(
+    enums.AppUserCollectionDtoSource? appUserCollectionDtoSource) {
+  return appUserCollectionDtoSource?.value;
+}
+
+int? appUserCollectionDtoSourceToJson(
+    enums.AppUserCollectionDtoSource appUserCollectionDtoSource) {
+  return appUserCollectionDtoSource.value;
+}
+
+enums.AppUserCollectionDtoSource appUserCollectionDtoSourceFromJson(
+  Object? appUserCollectionDtoSource, [
+  enums.AppUserCollectionDtoSource? defaultValue,
+]) {
+  return enums.AppUserCollectionDtoSource.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionDtoSource) ??
+      defaultValue ??
+      enums.AppUserCollectionDtoSource.swaggerGeneratedUnknown;
+}
+
+enums.AppUserCollectionDtoSource? appUserCollectionDtoSourceNullableFromJson(
+  Object? appUserCollectionDtoSource, [
+  enums.AppUserCollectionDtoSource? defaultValue,
+]) {
+  if (appUserCollectionDtoSource == null) {
+    return null;
+  }
+  return enums.AppUserCollectionDtoSource.values
+          .firstWhereOrNull((e) => e.value == appUserCollectionDtoSource) ??
+      defaultValue;
+}
+
+String appUserCollectionDtoSourceExplodedListToJson(
+    List<enums.AppUserCollectionDtoSource>? appUserCollectionDtoSource) {
+  return appUserCollectionDtoSource?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> appUserCollectionDtoSourceListToJson(
+    List<enums.AppUserCollectionDtoSource>? appUserCollectionDtoSource) {
+  if (appUserCollectionDtoSource == null) {
+    return [];
+  }
+
+  return appUserCollectionDtoSource.map((e) => e.value!).toList();
+}
+
+List<enums.AppUserCollectionDtoSource> appUserCollectionDtoSourceListFromJson(
+  List? appUserCollectionDtoSource, [
+  List<enums.AppUserCollectionDtoSource>? defaultValue,
+]) {
+  if (appUserCollectionDtoSource == null) {
+    return defaultValue ?? [];
+  }
+
+  return appUserCollectionDtoSource
+      .map((e) => appUserCollectionDtoSourceFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.AppUserCollectionDtoSource>?
+    appUserCollectionDtoSourceNullableListFromJson(
+  List? appUserCollectionDtoSource, [
+  List<enums.AppUserCollectionDtoSource>? defaultValue,
+]) {
+  if (appUserCollectionDtoSource == null) {
+    return defaultValue;
+  }
+
+  return appUserCollectionDtoSource
+      .map((e) => appUserCollectionDtoSourceFromJson(e.toString()))
       .toList();
 }
 
@@ -27304,6 +28906,233 @@ List<enums.AppUserPreferencesBookReaderLayoutMode>?
 
   return appUserPreferencesBookReaderLayoutMode
       .map((e) => appUserPreferencesBookReaderLayoutModeFromJson(e.toString()))
+      .toList();
+}
+
+int? appUserPreferencesPdfThemeNullableToJson(
+    enums.AppUserPreferencesPdfTheme? appUserPreferencesPdfTheme) {
+  return appUserPreferencesPdfTheme?.value;
+}
+
+int? appUserPreferencesPdfThemeToJson(
+    enums.AppUserPreferencesPdfTheme appUserPreferencesPdfTheme) {
+  return appUserPreferencesPdfTheme.value;
+}
+
+enums.AppUserPreferencesPdfTheme appUserPreferencesPdfThemeFromJson(
+  Object? appUserPreferencesPdfTheme, [
+  enums.AppUserPreferencesPdfTheme? defaultValue,
+]) {
+  return enums.AppUserPreferencesPdfTheme.values
+          .firstWhereOrNull((e) => e.value == appUserPreferencesPdfTheme) ??
+      defaultValue ??
+      enums.AppUserPreferencesPdfTheme.swaggerGeneratedUnknown;
+}
+
+enums.AppUserPreferencesPdfTheme? appUserPreferencesPdfThemeNullableFromJson(
+  Object? appUserPreferencesPdfTheme, [
+  enums.AppUserPreferencesPdfTheme? defaultValue,
+]) {
+  if (appUserPreferencesPdfTheme == null) {
+    return null;
+  }
+  return enums.AppUserPreferencesPdfTheme.values
+          .firstWhereOrNull((e) => e.value == appUserPreferencesPdfTheme) ??
+      defaultValue;
+}
+
+String appUserPreferencesPdfThemeExplodedListToJson(
+    List<enums.AppUserPreferencesPdfTheme>? appUserPreferencesPdfTheme) {
+  return appUserPreferencesPdfTheme?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> appUserPreferencesPdfThemeListToJson(
+    List<enums.AppUserPreferencesPdfTheme>? appUserPreferencesPdfTheme) {
+  if (appUserPreferencesPdfTheme == null) {
+    return [];
+  }
+
+  return appUserPreferencesPdfTheme.map((e) => e.value!).toList();
+}
+
+List<enums.AppUserPreferencesPdfTheme> appUserPreferencesPdfThemeListFromJson(
+  List? appUserPreferencesPdfTheme, [
+  List<enums.AppUserPreferencesPdfTheme>? defaultValue,
+]) {
+  if (appUserPreferencesPdfTheme == null) {
+    return defaultValue ?? [];
+  }
+
+  return appUserPreferencesPdfTheme
+      .map((e) => appUserPreferencesPdfThemeFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.AppUserPreferencesPdfTheme>?
+    appUserPreferencesPdfThemeNullableListFromJson(
+  List? appUserPreferencesPdfTheme, [
+  List<enums.AppUserPreferencesPdfTheme>? defaultValue,
+]) {
+  if (appUserPreferencesPdfTheme == null) {
+    return defaultValue;
+  }
+
+  return appUserPreferencesPdfTheme
+      .map((e) => appUserPreferencesPdfThemeFromJson(e.toString()))
+      .toList();
+}
+
+int? appUserPreferencesPdfScrollModeNullableToJson(
+    enums.AppUserPreferencesPdfScrollMode? appUserPreferencesPdfScrollMode) {
+  return appUserPreferencesPdfScrollMode?.value;
+}
+
+int? appUserPreferencesPdfScrollModeToJson(
+    enums.AppUserPreferencesPdfScrollMode appUserPreferencesPdfScrollMode) {
+  return appUserPreferencesPdfScrollMode.value;
+}
+
+enums.AppUserPreferencesPdfScrollMode appUserPreferencesPdfScrollModeFromJson(
+  Object? appUserPreferencesPdfScrollMode, [
+  enums.AppUserPreferencesPdfScrollMode? defaultValue,
+]) {
+  return enums.AppUserPreferencesPdfScrollMode.values.firstWhereOrNull(
+          (e) => e.value == appUserPreferencesPdfScrollMode) ??
+      defaultValue ??
+      enums.AppUserPreferencesPdfScrollMode.swaggerGeneratedUnknown;
+}
+
+enums.AppUserPreferencesPdfScrollMode?
+    appUserPreferencesPdfScrollModeNullableFromJson(
+  Object? appUserPreferencesPdfScrollMode, [
+  enums.AppUserPreferencesPdfScrollMode? defaultValue,
+]) {
+  if (appUserPreferencesPdfScrollMode == null) {
+    return null;
+  }
+  return enums.AppUserPreferencesPdfScrollMode.values.firstWhereOrNull(
+          (e) => e.value == appUserPreferencesPdfScrollMode) ??
+      defaultValue;
+}
+
+String appUserPreferencesPdfScrollModeExplodedListToJson(
+    List<enums.AppUserPreferencesPdfScrollMode>?
+        appUserPreferencesPdfScrollMode) {
+  return appUserPreferencesPdfScrollMode?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> appUserPreferencesPdfScrollModeListToJson(
+    List<enums.AppUserPreferencesPdfScrollMode>?
+        appUserPreferencesPdfScrollMode) {
+  if (appUserPreferencesPdfScrollMode == null) {
+    return [];
+  }
+
+  return appUserPreferencesPdfScrollMode.map((e) => e.value!).toList();
+}
+
+List<enums.AppUserPreferencesPdfScrollMode>
+    appUserPreferencesPdfScrollModeListFromJson(
+  List? appUserPreferencesPdfScrollMode, [
+  List<enums.AppUserPreferencesPdfScrollMode>? defaultValue,
+]) {
+  if (appUserPreferencesPdfScrollMode == null) {
+    return defaultValue ?? [];
+  }
+
+  return appUserPreferencesPdfScrollMode
+      .map((e) => appUserPreferencesPdfScrollModeFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.AppUserPreferencesPdfScrollMode>?
+    appUserPreferencesPdfScrollModeNullableListFromJson(
+  List? appUserPreferencesPdfScrollMode, [
+  List<enums.AppUserPreferencesPdfScrollMode>? defaultValue,
+]) {
+  if (appUserPreferencesPdfScrollMode == null) {
+    return defaultValue;
+  }
+
+  return appUserPreferencesPdfScrollMode
+      .map((e) => appUserPreferencesPdfScrollModeFromJson(e.toString()))
+      .toList();
+}
+
+int? appUserPreferencesPdfSpreadModeNullableToJson(
+    enums.AppUserPreferencesPdfSpreadMode? appUserPreferencesPdfSpreadMode) {
+  return appUserPreferencesPdfSpreadMode?.value;
+}
+
+int? appUserPreferencesPdfSpreadModeToJson(
+    enums.AppUserPreferencesPdfSpreadMode appUserPreferencesPdfSpreadMode) {
+  return appUserPreferencesPdfSpreadMode.value;
+}
+
+enums.AppUserPreferencesPdfSpreadMode appUserPreferencesPdfSpreadModeFromJson(
+  Object? appUserPreferencesPdfSpreadMode, [
+  enums.AppUserPreferencesPdfSpreadMode? defaultValue,
+]) {
+  return enums.AppUserPreferencesPdfSpreadMode.values.firstWhereOrNull(
+          (e) => e.value == appUserPreferencesPdfSpreadMode) ??
+      defaultValue ??
+      enums.AppUserPreferencesPdfSpreadMode.swaggerGeneratedUnknown;
+}
+
+enums.AppUserPreferencesPdfSpreadMode?
+    appUserPreferencesPdfSpreadModeNullableFromJson(
+  Object? appUserPreferencesPdfSpreadMode, [
+  enums.AppUserPreferencesPdfSpreadMode? defaultValue,
+]) {
+  if (appUserPreferencesPdfSpreadMode == null) {
+    return null;
+  }
+  return enums.AppUserPreferencesPdfSpreadMode.values.firstWhereOrNull(
+          (e) => e.value == appUserPreferencesPdfSpreadMode) ??
+      defaultValue;
+}
+
+String appUserPreferencesPdfSpreadModeExplodedListToJson(
+    List<enums.AppUserPreferencesPdfSpreadMode>?
+        appUserPreferencesPdfSpreadMode) {
+  return appUserPreferencesPdfSpreadMode?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> appUserPreferencesPdfSpreadModeListToJson(
+    List<enums.AppUserPreferencesPdfSpreadMode>?
+        appUserPreferencesPdfSpreadMode) {
+  if (appUserPreferencesPdfSpreadMode == null) {
+    return [];
+  }
+
+  return appUserPreferencesPdfSpreadMode.map((e) => e.value!).toList();
+}
+
+List<enums.AppUserPreferencesPdfSpreadMode>
+    appUserPreferencesPdfSpreadModeListFromJson(
+  List? appUserPreferencesPdfSpreadMode, [
+  List<enums.AppUserPreferencesPdfSpreadMode>? defaultValue,
+]) {
+  if (appUserPreferencesPdfSpreadMode == null) {
+    return defaultValue ?? [];
+  }
+
+  return appUserPreferencesPdfSpreadMode
+      .map((e) => appUserPreferencesPdfSpreadModeFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.AppUserPreferencesPdfSpreadMode>?
+    appUserPreferencesPdfSpreadModeNullableListFromJson(
+  List? appUserPreferencesPdfSpreadMode, [
+  List<enums.AppUserPreferencesPdfSpreadMode>? defaultValue,
+]) {
+  if (appUserPreferencesPdfSpreadMode == null) {
+    return defaultValue;
+  }
+
+  return appUserPreferencesPdfSpreadMode
+      .map((e) => appUserPreferencesPdfSpreadModeFromJson(e.toString()))
       .toList();
 }
 
@@ -33254,6 +35083,310 @@ List<enums.UserPreferencesDtoGlobalPageLayoutMode>?
 
   return userPreferencesDtoGlobalPageLayoutMode
       .map((e) => userPreferencesDtoGlobalPageLayoutModeFromJson(e.toString()))
+      .toList();
+}
+
+int? userPreferencesDtoPdfThemeNullableToJson(
+    enums.UserPreferencesDtoPdfTheme? userPreferencesDtoPdfTheme) {
+  return userPreferencesDtoPdfTheme?.value;
+}
+
+int? userPreferencesDtoPdfThemeToJson(
+    enums.UserPreferencesDtoPdfTheme userPreferencesDtoPdfTheme) {
+  return userPreferencesDtoPdfTheme.value;
+}
+
+enums.UserPreferencesDtoPdfTheme userPreferencesDtoPdfThemeFromJson(
+  Object? userPreferencesDtoPdfTheme, [
+  enums.UserPreferencesDtoPdfTheme? defaultValue,
+]) {
+  return enums.UserPreferencesDtoPdfTheme.values
+          .firstWhereOrNull((e) => e.value == userPreferencesDtoPdfTheme) ??
+      defaultValue ??
+      enums.UserPreferencesDtoPdfTheme.swaggerGeneratedUnknown;
+}
+
+enums.UserPreferencesDtoPdfTheme? userPreferencesDtoPdfThemeNullableFromJson(
+  Object? userPreferencesDtoPdfTheme, [
+  enums.UserPreferencesDtoPdfTheme? defaultValue,
+]) {
+  if (userPreferencesDtoPdfTheme == null) {
+    return null;
+  }
+  return enums.UserPreferencesDtoPdfTheme.values
+          .firstWhereOrNull((e) => e.value == userPreferencesDtoPdfTheme) ??
+      defaultValue;
+}
+
+String userPreferencesDtoPdfThemeExplodedListToJson(
+    List<enums.UserPreferencesDtoPdfTheme>? userPreferencesDtoPdfTheme) {
+  return userPreferencesDtoPdfTheme?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> userPreferencesDtoPdfThemeListToJson(
+    List<enums.UserPreferencesDtoPdfTheme>? userPreferencesDtoPdfTheme) {
+  if (userPreferencesDtoPdfTheme == null) {
+    return [];
+  }
+
+  return userPreferencesDtoPdfTheme.map((e) => e.value!).toList();
+}
+
+List<enums.UserPreferencesDtoPdfTheme> userPreferencesDtoPdfThemeListFromJson(
+  List? userPreferencesDtoPdfTheme, [
+  List<enums.UserPreferencesDtoPdfTheme>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfTheme == null) {
+    return defaultValue ?? [];
+  }
+
+  return userPreferencesDtoPdfTheme
+      .map((e) => userPreferencesDtoPdfThemeFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.UserPreferencesDtoPdfTheme>?
+    userPreferencesDtoPdfThemeNullableListFromJson(
+  List? userPreferencesDtoPdfTheme, [
+  List<enums.UserPreferencesDtoPdfTheme>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfTheme == null) {
+    return defaultValue;
+  }
+
+  return userPreferencesDtoPdfTheme
+      .map((e) => userPreferencesDtoPdfThemeFromJson(e.toString()))
+      .toList();
+}
+
+int? userPreferencesDtoPdfScrollModeNullableToJson(
+    enums.UserPreferencesDtoPdfScrollMode? userPreferencesDtoPdfScrollMode) {
+  return userPreferencesDtoPdfScrollMode?.value;
+}
+
+int? userPreferencesDtoPdfScrollModeToJson(
+    enums.UserPreferencesDtoPdfScrollMode userPreferencesDtoPdfScrollMode) {
+  return userPreferencesDtoPdfScrollMode.value;
+}
+
+enums.UserPreferencesDtoPdfScrollMode userPreferencesDtoPdfScrollModeFromJson(
+  Object? userPreferencesDtoPdfScrollMode, [
+  enums.UserPreferencesDtoPdfScrollMode? defaultValue,
+]) {
+  return enums.UserPreferencesDtoPdfScrollMode.values.firstWhereOrNull(
+          (e) => e.value == userPreferencesDtoPdfScrollMode) ??
+      defaultValue ??
+      enums.UserPreferencesDtoPdfScrollMode.swaggerGeneratedUnknown;
+}
+
+enums.UserPreferencesDtoPdfScrollMode?
+    userPreferencesDtoPdfScrollModeNullableFromJson(
+  Object? userPreferencesDtoPdfScrollMode, [
+  enums.UserPreferencesDtoPdfScrollMode? defaultValue,
+]) {
+  if (userPreferencesDtoPdfScrollMode == null) {
+    return null;
+  }
+  return enums.UserPreferencesDtoPdfScrollMode.values.firstWhereOrNull(
+          (e) => e.value == userPreferencesDtoPdfScrollMode) ??
+      defaultValue;
+}
+
+String userPreferencesDtoPdfScrollModeExplodedListToJson(
+    List<enums.UserPreferencesDtoPdfScrollMode>?
+        userPreferencesDtoPdfScrollMode) {
+  return userPreferencesDtoPdfScrollMode?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> userPreferencesDtoPdfScrollModeListToJson(
+    List<enums.UserPreferencesDtoPdfScrollMode>?
+        userPreferencesDtoPdfScrollMode) {
+  if (userPreferencesDtoPdfScrollMode == null) {
+    return [];
+  }
+
+  return userPreferencesDtoPdfScrollMode.map((e) => e.value!).toList();
+}
+
+List<enums.UserPreferencesDtoPdfScrollMode>
+    userPreferencesDtoPdfScrollModeListFromJson(
+  List? userPreferencesDtoPdfScrollMode, [
+  List<enums.UserPreferencesDtoPdfScrollMode>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfScrollMode == null) {
+    return defaultValue ?? [];
+  }
+
+  return userPreferencesDtoPdfScrollMode
+      .map((e) => userPreferencesDtoPdfScrollModeFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.UserPreferencesDtoPdfScrollMode>?
+    userPreferencesDtoPdfScrollModeNullableListFromJson(
+  List? userPreferencesDtoPdfScrollMode, [
+  List<enums.UserPreferencesDtoPdfScrollMode>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfScrollMode == null) {
+    return defaultValue;
+  }
+
+  return userPreferencesDtoPdfScrollMode
+      .map((e) => userPreferencesDtoPdfScrollModeFromJson(e.toString()))
+      .toList();
+}
+
+int? userPreferencesDtoPdfLayoutModeNullableToJson(
+    enums.UserPreferencesDtoPdfLayoutMode? userPreferencesDtoPdfLayoutMode) {
+  return userPreferencesDtoPdfLayoutMode?.value;
+}
+
+int? userPreferencesDtoPdfLayoutModeToJson(
+    enums.UserPreferencesDtoPdfLayoutMode userPreferencesDtoPdfLayoutMode) {
+  return userPreferencesDtoPdfLayoutMode.value;
+}
+
+enums.UserPreferencesDtoPdfLayoutMode userPreferencesDtoPdfLayoutModeFromJson(
+  Object? userPreferencesDtoPdfLayoutMode, [
+  enums.UserPreferencesDtoPdfLayoutMode? defaultValue,
+]) {
+  return enums.UserPreferencesDtoPdfLayoutMode.values.firstWhereOrNull(
+          (e) => e.value == userPreferencesDtoPdfLayoutMode) ??
+      defaultValue ??
+      enums.UserPreferencesDtoPdfLayoutMode.swaggerGeneratedUnknown;
+}
+
+enums.UserPreferencesDtoPdfLayoutMode?
+    userPreferencesDtoPdfLayoutModeNullableFromJson(
+  Object? userPreferencesDtoPdfLayoutMode, [
+  enums.UserPreferencesDtoPdfLayoutMode? defaultValue,
+]) {
+  if (userPreferencesDtoPdfLayoutMode == null) {
+    return null;
+  }
+  return enums.UserPreferencesDtoPdfLayoutMode.values.firstWhereOrNull(
+          (e) => e.value == userPreferencesDtoPdfLayoutMode) ??
+      defaultValue;
+}
+
+String userPreferencesDtoPdfLayoutModeExplodedListToJson(
+    List<enums.UserPreferencesDtoPdfLayoutMode>?
+        userPreferencesDtoPdfLayoutMode) {
+  return userPreferencesDtoPdfLayoutMode?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> userPreferencesDtoPdfLayoutModeListToJson(
+    List<enums.UserPreferencesDtoPdfLayoutMode>?
+        userPreferencesDtoPdfLayoutMode) {
+  if (userPreferencesDtoPdfLayoutMode == null) {
+    return [];
+  }
+
+  return userPreferencesDtoPdfLayoutMode.map((e) => e.value!).toList();
+}
+
+List<enums.UserPreferencesDtoPdfLayoutMode>
+    userPreferencesDtoPdfLayoutModeListFromJson(
+  List? userPreferencesDtoPdfLayoutMode, [
+  List<enums.UserPreferencesDtoPdfLayoutMode>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfLayoutMode == null) {
+    return defaultValue ?? [];
+  }
+
+  return userPreferencesDtoPdfLayoutMode
+      .map((e) => userPreferencesDtoPdfLayoutModeFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.UserPreferencesDtoPdfLayoutMode>?
+    userPreferencesDtoPdfLayoutModeNullableListFromJson(
+  List? userPreferencesDtoPdfLayoutMode, [
+  List<enums.UserPreferencesDtoPdfLayoutMode>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfLayoutMode == null) {
+    return defaultValue;
+  }
+
+  return userPreferencesDtoPdfLayoutMode
+      .map((e) => userPreferencesDtoPdfLayoutModeFromJson(e.toString()))
+      .toList();
+}
+
+int? userPreferencesDtoPdfSpreadModeNullableToJson(
+    enums.UserPreferencesDtoPdfSpreadMode? userPreferencesDtoPdfSpreadMode) {
+  return userPreferencesDtoPdfSpreadMode?.value;
+}
+
+int? userPreferencesDtoPdfSpreadModeToJson(
+    enums.UserPreferencesDtoPdfSpreadMode userPreferencesDtoPdfSpreadMode) {
+  return userPreferencesDtoPdfSpreadMode.value;
+}
+
+enums.UserPreferencesDtoPdfSpreadMode userPreferencesDtoPdfSpreadModeFromJson(
+  Object? userPreferencesDtoPdfSpreadMode, [
+  enums.UserPreferencesDtoPdfSpreadMode? defaultValue,
+]) {
+  return enums.UserPreferencesDtoPdfSpreadMode.values.firstWhereOrNull(
+          (e) => e.value == userPreferencesDtoPdfSpreadMode) ??
+      defaultValue ??
+      enums.UserPreferencesDtoPdfSpreadMode.swaggerGeneratedUnknown;
+}
+
+enums.UserPreferencesDtoPdfSpreadMode?
+    userPreferencesDtoPdfSpreadModeNullableFromJson(
+  Object? userPreferencesDtoPdfSpreadMode, [
+  enums.UserPreferencesDtoPdfSpreadMode? defaultValue,
+]) {
+  if (userPreferencesDtoPdfSpreadMode == null) {
+    return null;
+  }
+  return enums.UserPreferencesDtoPdfSpreadMode.values.firstWhereOrNull(
+          (e) => e.value == userPreferencesDtoPdfSpreadMode) ??
+      defaultValue;
+}
+
+String userPreferencesDtoPdfSpreadModeExplodedListToJson(
+    List<enums.UserPreferencesDtoPdfSpreadMode>?
+        userPreferencesDtoPdfSpreadMode) {
+  return userPreferencesDtoPdfSpreadMode?.map((e) => e.value!).join(',') ?? '';
+}
+
+List<int> userPreferencesDtoPdfSpreadModeListToJson(
+    List<enums.UserPreferencesDtoPdfSpreadMode>?
+        userPreferencesDtoPdfSpreadMode) {
+  if (userPreferencesDtoPdfSpreadMode == null) {
+    return [];
+  }
+
+  return userPreferencesDtoPdfSpreadMode.map((e) => e.value!).toList();
+}
+
+List<enums.UserPreferencesDtoPdfSpreadMode>
+    userPreferencesDtoPdfSpreadModeListFromJson(
+  List? userPreferencesDtoPdfSpreadMode, [
+  List<enums.UserPreferencesDtoPdfSpreadMode>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfSpreadMode == null) {
+    return defaultValue ?? [];
+  }
+
+  return userPreferencesDtoPdfSpreadMode
+      .map((e) => userPreferencesDtoPdfSpreadModeFromJson(e.toString()))
+      .toList();
+}
+
+List<enums.UserPreferencesDtoPdfSpreadMode>?
+    userPreferencesDtoPdfSpreadModeNullableListFromJson(
+  List? userPreferencesDtoPdfSpreadMode, [
+  List<enums.UserPreferencesDtoPdfSpreadMode>? defaultValue,
+]) {
+  if (userPreferencesDtoPdfSpreadMode == null) {
+    return defaultValue;
+  }
+
+  return userPreferencesDtoPdfSpreadMode
+      .map((e) => userPreferencesDtoPdfSpreadModeFromJson(e.toString()))
       .toList();
 }
 

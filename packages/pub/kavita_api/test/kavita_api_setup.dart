@@ -52,16 +52,25 @@ Future<({KavitaApi underTest, raw.KavitaApiV1 rawApi, String apiKey})>
     env.getOrElse('KAVITA_BASE_URL', () => 'http://127.0.0.1:5000'),
   );
 
-  if (!env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
-    throw Exception(
-      'Please define the environment variables `KAVITA_PASSWORD` and `KAVITA_USERNAME` in an .env file.',
-    );
-  }
   final kavitaApi = KavitaApi(baseUrl: baseUrl);
-  final user = await kavitaApi.account.login(
-    username: env['KAVITA_USERNAME']!,
-    password: env['KAVITA_PASSWORD']!,
-  );
+  final KavitaResponse<UserDto> user;
+  if (env.isEveryDefined(['KAVITA_PASSWORD', 'KAVITA_USERNAME'])) {
+    user = await kavitaApi.account.login(
+      username: env['KAVITA_USERNAME']!,
+      password: env['KAVITA_PASSWORD']!,
+    );
+  } else {
+    if (env.isDefined('KAVITA_API_KEY')) {
+      user = await kavitaApi.plugin.authenticate(
+        apiKey: env['KAVITA_API_KEY']!,
+        pluginName: 'Subete-Test',
+      );
+    } else {
+      throw Exception(
+        'Please define the environment variable `KAVITA_API_KEY` or both `KAVITA_PASSWORD` and `KAVITA_USERNAME` in an .env file.',
+      );
+    }
+  }
 
   return (
     underTest: kavitaApi,

@@ -21,7 +21,7 @@ class SeriesMetadata
   const SeriesMetadata({
     this.id,
     this.summary,
-    this.collectionTags,
+    @Deprecated('Use Series.collections instead') this.collectionTags,
     this.genres,
     this.tags,
     this.people,
@@ -43,10 +43,13 @@ class SeriesMetadata
     this.coloristLocked,
     this.editorLocked,
     this.inkerLocked,
+    this.imprintLocked,
     this.lettererLocked,
     this.pencillerLocked,
     this.publisherLocked,
     this.translatorLocked,
+    this.teamLocked,
+    this.locationLocked,
     this.coverArtistLocked,
     this.releaseYearLocked,
     this.series,
@@ -57,6 +60,7 @@ class SeriesMetadata
   final int? id;
   final String? summary;
 
+  @Deprecated('Use Series.collections instead')
   final List<CollectionTag>? collectionTags;
 
   final List<Genre>? genres;
@@ -98,10 +102,13 @@ class SeriesMetadata
   final bool? coloristLocked;
   final bool? editorLocked;
   final bool? inkerLocked;
+  final bool? imprintLocked;
   final bool? lettererLocked;
   final bool? pencillerLocked;
   final bool? publisherLocked;
   final bool? translatorLocked;
+  final bool? teamLocked;
+  final bool? locationLocked;
   final bool? coverArtistLocked;
   final bool? releaseYearLocked;
   final Series? series;

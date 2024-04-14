@@ -99,6 +99,9 @@ class SeriesMetadataMapper extends ClassMapperBase<SeriesMetadata> {
   static bool? _$inkerLocked(SeriesMetadata v) => v.inkerLocked;
   static const Field<SeriesMetadata, bool> _f$inkerLocked =
       Field('inkerLocked', _$inkerLocked, opt: true);
+  static bool? _$imprintLocked(SeriesMetadata v) => v.imprintLocked;
+  static const Field<SeriesMetadata, bool> _f$imprintLocked =
+      Field('imprintLocked', _$imprintLocked, opt: true);
   static bool? _$lettererLocked(SeriesMetadata v) => v.lettererLocked;
   static const Field<SeriesMetadata, bool> _f$lettererLocked =
       Field('lettererLocked', _$lettererLocked, opt: true);
@@ -111,6 +114,12 @@ class SeriesMetadataMapper extends ClassMapperBase<SeriesMetadata> {
   static bool? _$translatorLocked(SeriesMetadata v) => v.translatorLocked;
   static const Field<SeriesMetadata, bool> _f$translatorLocked =
       Field('translatorLocked', _$translatorLocked, opt: true);
+  static bool? _$teamLocked(SeriesMetadata v) => v.teamLocked;
+  static const Field<SeriesMetadata, bool> _f$teamLocked =
+      Field('teamLocked', _$teamLocked, opt: true);
+  static bool? _$locationLocked(SeriesMetadata v) => v.locationLocked;
+  static const Field<SeriesMetadata, bool> _f$locationLocked =
+      Field('locationLocked', _$locationLocked, opt: true);
   static bool? _$coverArtistLocked(SeriesMetadata v) => v.coverArtistLocked;
   static const Field<SeriesMetadata, bool> _f$coverArtistLocked =
       Field('coverArtistLocked', _$coverArtistLocked, opt: true);
@@ -153,10 +162,13 @@ class SeriesMetadataMapper extends ClassMapperBase<SeriesMetadata> {
     #coloristLocked: _f$coloristLocked,
     #editorLocked: _f$editorLocked,
     #inkerLocked: _f$inkerLocked,
+    #imprintLocked: _f$imprintLocked,
     #lettererLocked: _f$lettererLocked,
     #pencillerLocked: _f$pencillerLocked,
     #publisherLocked: _f$publisherLocked,
     #translatorLocked: _f$translatorLocked,
+    #teamLocked: _f$teamLocked,
+    #locationLocked: _f$locationLocked,
     #coverArtistLocked: _f$coverArtistLocked,
     #releaseYearLocked: _f$releaseYearLocked,
     #series: _f$series,
@@ -190,10 +202,13 @@ class SeriesMetadataMapper extends ClassMapperBase<SeriesMetadata> {
         coloristLocked: data.dec(_f$coloristLocked),
         editorLocked: data.dec(_f$editorLocked),
         inkerLocked: data.dec(_f$inkerLocked),
+        imprintLocked: data.dec(_f$imprintLocked),
         lettererLocked: data.dec(_f$lettererLocked),
         pencillerLocked: data.dec(_f$pencillerLocked),
         publisherLocked: data.dec(_f$publisherLocked),
         translatorLocked: data.dec(_f$translatorLocked),
+        teamLocked: data.dec(_f$teamLocked),
+        locationLocked: data.dec(_f$locationLocked),
         coverArtistLocked: data.dec(_f$coverArtistLocked),
         releaseYearLocked: data.dec(_f$releaseYearLocked),
         series: data.dec(_f$series),
@@ -288,10 +303,13 @@ abstract class SeriesMetadataCopyWith<$R, $In extends SeriesMetadata, $Out>
       bool? coloristLocked,
       bool? editorLocked,
       bool? inkerLocked,
+      bool? imprintLocked,
       bool? lettererLocked,
       bool? pencillerLocked,
       bool? publisherLocked,
       bool? translatorLocked,
+      bool? teamLocked,
+      bool? locationLocked,
       bool? coverArtistLocked,
       bool? releaseYearLocked,
       Series? series,
@@ -363,10 +381,13 @@ class _SeriesMetadataCopyWithImpl<$R, $Out>
           Object? coloristLocked = $none,
           Object? editorLocked = $none,
           Object? inkerLocked = $none,
+          Object? imprintLocked = $none,
           Object? lettererLocked = $none,
           Object? pencillerLocked = $none,
           Object? publisherLocked = $none,
           Object? translatorLocked = $none,
+          Object? teamLocked = $none,
+          Object? locationLocked = $none,
           Object? coverArtistLocked = $none,
           Object? releaseYearLocked = $none,
           Object? series = $none,
@@ -398,10 +419,13 @@ class _SeriesMetadataCopyWithImpl<$R, $Out>
         if (coloristLocked != $none) #coloristLocked: coloristLocked,
         if (editorLocked != $none) #editorLocked: editorLocked,
         if (inkerLocked != $none) #inkerLocked: inkerLocked,
+        if (imprintLocked != $none) #imprintLocked: imprintLocked,
         if (lettererLocked != $none) #lettererLocked: lettererLocked,
         if (pencillerLocked != $none) #pencillerLocked: pencillerLocked,
         if (publisherLocked != $none) #publisherLocked: publisherLocked,
         if (translatorLocked != $none) #translatorLocked: translatorLocked,
+        if (teamLocked != $none) #teamLocked: teamLocked,
+        if (locationLocked != $none) #locationLocked: locationLocked,
         if (coverArtistLocked != $none) #coverArtistLocked: coverArtistLocked,
         if (releaseYearLocked != $none) #releaseYearLocked: releaseYearLocked,
         if (series != $none) #series: series,
@@ -436,11 +460,14 @@ class _SeriesMetadataCopyWithImpl<$R, $Out>
       coloristLocked: data.get(#coloristLocked, or: $value.coloristLocked),
       editorLocked: data.get(#editorLocked, or: $value.editorLocked),
       inkerLocked: data.get(#inkerLocked, or: $value.inkerLocked),
+      imprintLocked: data.get(#imprintLocked, or: $value.imprintLocked),
       lettererLocked: data.get(#lettererLocked, or: $value.lettererLocked),
       pencillerLocked: data.get(#pencillerLocked, or: $value.pencillerLocked),
       publisherLocked: data.get(#publisherLocked, or: $value.publisherLocked),
       translatorLocked:
           data.get(#translatorLocked, or: $value.translatorLocked),
+      teamLocked: data.get(#teamLocked, or: $value.teamLocked),
+      locationLocked: data.get(#locationLocked, or: $value.locationLocked),
       coverArtistLocked:
           data.get(#coverArtistLocked, or: $value.coverArtistLocked),
       releaseYearLocked:

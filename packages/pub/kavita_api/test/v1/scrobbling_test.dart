@@ -15,12 +15,35 @@ void main() {
       expect(res.body, 'test');
     });
 
+    test('Test Get Mal Token', () async {
+      when(() => kavita.rawApi.apiScrobblingMalTokenGet())
+          .thenResponse(const raw.MalUserInfoDto());
+      const expected = MalUserInfoDto();
+      final res = await kavita.underTest.scrobbling.getMalToken();
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
+
     test('Test Update Anilist Token', () async {
       when(() => kavita.rawApi.apiScrobblingUpdateAnilistTokenPost(
             body: const raw.AniListUpdateDto(token: 'test'),
           )).thenResponse(null);
       final res =
           await kavita.underTest.scrobbling.updateAnilistToken(token: 'test');
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+    });
+
+    test('Test Update Mal Token', () async {
+      when(() => kavita.rawApi.apiScrobblingUpdateMalTokenPost(
+            body: const raw.MalUserInfoDto(
+              username: 'test',
+              accessToken: 'test',
+            ),
+          )).thenResponse(null);
+      final res = await kavita.underTest.scrobbling.updateMalToken(
+        username: 'test',
+        accessToken: 'test',
+      );
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
 

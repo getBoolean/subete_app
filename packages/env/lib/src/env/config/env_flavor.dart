@@ -6,10 +6,6 @@ import 'package:env/src/env/local_env.dart';
 import 'package:env/src/env/prod_env.dart';
 import 'package:env/src/env/staging_env.dart';
 
-const String kKavitaBaseUrlDemo = 'https://demo.kavitareader.com/';
-const String kKavitaUsernameDemo = 'demouser';
-const String kKavitaPasswordDemo = 'Demouser64';
-
 abstract class EnvFlavor implements EnvFields {
   static const String rawFlavor =
       String.fromEnvironment('FLUTTER_APP_FLAVOR') != ''

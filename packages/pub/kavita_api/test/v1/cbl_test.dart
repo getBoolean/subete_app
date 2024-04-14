@@ -23,6 +23,7 @@ void main() {
           length: 0,
           name: 'test.cbl',
           fileName: 'test.cbl',
+          comicVineMatching: false,
         ),
       ).thenResponse(summary);
       final res = await kavita.underTest.cbl.validateCbl(
@@ -46,6 +47,7 @@ void main() {
           length: 0,
           name: 'test.cbl',
           fileName: 'test.cbl',
+          comicVineMatching: false,
           dryRun: true,
         ),
       ).thenResponse(summary);

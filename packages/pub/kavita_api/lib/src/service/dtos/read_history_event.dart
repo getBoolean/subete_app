@@ -24,7 +24,7 @@ class ReadHistoryEvent with ReadHistoryEventMappable {
   final String? seriesName;
   final DateTime? readDate;
   final int? chapterId;
-  final String? chapterNumber;
+  final double? chapterNumber;
 
   static const fromMap = ReadHistoryEventMapper.fromMap;
   static const fromJson = ReadHistoryEventMapper.fromJson;

@@ -13,7 +13,7 @@ Unofficial Kavita client for mobile and desktop (in progress)
 - [Template: Getting Started](#template-getting-started)
 - [Setup](#setup)
 - [Testing](#testing)
-- [Building the App](#building-the-app)
+- [Building from Source (Advanced)](#building-from-source-advanced)
   - [Flavors](#flavors)
 - [Architecture](#architecture)
   - [Data Layer (Repositories)](#data-layer-repositories)
@@ -35,7 +35,7 @@ this app provides some basic functionality for them.
 
 A preview of the application is deployed to [getboolean.github.io/subete_app](https://getboolean.github.io/subete_app).
 
-- Supports Kavita 0.7
+- Supports Kavita 0.8
 - Minimal OS Version:
   - iOS: 13.0
   - Android: 6.0 (SDK 23)
@@ -71,7 +71,7 @@ A preview of the application is deployed to [getboolean.github.io/subete_app](ht
 melos run test
 ```
 
-## Building the App
+## Building from Source (Advanced)
 
 1. To run and build this app, you need to have [Flutter SDK](https://docs.flutter.dev/get-started/install) installed on your system. Check for any problems with the command below.
 
@@ -79,9 +79,23 @@ melos run test
     flutter doctor
     ```
 
-1. Create/modify [packages/env/local.env](packages/env/local.env) using the values from [packages/env/local.env.example](packages/env/local.env.example) as reference.
+1. Create/modify [packages/env/local.env](packages/env/local.env).
 
-1. Initiallize the Flutter project using [melos](https://pub.dev/packages/melos).
+```env
+# required
+KAVITA_BASE_URL=https://kavita.example.com
+
+# Either of the following
+# Option 1 (remove if unused)
+KAVITA_API_KEY=key_here
+
+# Option 2
+KAVITA_USERNAME=username_here
+KAVITA_PASSWORD=password_here
+
+```
+
+1. Initialize the Flutter project using [melos](https://pub.dev/packages/melos).
 
     ```bash
     flutter pub get
@@ -133,7 +147,8 @@ melos run test
 
         ```bash
         sudo apt-get update
-        sudo apt install webkit2gtk-4.1 clang cmake ninja-build pkg-config libgtk-3-dev mpv libmpv-dev dpkg-dev libfuse2
+        sudo apt-get install webkit2gtk-4.1 clang cmake ninja-build pkg-config libgtk-3-dev mpv libmpv-dev dpkg-dev
+        sudo apt install -y libfuse2
         flutter build linux --release --dart-define FLUTTER_APP_FLAVOR=local
         curl -JOL <https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage>
         chmod a+x appimagetool-x86_64.AppImage

@@ -746,5 +746,35 @@ void main() {
       // Then
       expect(res.isSuccessful, isTrue, reason: res.error.toString());
     });
+
+    test('Test Get All Chapter Progress', () async {
+      // Given
+      const chapterId = 1;
+      when(() => kavita.rawApi.apiReaderAllChapterProgressGet(
+            chapterId: chapterId,
+          )).thenResponse([
+        const raw.FullProgressDto(
+          id: 1,
+          chapterId: 1,
+          pagesRead: 1,
+          appUserId: 1,
+          userName: 'Test',
+        ),
+      ]);
+      final expected = [
+        const FullProgressDto(
+          id: 1,
+          chapterId: 1,
+          pagesRead: 1,
+          appUserId: 1,
+          userName: 'Test',
+        ),
+      ];
+      final res = await kavita.underTest.reader.getAllChapterProgress(
+        chapterId: chapterId,
+      );
+      expect(res.isSuccessful, isTrue, reason: res.error.toString());
+      expect(res.body, equals(expected));
+    });
   });
 }

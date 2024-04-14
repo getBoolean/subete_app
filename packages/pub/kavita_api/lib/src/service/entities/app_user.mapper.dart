@@ -22,6 +22,7 @@ class AppUserMapper extends ClassMapperBase<AppUser> {
       AppUserPreferencesMapper.ensureInitialized();
       AppUserBookmarkMapper.ensureInitialized();
       ReadingListMapper.ensureInitialized();
+      AppUserCollectionMapper.ensureInitialized();
       AppUserWantToReadMapper.ensureInitialized();
       DeviceMapper.ensureInitialized();
       AppUserTableOfContentMapper.ensureInitialized();
@@ -139,9 +140,18 @@ class AppUserMapper extends ClassMapperBase<AppUser> {
   static List<ReadingList>? _$readingLists(AppUser v) => v.readingLists;
   static const Field<AppUser, List<ReadingList>> _f$readingLists =
       Field('readingLists', _$readingLists, opt: true);
+  static List<AppUserCollection>? _$collections(AppUser v) => v.collections;
+  static const Field<AppUser, List<AppUserCollection>> _f$collections =
+      Field('collections', _$collections, opt: true);
   static List<AppUserWantToRead>? _$wantToRead(AppUser v) => v.wantToRead;
   static const Field<AppUser, List<AppUserWantToRead>> _f$wantToRead =
       Field('wantToRead', _$wantToRead, opt: true);
+  static String? _$malUserName(AppUser v) => v.malUserName;
+  static const Field<AppUser, String> _f$malUserName =
+      Field('malUserName', _$malUserName, opt: true);
+  static String? _$malAccessToken(AppUser v) => v.malAccessToken;
+  static const Field<AppUser, String> _f$malAccessToken =
+      Field('malAccessToken', _$malAccessToken, opt: true);
   static List<Device>? _$devices(AppUser v) => v.devices;
   static const Field<AppUser, List<Device>> _f$devices =
       Field('devices', _$devices, opt: true);
@@ -197,7 +207,10 @@ class AppUserMapper extends ClassMapperBase<AppUser> {
     #userPreferences: _f$userPreferences,
     #bookmarks: _f$bookmarks,
     #readingLists: _f$readingLists,
+    #collections: _f$collections,
     #wantToRead: _f$wantToRead,
+    #malUserName: _f$malUserName,
+    #malAccessToken: _f$malAccessToken,
     #devices: _f$devices,
     #tableOfContents: _f$tableOfContents,
     #libraries: _f$libraries,
@@ -242,7 +255,10 @@ class AppUserMapper extends ClassMapperBase<AppUser> {
         userPreferences: data.dec(_f$userPreferences),
         bookmarks: data.dec(_f$bookmarks),
         readingLists: data.dec(_f$readingLists),
+        collections: data.dec(_f$collections),
         wantToRead: data.dec(_f$wantToRead),
+        malUserName: data.dec(_f$malUserName),
+        malAccessToken: data.dec(_f$malAccessToken),
         devices: data.dec(_f$devices),
         tableOfContents: data.dec(_f$tableOfContents),
         libraries: data.dec(_f$libraries),
@@ -333,6 +349,9 @@ abstract class AppUserCopyWith<$R, $In extends AppUser, $Out>
       get bookmarks;
   ListCopyWith<$R, ReadingList,
       ReadingListCopyWith<$R, ReadingList, ReadingList>>? get readingLists;
+  ListCopyWith<$R, AppUserCollection,
+          AppUserCollectionCopyWith<$R, AppUserCollection, AppUserCollection>>?
+      get collections;
   ListCopyWith<$R, AppUserWantToRead,
           AppUserWantToReadCopyWith<$R, AppUserWantToRead, AppUserWantToRead>>?
       get wantToRead;
@@ -383,7 +402,10 @@ abstract class AppUserCopyWith<$R, $In extends AppUser, $Out>
       AppUserPreferences? userPreferences,
       List<AppUserBookmark>? bookmarks,
       List<ReadingList>? readingLists,
+      List<AppUserCollection>? collections,
       List<AppUserWantToRead>? wantToRead,
+      String? malUserName,
+      String? malAccessToken,
       List<Device>? devices,
       List<AppUserTableOfContent>? tableOfContents,
       List<Library>? libraries,
@@ -473,6 +495,13 @@ class _AppUserCopyWithImpl<$R, $Out>
               (v) => call(readingLists: v))
           : null;
   @override
+  ListCopyWith<$R, AppUserCollection,
+          AppUserCollectionCopyWith<$R, AppUserCollection, AppUserCollection>>?
+      get collections => $value.collections != null
+          ? ListCopyWith($value.collections!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(collections: v))
+          : null;
+  @override
   ListCopyWith<$R, AppUserWantToRead,
           AppUserWantToReadCopyWith<$R, AppUserWantToRead, AppUserWantToRead>>?
       get wantToRead => $value.wantToRead != null
@@ -550,7 +579,10 @@ class _AppUserCopyWithImpl<$R, $Out>
           Object? userPreferences = $none,
           Object? bookmarks = $none,
           Object? readingLists = $none,
+          Object? collections = $none,
           Object? wantToRead = $none,
+          Object? malUserName = $none,
+          Object? malAccessToken = $none,
           Object? devices = $none,
           Object? tableOfContents = $none,
           Object? libraries = $none,
@@ -595,7 +627,10 @@ class _AppUserCopyWithImpl<$R, $Out>
         if (userPreferences != $none) #userPreferences: userPreferences,
         if (bookmarks != $none) #bookmarks: bookmarks,
         if (readingLists != $none) #readingLists: readingLists,
+        if (collections != $none) #collections: collections,
         if (wantToRead != $none) #wantToRead: wantToRead,
+        if (malUserName != $none) #malUserName: malUserName,
+        if (malAccessToken != $none) #malAccessToken: malAccessToken,
         if (devices != $none) #devices: devices,
         if (tableOfContents != $none) #tableOfContents: tableOfContents,
         if (libraries != $none) #libraries: libraries,
@@ -647,7 +682,10 @@ class _AppUserCopyWithImpl<$R, $Out>
       userPreferences: data.get(#userPreferences, or: $value.userPreferences),
       bookmarks: data.get(#bookmarks, or: $value.bookmarks),
       readingLists: data.get(#readingLists, or: $value.readingLists),
+      collections: data.get(#collections, or: $value.collections),
       wantToRead: data.get(#wantToRead, or: $value.wantToRead),
+      malUserName: data.get(#malUserName, or: $value.malUserName),
+      malAccessToken: data.get(#malAccessToken, or: $value.malAccessToken),
       devices: data.get(#devices, or: $value.devices),
       tableOfContents: data.get(#tableOfContents, or: $value.tableOfContents),
       libraries: data.get(#libraries, or: $value.libraries),

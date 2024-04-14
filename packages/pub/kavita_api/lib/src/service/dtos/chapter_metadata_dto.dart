@@ -21,10 +21,13 @@ class ChapterMetadataDto with ChapterMetadataDtoMappable {
     this.characters,
     this.pencillers,
     this.inkers,
+    this.imprints,
     this.colorists,
     this.letterers,
     this.editors,
     this.translators,
+    this.teams,
+    this.locations,
     this.genres,
     this.tags,
     this.ageRating,
@@ -46,10 +49,13 @@ class ChapterMetadataDto with ChapterMetadataDtoMappable {
   final List<PersonDto>? characters;
   final List<PersonDto>? pencillers;
   final List<PersonDto>? inkers;
+  final List<PersonDto>? imprints;
   final List<PersonDto>? colorists;
   final List<PersonDto>? letterers;
   final List<PersonDto>? editors;
   final List<PersonDto>? translators;
+  final List<PersonDto>? teams;
+  final List<PersonDto>? locations;
   final List<GenreTagDto>? genres;
 
   /// Collection of all Tags from underlying chapters for a Series

@@ -23,7 +23,7 @@ class SearchResultGroupDto with SearchResultGroupDtoMappable {
 
   final List<LibraryDto>? libraries;
   final List<SearchResultDto>? series;
-  final List<CollectionTagDto>? collections;
+  final List<AppUserCollectionDto>? collections;
   final List<ReadingListDto>? readingLists;
   final List<PersonDto>? persons;
   final List<GenreTagDto>? genres;

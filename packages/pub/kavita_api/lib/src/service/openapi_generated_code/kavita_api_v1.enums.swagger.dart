@@ -127,6 +127,122 @@ enum AppUserAgeRestriction {
   const AppUserAgeRestriction(this.value);
 }
 
+enum AppUserCollectionAgeRating {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(2)
+  value_2(2),
+  @JsonValue(3)
+  value_3(3),
+  @JsonValue(4)
+  value_4(4),
+  @JsonValue(5)
+  value_5(5),
+  @JsonValue(6)
+  value_6(6),
+  @JsonValue(7)
+  value_7(7),
+  @JsonValue(8)
+  value_8(8),
+  @JsonValue(9)
+  value_9(9),
+  @JsonValue(10)
+  value_10(10),
+  @JsonValue(11)
+  value_11(11),
+  @JsonValue(12)
+  value_12(12),
+  @JsonValue(13)
+  value_13(13),
+  @JsonValue(14)
+  value_14(14),
+  @JsonValue(-1)
+  $value_1(-1);
+
+  final int? value;
+
+  const AppUserCollectionAgeRating(this.value);
+}
+
+enum AppUserCollectionSource {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(2)
+  value_2(2);
+
+  final int? value;
+
+  const AppUserCollectionSource(this.value);
+}
+
+enum AppUserCollectionDtoAgeRating {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(2)
+  value_2(2),
+  @JsonValue(3)
+  value_3(3),
+  @JsonValue(4)
+  value_4(4),
+  @JsonValue(5)
+  value_5(5),
+  @JsonValue(6)
+  value_6(6),
+  @JsonValue(7)
+  value_7(7),
+  @JsonValue(8)
+  value_8(8),
+  @JsonValue(9)
+  value_9(9),
+  @JsonValue(10)
+  value_10(10),
+  @JsonValue(11)
+  value_11(11),
+  @JsonValue(12)
+  value_12(12),
+  @JsonValue(13)
+  value_13(13),
+  @JsonValue(14)
+  value_14(14),
+  @JsonValue(-1)
+  $value_1(-1);
+
+  final int? value;
+
+  const AppUserCollectionDtoAgeRating(this.value);
+}
+
+enum AppUserCollectionDtoSource {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(2)
+  value_2(2);
+
+  final int? value;
+
+  const AppUserCollectionDtoSource(this.value);
+}
+
 enum AppUserDashboardStreamStreamType {
   @JsonValue(null)
   swaggerGeneratedUnknown(null),
@@ -273,6 +389,52 @@ enum AppUserPreferencesBookReaderLayoutMode {
   const AppUserPreferencesBookReaderLayoutMode(this.value);
 }
 
+enum AppUserPreferencesPdfTheme {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1);
+
+  final int? value;
+
+  const AppUserPreferencesPdfTheme(this.value);
+}
+
+enum AppUserPreferencesPdfScrollMode {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(3)
+  value_3(3);
+
+  final int? value;
+
+  const AppUserPreferencesPdfScrollMode(this.value);
+}
+
+enum AppUserPreferencesPdfSpreadMode {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(2)
+  value_2(2);
+
+  final int? value;
+
+  const AppUserPreferencesPdfSpreadMode(this.value);
+}
+
 enum AppUserPreferencesGlobalPageLayoutMode {
   @JsonValue(null)
   swaggerGeneratedUnknown(null),
@@ -366,7 +528,9 @@ enum BookmarkInfoDtoLibraryType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -536,7 +700,9 @@ enum ChapterInfoDtoLibraryType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -1012,7 +1178,13 @@ enum FilterStatementDtoField {
   @JsonValue(27)
   value_27(27),
   @JsonValue(28)
-  value_28(28);
+  value_28(28),
+  @JsonValue(29)
+  value_29(29),
+  @JsonValue(30)
+  value_30(30),
+  @JsonValue(31)
+  value_31(31);
 
   final int? value;
 
@@ -1046,7 +1218,9 @@ enum LibraryType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -1066,7 +1240,9 @@ enum LibraryDtoType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -1194,7 +1370,13 @@ enum PersonRole {
   @JsonValue(11)
   value_11(11),
   @JsonValue(12)
-  value_12(12);
+  value_12(12),
+  @JsonValue(13)
+  value_13(13),
+  @JsonValue(14)
+  value_14(14),
+  @JsonValue(15)
+  value_15(15);
 
   final int? value;
 
@@ -1226,7 +1408,13 @@ enum PersonDtoRole {
   @JsonValue(11)
   value_11(11),
   @JsonValue(12)
-  value_12(12);
+  value_12(12),
+  @JsonValue(13)
+  value_13(13),
+  @JsonValue(14)
+  value_14(14),
+  @JsonValue(15)
+  value_15(15);
 
   final int? value;
 
@@ -1344,7 +1532,9 @@ enum ReadingListItemDtoLibraryType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -1364,7 +1554,9 @@ enum RecentlyAddedItemDtoLibraryType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -1646,7 +1838,9 @@ enum SeriesRelationRelationKind {
   @JsonValue(12)
   value_12(12),
   @JsonValue(13)
-  value_13(13);
+  value_13(13),
+  @JsonValue(14)
+  value_14(14);
 
   final int? value;
 
@@ -1906,7 +2100,9 @@ enum UpdateLibraryDtoType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -2071,6 +2267,66 @@ enum UserPreferencesDtoGlobalPageLayoutMode {
   const UserPreferencesDtoGlobalPageLayoutMode(this.value);
 }
 
+enum UserPreferencesDtoPdfTheme {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1);
+
+  final int? value;
+
+  const UserPreferencesDtoPdfTheme(this.value);
+}
+
+enum UserPreferencesDtoPdfScrollMode {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(3)
+  value_3(3);
+
+  final int? value;
+
+  const UserPreferencesDtoPdfScrollMode(this.value);
+}
+
+enum UserPreferencesDtoPdfLayoutMode {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(2)
+  value_2(2);
+
+  final int? value;
+
+  const UserPreferencesDtoPdfLayoutMode(this.value);
+}
+
+enum UserPreferencesDtoPdfSpreadMode {
+  @JsonValue(null)
+  swaggerGeneratedUnknown(null),
+
+  @JsonValue(0)
+  value_0(0),
+  @JsonValue(1)
+  value_1(1),
+  @JsonValue(2)
+  value_2(2);
+
+  final int? value;
+
+  const UserPreferencesDtoPdfSpreadMode(this.value);
+}
+
 enum UserReviewDtoProvider {
   @JsonValue(null)
   swaggerGeneratedUnknown(null),
@@ -2100,7 +2356,9 @@ enum ApiLibraryTypeGet$Response {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -2132,7 +2390,13 @@ enum ApiMetadataPeopleByRoleGetRole {
   @JsonValue(11)
   value_11(11),
   @JsonValue(12)
-  value_12(12);
+  value_12(12),
+  @JsonValue(13)
+  value_13(13),
+  @JsonValue(14)
+  value_14(14),
+  @JsonValue(15)
+  value_15(15);
 
   final int? value;
 
@@ -2152,7 +2416,9 @@ enum ApiMetadataSeriesDetailPlusGetLibraryType {
   @JsonValue(3)
   value_3(3),
   @JsonValue(4)
-  value_4(4);
+  value_4(4),
+  @JsonValue(5)
+  value_5(5);
 
   final int? value;
 
@@ -2204,7 +2470,9 @@ enum ApiSeriesRelatedGetRelation {
   @JsonValue(12)
   value_12(12),
   @JsonValue(13)
-  value_13(13);
+  value_13(13),
+  @JsonValue(14)
+  value_14(14);
 
   final int? value;
 

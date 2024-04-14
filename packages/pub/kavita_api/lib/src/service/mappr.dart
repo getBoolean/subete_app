@@ -454,6 +454,26 @@ import 'package:meta/meta.dart';
     TypeConverter<int, ScrobbleEventType>(ScrobbleEventType.new),
   ]),
   MapType<raw.ScrobbleHoldDto, ScrobbleHoldDto>(),
+  MapType<raw.AppUserCollectionDto, AppUserCollectionDto>(converters: [
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<AppUserCollectionDto, raw.AppUserCollectionDto>(),
+  MapType<ch.Response<List<raw.AppUserCollectionDto>>,
+      KavitaResponse<List<AppUserCollectionDto>>>(),
+  MapType<ch.Response<List<raw.MalStackDto>>,
+      KavitaResponse<List<MalStackDto>>>(),
+  MapType<MalStackDto, raw.MalStackDto>(reverse: true),
+  MapType<ch.Response<List<raw.FullProgressDto>>,
+      KavitaResponse<List<FullProgressDto>>>(),
+  MapType<FullProgressDto, raw.FullProgressDto>(reverse: true),
+  MapType<MalUserInfoDto, raw.MalUserInfoDto>(reverse: true),
+  MapType<ch.Response<raw.MalUserInfoDto>, KavitaResponse<MalUserInfoDto>>(),
+  MapType<raw.AppUserCollection, AppUserCollection>(converters: [
+    TypeConverter<int, AgeRating>(AgeRating.new),
+  ]),
+  MapType<AppUserCollection, raw.AppUserCollection>(),
+  MapType<ch.Response<List<raw.AppUserCollection>>,
+      KavitaResponse<List<AppUserCollection>>>(),
 ])
 final class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance

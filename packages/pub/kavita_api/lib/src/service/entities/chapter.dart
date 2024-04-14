@@ -22,7 +22,10 @@ class Chapter
   const Chapter({
     this.id,
     this.range,
-    this.number,
+    @Deprecated('Use minNumber/maxNumber instead') this.number,
+    this.minNumber,
+    this.maxNumber,
+    this.sortOrder,
     this.files,
     this.created,
     this.lastModified,
@@ -64,10 +67,22 @@ class Chapter
   final int? id;
 
   /// Range of numbers. Chapter 2-4 -> "2-4". Chapter 2 -> "2".
+  ///
+  /// If the chapter is a special, will return the Special Name"
   final String? range;
 
   /// Smallest number of the Range. Can be a partial like Chapter 4.5
+  @Deprecated('Use minNumber/maxNumber instead')
   final String? number;
+
+  /// Minimum Chapter Number.
+  final double? minNumber;
+
+  /// Maximum Chapter Number
+  final double? maxNumber;
+
+  /// The sorting order of the Chapter. Inherits from [minNumber], but can be overridden.
+  final double? sortOrder;
 
   /// The files that represent this Chapter
   final List<MangaFile>? files;

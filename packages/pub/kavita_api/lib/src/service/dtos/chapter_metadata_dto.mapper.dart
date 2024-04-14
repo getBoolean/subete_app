@@ -51,6 +51,9 @@ class ChapterMetadataDtoMapper extends ClassMapperBase<ChapterMetadataDto> {
   static List<PersonDto>? _$inkers(ChapterMetadataDto v) => v.inkers;
   static const Field<ChapterMetadataDto, List<PersonDto>> _f$inkers =
       Field('inkers', _$inkers, opt: true);
+  static List<PersonDto>? _$imprints(ChapterMetadataDto v) => v.imprints;
+  static const Field<ChapterMetadataDto, List<PersonDto>> _f$imprints =
+      Field('imprints', _$imprints, opt: true);
   static List<PersonDto>? _$colorists(ChapterMetadataDto v) => v.colorists;
   static const Field<ChapterMetadataDto, List<PersonDto>> _f$colorists =
       Field('colorists', _$colorists, opt: true);
@@ -63,6 +66,12 @@ class ChapterMetadataDtoMapper extends ClassMapperBase<ChapterMetadataDto> {
   static List<PersonDto>? _$translators(ChapterMetadataDto v) => v.translators;
   static const Field<ChapterMetadataDto, List<PersonDto>> _f$translators =
       Field('translators', _$translators, opt: true);
+  static List<PersonDto>? _$teams(ChapterMetadataDto v) => v.teams;
+  static const Field<ChapterMetadataDto, List<PersonDto>> _f$teams =
+      Field('teams', _$teams, opt: true);
+  static List<PersonDto>? _$locations(ChapterMetadataDto v) => v.locations;
+  static const Field<ChapterMetadataDto, List<PersonDto>> _f$locations =
+      Field('locations', _$locations, opt: true);
   static List<GenreTagDto>? _$genres(ChapterMetadataDto v) => v.genres;
   static const Field<ChapterMetadataDto, List<GenreTagDto>> _f$genres =
       Field('genres', _$genres, opt: true);
@@ -105,10 +114,13 @@ class ChapterMetadataDtoMapper extends ClassMapperBase<ChapterMetadataDto> {
     #characters: _f$characters,
     #pencillers: _f$pencillers,
     #inkers: _f$inkers,
+    #imprints: _f$imprints,
     #colorists: _f$colorists,
     #letterers: _f$letterers,
     #editors: _f$editors,
     #translators: _f$translators,
+    #teams: _f$teams,
+    #locations: _f$locations,
     #genres: _f$genres,
     #tags: _f$tags,
     #ageRating: _f$ageRating,
@@ -132,10 +144,13 @@ class ChapterMetadataDtoMapper extends ClassMapperBase<ChapterMetadataDto> {
         characters: data.dec(_f$characters),
         pencillers: data.dec(_f$pencillers),
         inkers: data.dec(_f$inkers),
+        imprints: data.dec(_f$imprints),
         colorists: data.dec(_f$colorists),
         letterers: data.dec(_f$letterers),
         editors: data.dec(_f$editors),
         translators: data.dec(_f$translators),
+        teams: data.dec(_f$teams),
+        locations: data.dec(_f$locations),
         genres: data.dec(_f$genres),
         tags: data.dec(_f$tags),
         ageRating: data.dec(_f$ageRating),
@@ -218,6 +233,8 @@ abstract class ChapterMetadataDtoCopyWith<$R, $In extends ChapterMetadataDto,
   ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
       get inkers;
   ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get imprints;
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
       get colorists;
   ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
       get letterers;
@@ -225,6 +242,10 @@ abstract class ChapterMetadataDtoCopyWith<$R, $In extends ChapterMetadataDto,
       get editors;
   ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
       get translators;
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get teams;
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get locations;
   ListCopyWith<$R, GenreTagDto,
       GenreTagDtoCopyWith<$R, GenreTagDto, GenreTagDto>>? get genres;
   ListCopyWith<$R, TagDto, TagDtoCopyWith<$R, TagDto, TagDto>>? get tags;
@@ -238,10 +259,13 @@ abstract class ChapterMetadataDtoCopyWith<$R, $In extends ChapterMetadataDto,
       List<PersonDto>? characters,
       List<PersonDto>? pencillers,
       List<PersonDto>? inkers,
+      List<PersonDto>? imprints,
       List<PersonDto>? colorists,
       List<PersonDto>? letterers,
       List<PersonDto>? editors,
       List<PersonDto>? translators,
+      List<PersonDto>? teams,
+      List<PersonDto>? locations,
       List<GenreTagDto>? genres,
       List<TagDto>? tags,
       int? ageRating,
@@ -302,6 +326,12 @@ class _ChapterMetadataDtoCopyWithImpl<$R, $Out>
           : null;
   @override
   ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get imprints => $value.imprints != null
+          ? ListCopyWith($value.imprints!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(imprints: v))
+          : null;
+  @override
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
       get colorists => $value.colorists != null
           ? ListCopyWith($value.colorists!, (v, t) => v.copyWith.$chain(t),
               (v) => call(colorists: v))
@@ -323,6 +353,18 @@ class _ChapterMetadataDtoCopyWithImpl<$R, $Out>
       get translators => $value.translators != null
           ? ListCopyWith($value.translators!, (v, t) => v.copyWith.$chain(t),
               (v) => call(translators: v))
+          : null;
+  @override
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get teams => $value.teams != null
+          ? ListCopyWith($value.teams!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(teams: v))
+          : null;
+  @override
+  ListCopyWith<$R, PersonDto, PersonDtoCopyWith<$R, PersonDto, PersonDto>>?
+      get locations => $value.locations != null
+          ? ListCopyWith($value.locations!, (v, t) => v.copyWith.$chain(t),
+              (v) => call(locations: v))
           : null;
   @override
   ListCopyWith<$R, GenreTagDto,
@@ -348,10 +390,13 @@ class _ChapterMetadataDtoCopyWithImpl<$R, $Out>
           Object? characters = $none,
           Object? pencillers = $none,
           Object? inkers = $none,
+          Object? imprints = $none,
           Object? colorists = $none,
           Object? letterers = $none,
           Object? editors = $none,
           Object? translators = $none,
+          Object? teams = $none,
+          Object? locations = $none,
           Object? genres = $none,
           Object? tags = $none,
           Object? ageRating = $none,
@@ -372,10 +417,13 @@ class _ChapterMetadataDtoCopyWithImpl<$R, $Out>
         if (characters != $none) #characters: characters,
         if (pencillers != $none) #pencillers: pencillers,
         if (inkers != $none) #inkers: inkers,
+        if (imprints != $none) #imprints: imprints,
         if (colorists != $none) #colorists: colorists,
         if (letterers != $none) #letterers: letterers,
         if (editors != $none) #editors: editors,
         if (translators != $none) #translators: translators,
+        if (teams != $none) #teams: teams,
+        if (locations != $none) #locations: locations,
         if (genres != $none) #genres: genres,
         if (tags != $none) #tags: tags,
         if (ageRating != $none) #ageRating: ageRating,
@@ -398,10 +446,13 @@ class _ChapterMetadataDtoCopyWithImpl<$R, $Out>
       characters: data.get(#characters, or: $value.characters),
       pencillers: data.get(#pencillers, or: $value.pencillers),
       inkers: data.get(#inkers, or: $value.inkers),
+      imprints: data.get(#imprints, or: $value.imprints),
       colorists: data.get(#colorists, or: $value.colorists),
       letterers: data.get(#letterers, or: $value.letterers),
       editors: data.get(#editors, or: $value.editors),
       translators: data.get(#translators, or: $value.translators),
+      teams: data.get(#teams, or: $value.teams),
+      locations: data.get(#locations, or: $value.locations),
       genres: data.get(#genres, or: $value.genres),
       tags: data.get(#tags, or: $value.tags),
       ageRating: data.get(#ageRating, or: $value.ageRating),
