@@ -526,7 +526,6 @@ AppUserPreferences _$AppUserPreferencesFromJson(Map<String, dynamic> json) =>
       bookReaderImmersiveMode: json['bookReaderImmersiveMode'] as bool?,
       pdfTheme: json['pdfTheme'] as int?,
       pdfScrollMode: json['pdfScrollMode'] as int?,
-      pdfLayoutMode: json['pdfLayoutMode'] as int?,
       pdfSpreadMode: json['pdfSpreadMode'] as int?,
       theme: json['theme'] == null
           ? null
@@ -577,7 +576,6 @@ Map<String, dynamic> _$AppUserPreferencesToJson(AppUserPreferences instance) {
   writeNotNull('bookReaderImmersiveMode', instance.bookReaderImmersiveMode);
   writeNotNull('pdfTheme', instance.pdfTheme);
   writeNotNull('pdfScrollMode', instance.pdfScrollMode);
-  writeNotNull('pdfLayoutMode', instance.pdfLayoutMode);
   writeNotNull('pdfSpreadMode', instance.pdfSpreadMode);
   writeNotNull('theme', instance.theme?.toJson());
   writeNotNull('globalPageLayoutMode', instance.globalPageLayoutMode);

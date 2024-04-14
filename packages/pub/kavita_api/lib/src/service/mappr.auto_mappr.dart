@@ -11100,10 +11100,6 @@ class $Mappr implements _i1.AutoMapprInterface {
           ? null
           : (_i126.ReadingDirection(model.pdfScrollMode!)
               as _i131.PdfScrollMode?),
-      pdfLayoutMode: model.pdfLayoutMode == null
-          ? null
-          : (_i126.ReadingDirection(model.pdfLayoutMode!)
-              as _i132.PdfLayoutMode?),
       pdfSpreadMode: model.pdfSpreadMode == null
           ? null
           : (_i126.ReadingDirection(model.pdfSpreadMode!)
@@ -11157,7 +11153,6 @@ class $Mappr implements _i1.AutoMapprInterface {
       bookReaderImmersiveMode: model.bookReaderImmersiveMode,
       pdfTheme: model.pdfTheme,
       pdfScrollMode: model.pdfScrollMode,
-      pdfLayoutMode: model.pdfLayoutMode,
       pdfSpreadMode: model.pdfSpreadMode,
       theme: _map__i8$SiteTheme_To__i4$SiteTheme_Nullable(model.theme),
       globalPageLayoutMode: model.globalPageLayoutMode,
@@ -15960,10 +15955,6 @@ class $Mappr implements _i1.AutoMapprInterface {
           ? null
           : (_i126.ReadingDirection(model.pdfScrollMode!)
               as _i131.PdfScrollMode?),
-      pdfLayoutMode: model.pdfLayoutMode == null
-          ? null
-          : (_i126.ReadingDirection(model.pdfLayoutMode!)
-              as _i132.PdfLayoutMode?),
       pdfSpreadMode: model.pdfSpreadMode == null
           ? null
           : (_i126.ReadingDirection(model.pdfSpreadMode!)
@@ -16016,7 +16007,6 @@ class $Mappr implements _i1.AutoMapprInterface {
       bookReaderImmersiveMode: model.bookReaderImmersiveMode,
       pdfTheme: model.pdfTheme,
       pdfScrollMode: model.pdfScrollMode,
-      pdfLayoutMode: model.pdfLayoutMode,
       pdfSpreadMode: model.pdfSpreadMode,
       theme: _map__i8$SiteTheme_To__i4$SiteTheme_Nullable(model.theme),
       globalPageLayoutMode: model.globalPageLayoutMode,

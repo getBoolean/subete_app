@@ -6287,7 +6287,7 @@ class AppUserCollection {
   static const fromJsonFactory = _$AppUserCollectionFromJson;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other is AppUserCollection &&
             (identical(other.id, id) ||
@@ -6505,7 +6505,7 @@ class AppUserCollectionDto {
   static const fromJsonFactory = _$AppUserCollectionDtoFromJson;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other is AppUserCollectionDto &&
             (identical(other.id, id) ||
@@ -6872,7 +6872,6 @@ class AppUserPreferences {
     this.bookReaderImmersiveMode,
     this.pdfTheme,
     this.pdfScrollMode,
-    this.pdfLayoutMode,
     this.pdfSpreadMode,
     this.theme,
     this.globalPageLayoutMode,
@@ -6938,8 +6937,6 @@ class AppUserPreferences {
   final int? pdfTheme;
   @JsonKey(name: 'pdfScrollMode', includeIfNull: false)
   final int? pdfScrollMode;
-  @JsonKey(name: 'pdfLayoutMode', includeIfNull: false)
-  final int? pdfLayoutMode;
   @JsonKey(name: 'pdfSpreadMode', includeIfNull: false)
   final int? pdfSpreadMode;
   @JsonKey(name: 'theme', includeIfNull: false)
@@ -7030,7 +7027,6 @@ class AppUserPreferences {
             (identical(other.bookReaderImmersiveMode, bookReaderImmersiveMode) || const DeepCollectionEquality().equals(other.bookReaderImmersiveMode, bookReaderImmersiveMode)) &&
             (identical(other.pdfTheme, pdfTheme) || const DeepCollectionEquality().equals(other.pdfTheme, pdfTheme)) &&
             (identical(other.pdfScrollMode, pdfScrollMode) || const DeepCollectionEquality().equals(other.pdfScrollMode, pdfScrollMode)) &&
-            (identical(other.pdfLayoutMode, pdfLayoutMode) || const DeepCollectionEquality().equals(other.pdfLayoutMode, pdfLayoutMode)) &&
             (identical(other.pdfSpreadMode, pdfSpreadMode) || const DeepCollectionEquality().equals(other.pdfSpreadMode, pdfSpreadMode)) &&
             (identical(other.theme, theme) || const DeepCollectionEquality().equals(other.theme, theme)) &&
             (identical(other.globalPageLayoutMode, globalPageLayoutMode) || const DeepCollectionEquality().equals(other.globalPageLayoutMode, globalPageLayoutMode)) &&
@@ -7072,7 +7068,6 @@ class AppUserPreferences {
       const DeepCollectionEquality().hash(bookReaderImmersiveMode) ^
       const DeepCollectionEquality().hash(pdfTheme) ^
       const DeepCollectionEquality().hash(pdfScrollMode) ^
-      const DeepCollectionEquality().hash(pdfLayoutMode) ^
       const DeepCollectionEquality().hash(pdfSpreadMode) ^
       const DeepCollectionEquality().hash(theme) ^
       const DeepCollectionEquality().hash(globalPageLayoutMode) ^
@@ -7112,7 +7107,6 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
       bool? bookReaderImmersiveMode,
       int? pdfTheme,
       int? pdfScrollMode,
-      int? pdfLayoutMode,
       int? pdfSpreadMode,
       SiteTheme? theme,
       int? globalPageLayoutMode,
@@ -7153,7 +7147,6 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
             bookReaderImmersiveMode ?? this.bookReaderImmersiveMode,
         pdfTheme: pdfTheme ?? this.pdfTheme,
         pdfScrollMode: pdfScrollMode ?? this.pdfScrollMode,
-        pdfLayoutMode: pdfLayoutMode ?? this.pdfLayoutMode,
         pdfSpreadMode: pdfSpreadMode ?? this.pdfSpreadMode,
         theme: theme ?? this.theme,
         globalPageLayoutMode: globalPageLayoutMode ?? this.globalPageLayoutMode,
@@ -7193,7 +7186,6 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
       Wrapped<bool?>? bookReaderImmersiveMode,
       Wrapped<int?>? pdfTheme,
       Wrapped<int?>? pdfScrollMode,
-      Wrapped<int?>? pdfLayoutMode,
       Wrapped<int?>? pdfSpreadMode,
       Wrapped<SiteTheme?>? theme,
       Wrapped<int?>? globalPageLayoutMode,
@@ -7262,8 +7254,6 @@ extension $AppUserPreferencesExtension on AppUserPreferences {
         pdfTheme: (pdfTheme != null ? pdfTheme.value : this.pdfTheme),
         pdfScrollMode:
             (pdfScrollMode != null ? pdfScrollMode.value : this.pdfScrollMode),
-        pdfLayoutMode:
-            (pdfLayoutMode != null ? pdfLayoutMode.value : this.pdfLayoutMode),
         pdfSpreadMode:
             (pdfSpreadMode != null ? pdfSpreadMode.value : this.pdfSpreadMode),
         theme: (theme != null ? theme.value : this.theme),
@@ -13788,7 +13778,7 @@ class FullProgressDto {
   static const fromJsonFactory = _$FullProgressDtoFromJson;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other is FullProgressDto &&
             (identical(other.id, id) ||
@@ -15398,7 +15388,7 @@ class MalStackDto {
   static const fromJsonFactory = _$MalStackDtoFromJson;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other is MalStackDto &&
             (identical(other.title, title) ||
@@ -15496,7 +15486,7 @@ class MalUserInfoDto {
   static const fromJsonFactory = _$MalUserInfoDtoFromJson;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other is MalUserInfoDto &&
             (identical(other.username, username) ||
@@ -16805,7 +16795,7 @@ class PromoteCollectionsDto {
   static const fromJsonFactory = _$PromoteCollectionsDtoFromJson;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other is PromoteCollectionsDto &&
             (identical(other.collectionIds, collectionIds) ||
@@ -25826,7 +25816,7 @@ class UpdateUserProgressDto {
   static const fromJsonFactory = _$UpdateUserProgressDtoFromJson;
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other is UpdateUserProgressDto &&
             (identical(other.pageNum, pageNum) ||
@@ -29066,83 +29056,6 @@ List<enums.AppUserPreferencesPdfScrollMode>?
 
   return appUserPreferencesPdfScrollMode
       .map((e) => appUserPreferencesPdfScrollModeFromJson(e.toString()))
-      .toList();
-}
-
-int? appUserPreferencesPdfLayoutModeNullableToJson(
-    enums.AppUserPreferencesPdfLayoutMode? appUserPreferencesPdfLayoutMode) {
-  return appUserPreferencesPdfLayoutMode?.value;
-}
-
-int? appUserPreferencesPdfLayoutModeToJson(
-    enums.AppUserPreferencesPdfLayoutMode appUserPreferencesPdfLayoutMode) {
-  return appUserPreferencesPdfLayoutMode.value;
-}
-
-enums.AppUserPreferencesPdfLayoutMode appUserPreferencesPdfLayoutModeFromJson(
-  Object? appUserPreferencesPdfLayoutMode, [
-  enums.AppUserPreferencesPdfLayoutMode? defaultValue,
-]) {
-  return enums.AppUserPreferencesPdfLayoutMode.values.firstWhereOrNull(
-          (e) => e.value == appUserPreferencesPdfLayoutMode) ??
-      defaultValue ??
-      enums.AppUserPreferencesPdfLayoutMode.swaggerGeneratedUnknown;
-}
-
-enums.AppUserPreferencesPdfLayoutMode?
-    appUserPreferencesPdfLayoutModeNullableFromJson(
-  Object? appUserPreferencesPdfLayoutMode, [
-  enums.AppUserPreferencesPdfLayoutMode? defaultValue,
-]) {
-  if (appUserPreferencesPdfLayoutMode == null) {
-    return null;
-  }
-  return enums.AppUserPreferencesPdfLayoutMode.values.firstWhereOrNull(
-          (e) => e.value == appUserPreferencesPdfLayoutMode) ??
-      defaultValue;
-}
-
-String appUserPreferencesPdfLayoutModeExplodedListToJson(
-    List<enums.AppUserPreferencesPdfLayoutMode>?
-        appUserPreferencesPdfLayoutMode) {
-  return appUserPreferencesPdfLayoutMode?.map((e) => e.value!).join(',') ?? '';
-}
-
-List<int> appUserPreferencesPdfLayoutModeListToJson(
-    List<enums.AppUserPreferencesPdfLayoutMode>?
-        appUserPreferencesPdfLayoutMode) {
-  if (appUserPreferencesPdfLayoutMode == null) {
-    return [];
-  }
-
-  return appUserPreferencesPdfLayoutMode.map((e) => e.value!).toList();
-}
-
-List<enums.AppUserPreferencesPdfLayoutMode>
-    appUserPreferencesPdfLayoutModeListFromJson(
-  List? appUserPreferencesPdfLayoutMode, [
-  List<enums.AppUserPreferencesPdfLayoutMode>? defaultValue,
-]) {
-  if (appUserPreferencesPdfLayoutMode == null) {
-    return defaultValue ?? [];
-  }
-
-  return appUserPreferencesPdfLayoutMode
-      .map((e) => appUserPreferencesPdfLayoutModeFromJson(e.toString()))
-      .toList();
-}
-
-List<enums.AppUserPreferencesPdfLayoutMode>?
-    appUserPreferencesPdfLayoutModeNullableListFromJson(
-  List? appUserPreferencesPdfLayoutMode, [
-  List<enums.AppUserPreferencesPdfLayoutMode>? defaultValue,
-]) {
-  if (appUserPreferencesPdfLayoutMode == null) {
-    return defaultValue;
-  }
-
-  return appUserPreferencesPdfLayoutMode
-      .map((e) => appUserPreferencesPdfLayoutModeFromJson(e.toString()))
       .toList();
 }
 

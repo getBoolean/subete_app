@@ -110,10 +110,6 @@ class AppUserPreferencesMapper extends ClassMapperBase<AppUserPreferences> {
       v.pdfScrollMode;
   static const Field<AppUserPreferences, PdfScrollMode> _f$pdfScrollMode =
       Field('pdfScrollMode', _$pdfScrollMode, opt: true);
-  static PdfLayoutMode? _$pdfLayoutMode(AppUserPreferences v) =>
-      v.pdfLayoutMode;
-  static const Field<AppUserPreferences, PdfLayoutMode> _f$pdfLayoutMode =
-      Field('pdfLayoutMode', _$pdfLayoutMode, opt: true);
   static PdfSpreadMode? _$pdfSpreadMode(AppUserPreferences v) =>
       v.pdfSpreadMode;
   static const Field<AppUserPreferences, PdfSpreadMode> _f$pdfSpreadMode =
@@ -178,7 +174,6 @@ class AppUserPreferencesMapper extends ClassMapperBase<AppUserPreferences> {
     #bookReaderImmersiveMode: _f$bookReaderImmersiveMode,
     #pdfTheme: _f$pdfTheme,
     #pdfScrollMode: _f$pdfScrollMode,
-    #pdfLayoutMode: _f$pdfLayoutMode,
     #pdfSpreadMode: _f$pdfSpreadMode,
     #globalPageLayoutMode: _f$globalPageLayoutMode,
     #blurUnreadSummaries: _f$blurUnreadSummaries,
@@ -217,7 +212,6 @@ class AppUserPreferencesMapper extends ClassMapperBase<AppUserPreferences> {
         bookReaderImmersiveMode: data.dec(_f$bookReaderImmersiveMode),
         pdfTheme: data.dec(_f$pdfTheme),
         pdfScrollMode: data.dec(_f$pdfScrollMode),
-        pdfLayoutMode: data.dec(_f$pdfLayoutMode),
         pdfSpreadMode: data.dec(_f$pdfSpreadMode),
         globalPageLayoutMode: data.dec(_f$globalPageLayoutMode),
         blurUnreadSummaries: data.dec(_f$blurUnreadSummaries),
@@ -314,7 +308,6 @@ abstract class AppUserPreferencesCopyWith<$R, $In extends AppUserPreferences,
       bool? bookReaderImmersiveMode,
       PdfTheme? pdfTheme,
       PdfScrollMode? pdfScrollMode,
-      PdfLayoutMode? pdfLayoutMode,
       PdfSpreadMode? pdfSpreadMode,
       PageLayoutMode? globalPageLayoutMode,
       bool? blurUnreadSummaries,
@@ -369,7 +362,6 @@ class _AppUserPreferencesCopyWithImpl<$R, $Out>
           Object? bookReaderImmersiveMode = $none,
           Object? pdfTheme = $none,
           Object? pdfScrollMode = $none,
-          Object? pdfLayoutMode = $none,
           Object? pdfSpreadMode = $none,
           Object? globalPageLayoutMode = $none,
           Object? blurUnreadSummaries = $none,
@@ -413,7 +405,6 @@ class _AppUserPreferencesCopyWithImpl<$R, $Out>
           #bookReaderImmersiveMode: bookReaderImmersiveMode,
         if (pdfTheme != $none) #pdfTheme: pdfTheme,
         if (pdfScrollMode != $none) #pdfScrollMode: pdfScrollMode,
-        if (pdfLayoutMode != $none) #pdfLayoutMode: pdfLayoutMode,
         if (pdfSpreadMode != $none) #pdfSpreadMode: pdfSpreadMode,
         if (globalPageLayoutMode != $none)
           #globalPageLayoutMode: globalPageLayoutMode,
@@ -465,7 +456,6 @@ class _AppUserPreferencesCopyWithImpl<$R, $Out>
           or: $value.bookReaderImmersiveMode),
       pdfTheme: data.get(#pdfTheme, or: $value.pdfTheme),
       pdfScrollMode: data.get(#pdfScrollMode, or: $value.pdfScrollMode),
-      pdfLayoutMode: data.get(#pdfLayoutMode, or: $value.pdfLayoutMode),
       pdfSpreadMode: data.get(#pdfSpreadMode, or: $value.pdfSpreadMode),
       globalPageLayoutMode:
           data.get(#globalPageLayoutMode, or: $value.globalPageLayoutMode),
