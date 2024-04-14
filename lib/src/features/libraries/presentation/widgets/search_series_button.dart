@@ -70,7 +70,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
                 await ref.read(seriesPaginatedProvider(
               libraryId: int.parse(libraryId),
               pageNumber: 1,
-              pageSize: 10,
+              pageSize: 25,
               query: controller.text,
             ).future);
             return series.results
