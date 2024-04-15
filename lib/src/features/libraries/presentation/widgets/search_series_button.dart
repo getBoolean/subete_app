@@ -121,7 +121,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
                     ) =>
                         SeriesItemWidget(
                       key: ValueKey(
-                          'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-$query'),
+                          'search-library-$libraryId-series-${eachSeries.id ?? 'no-id-$indexInPage'}-$query'),
                       seriesItem: eachSeries,
                       titleElipsis: true,
                       onTap: () => context.goNamed(

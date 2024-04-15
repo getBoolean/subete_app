@@ -52,7 +52,7 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
       itemBuilder: (BuildContext context, SeriesDto item, int indexInPage) =>
           SeriesItemWidget(
         key: ValueKey(
-            'library-${widget.libraryId}-series-${item.id ?? indexInPage}'),
+            'library-${widget.libraryId}-series-${item.id ?? 'no-id-$indexInPage'}'),
         seriesItem: item,
         titleElipsis: true,
         onTap: () => context.goNamed(

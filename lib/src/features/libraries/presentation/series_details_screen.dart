@@ -55,7 +55,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
                     final VolumeDto volumeItem = volumes[index];
                     return Builder(builder: (context) {
                       return _VolumeWidget(
-                        key: ValueKey(volumeItem.id ?? index),
+                        key: ValueKey(volumeItem.id ?? 'volume-item-$index'),
                         volumeItem: volumeItem,
                         seriesName: series.valueOrNull?.name ?? '',
                       );

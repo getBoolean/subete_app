@@ -41,7 +41,7 @@ class LibrariesScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final library = lightNovelLibraries[index];
                       return _SingleLibraryItemWidget(
-                        key: ValueKey(library.id ?? index),
+                        key: ValueKey(library.id ?? 'library-item-$index'),
                         library: library,
                       );
                     },
