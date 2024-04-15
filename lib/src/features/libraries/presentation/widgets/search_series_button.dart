@@ -67,7 +67,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
             return BackButton(
               onPressed: () {
                 widget.focusNode.unfocus();
-                Navigator.of(context).pop();
+                searchController.closeView(null);
                 widget.focusNode.unfocus();
               },
             );
