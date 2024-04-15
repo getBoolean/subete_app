@@ -17,20 +17,8 @@ KavitaApi kavita(KavitaRef ref) {
 @Riverpod(keepAlive: true)
 Future<void> kavitaAuthenticate(KavitaAuthenticateRef ref) async {
   final kavita = ref.watch(kavitaProvider);
-  final log = ref.watch(logProvider('kavitaAuthenticate'));
+  final log = ref.watch(loggerProvider('kavitaAuthenticate'));
   await _authenticate(log, kavita);
-}
-
-@Riverpod(keepAlive: true)
-Stream<UserDto?> kavitaUser(
-  KavitaUserRef ref,
-) async* {
-  final api = ref.watch(kavitaProvider);
-  await for (final user in api.context.onUserChange) {
-    if (user != null) {
-      yield user;
-    }
-  }
 }
 
 Future<void> _authenticate(Logger log, KavitaApi api) async {
@@ -54,5 +42,17 @@ Future<void> _authenticate(Logger log, KavitaApi api) async {
       log.warning('No Credentials provided, using demo server and user');
     }
     await api.account.login(username: kavitaUsername, password: kavitaPassword);
+  }
+}
+
+@Riverpod(keepAlive: true)
+Stream<UserDto?> kavitaUser(
+  KavitaUserRef ref,
+) async* {
+  final api = ref.watch(kavitaProvider);
+  await for (final user in api.context.onUserChange) {
+    if (user != null) {
+      yield user;
+    }
   }
 }

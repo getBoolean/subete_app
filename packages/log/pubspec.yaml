@@ -12,12 +12,17 @@ dependencies:
   hooks_riverpod: ^2.4.0
   logger_flutter_plus: ^1.0.5
   logging: ^1.2.0
+  riverpod_annotation: ^2.3.5
 
 dev_dependencies:
   app_lints:
     path: ../app_lints
+  build_runner: ^2.4.9
+  custom_lint: ^0.6.4
   flutter_test:
     sdk: flutter
+  riverpod_generator: ^2.4.0
+  riverpod_lint: ^2.3.10
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

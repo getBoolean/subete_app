@@ -21,7 +21,7 @@ final kavitaProvider = Provider<KavitaApi>.internal(
 
 typedef KavitaRef = ProviderRef<KavitaApi>;
 String _$kavitaAuthenticateHash() =>
-    r'cc691ece81a8783ca1753b8e417115f73024ef30';
+    r'159fa7fb042742aea1f516a3b3ff8a1a47869cfd';
 
 /// See also [kavitaAuthenticate].
 @ProviderFor(kavitaAuthenticate)

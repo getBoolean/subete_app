@@ -20,7 +20,7 @@ final librariesProvider = AutoDisposeFutureProvider<List<LibraryDto>>.internal(
 );
 
 typedef LibrariesRef = AutoDisposeFutureProviderRef<List<LibraryDto>>;
-String _$findLibraryHash() => r'184c6f4e107a5ad50c39f662646f144377c1e29a';
+String _$findLibraryHash() => r'0264546d12cf80ecd4cf724e64b5120f9f0de4cc';
 
 /// Copied from Dart SDK
 class _SystemHash {
