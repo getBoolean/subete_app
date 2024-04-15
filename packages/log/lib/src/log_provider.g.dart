@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'log.dart';
+part of 'log_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$logHash() => r'09443fff9096f32b0086dbc4d5a7354b9b828acf';
+String _$logHash() => r'de5b577dd5939f48df03d6864fa6684f8bac9e89';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,10 +40,10 @@ class LogFamily extends Family<Logger> {
 
   /// See also [log].
   LogProvider call(
-    String name,
+    String loggerName,
   ) {
     return LogProvider(
-      name,
+      loggerName,
     );
   }
 
@@ -52,7 +52,7 @@ class LogFamily extends Family<Logger> {
     covariant LogProvider provider,
   ) {
     return call(
-      provider.name,
+      provider.loggerName,
     );
   }
 
@@ -75,11 +75,11 @@ class LogFamily extends Family<Logger> {
 class LogProvider extends Provider<Logger> {
   /// See also [log].
   LogProvider(
-    String name,
+    String loggerName,
   ) : this._internal(
           (ref) => log(
             ref as LogRef,
-            name,
+            loggerName,
           ),
           from: logProvider,
           name: r'logProvider',
@@ -87,7 +87,7 @@ class LogProvider extends Provider<Logger> {
               const bool.fromEnvironment('dart.vm.product') ? null : _$logHash,
           dependencies: LogFamily._dependencies,
           allTransitiveDependencies: LogFamily._allTransitiveDependencies,
-          name: name,
+          loggerName: loggerName,
         );
 
   LogProvider._internal(
@@ -97,10 +97,10 @@ class LogProvider extends Provider<Logger> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.name,
+    required this.loggerName,
   }) : super.internal();
 
-  final String name;
+  final String loggerName;
 
   @override
   Override overrideWith(
@@ -115,7 +115,7 @@ class LogProvider extends Provider<Logger> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        name: name,
+        loggerName: loggerName,
       ),
     );
   }
@@ -127,28 +127,28 @@ class LogProvider extends Provider<Logger> {
 
   @override
   bool operator ==(Object other) {
-    return other is LogProvider && other.name == name;
+    return other is LogProvider && other.loggerName == loggerName;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, name.hashCode);
+    hash = _SystemHash.combine(hash, loggerName.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
 mixin LogRef on ProviderRef<Logger> {
-  /// The parameter `name` of this provider.
-  String get name;
+  /// The parameter `loggerName` of this provider.
+  String get loggerName;
 }
 
 class _LogProviderElement extends ProviderElement<Logger> with LogRef {
   _LogProviderElement(super.provider);
 
   @override
-  String get name => (origin as LogProvider).name;
+  String get loggerName => (origin as LogProvider).loggerName;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
