@@ -17,7 +17,8 @@ class DevEnv implements EnvFlavor, EnvFields {
   final bool usePathUrlStrategy = _Env.usePathUrlStrategy;
 
   @override
-  @EnviedField(varName: 'KAVITA_BASE_URL')
+  @EnviedField(
+      varName: 'KAVITA_BASE_URL', defaultValue: 'https://demo.kavitareader.com')
   final String kavitaBaseUrl = _Env.kavitaBaseUrl;
 
   @override
@@ -29,10 +30,12 @@ class DevEnv implements EnvFlavor, EnvFields {
   final String? kavitaApiKey = _Env.kavitaApiKey;
 
   @override
-  @EnviedField(varName: 'KAVITA_USERNAME', optional: true, obfuscate: true)
-  final String? kavitaUsername = _Env.kavitaUsername;
+  @EnviedField(
+      varName: 'KAVITA_USERNAME', defaultValue: 'demouser', obfuscate: true)
+  final String kavitaUsername = _Env.kavitaUsername;
 
   @override
-  @EnviedField(varName: 'KAVITA_PASSWORD', optional: true, obfuscate: true)
-  final String? kavitaPassword = _Env.kavitaPassword;
+  @EnviedField(
+      varName: 'KAVITA_PASSWORD', defaultValue: 'Demouser64', obfuscate: true)
+  final String kavitaPassword = _Env.kavitaPassword;
 }

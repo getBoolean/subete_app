@@ -8,7 +8,7 @@ abstract class EnvFields {
 
   abstract final String kavitaPluginName;
 
-  abstract final String? kavitaUsername;
+  abstract final String kavitaUsername;
 
-  abstract final String? kavitaPassword;
+  abstract final String kavitaPassword;
 }
