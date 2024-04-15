@@ -17,7 +17,7 @@ KavitaApi kavita(KavitaRef ref) {
 @Riverpod(keepAlive: true)
 Future<void> kavitaAuthenticate(KavitaAuthenticateRef ref) async {
   final kavita = ref.watch(kavitaProvider);
-  final log = ref.watch(loggerProvider('kavitaAuthenticate'));
+  final log = ref.watch(logProvider('kavitaAuthenticate'));
   await _authenticate(log, kavita);
 }
 

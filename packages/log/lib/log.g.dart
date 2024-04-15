@@ -6,7 +6,7 @@ part of 'log.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loggerHash() => r'0910a98ceac08585f35d46145b6f49d6418abe8b';
+String _$logHash() => r'09443fff9096f32b0086dbc4d5a7354b9b828acf';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [logger].
-@ProviderFor(logger)
-const loggerProvider = LoggerFamily();
+/// See also [log].
+@ProviderFor(log)
+const logProvider = LogFamily();
 
-/// See also [logger].
-class LoggerFamily extends Family<Logger> {
-  /// See also [logger].
-  const LoggerFamily();
+/// See also [log].
+class LogFamily extends Family<Logger> {
+  /// See also [log].
+  const LogFamily();
 
-  /// See also [logger].
-  LoggerProvider call(
+  /// See also [log].
+  LogProvider call(
     String name,
   ) {
-    return LoggerProvider(
+    return LogProvider(
       name,
     );
   }
 
   @override
-  LoggerProvider getProviderOverride(
-    covariant LoggerProvider provider,
+  LogProvider getProviderOverride(
+    covariant LogProvider provider,
   ) {
     return call(
       provider.name,
@@ -68,31 +68,29 @@ class LoggerFamily extends Family<Logger> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'loggerProvider';
+  String? get name => r'logProvider';
 }
 
-/// See also [logger].
-class LoggerProvider extends Provider<Logger> {
-  /// See also [logger].
-  LoggerProvider(
+/// See also [log].
+class LogProvider extends Provider<Logger> {
+  /// See also [log].
+  LogProvider(
     String name,
   ) : this._internal(
-          (ref) => logger(
-            ref as LoggerRef,
+          (ref) => log(
+            ref as LogRef,
             name,
           ),
-          from: loggerProvider,
-          name: r'loggerProvider',
+          from: logProvider,
+          name: r'logProvider',
           debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$loggerHash,
-          dependencies: LoggerFamily._dependencies,
-          allTransitiveDependencies: LoggerFamily._allTransitiveDependencies,
+              const bool.fromEnvironment('dart.vm.product') ? null : _$logHash,
+          dependencies: LogFamily._dependencies,
+          allTransitiveDependencies: LogFamily._allTransitiveDependencies,
           name: name,
         );
 
-  LoggerProvider._internal(
+  LogProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -106,12 +104,12 @@ class LoggerProvider extends Provider<Logger> {
 
   @override
   Override overrideWith(
-    Logger Function(LoggerRef provider) create,
+    Logger Function(LogRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: LoggerProvider._internal(
-        (ref) => create(ref as LoggerRef),
+      override: LogProvider._internal(
+        (ref) => create(ref as LogRef),
         from: from,
         name: null,
         dependencies: null,
@@ -124,12 +122,12 @@ class LoggerProvider extends Provider<Logger> {
 
   @override
   ProviderElement<Logger> createElement() {
-    return _LoggerProviderElement(this);
+    return _LogProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LoggerProvider && other.name == name;
+    return other is LogProvider && other.name == name;
   }
 
   @override
@@ -141,16 +139,16 @@ class LoggerProvider extends Provider<Logger> {
   }
 }
 
-mixin LoggerRef on ProviderRef<Logger> {
+mixin LogRef on ProviderRef<Logger> {
   /// The parameter `name` of this provider.
   String get name;
 }
 
-class _LoggerProviderElement extends ProviderElement<Logger> with LoggerRef {
-  _LoggerProviderElement(super.provider);
+class _LogProviderElement extends ProviderElement<Logger> with LogRef {
+  _LogProviderElement(super.provider);
 
   @override
-  String get name => (origin as LoggerProvider).name;
+  String get name => (origin as LogProvider).name;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

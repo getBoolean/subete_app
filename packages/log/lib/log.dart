@@ -11,4 +11,4 @@ export 'src/log_widget.dart';
 part 'log.g.dart';
 
 @Riverpod(keepAlive: true)
-Logger logger(LoggerRef ref, String name) => Logger(name);
+Logger log(LogRef ref, String name) => Logger(name);
