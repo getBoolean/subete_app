@@ -46,6 +46,21 @@ Future<SeriesDto> findSeries(FindSeriesRef ref, int seriesId) async {
 }
 
 @riverpod
+Future<SeriesDetailDto> findSeriesDetail(
+  FindSeriesDetailRef ref,
+  int seriesId,
+) async {
+  final kavita = ref.watch(kavitaProvider);
+
+  final response = await kavita.series.getSeriesDetail(seriesId: seriesId);
+  if (response.isSuccessful && response.body != null) {
+    return response.body!;
+  }
+
+  throw Exception('Failed to get series');
+}
+
+@riverpod
 Future<PaginatedResult<SeriesDto>> seriesPaginated(
   SeriesPaginatedRef ref, {
   required int libraryId,
@@ -77,21 +92,9 @@ Future<PaginatedResult<SeriesDto>> seriesPaginated(
   throw Exception('Failed to get series');
 }
 
-@riverpod
-Future<List<VolumeDto>> volumes(
-  VolumesRef ref, {
-  required int seriesId,
-}) async {
-  final kavita = ref.watch(kavitaProvider);
+// special volumes
 
-  final response = await kavita.series.getVolumes(
-    id: seriesId,
-  );
-  if (response.isSuccessful) {
-    return response.body ?? [];
-  }
-  throw Exception('Failed to get series');
-}
+// loose leaf volumes
 
 @riverpod
 Future<Uint8List> downloadVolume(

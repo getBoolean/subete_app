@@ -31,15 +31,17 @@ class SeriesDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final series = ref.watch(findSeriesProvider(seriesId));
-    final AsyncValue<List<VolumeDto>> seriesVolumes = ref.watch(volumesProvider(
-      seriesId: seriesId,
-    ));
+    final seriesDetailsAsync = ref.watch(findSeriesDetailProvider(seriesId));
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 650),
       switchInCurve: Curves.easeInOut,
       switchOutCurve: Curves.easeInOut,
-      child: seriesVolumes.when(
-        data: (volumes) {
+      child: seriesDetailsAsync.when(
+        data: (seriesDetails) {
+          final List<VolumeDto> volumes = seriesDetails.volumes ?? [];
+          // TODO: Handle specials
+          // ignore: unused_local_variable
+          final List<ChapterDto> specials = seriesDetails.specials ?? [];
           return KeyedSubtree(
             key: const ValueKey('SeriesDetailsScreen-list'),
             child: Scrollbar(
