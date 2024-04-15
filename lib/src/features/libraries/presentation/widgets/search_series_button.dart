@@ -63,13 +63,15 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
           textInputAction: TextInputAction.search,
           keyboardType: TextInputType.text,
           viewHintText: 'Search $libraryName',
-          viewLeading: BackButton(
-            onPressed: () {
-              widget.focusNode.unfocus();
-              Navigator.of(context).pop();
-              widget.focusNode.unfocus();
-            },
-          ),
+          viewLeading: Builder(builder: (context) {
+            return BackButton(
+              onPressed: () {
+                widget.focusNode.unfocus();
+                Navigator.of(context).pop();
+                widget.focusNode.unfocus();
+              },
+            );
+          }),
           viewTrailing: [
             IconButton(
               icon: const Icon(Icons.close),
@@ -97,51 +99,55 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
             return Consumer(
               builder: (context, ref, child) {
                 final query = ref.watch(seriesSearchQueryNotifierProvider);
-                return PaginatedView<SeriesDto>(
-                  controller: scrollController,
-                  listController: listController,
-                  pageSize: pageSize,
-                  restorationId: 'search-$libraryId',
-                  provider: seriesPaginatedProvider,
-                  pageItemsProvider: (int page) => seriesPaginatedProvider(
-                    libraryId: libraryId,
-                    pageNumber: page,
+                return MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: PaginatedView<SeriesDto>(
+                    controller: scrollController,
+                    listController: listController,
                     pageSize: pageSize,
-                    query: query,
-                  ),
-                  itemBuilder: (
-                    BuildContext context,
-                    SeriesDto eachSeries,
-                    int indexInPage,
-                  ) =>
-                      SeriesItemWidget(
-                    key: ValueKey(
-                        'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-$query'),
-                    seriesItem: eachSeries,
-                    titleElipsis: true,
-                    onTap: () => context.goNamed(
-                      RouteName.seriesDetails.name,
-                      pathParameters: {
-                        'seriesId': eachSeries.id.toString(),
-                        'libraryId': libraryId.toString(),
-                      },
-                      queryParameters: {
-                        'libraryName': eachSeries.libraryName ?? 'Library',
-                        'seriesName': eachSeries.name ?? 'Series',
-                      },
+                    restorationId: 'search-$libraryId',
+                    provider: seriesPaginatedProvider,
+                    pageItemsProvider: (int page) => seriesPaginatedProvider(
+                      libraryId: libraryId,
+                      pageNumber: page,
+                      pageSize: pageSize,
+                      query: query,
                     ),
-                  ),
-                  loadingItemBuilder:
-                      (BuildContext context, int page, int indexInPage) =>
-                          Skeletonizer(
-                    key: ValueKey(
-                        'search-library-loading-$libraryId-series-$query-$page-$indexInPage'),
-                    child: const Card(
-                      child: ListTile(
-                        leading: Bone.icon(),
-                        minLeadingWidth: 40,
-                        title: Bone.text(words: 15),
-                        subtitle: Bone.text(),
+                    itemBuilder: (
+                      BuildContext context,
+                      SeriesDto eachSeries,
+                      int indexInPage,
+                    ) =>
+                        SeriesItemWidget(
+                      key: ValueKey(
+                          'search-library-$libraryId-series-${eachSeries.id ?? indexInPage}-$query'),
+                      seriesItem: eachSeries,
+                      titleElipsis: true,
+                      onTap: () => context.goNamed(
+                        RouteName.seriesDetails.name,
+                        pathParameters: {
+                          'seriesId': eachSeries.id.toString(),
+                          'libraryId': libraryId.toString(),
+                        },
+                        queryParameters: {
+                          'libraryName': eachSeries.libraryName ?? 'Library',
+                          'seriesName': eachSeries.name ?? 'Series',
+                        },
+                      ),
+                    ),
+                    loadingItemBuilder:
+                        (BuildContext context, int page, int indexInPage) =>
+                            Skeletonizer(
+                      key: ValueKey(
+                          'search-library-loading-$libraryId-series-$query-$page-$indexInPage'),
+                      child: const Card(
+                        child: ListTile(
+                          leading: Bone.icon(),
+                          minLeadingWidth: 40,
+                          title: Bone.text(words: 15),
+                          subtitle: Bone.text(),
+                        ),
                       ),
                     ),
                   ),
