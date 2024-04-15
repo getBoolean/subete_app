@@ -104,5 +104,5 @@ flutter:
   uses-material-design: true
 
 msix_config:
-  display_name: Flutter Template App
+  display_name: Subete App
   install_certificate: false
