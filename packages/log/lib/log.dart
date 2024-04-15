@@ -1,6 +1,5 @@
 library log;
 
-
 export 'package:logging/logging.dart';
 
 export 'src/log_config.dart';
