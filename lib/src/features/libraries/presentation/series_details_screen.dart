@@ -30,76 +30,135 @@ class SeriesDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final kavita = ref.watch(kavitaProvider);
     final series = ref.watch(findSeriesProvider(seriesId));
     final seriesDetailsAsync = ref.watch(findSeriesDetailProvider(seriesId));
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 650),
-      switchInCurve: Curves.easeInOut,
-      switchOutCurve: Curves.easeInOut,
-      child: seriesDetailsAsync.when(
-        data: (seriesDetails) {
-          final List<VolumeDto> volumes = seriesDetails.volumes ?? [];
-          // TODO: Handle specials
-          // ignore: unused_local_variable
-          final List<ChapterDto> specials = seriesDetails.specials ?? [];
-          return KeyedSubtree(
-            key: const ValueKey('SeriesDetailsScreen-list'),
-            child: Scrollbar(
-              child: ScrollConfiguration(
-                behavior: ScrollConfiguration.of(context).copyWith(
-                  scrollbars: false,
-                ),
-                child: SuperListView.builder(
-                  itemCount: volumes.length,
-                  itemBuilder: (context, index) {
-                    final VolumeDto volumeItem = volumes[index];
-                    return Builder(builder: (context) {
-                      return _VolumeWidget(
-                        key: ValueKey(volumeItem.id ?? 'volume-item-$index'),
-                        volumeItem: volumeItem,
-                        seriesName: series.valueOrNull?.name ?? '',
-                      );
-                    });
-                  },
+    return Material(
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 650),
+        switchInCurve: Curves.easeInOut,
+        switchOutCurve: Curves.easeInOut,
+        child: seriesDetailsAsync.when(
+          data: (seriesDetails) {
+            final List<VolumeDto> volumes = seriesDetails.volumes ?? [];
+            // TODO: Handle specials
+            // ignore: unused_local_variable
+            final List<ChapterDto> specials = seriesDetails.specials ?? [];
+            return KeyedSubtree(
+              key: const ValueKey('SeriesDetailsScreen-list'),
+              child: Scrollbar(
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context).copyWith(
+                    scrollbars: false,
+                  ),
+                  child: CustomScrollView(
+                    slivers: <Widget>[
+                      SuperSliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: specials.length + 1,
+                          (context, index) {
+                            if (specials.isEmpty) return null;
+                            if (index == 0) {
+                              return const ListTile(
+                                title: Text('Specials'),
+                              );
+                            }
+                            final ChapterDto specialItem = specials[index - 1];
+                            final (:headers, :url) = kavita.image.url
+                                .getChapterCover(id: specialItem.id ?? -1);
+                            return Card(
+                              child: ListTile(
+                                leading: ExtendedImage.network(
+                                  url.toString(),
+                                  headers: headers,
+                                  width: 40,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.medium,
+                                  shape: BoxShape.rectangle,
+                                  handleLoadingProgress: true,
+                                  borderRadius:
+                                      // ignore: avoid_using_api
+                                      const BorderRadius.all(
+                                    Radius.circular(8.0),
+                                  ),
+                                ),
+                                title: Text(specialItem.title ?? 'Special'),
+                                subtitle: Text(
+                                  '${specialItem.minHoursToRead} hours',
+                                ),
+                                onTap: () {
+                                  context.showSnackBar(
+                                    'Downloads are not currently supported for specials',
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      SuperSliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: volumes.length + 1,
+                          (context, index) {
+                            if (volumes.isEmpty) return null;
+                            if (index == 0) {
+                              return const ListTile(
+                                title: Text('Volumes'),
+                              );
+                            }
+                            final VolumeDto volumeItem = volumes[index - 1];
+                            return Builder(builder: (context) {
+                              return _VolumeWidget(
+                                key: ValueKey(
+                                    volumeItem.id ?? 'volume-item-$index'),
+                                volumeItem: volumeItem,
+                                seriesName: series.valueOrNull?.name ?? '',
+                              );
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
-        error: (error, stackTrace) {
-          return Center(
-            key: ValueKey(error),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Error: $error'),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () => ref.invalidate(librariesProvider),
-                  child: const Text('Retry'),
-                )
-              ],
-            ),
-          );
-        },
-        loading: () {
-          return Skeletonizer(
-            key: const ValueKey('SeriesDetailsScreen-loading'),
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Card(
-                  child: ListTile(
-                    leading: Icon(Icons.library_books),
-                    minLeadingWidth: 40,
-                    title: Text('Loading...'),
-                    subtitle: Text('Hours...'),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+            );
+          },
+          error: (error, stackTrace) {
+            return Center(
+              key: ValueKey(error),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Error: $error'),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => ref.invalidate(librariesProvider),
+                    child: const Text('Retry'),
+                  )
+                ],
+              ),
+            );
+          },
+          loading: () {
+            return Skeletonizer(
+              key: const ValueKey('SeriesDetailsScreen-loading'),
+              child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return const Card(
+                    child: ListTile(
+                      leading: Icon(Icons.library_books),
+                      minLeadingWidth: 40,
+                      title: Text('Loading...'),
+                      subtitle: Text('Hours...'),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -129,21 +188,20 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     return Card(
       child: ListTile(
         minLeadingWidth: 40,
-        leading: ExtendedImage.network(url.toString(),
-            headers: headers,
-            width: 40,
-            fit: BoxFit.fill,
-            shape: BoxShape.rectangle,
-            handleLoadingProgress: true,
-            borderRadius:
-                // ignore: avoid_using_api
-                const BorderRadius.all(Radius.circular(8.0)),
-            loadStateChanged: (state) {
-          return switch (state.extendedImageLoadState) {
-            LoadState.loading => const SizedBox(width: 40),
-            LoadState.completed || LoadState.failed => null,
-          };
-        }),
+        leading: ExtendedImage.network(
+          url.toString(),
+          headers: headers,
+          width: 40,
+          fit: BoxFit.cover,
+          filterQuality: FilterQuality.medium,
+          shape: BoxShape.rectangle,
+          handleLoadingProgress: true,
+          borderRadius:
+              // ignore: avoid_using_api
+              const BorderRadius.all(
+            Radius.circular(8.0),
+          ),
+        ),
         title: Text('${widget.volumeItem.name} - ${widget.seriesName}'),
         subtitle: Text(
           '${widget.volumeItem.avgHoursToRead} hours',

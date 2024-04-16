@@ -18,8 +18,8 @@ class LibrariesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<LibraryDto>> libraries = ref.watch(librariesProvider);
-    return Scaffold(
-      body: AnimatedSwitcher(
+    return Material(
+      child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 650),
         switchInCurve: Curves.easeInOut,
         switchOutCurve: Curves.easeInOut,

@@ -40,41 +40,43 @@ class _LibraryDetailsScreenState extends ConsumerState<LibraryDetailsScreen> {
   Widget build(BuildContext context) {
     const pageSize = 25;
 
-    return PaginatedView<SeriesDto>(
-      pageSize: pageSize,
-      restorationId: 'library-${widget.libraryId}',
-      provider: seriesPaginatedProvider,
-      pageItemsProvider: (int page) => seriesPaginatedProvider(
-        libraryId: widget.libraryId,
-        pageNumber: page,
+    return Material(
+      child: PaginatedView<SeriesDto>(
         pageSize: pageSize,
-      ),
-      itemBuilder: (BuildContext context, SeriesDto item, int indexInPage) =>
-          SeriesItemWidget(
-        key: ValueKey(
-            'library-${widget.libraryId}-series-${item.id ?? 'no-id-$indexInPage'}'),
-        seriesItem: item,
-        titleElipsis: true,
-        onTap: () => context.goNamed(
-          RouteName.seriesDetails.name,
-          pathParameters: {
-            'seriesId': item.id.toString(),
-            'libraryId': widget.libraryId.toString(),
-          },
+        restorationId: 'library-${widget.libraryId}',
+        provider: seriesPaginatedProvider,
+        pageItemsProvider: (int page) => seriesPaginatedProvider(
+          libraryId: widget.libraryId,
+          pageNumber: page,
+          pageSize: pageSize,
         ),
-      ),
-      loadingItemBuilder: (BuildContext context, int page, int indexInPage) {
-        return const Skeletonizer(
-          child: Card(
-            child: ListTile(
-              leading: Bone.icon(),
-              minLeadingWidth: 40,
-              title: Bone.text(),
-              subtitle: Bone.text(),
-            ),
+        itemBuilder: (BuildContext context, SeriesDto item, int indexInPage) =>
+            SeriesItemWidget(
+          key: ValueKey(
+              'library-${widget.libraryId}-series-${item.id ?? 'no-id-$indexInPage'}'),
+          seriesItem: item,
+          titleElipsis: true,
+          onTap: () => context.goNamed(
+            RouteName.seriesDetails.name,
+            pathParameters: {
+              'seriesId': item.id.toString(),
+              'libraryId': widget.libraryId.toString(),
+            },
           ),
-        );
-      },
+        ),
+        loadingItemBuilder: (BuildContext context, int page, int indexInPage) {
+          return const Skeletonizer(
+            child: Card(
+              child: ListTile(
+                leading: Bone.icon(),
+                minLeadingWidth: 40,
+                title: Bone.text(),
+                subtitle: Bone.text(),
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }
