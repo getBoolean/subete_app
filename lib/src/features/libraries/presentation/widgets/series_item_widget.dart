@@ -20,7 +20,7 @@ class SeriesItemWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final kavita = ref.watch(kavitaProvider);
     final (:headers, :url) =
-        kavita.image.getSeriesCoverUrl(id: seriesItem.id ?? -1);
+        kavita.image.url.getSeriesCover(id: seriesItem.id ?? -1);
     const imageWidth = 40.0;
     return Card(
       child: Tooltip(

@@ -97,7 +97,7 @@ class _SingleLibraryItemWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final kavita = ref.watch(kavitaProvider);
     final (:headers, :url) =
-        kavita.image.getLibraryCoverUrl(id: library.id ?? -1);
+        kavita.image.url.getLibraryCover(id: library.id ?? -1);
     return Card(
       child: ListTile(
         leading: library.coverImage == null
