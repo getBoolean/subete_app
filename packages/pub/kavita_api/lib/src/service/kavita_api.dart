@@ -1116,6 +1116,9 @@ class KavitaApiImage {
   /// Responsible for servicing up images stored in Kavita for entities
   const KavitaApiImage.fromContext(this.context);
 
+  /// Returns relavent urls for the images
+  KavitaApiImageUrl get url => KavitaApiImageUrl.fromContext(context);
+
   /// Returns cover image for [raw.Chapter]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
@@ -1130,32 +1133,6 @@ class KavitaApiImage {
           ),
         )
         .cast();
-  }
-
-  /// Returns a download url and required headers for a chapter cover
-  ///
-  /// Throws [KavitaAuthException] if the user is not logged in
-  ({Uri url, Map<String, String> headers}) getChapterCoverUrl({
-    required int id,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Image',
-          'chapter-cover',
-        ],
-        queryParameters: <String, String>{
-          'chapterId': '$id',
-          'apiKey': context.apiKey,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
   }
 
   /// Returns cover image for [raw.Library]
@@ -1174,32 +1151,6 @@ class KavitaApiImage {
         .cast();
   }
 
-  /// Returns a download url and required headers for a library cover
-  ///
-  /// Throws [KavitaAuthException] if the user is not logged in
-  ({Uri url, Map<String, String> headers}) getLibraryCoverUrl({
-    required int id,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Image',
-          'library-cover',
-        ],
-        queryParameters: <String, String>{
-          'libraryId': '$id',
-          'apiKey': context.apiKey,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
-  }
-
   /// Returns cover image for [raw.Volume]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
@@ -1214,32 +1165,6 @@ class KavitaApiImage {
           ),
         )
         .cast();
-  }
-
-  /// Returns a download url and required headers for a volume cover
-  ///
-  /// Throws [KavitaAuthException] if the user is not logged in
-  ({Uri url, Map<String, String> headers}) getVolumeCoverUrl({
-    required int id,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Image',
-          'volume-cover',
-        ],
-        queryParameters: <String, String>{
-          'volumeId': '$id',
-          'apiKey': context.apiKey,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
   }
 
   /// Returns cover image for [SeriesDto]
@@ -1258,32 +1183,6 @@ class KavitaApiImage {
         .cast();
   }
 
-  /// Returns a download url and required headers for a series cover
-  ({Uri url, Map<String, String> headers}) getSeriesCoverUrl({
-    ///
-    /// Throws [KavitaAuthException] if the user is not logged in
-    required int id,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Image',
-          'series-cover',
-        ],
-        queryParameters: <String, String>{
-          'seriesId': '$id',
-          'apiKey': context.apiKey,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
-  }
-
   /// Returns cover image for [CollectionDto]
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
@@ -1298,32 +1197,6 @@ class KavitaApiImage {
           ),
         )
         .cast();
-  }
-
-  /// Returns a download url and required headers for a collection cover
-  ///
-  /// Throws [KavitaAuthException] if the user is not logged in
-  ({Uri url, Map<String, String> headers}) getCollectionCoverUrl({
-    required int id,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Image',
-          'collection-cover',
-        ],
-        queryParameters: <String, String>{
-          'collectionTagId': '$id',
-          'apiKey': context.apiKey,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
   }
 
   /// Returns cover image for a [raw.ReadingList]
@@ -1342,32 +1215,6 @@ class KavitaApiImage {
         .cast();
   }
 
-  /// Returns a download url and required headers for a readinglist cover
-  ///
-  /// Throws [KavitaAuthException] if the user is not logged in
-  ({Uri url, Map<String, String> headers}) getReadingListCoverUrl({
-    required int id,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Image',
-          'readinglist-cover',
-        ],
-        queryParameters: <String, String>{
-          'readingListId': '$id',
-          'apiKey': context.apiKey,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
-  }
-
   /// Returns image for a given [BookmarkDto] page
   ///
   /// Throws [KavitaAuthException] if the user is not logged in
@@ -1384,34 +1231,6 @@ class KavitaApiImage {
           ),
         )
         .cast();
-  }
-
-  /// Returns a download url and required headers for a readinglist cover
-  ///
-  /// Throws [KavitaAuthException] if the user is not logged in
-  ({Uri url, Map<String, String> headers}) getBookmarkImageUrl({
-    required int chapterId,
-    required int pageNum,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Image',
-          'bookmark',
-        ],
-        queryParameters: <String, String>{
-          'chapterId': '$chapterId',
-          'pageNum': '$pageNum',
-          'apiKey': context.apiKey,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
   }
 
   /// Returns the image associated with a web-link
@@ -1444,6 +1263,199 @@ class KavitaApiImage {
           ),
         )
         .cast();
+  }
+}
+
+/// Responsible for servicing up images stored in Kavita for entities
+class KavitaApiImageUrl {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
+  /// Responsible for servicing up images stored in Kavita for entities
+  const KavitaApiImageUrl.fromContext(this.context);
+
+  /// Returns a download url and required headers for a chapter cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getChapterCover({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'chapter-cover',
+        ],
+        queryParameters: <String, String>{
+          'chapterId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
+  /// Returns a download url and required headers for a library cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getLibraryCover({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'library-cover',
+        ],
+        queryParameters: <String, String>{
+          'libraryId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
+  /// Returns a download url and required headers for a volume cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getVolumeCover({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'volume-cover',
+        ],
+        queryParameters: <String, String>{
+          'volumeId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
+  /// Returns a download url and required headers for a series cover
+  ({Uri url, Map<String, String> headers}) getSeriesCover({
+    ///
+    /// Throws [KavitaAuthException] if the user is not logged in
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'series-cover',
+        ],
+        queryParameters: <String, String>{
+          'seriesId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
+  /// Returns a download url and required headers for a collection cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getCollectionCover({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'collection-cover',
+        ],
+        queryParameters: <String, String>{
+          'collectionTagId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
+  /// Returns a download url and required headers for a readinglist cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getReadingListCover({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'readinglist-cover',
+        ],
+        queryParameters: <String, String>{
+          'readingListId': '$id',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
+  /// Returns a download url and required headers for a readinglist cover
+  ///
+  /// Throws [KavitaAuthException] if the user is not logged in
+  ({Uri url, Map<String, String> headers}) getBookmarkImage({
+    required int chapterId,
+    required int pageNum,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Image',
+          'bookmark',
+        ],
+        queryParameters: <String, String>{
+          'chapterId': '$chapterId',
+          'pageNum': '$pageNum',
+          'apiKey': context.apiKey,
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
   }
 }
 

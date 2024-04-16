@@ -125,7 +125,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
   Widget build(BuildContext context) {
     final kavita = ref.watch(kavitaProvider);
     final (:headers, :url) =
-        kavita.image.getVolumeCoverUrl(id: widget.volumeItem.id ?? -1);
+        kavita.image.url.getVolumeCover(id: widget.volumeItem.id ?? -1);
     return Card(
       child: ListTile(
         minLeadingWidth: 40,
