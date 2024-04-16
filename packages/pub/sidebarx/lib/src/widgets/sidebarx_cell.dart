@@ -3,7 +3,6 @@ import 'package:sidebarx/sidebarx.dart';
 
 class SidebarXCell extends StatefulWidget {
   const SidebarXCell({
-    super.key,
     required this.item,
     required this.extended,
     required this.selected,
@@ -12,6 +11,7 @@ class SidebarXCell extends StatefulWidget {
     required this.onLongPress,
     required this.onSecondaryTap,
     required this.animationController,
+    super.key,
   });
 
   final bool extended;
@@ -47,7 +47,7 @@ class _SidebarXCellState extends State<SidebarXCell> {
         widget.selected ? theme.selectedIconTheme : theme.iconTheme;
     final textStyle = widget.selected
         ? theme.selectedTextStyle
-        : (_hovered)
+        : _hovered
             ? theme.hoverTextStyle
             : theme.textStyle;
     final decoration =
@@ -144,10 +144,10 @@ class _SidebarXCellState extends State<SidebarXCell> {
 
 class _Icon extends StatelessWidget {
   const _Icon({
-    // ignore: unused_element
-    super.key,
     required this.item,
     required this.iconTheme,
+    // ignore: unused_element
+    super.key,
   });
 
   final SidebarXItem item;

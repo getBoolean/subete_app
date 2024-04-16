@@ -24,6 +24,7 @@ class SidebarXController extends ChangeNotifier {
   }
 
   bool get extended => _extended;
+  // ignore: avoid_positional_boolean_parameters
   void setExtended(bool extended) {
     _extended = extended;
     _extendedController.add(extended);
