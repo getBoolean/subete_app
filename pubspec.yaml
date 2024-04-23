@@ -16,7 +16,7 @@ dependencies:
     path: packages/assets
   awesome_flutter_extensions: ^1.2.0
   collection: ^1.18.0
-  connectivity_plus: ^6.0.2
+  connectivity_plus: ^6.0.3
   constants:
     path: packages/constants
   cross_file: ^0.3.3+8
