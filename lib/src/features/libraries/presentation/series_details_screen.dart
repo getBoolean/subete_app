@@ -41,8 +41,6 @@ class SeriesDetailsScreen extends ConsumerWidget {
         child: seriesDetailsAsync.when(
           data: (seriesDetails) {
             final List<VolumeDto> volumes = seriesDetails.volumes ?? [];
-            // TODO: Handle specials
-            // ignore: unused_local_variable
             final List<ChapterDto> specials = seriesDetails.specials ?? [];
             return KeyedSubtree(
               key: const ValueKey('SeriesDetailsScreen-list'),
