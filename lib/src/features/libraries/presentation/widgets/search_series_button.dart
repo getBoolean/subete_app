@@ -65,11 +65,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
           viewHintText: 'Search $libraryName',
           viewLeading: Builder(builder: (context) {
             return BackButton(
-              onPressed: () {
-                widget.focusNode.unfocus();
-                searchController.closeView(null);
-                widget.focusNode.unfocus();
-              },
+              onPressed: closeSearchView,
             );
           }),
           viewTrailing: [
@@ -124,17 +120,20 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
                           'search-library-$libraryId-series-${eachSeries.id ?? 'no-id-$indexInPage'}-$query'),
                       seriesItem: eachSeries,
                       titleElipsis: true,
-                      onTap: () => context.goNamed(
-                        RouteName.seriesDetails.name,
-                        pathParameters: {
-                          'seriesId': eachSeries.id.toString(),
-                          'libraryId': libraryId.toString(),
-                        },
-                        queryParameters: {
-                          'libraryName': eachSeries.libraryName ?? 'Library',
-                          'seriesName': eachSeries.name ?? 'Series',
-                        },
-                      ),
+                      onTap: () {
+                        closeSearchView();
+                        context.goNamed(
+                          RouteName.seriesDetails.name,
+                          pathParameters: {
+                            'seriesId': eachSeries.id.toString(),
+                            'libraryId': libraryId.toString(),
+                          },
+                          queryParameters: {
+                            'libraryName': eachSeries.libraryName ?? 'Library',
+                            'seriesName': eachSeries.name ?? 'Series',
+                          },
+                        );
+                      },
                     ),
                     loadingItemBuilder:
                         (BuildContext context, int page, int indexInPage) =>
@@ -195,5 +194,11 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
         ),
       ),
     );
+  }
+
+  void closeSearchView() {
+    widget.focusNode.unfocus();
+    searchController.closeView(null);
+    widget.focusNode.unfocus();
   }
 }
