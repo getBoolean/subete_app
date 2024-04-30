@@ -29,12 +29,14 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
   late SearchController searchController;
   late ListController listController;
   late ScrollController scrollController;
+  late TextEditingController textEditingController;
 
   @override
   void initState() {
     searchController = SearchController();
     listController = ListController();
     scrollController = ScrollController();
+    textEditingController = TextEditingController();
     super.initState();
   }
 
@@ -43,6 +45,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
     searchController.dispose();
     listController.dispose();
     scrollController.dispose();
+    textEditingController.dispose();
     super.dispose();
   }
 
@@ -54,6 +57,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
     final library = ref.watch(findLibraryProvider(libraryId));
     final libraryName = library.valueOrNull?.name ?? '';
     const pageSize = 25;
+    final _ = ref.watch(seriesSearchQueryNotifierProvider);
     return Padding(
       padding: const EdgeInsetsDirectional.all(8.0),
       child: Semantics(
@@ -75,6 +79,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
               onPressed: () {
                 ref.read(seriesSearchQueryNotifierProvider.notifier).clear();
                 searchController.clear();
+                textEditingController.clear();
               },
             )
           ],
@@ -82,6 +87,7 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
             ref
                 .read(seriesSearchQueryNotifierProvider.notifier)
                 .setQuery(query);
+            textEditingController.text = query;
             listController.animateToItem(
               index: 0,
               scrollController: scrollController,
@@ -159,10 +165,16 @@ class _SearchSeriesButtonState extends ConsumerState<SearchSeriesButton> {
             return widget.expanded
                 ? IntrinsicWidth(
                     child: SearchBar(
+                      controller: textEditingController,
                       focusNode: widget.focusNode,
                       onTap: () {
                         widget.focusNode.unfocus();
-                        if (!controller.isOpen) controller.openView();
+                        if (!controller.isOpen) {
+                          ref
+                              .read(seriesSearchQueryNotifierProvider.notifier)
+                              .setQuery(textEditingController.text);
+                          controller.openView();
+                        }
                       },
                       onChanged: (query) {
                         widget.focusNode.unfocus();
