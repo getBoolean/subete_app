@@ -283,10 +283,10 @@ packages:
     dependency: "direct main"
     description:
       name: connectivity_plus
-      sha256: ebe15d94de9dd7c31dc2ac54e42780acdf3384b1497c69290c9f3c5b0279fc57
+      sha256: db7a4e143dc72cc3cb2044ef9b052a7ebfe729513e6a82943bc3526f784365b8
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.2"
+    version: "6.0.3"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -513,10 +513,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: d1d0ac3966b36dc3e66eeefb40280c17feb87fa2099c6e22e6a1fc959327bd03
+      sha256: "45c70b43df893027e441a6fa0aacc8f484fb9f9c60c746dc8f1dc4f774cf55cd"
       url: "https://pub.dev"
     source: hosted
-    version: "8.0.0+1"
+    version: "8.0.2"
   file_saver:
     dependency: "direct main"
     description:
@@ -1001,18 +1001,18 @@ packages:
     dependency: "direct dev"
     description:
       name: mason
-      sha256: f4ea713a0f4142e20abb3a5b1352c0475c04cb880a1e33e2028793d60c83fd5c
+      sha256: cec3dba68efbc6d0dbae0fded712d8837e4e521479f879839a8e7416291168ea
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0-dev.52"
+    version: "0.1.0-dev.53"
   mason_logger:
     dependency: transitive
     description:
       name: mason_logger
-      sha256: "0e90e637dcfcb7fb6c30b38e71cd41fa0e4e3df6f1da177f8251ac3f15147e9f"
+      sha256: "56c44e588e908ef0d1dbb593e1b4473b8ee5fb48fcc8d645c925ab6c8041ebdf"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.12"
+    version: "0.2.15"
   matcher:
     dependency: transitive
     description:
@@ -1165,7 +1165,7 @@ packages:
     source: path
     version: "0.0.1"
   pagination_dart:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "packages/pub/pagination_dart"
       relative: true
@@ -1595,18 +1595,18 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "28ab9c7b4d53cb4acabf4db3a1e3bf37a4f7efa51bb007ecafe53e4448dc13aa"
+      sha256: cf9ab12d00856318dcf84d5e16cfd7b53a34ee74ca55cf2c566f0cc9d2a66013
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.11"
+    version: "0.8.12"
   super_native_extensions:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: "3fd7096b0293ea40a968ae9294b45710f9a13996e165ff7c588acd52541c487b"
+      sha256: "530a2118d032483b192713c68ed7105fe64418f22492165f87ed01f9b01d4965"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.11"
+    version: "0.8.12"
   super_sliver_list:
     dependency: "direct main"
     description:

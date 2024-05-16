@@ -16,7 +16,7 @@ dependencies:
     path: packages/assets
   awesome_flutter_extensions: ^1.2.0
   collection: ^1.18.0
-  connectivity_plus: ^6.0.2
+  connectivity_plus: ^6.0.3
   constants:
     path: packages/constants
   cross_file: ^0.3.3+8
@@ -24,7 +24,7 @@ dependencies:
   env:
     path: packages/env
   extended_image: ^8.2.0
-  file_picker: ^8.0.0+1
+  file_picker: ^8.0.2
   file_saver: ^0.2.12
   flex_color_picker: ^3.4.1
   flex_color_scheme: ^7.3.1
@@ -67,7 +67,7 @@ dependencies:
     path: packages/pub/sidebarx
   skeletonizer: ^1.1.1
   stock: ^1.0.1
-  super_clipboard: ^0.8.11
+  super_clipboard: ^0.8.12
   super_sliver_list: ^0.4.1
   universal_html: ^2.2.4
   url_launcher: ^6.2.6
@@ -89,7 +89,7 @@ dev_dependencies:
   hive_generator: ^2.0.1
   integration_test:
     sdk: flutter
-  mason: ^0.1.0-dev.52
+  mason: ^0.1.0-dev.53
   melos: ^5.3.0
   mocktail: ^1.0.3
   modddels: ^0.2.0
