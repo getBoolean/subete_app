@@ -759,10 +759,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: b465e99ce64ba75e61c8c0ce3d87b66d8ac07f0b35d0a7e0263fcfc10f99e836
+      sha256: abec47eb8c8c36ebf41d0a4c64dbbe7f956e39a012b3aafc530e951bdc12fe3f
       url: "https://pub.dev"
     source: hosted
-    version: "13.2.5"
+    version: "14.1.4"
   google_fonts:
     dependency: "direct main"
     description:
@@ -973,22 +973,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  logger:
-    dependency: transitive
-    description:
-      name: logger
-      sha256: "7ad7215c15420a102ec687bb320a7312afd449bac63bfb1c60d9787c27b9767f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
-  logger_flutter_plus:
-    dependency: transitive
-    description:
-      name: logger_flutter_plus
-      sha256: "57a378dea1e0dc8beee4d9d1a2a017e368ab96b4dfbf094eff0d08304a739660"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   logging:
     dependency: transitive
     description:
@@ -1165,7 +1149,7 @@ packages:
     source: path
     version: "0.0.1"
   pagination_dart:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "packages/pub/pagination_dart"
       relative: true
@@ -1395,22 +1379,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.9"
-  sensors_plus:
-    dependency: transitive
-    description:
-      name: sensors_plus
-      sha256: "3ec8b74d73d72a54baa328beb6fa33df80963f3e5491fc6e714b98b935b65dd9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.5"
-  sensors_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: sensors_plus_platform_interface
-      sha256: bc472d6cfd622acb4f020e726433ee31788b038056691ba433fec80e448a094f
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
   share_plus:
     dependency: "direct main"
     description:
