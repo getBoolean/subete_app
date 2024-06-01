@@ -191,8 +191,9 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     final (headers: fileHeaders, url: fileUrl) =
         kavita.download.url.getDownloadVolume(id: widget.volumeItem.id ?? -1);
 
+    final String volumeName = widget.volumeItem.name ?? widget.seriesName;
     final filename = downloadService.sanitizeFilename(
-      'Volume ${widget.volumeItem.name} - ${widget.seriesName}.epub',
+      '${volumeName.isEmpty ? widget.seriesName : volumeName}.epub',
       replacement: '_',
     );
     final coverImage = ExtendedImage.network(
@@ -223,7 +224,7 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
               ListTile(
                 minLeadingWidth: 40,
                 leading: coverImage,
-                title: Text('${widget.volumeItem.name} - ${widget.seriesName}'),
+                title: Text(volumeName),
                 subtitle: Text(
                   '${widget.volumeItem.avgHoursToRead} hours',
                 ),
