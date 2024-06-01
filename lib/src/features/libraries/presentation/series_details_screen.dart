@@ -85,6 +85,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
                                   '${specialItem.minHoursToRead} hours',
                                 ),
                                 onTap: () {
+                                  // TODO: Support downloading specials
                                   context.showSnackBar(
                                     'Downloads are not currently supported for specials',
                                   );
