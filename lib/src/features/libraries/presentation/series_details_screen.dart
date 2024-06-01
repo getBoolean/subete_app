@@ -17,7 +17,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:subete/src/features/download/application/download_service.dart';
-import 'package:subete/src/features/download/presentation/downloadable_tile.dart';
+import 'package:subete/src/features/download/presentation/draggable_cloud_widget.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
 import 'package:subete/utils/utils.dart';

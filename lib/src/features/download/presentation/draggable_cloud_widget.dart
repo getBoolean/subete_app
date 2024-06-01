@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:super_context_menu/super_context_menu.dart';
@@ -11,6 +13,8 @@ class DraggableCloudWidget extends StatelessWidget {
     required this.downloadHeaders,
     required this.thumbnailHeaders,
     required this.child,
+    this.liftBuilder,
+    this.dragBuilder,
     super.key,
   });
 
@@ -19,6 +23,12 @@ class DraggableCloudWidget extends StatelessWidget {
   final Map<String, String>? downloadHeaders;
   final Uri thumbnailUrl;
   final Map<String, String>? thumbnailHeaders;
+
+  /// Allows customizing lift preview image. Used on iOS and Android during the lift animation (start of long press of drag handle until the long press is recognized).
+  final Widget? Function(BuildContext, Widget)? liftBuilder;
+
+  /// Allows customizing drag image for this item.
+  final Widget? Function(BuildContext, Widget)? dragBuilder;
   final Widget child;
 
   @override
@@ -26,6 +36,8 @@ class DraggableCloudWidget extends StatelessWidget {
     return DragItemWidget(
       allowedOperations: () => [DropOperation.copy],
       canAddItemToExistingSession: true,
+      liftBuilder: liftBuilder,
+      dragBuilder: dragBuilder,
       dragItemProvider: (request) async {
         // For multi drag on iOS check if this item is already in the session
         final localData = await request.session.getLocalData();
@@ -40,18 +52,14 @@ class DraggableCloudWidget extends StatelessWidget {
           item.addVirtualFile(
             format: Formats.plainTextFile,
             provider: (sinkProvider, progress) async {
-              final body = (await http.Client()
-                      .get(downloadUrl, headers: downloadHeaders))
-                  .body;
-              final sink = sinkProvider(fileSize: body.length);
-              sink.add(body);
+              final Uint8List bodyBytes = await _downloadFile();
+              final sink = sinkProvider(fileSize: bodyBytes.length);
+              sink.add(bodyBytes);
               sink.close();
             },
           );
         } else {
-          final bodyBytes =
-              (await http.Client().get(downloadUrl, headers: downloadHeaders))
-                  .bodyBytes;
+          final Uint8List bodyBytes = await _downloadFile();
           item.add(Formats.epub(bodyBytes));
         }
         return item;
@@ -66,11 +74,18 @@ class DraggableCloudWidget extends StatelessWidget {
             );
           },
           menuProvider: (_) {
-            return Menu(children: []);
+            return null;
           },
         ),
       ),
     );
+  }
+
+  Future<Uint8List> _downloadFile() async {
+    final bodyBytes =
+        (await http.Client().get(downloadUrl, headers: downloadHeaders))
+            .bodyBytes;
+    return bodyBytes;
   }
 
   Future<Widget> _buildThumbnail(BuildContext context) async {
