@@ -6,7 +6,6 @@
 - [dependabot/pub/melos-6.0.0](./dependabot/pub/melos-6.0.0/)
 - [dependabot/pub/package_info_plus-8.0.0](./dependabot/pub/package_info_plus-8.0.0/)
 - [dependabot/pub/share_plus-9.0.0](./dependabot/pub/share_plus-9.0.0/)
-- [feature/draggable](./feature/draggable/)
 - [main](./main/)
 - [nightly](./nightly/)
 - [test/removed_custom_lint](./test/removed_custom_lint/)
