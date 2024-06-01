@@ -181,6 +181,7 @@ class _VolumeWidget extends ConsumerStatefulWidget {
 
 class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
   static final _log = Logger('_VolumeWidget');
+  bool _isDownloading = false;
   @override
   Widget build(BuildContext context) {
     final kavita = ref.watch(kavitaProvider);
@@ -189,79 +190,94 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
         kavita.image.url.getVolumeCover(id: widget.volumeItem.id ?? -1);
     final (headers: fileHeaders, url: fileUrl) =
         kavita.download.url.getDownloadVolume(id: widget.volumeItem.id ?? -1);
+
+    final filename = downloadService.sanitizeFilename(
+      'Volume ${widget.volumeItem.name} - ${widget.seriesName}.epub',
+      replacement: '_',
+    );
+    final coverImage = ExtendedImage.network(
+      coverUrl.toString(),
+      headers: coverHeaders,
+      width: 40,
+      fit: BoxFit.cover,
+      filterQuality: FilterQuality.medium,
+      shape: BoxShape.rectangle,
+      handleLoadingProgress: true,
+      borderRadius:
+          // ignore: avoid_using_api
+          const BorderRadius.all(
+        Radius.circular(8.0),
+      ),
+    );
     return Material(
-      child: Card(
-        child: DraggableCloudWidget(
-          suggestedName:
-              '${widget.volumeItem.name} - ${widget.seriesName}.epub',
-          downloadUrl: fileUrl,
-          thumbnailUrl: coverUrl,
-          downloadHeaders: fileHeaders,
-          thumbnailHeaders: coverHeaders,
-          child: ListTile(
-            minLeadingWidth: 40,
-            leading: ExtendedImage.network(
-              coverUrl.toString(),
-              headers: coverHeaders,
-              width: 40,
-              fit: BoxFit.cover,
-              filterQuality: FilterQuality.medium,
-              shape: BoxShape.rectangle,
-              handleLoadingProgress: true,
-              borderRadius:
-                  // ignore: avoid_using_api
-                  const BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-            ),
-            title: Text('${widget.volumeItem.name} - ${widget.seriesName}'),
-            subtitle: Text(
-              '${widget.volumeItem.avgHoursToRead} hours',
-            ),
-            onTap: () async {
-              final id = widget.volumeItem.id;
-              if (id == null) {
-                return;
-              }
-              // TODO: Add loading indicator
-              final download =
-                  await ref.read(downloadVolumeProvider(volumeId: id).future);
-
-              if (!context.mounted) return;
-
-              final filename = downloadService.sanitizeFilename(
-                'Volume ${widget.volumeItem.name} - ${widget.seriesName}.epub',
-                replacement: '_',
-              );
-              if (!kIsWeb) {
-                final file = XFile.fromData(
-                  download,
-                  mimeType: MimeType.epub.type,
-                  name: filename,
-                  lastModified: widget.volumeItem.lastModifiedUtc,
-                );
-                if (io.Platform.isMacOS ||
-                    io.Platform.isWindows ||
-                    io.Platform.isLinux) {
-                  // TODO: Show dialog with "open", "open with", and "save as" options
-                  await _openFile(file, filename, fallback: () async {
-                    await _saveFileAs(filename, file, context);
-                  });
-                } else if (io.Platform.isIOS) {
-                  if (context.mounted) {
-                    await _shareFile(context, file, filename);
+      child: DraggableCloudWidget(
+        suggestedName: filename,
+        downloadUrl: fileUrl,
+        thumbnailUrl: coverUrl,
+        downloadHeaders: fileHeaders,
+        thumbnailHeaders: coverHeaders,
+        child: Card(
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              ListTile(
+                minLeadingWidth: 40,
+                leading: coverImage,
+                title: Text('${widget.volumeItem.name} - ${widget.seriesName}'),
+                subtitle: Text(
+                  '${widget.volumeItem.avgHoursToRead} hours',
+                ),
+                onTap: () async {
+                  final id = widget.volumeItem.id;
+                  if (id == null) {
+                    return;
                   }
-                } else if (io.Platform.isAndroid) {
-                  // TODO: Show dialog with "open with" and "save as" options
-                  await _openFileAndroid(filename, file, download, context,
-                      fallback: () async {
-                    await _saveFileAs(filename, file, context);
+
+                  setState(() {
+                    _isDownloading = true;
                   });
-                }
-              } else {
-                await _saveFile(download, filename);
-              }
-            },
+                  final download = await ref
+                      .read(downloadVolumeProvider(volumeId: id).future);
+                  if (!context.mounted) return;
+                  setState(() {
+                    _isDownloading = false;
+                  });
+
+                  if (!kIsWeb) {
+                    final file = XFile.fromData(
+                      download,
+                      mimeType: MimeType.epub.type,
+                      name: filename,
+                      lastModified: widget.volumeItem.lastModifiedUtc,
+                    );
+                    if (io.Platform.isMacOS ||
+                        io.Platform.isWindows ||
+                        io.Platform.isLinux) {
+                      // TODO: Show dialog with "open", "open with", and "save as" options
+                      await _openFile(file, filename, fallback: () async {
+                        await _saveFileAs(filename, file, context);
+                      });
+                    } else if (io.Platform.isIOS) {
+                      if (context.mounted) {
+                        await _shareFile(context, file, filename);
+                      }
+                    } else if (io.Platform.isAndroid) {
+                      // TODO: Show dialog with "open with" and "save as" options
+                      await _openFileAndroid(filename, file, download, context,
+                          fallback: () async {
+                        await _saveFileAs(filename, file, context);
+                      });
+                    }
+                  } else {
+                    await _saveFile(download, filename);
+                  }
+                },
+              ),
+              if (_isDownloading)
+                const Center(
+                  child: LinearProgressIndicator(),
+                ),
+            ],
           ),
         ),
       ),
