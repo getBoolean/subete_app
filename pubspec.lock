@@ -973,22 +973,6 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  logger:
-    dependency: transitive
-    description:
-      name: logger
-      sha256: "7ad7215c15420a102ec687bb320a7312afd449bac63bfb1c60d9787c27b9767f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.4.0"
-  logger_flutter_plus:
-    dependency: transitive
-    description:
-      name: logger_flutter_plus
-      sha256: "57a378dea1e0dc8beee4d9d1a2a017e368ab96b4dfbf094eff0d08304a739660"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   logging:
     dependency: transitive
     description:
@@ -1395,22 +1379,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.9"
-  sensors_plus:
-    dependency: transitive
-    description:
-      name: sensors_plus
-      sha256: "3ec8b74d73d72a54baa328beb6fa33df80963f3e5491fc6e714b98b935b65dd9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.5"
-  sensors_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: sensors_plus_platform_interface
-      sha256: bc472d6cfd622acb4f020e726433ee31788b038056691ba433fec80e448a094f
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
   share_plus:
     dependency: "direct main"
     description:
@@ -1588,6 +1556,22 @@ packages:
     description:
       name: super_clipboard
       sha256: "17978c3dc7b6ebf588a8007448f668ad6aa64733b60ed2ae18152113cca39fa2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.16"
+  super_context_menu:
+    dependency: "direct main"
+    description:
+      name: super_context_menu
+      sha256: "33f189fd508716d03daa277d890a8b079f691e3e3577d99d81c1e23b2a9968c7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.16"
+  super_drag_and_drop:
+    dependency: "direct main"
+    description:
+      name: super_drag_and_drop
+      sha256: "1d9fa943fa01961953f3ce14740954eb4d8a2530384d495462f858abba926250"
       url: "https://pub.dev"
     source: hosted
     version: "0.8.16"

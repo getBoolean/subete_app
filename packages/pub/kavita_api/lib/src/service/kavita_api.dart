@@ -893,6 +893,9 @@ class KavitaApiDownload {
   /// Requires Download Role or Admin Role.
   const KavitaApiDownload.fromContext(this.context);
 
+  /// Returns relavent download urls for the files
+  KavitaApiDownloadUrl get url => KavitaApiDownloadUrl.fromContext(context);
+
   /// For a given volume, return the size in bytes
   Future<KavitaResponse<int>> getVolumeSize({
     required int id,
@@ -941,29 +944,6 @@ class KavitaApiDownload {
         .cast();
   }
 
-  /// Returns a download url and required headers for a volume
-  ({Uri url, Map<String, String> headers}) getDownloadVolumeUrl({
-    required int id,
-  }) {
-    return (
-      url: Uri(
-        pathSegments: [
-          ...context.baseUrl.pathSegments,
-          'api',
-          'Download',
-          'volume',
-        ],
-        queryParameters: {
-          'volumeId': id,
-        },
-        host: context.baseUrl.host,
-        port: context.baseUrl.port,
-        scheme: context.baseUrl.scheme,
-      ),
-      headers: {...context.bearerHeader},
-    );
-  }
-
   /// Returns the zip for a single chapter.
   ///
   /// If the chapter contains multiple files, they will be zipped.
@@ -979,8 +959,74 @@ class KavitaApiDownload {
         .cast();
   }
 
+  /// Returns the zip for a series.
+  Future<KavitaResponse<String>> downloadSeries({
+    required int id,
+  }) async {
+    return mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiDownloadSeriesGet(
+            seriesId: id,
+          ),
+        )
+        .cast();
+  }
+
+  /// Downloads all bookmarks in a zip for
+  Future<KavitaResponse<String>> downloadBookmarks(
+    List<BookmarkDto> bookmarks,
+  ) async {
+    return mappr
+        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
+          await context.api.apiDownloadBookmarksPost(
+            body: raw.DownloadBookmarkDto(
+              bookmarks: bookmarks
+                  .map((e) => mappr.convert<BookmarkDto, raw.BookmarkDto>(e))
+                  .toList(),
+            ),
+          ),
+        )
+        .cast();
+  }
+}
+
+/// All APIs related to downloading entities from the system via URL.
+///
+/// Requires Download Role or Admin Role.
+class KavitaApiDownloadUrl {
+  /// The client context which holds the current user and the API client
+  final KavitaContext context;
+
+  /// All APIs related to downloading entities from the system.
+  ///
+  /// Requires Download Role or Admin Role.
+  const KavitaApiDownloadUrl.fromContext(this.context);
+
+  /// Returns a download url and required headers for a volume
+  ({Uri url, Map<String, String> headers}) getDownloadVolume({
+    required int id,
+  }) {
+    return (
+      url: Uri(
+        pathSegments: [
+          ...context.baseUrl.pathSegments,
+          'api',
+          'Download',
+          'volume',
+        ],
+        queryParameters: {
+          'volumeId': '$id',
+        },
+        host: context.baseUrl.host,
+        port: context.baseUrl.port,
+        scheme: context.baseUrl.scheme,
+      ),
+      headers: {...context.bearerHeader},
+    );
+  }
+
   /// Returns a download url and required headers for a chapter
-  ({Uri url, Map<String, String> headers}) getDownloadChapterUrl({
+  ({Uri url, Map<String, String> headers}) getDownloadChapter({
     required int id,
   }) {
     return (
@@ -1002,21 +1048,8 @@ class KavitaApiDownload {
     );
   }
 
-  /// Returns the zip for a series.
-  Future<KavitaResponse<String>> downloadSeries({
-    required int id,
-  }) async {
-    return mappr
-        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
-          await context.api.apiDownloadSeriesGet(
-            seriesId: id,
-          ),
-        )
-        .cast();
-  }
-
   /// Returns a download url and required headers for a series
-  ({Uri url, Map<String, String> headers}) getDownloadSeriesUrl({
+  ({Uri url, Map<String, String> headers}) getDownloadSeries({
     required int id,
   }) {
     return (
@@ -1036,23 +1069,6 @@ class KavitaApiDownload {
       ),
       headers: {...context.bearerHeader},
     );
-  }
-
-  /// Downloads all bookmarks in a zip for
-  Future<KavitaResponse<String>> downloadBookmarks(
-    List<BookmarkDto> bookmarks,
-  ) async {
-    return mappr
-        .convert<ch.Response<dynamic>, KavitaResponse<dynamic>>(
-          await context.api.apiDownloadBookmarksPost(
-            body: raw.DownloadBookmarkDto(
-              bookmarks: bookmarks
-                  .map((e) => mappr.convert<BookmarkDto, raw.BookmarkDto>(e))
-                  .toList(),
-            ),
-          ),
-        )
-        .cast();
   }
 }
 
