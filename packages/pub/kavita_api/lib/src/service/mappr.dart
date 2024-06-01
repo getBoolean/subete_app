@@ -475,7 +475,7 @@ import 'package:meta/meta.dart';
   MapType<ch.Response<List<raw.AppUserCollection>>,
       KavitaResponse<List<AppUserCollection>>>(),
 ])
-final class Mappr extends $Mappr {
+class Mappr extends $Mappr {
   /// Creates a new [Mappr] instance
   const Mappr();
 
