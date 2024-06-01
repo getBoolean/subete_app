@@ -29,13 +29,13 @@ class _SettingsWidgetState extends ConsumerState<SettingsScreen> {
     final theme = Theme.of(context);
     return SettingsList(
       lightTheme: SettingsThemeData(
-        settingsListBackground: theme.colorScheme.background,
-        settingsSectionBackground: theme.colorScheme.background,
+        settingsListBackground: theme.colorScheme.surface,
+        settingsSectionBackground: theme.colorScheme.surface,
         tileHighlightColor: theme.highlightColor,
       ),
       darkTheme: SettingsThemeData(
-        settingsListBackground: theme.colorScheme.background,
-        settingsSectionBackground: theme.colorScheme.background,
+        settingsListBackground: theme.colorScheme.surface,
+        settingsSectionBackground: theme.colorScheme.surface,
         tileHighlightColor: theme.highlightColor,
       ),
       brightness: theme.brightness,
