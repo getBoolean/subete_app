@@ -6,7 +6,7 @@ part of 'download_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$downloadServiceHash() => r'361a714842b7f6d376cde5d952c4e07f02050e6d';
+String _$downloadServiceHash() => r'f092fc6c24dd0e0477f665fd5f0794e70fab8b3c';
 
 /// See also [DownloadService].
 @ProviderFor(DownloadService)
