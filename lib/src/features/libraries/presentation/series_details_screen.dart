@@ -8,6 +8,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kavita_api/kavita_api.dart';
 import 'package:log/log.dart';
@@ -424,18 +425,27 @@ class _VolumeWidgetState extends ConsumerState<_VolumeWidget> {
     }
 
     final box = context.findRenderObject() as RenderBox?;
-    final result = await Share.shareXFiles(
-      [file],
-      sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-    );
+    try {
+      final result = await Share.shareXFiles(
+        [file],
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+      );
 
-    if (!context.mounted) return;
-    switch (result.status) {
-      case ShareResultStatus.success:
-      case ShareResultStatus.dismissed:
-        break;
-      case ShareResultStatus.unavailable:
-        await fallback?.call();
+      if (!context.mounted) return;
+      switch (result.status) {
+        case ShareResultStatus.success:
+        case ShareResultStatus.dismissed:
+          break;
+        case ShareResultStatus.unavailable:
+          await fallback?.call();
+      }
+    } on PlatformException catch (e, st) {
+      _log.severe(e.message, e, st);
+      final result = fallback?.call();
+      if (result is Future) {
+        await result;
+      }
+      return;
     }
   }
 }
