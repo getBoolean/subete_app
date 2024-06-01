@@ -13,6 +13,7 @@ class DraggableCloudWidget extends StatelessWidget {
     required this.downloadHeaders,
     required this.thumbnailHeaders,
     required this.child,
+    this.downloadFormat = Formats.epub,
     this.liftBuilder,
     this.dragBuilder,
     super.key,
@@ -23,6 +24,7 @@ class DraggableCloudWidget extends StatelessWidget {
   final Map<String, String>? downloadHeaders;
   final Uri thumbnailUrl;
   final Map<String, String>? thumbnailHeaders;
+  final FileFormat downloadFormat;
 
   /// Allows customizing lift preview image. Used on iOS and Android during the lift animation (start of long press of drag handle until the long press is recognized).
   final Widget? Function(BuildContext, Widget)? liftBuilder;
@@ -50,7 +52,7 @@ class DraggableCloudWidget extends StatelessWidget {
 
         if (item.virtualFileSupported) {
           item.addVirtualFile(
-            format: Formats.plainTextFile,
+            format: downloadFormat,
             provider: (sinkProvider, progress) async {
               final Uint8List bodyBytes = await _downloadFile();
               final sink = sinkProvider(fileSize: bodyBytes.length);
@@ -60,7 +62,7 @@ class DraggableCloudWidget extends StatelessWidget {
           );
         } else {
           final Uint8List bodyBytes = await _downloadFile();
-          item.add(Formats.epub(bodyBytes));
+          item.add(downloadFormat(bodyBytes));
         }
         return item;
       },
