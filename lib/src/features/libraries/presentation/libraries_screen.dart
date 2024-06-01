@@ -18,8 +18,8 @@ class LibrariesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<LibraryDto>> libraries = ref.watch(librariesProvider);
-    return Scaffold(
-      body: AnimatedSwitcher(
+    return Material(
+      child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 650),
         switchInCurve: Curves.easeInOut,
         switchOutCurve: Curves.easeInOut,
@@ -41,7 +41,7 @@ class LibrariesScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final library = lightNovelLibraries[index];
                       return _SingleLibraryItemWidget(
-                        key: ValueKey(library.id ?? index),
+                        key: ValueKey(library.id ?? 'library-item-$index'),
                         library: library,
                       );
                     },
@@ -97,7 +97,7 @@ class _SingleLibraryItemWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final kavita = ref.watch(kavitaProvider);
     final (:headers, :url) =
-        kavita.image.getLibraryCoverUrl(id: library.id ?? -1);
+        kavita.image.url.getLibraryCover(id: library.id ?? -1);
     return Card(
       child: ListTile(
         leading: library.coverImage == null

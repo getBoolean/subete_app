@@ -3,9 +3,9 @@ import 'package:sidebarx/sidebarx.dart';
 
 class TestSidebarX extends StatelessWidget {
   const TestSidebarX({
-    super.key,
     required this.controller,
     required this.items,
+    super.key,
     this.toggleButtonBuilder,
     this.animationDuration = const Duration(milliseconds: 300),
   });

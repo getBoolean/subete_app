@@ -4,8 +4,8 @@ import 'package:sidebarx/src/widgets/widgets.dart';
 
 class SidebarX extends StatefulWidget {
   const SidebarX({
-    super.key,
     required this.controller,
+    super.key,
     this.items = const [],
     this.footerItems = const [],
     this.theme = const SidebarXTheme(),
@@ -35,7 +35,7 @@ class SidebarX extends StatefulWidget {
   /// Controller to interact with Sidebar from code
   final SidebarXController controller;
 
-  /// Builder for implement custom seporators between [itmes]
+  /// Builder for implement custom seporators between [items]
   final IndexedWidgetBuilder? separatorBuilder;
 
   /// Builder for implement your custom Sidebar header
@@ -47,8 +47,8 @@ class SidebarX extends StatefulWidget {
   /// Builder for toggle button at the bottom of the bar
   final SidebarXBuilder? toggleButtonBuilder;
 
-  /// Sidebar showing toggle button if value [true]
-  /// not showing if value [false]
+  /// Sidebar showing toggle button if value `true`
+  /// not showing if value `false`
   final bool showToggleButton;
 
   /// Divider between header and [items]

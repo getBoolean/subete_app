@@ -11,7 +11,7 @@ part 'chapter_dto.mapper.dart';
 /// A Chapter contains a set of MangaFiles which represents
 /// the underlying file (abstracted from type).
 @MappableClass()
-class ChapterDto with ChapterDtoMappable {
+class ChapterDto with ChapterDtoMappable implements IHasReadTimeEstimate {
   const ChapterDto({
     this.id,
     this.range,
@@ -119,8 +119,11 @@ class ChapterDto with ChapterDtoMappable {
 
   /// Formatted Volume title ie) Volume 2.
   final String? volumeTitle;
+  @override
   final int? minHoursToRead;
+  @override
   final int? maxHoursToRead;
+  @override
   final int? avgHoursToRead;
 
   /// Comma-separated link of urls to external services that have some relation to the Chapter

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sidebarx/sidebarx.dart';
+import 'package:sidebarx/src/src.dart';
 
 class SidebarXTheme {
   const SidebarXTheme({
@@ -120,10 +122,9 @@ class SidebarXTheme {
     final theme = Theme.of(context);
     final boxDecoration = decoration ?? BoxDecoration(color: theme.cardColor);
     final defaultToggleButtonDecoration = boxDecoration.copyWith(
-      borderRadius: ((boxDecoration)
-          .borderRadius
+      borderRadius: boxDecoration.borderRadius
           ?.resolve(Directionality.of(context))
-          .copyWith(topLeft: Radius.zero, topRight: Radius.zero)),
+          .copyWith(topLeft: Radius.zero, topRight: Radius.zero),
     );
     final mergedTheme = SidebarXTheme(
       width: width,

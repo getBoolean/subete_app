@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, unnecessary_cast
+// ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
 part of 'kavita_response.dart';
@@ -58,10 +58,8 @@ mixin KavitaResponseMappable<BodyType> {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (runtimeType == other.runtimeType &&
-            KavitaResponseMapper.ensureInitialized()
-                .isValueEqual(this as KavitaResponse<BodyType>, other));
+    return KavitaResponseMapper.ensureInitialized()
+        .equalsValue(this as KavitaResponse<BodyType>, other);
   }
 
   @override

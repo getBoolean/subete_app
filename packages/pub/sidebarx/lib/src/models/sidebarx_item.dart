@@ -17,7 +17,7 @@ class SidebarXItem {
   final String? label;
   final IconData? icon;
   final Widget? iconWidget;
-  final Function()? onTap;
-  final Function()? onLongPress;
-  final Function()? onSecondaryTap;
+  final void Function()? onTap;
+  final void Function()? onLongPress;
+  final void Function()? onSecondaryTap;
 }
