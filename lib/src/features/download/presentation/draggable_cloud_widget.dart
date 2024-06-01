@@ -48,6 +48,7 @@ class DraggableCloudWidget extends StatelessWidget {
         }
         final item = DragItem(
           suggestedName: suggestedName,
+          localData: suggestedName,
         );
 
         if (item.virtualFileSupported) {
