@@ -9,6 +9,7 @@ import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidebarx/sidebarx.dart';
+import 'package:subete/src/common/widgets/copyable_text.dart';
 import 'package:subete/src/routing/data/navigation_type.dart';
 import 'package:subete/src/routing/presentation/widgets/responsive_sidebar.dart';
 import 'package:subete/src/routing/router/router.dart';
@@ -390,7 +391,7 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
                   child: ResponsiveNavigationToolbar(
                     leadingButton: leadingButton,
                     middle: title != null
-                        ? Text(
+                        ? CopyableText(
                             title,
                             style: theme.textTheme.titleMedium,
                             maxLines: 1,
@@ -469,7 +470,7 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
                                           ),
                                           child: tabBar,
                                         )
-                                      : Text(
+                                      : CopyableText(
                                           title,
                                           style: theme.textTheme.titleMedium,
                                         ),
@@ -490,7 +491,7 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
                                       ),
                                       gap16,
                                       Expanded(
-                                        child: Text(
+                                        child: CopyableText(
                                           title,
                                           style: theme.textTheme.titleMedium,
                                         ),
@@ -587,7 +588,7 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
       title: AnimatedSwitcher(
         duration: widget.transitionDuration,
         reverseDuration: widget.transitionReverseDuration,
-        child: title == null ? null : Text(title),
+        child: title == null ? null : CopyableText(title),
       ),
       automaticallyImplyLeading: false,
       actions: trailing == null ? null : [trailing],
