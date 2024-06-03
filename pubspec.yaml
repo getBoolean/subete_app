@@ -81,7 +81,7 @@ dev_dependencies:
     path: packages/app_lints
   build_runner: ^2.4.9
   build_verify: ^3.1.0
-  change_app_package_name: ^1.1.0
+  change_app_package_name: ^1.2.0
   custom_lint: ^0.6.4
   dart_mappable_builder: ^4.2.3
   flutter_launcher_icons: ^0.13.1
