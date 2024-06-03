@@ -3,7 +3,7 @@ description: Kavita client for mobile and desktop (coming soon)
 
 publish_to: none
 
-version: 0.0.9+1
+version: 0.0.10
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -67,7 +67,7 @@ dependencies:
     path: packages/pub/sidebarx
   skeletonizer: ^1.1.1
   stock: ^1.0.1
-  super_clipboard: ^0.8.12
+  super_clipboard: ^0.8.16
   super_context_menu: ^0.8.16
   super_drag_and_drop: ^0.8.16
   super_sliver_list: ^0.4.1
