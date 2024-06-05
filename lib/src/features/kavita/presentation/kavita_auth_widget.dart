@@ -10,12 +10,18 @@ class KavitaAuthWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncValue = ref.watch(kavitaAuthenticateProvider);
-    return asyncValue.when(
-      data: (_) => child,
-      error: (e, _) => AuthErrorWidget(
-          message: e.toString(),
-          onRetry: () => ref.invalidate(kavitaAuthenticateProvider)),
-      loading: () => const FullScreenLoadingWidget(),
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 75),
+      child: asyncValue.when(
+        data: (_) => child,
+        error: (e, _) => AuthErrorWidget(
+            key: const ValueKey('kavita-auth-error'),
+            message: e.toString(),
+            onRetry: () => ref.invalidate(kavitaAuthenticateProvider)),
+        loading: () => const FullScreenLoadingWidget(
+          key: ValueKey('kavita-auth-loading'),
+        ),
+      ),
     );
   }
 }
@@ -34,7 +40,7 @@ class FullScreenLoadingWidget extends StatelessWidget {
           return ColoredBox(
             color:
                 brightness == Brightness.dark ? Colors.black87 : Colors.white,
-            child: const SizedBox.expand(),
+            child: const Center(child: CircularProgressIndicator()),
           );
         },
       ),
@@ -48,6 +54,7 @@ class AuthErrorWidget extends StatelessWidget {
     required this.onRetry,
     super.key,
   });
+
   final String message;
   final VoidCallback onRetry;
 
