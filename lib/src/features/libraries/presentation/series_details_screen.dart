@@ -54,6 +54,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
                     scrollbars: false,
                   ),
                   child: CustomScrollView(
+                    // TODO: Figure out if these sliver lists are what is breaking the scroll to top
                     controller: primaryScrollController,
                     slivers: <Widget>[
                       SuperSliverList(

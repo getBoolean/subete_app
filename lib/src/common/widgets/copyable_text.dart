@@ -208,6 +208,7 @@ class CopyableText extends StatelessWidget {
         selectionColor: selectionColor,
       );
     }
+    // TODO: Add tooltip
 
     return DragItemWidget(
       allowedOperations: () => [DropOperation.copy],
