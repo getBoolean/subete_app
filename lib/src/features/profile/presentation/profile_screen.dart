@@ -9,16 +9,14 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ColoredBox(
-        color: Colors.deepPurple,
-        child: Center(
-          child: FilledButton(
-            onPressed: () {
-              context.goNamed(RouteName.profileDetails.name);
-            },
-            child: const Text('Push Details'),
-          ),
+    return ColoredBox(
+      color: Colors.deepPurple,
+      child: Center(
+        child: FilledButton(
+          onPressed: () {
+            context.goNamed(RouteName.profileDetails.name);
+          },
+          child: const Text('Push Details'),
         ),
       ),
     );
