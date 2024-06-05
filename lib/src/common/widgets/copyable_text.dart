@@ -217,24 +217,21 @@ class CopyableText extends StatelessWidget {
         return item;
       },
       child: DraggableWidget(
-        child: Material(
-          type: MaterialType.transparency,
-          child: InkWell(
-            child: text,
-            onTap: () async {
-              final clipboard = SystemClipboard.instance;
-              if (clipboard == null) {
-                return; // Clipboard API is not supported on this platform.
-              }
+        child: InkWell(
+          child: text,
+          onTap: () async {
+            final clipboard = SystemClipboard.instance;
+            if (clipboard == null) {
+              return; // Clipboard API is not supported on this platform.
+            }
 
-              final item = DataWriterItem();
-              item.add(Formats.plainText(_getText()));
-              await clipboard.write([item]);
-              if (!context.mounted) return;
+            final item = DataWriterItem();
+            item.add(Formats.plainText(_getText()));
+            await clipboard.write([item]);
+            if (!context.mounted) return;
 
-              context.showSnackBar('Copied to clipboard');
-            },
-          ),
+            context.showSnackBar('Copied to clipboard');
+          },
         ),
       ),
     );
