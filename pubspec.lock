@@ -1149,7 +1149,7 @@ packages:
     source: path
     version: "0.0.1"
   pagination_dart:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       path: "packages/pub/pagination_dart"
       relative: true
