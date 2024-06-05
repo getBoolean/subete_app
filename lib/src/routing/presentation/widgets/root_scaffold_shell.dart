@@ -17,12 +17,14 @@ class RootScaffoldShell extends ConsumerStatefulWidget {
     required this.navigationShell,
     required this.destinations,
     required this.title,
+    required this.scaffoldKey,
     super.key,
   });
 
   /// The navigation shell and container for the branch Navigators.
   final StatefulNavigationShell navigationShell;
   final List<RouterDestination> destinations;
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final String title;
 
   @override
@@ -36,6 +38,7 @@ class _RootScaffoldShellState extends ConsumerState<RootScaffoldShell> {
     final theme = Theme.of(context);
     return LoggerWidget(
       child: ResponsiveScaffold(
+        scaffoldKey: widget.scaffoldKey,
         destinations: widget.destinations,
         currentIndex: widget.navigationShell.currentIndex,
         title: widget.title,

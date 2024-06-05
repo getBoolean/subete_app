@@ -21,6 +21,7 @@ import 'package:subete/src/features/download/application/download_service.dart';
 import 'package:subete/src/features/download/presentation/draggable_cloud_widget.dart';
 import 'package:subete/src/features/kavita/application/kavita_auth_provider.dart';
 import 'package:subete/src/features/kavita/application/kavita_data_providers.dart';
+import 'package:subete/src/routing/router/router.dart';
 import 'package:subete/utils/utils.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
 
@@ -53,6 +54,7 @@ class SeriesDetailsScreen extends ConsumerWidget {
                     scrollbars: false,
                   ),
                   child: CustomScrollView(
+                    controller: primaryScrollController,
                     slivers: <Widget>[
                       SuperSliverList(
                         delegate: SliverChildBuilderDelegate(

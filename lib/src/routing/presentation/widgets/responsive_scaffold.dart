@@ -31,6 +31,7 @@ class ResponsiveScaffold extends StatefulHookWidget {
     required this.goToIndex,
     required this.willShowLeadingButton,
     required this.buildLeadingButton,
+    required this.scaffoldKey,
     super.key,
     this.buildLogo,
     this.buildActionButton,
@@ -117,6 +118,8 @@ class ResponsiveScaffold extends StatefulHookWidget {
 
   final bool Function(BuildContext context) willShowLeadingButton;
 
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
   /// Custom builder for the [AppBar]'s leading button
   final Widget Function(BuildContext context, NavigationType navigationType)
       buildLeadingButton;
@@ -188,7 +191,6 @@ class ResponsiveScaffold extends StatefulHookWidget {
 class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  final _key = GlobalKey<ScaffoldState>();
 
   late SidebarXController _sidebarController;
   late SidebarXController _drawerController;
@@ -219,8 +221,8 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
     super.didChangeDependencies();
     final navigationType = widget.navigationTypeResolver(context);
     if (navigationType != NavigationType.drawer &&
-        (_key.currentState?.isDrawerOpen ?? false)) {
-      _key.currentState?.closeDrawer();
+        (widget.scaffoldKey.currentState?.isDrawerOpen ?? false)) {
+      widget.scaffoldKey.currentState?.closeDrawer();
     }
   }
 
@@ -289,7 +291,7 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
       minExpandedWidth: widget.minActionExpandedWidth,
       builder: (context, action) {
         return Scaffold(
-          key: _key,
+          key: widget.scaffoldKey,
           appBar: switch (navigationType) {
             NavigationType.top => buildTopBar(
                 context,
@@ -357,7 +359,7 @@ class _ResponsiveScaffoldState extends State<ResponsiveScaffold>
 
   void _setPage(int index) {
     final previousIndex = widget.currentIndex;
-    _key.currentState?.closeDrawer();
+    widget.scaffoldKey.currentState?.closeDrawer();
     widget.goToIndex(index, initialLocation: index == previousIndex);
     _tabController.index = index;
     _sidebarController.selectIndex(index);

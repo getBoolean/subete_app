@@ -26,6 +26,9 @@ final _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellProfile');
 final _shellNavigatorSettingsKey =
     GlobalKey<NavigatorState>(debugLabel: 'shellSettings');
+final _rootScaffoldKey = GlobalKey<ScaffoldState>();
+ScrollController get primaryScrollController =>
+    PrimaryScrollController.of(_rootScaffoldKey.currentContext!);
 
 enum RouteName {
   libraries(_librariesTitleBuilder),
@@ -166,6 +169,7 @@ GoRouter createRouter({required Logger log}) {
           return Consumer(
             builder: (context, ref, child) {
               return RootScaffoldShell(
+                scaffoldKey: _rootScaffoldKey,
                 navigationShell: navigationShell,
                 destinations: _destinations,
                 title: state.titleBuilder(context, ref) ?? 'No Title',
