@@ -1149,7 +1149,7 @@ packages:
     source: path
     version: "0.0.1"
   pagination_dart:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "packages/pub/pagination_dart"
       relative: true
@@ -1843,10 +1843,10 @@ packages:
     dependency: "direct main"
     description:
       name: wolt_modal_sheet
-      sha256: fb697252277753804045d3c201b146ea5d5a82c428f90789a6b0b86da7c9b36c
+      sha256: "5b46aa8db5cf4de9b605443d8e2d3bca8f6756975c0f634acd32ceaa9f172c1c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.0"
+    version: "0.6.1"
   xdg_directories:
     dependency: transitive
     description:
