@@ -93,7 +93,7 @@ dev_dependencies:
     sdk: flutter
   mason: ^0.1.0-dev.53
   melos: ^6.0.0
-  mocktail: ^1.0.3
+  mocktail: ^1.0.4
   modddels: ^0.2.0
   msix: ^3.16.7
   riverpod_generator: ^2.4.0
