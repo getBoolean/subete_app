@@ -1555,10 +1555,10 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "17978c3dc7b6ebf588a8007448f668ad6aa64733b60ed2ae18152113cca39fa2"
+      sha256: cdab725bac26655ebd189f4d202d694a8cbc1c21e0f0478ccd7829c71716f09b
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.16"
+    version: "0.8.17"
   super_context_menu:
     dependency: "direct main"
     description:
