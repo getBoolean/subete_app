@@ -1555,10 +1555,10 @@ packages:
     dependency: "direct main"
     description:
       name: super_clipboard
-      sha256: "17978c3dc7b6ebf588a8007448f668ad6aa64733b60ed2ae18152113cca39fa2"
+      sha256: cdab725bac26655ebd189f4d202d694a8cbc1c21e0f0478ccd7829c71716f09b
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.16"
+    version: "0.8.17"
   super_context_menu:
     dependency: "direct main"
     description:
@@ -1571,10 +1571,10 @@ packages:
     dependency: "direct main"
     description:
       name: super_drag_and_drop
-      sha256: "1d9fa943fa01961953f3ce14740954eb4d8a2530384d495462f858abba926250"
+      sha256: "8e00c6082646076f80b972b39d9c27b5311082ea1e8add5fa370ce11c410f7de"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.16"
+    version: "0.8.17"
   super_native_extensions:
     dependency: transitive
     description:
