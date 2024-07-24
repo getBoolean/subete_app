@@ -1843,10 +1843,10 @@ packages:
     dependency: "direct main"
     description:
       name: wolt_modal_sheet
-      sha256: "5b46aa8db5cf4de9b605443d8e2d3bca8f6756975c0f634acd32ceaa9f172c1c"
+      sha256: "1c88e982f0b8c3b8b46b53aee207489572d813b5fde780fb5012131049a29e11"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.1"
+    version: "0.8.0"
   xdg_directories:
     dependency: transitive
     description:
