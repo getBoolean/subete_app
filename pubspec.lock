@@ -13,10 +13,10 @@ packages:
     dependency: "direct main"
     description:
       name: accessibility_tools
-      sha256: "3236b596ed0656bfa9c0cd18fcbdfa907c8fcf715b1dc3effb2c5e08c5ef4427"
+      sha256: "4627f89350b9997c68279b72b6cb3f262c83468a857956c6f8439215a727ab63"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.1"
   analyzer:
     dependency: transitive
     description:
