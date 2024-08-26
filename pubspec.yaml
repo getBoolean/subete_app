@@ -44,7 +44,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   hooks_riverpod: ^2.4.9
-  http: ^1.2.0
+  http: ^1.2.2
   kavita_api:
     path: packages/pub/kavita_api
   localization:
