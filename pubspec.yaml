@@ -95,7 +95,7 @@ dev_dependencies:
   melos: ^6.1.0
   mocktail: ^1.0.4
   modddels: ^0.2.0
-  msix: ^3.16.7
+  msix: ^3.16.8
   riverpod_generator: ^2.4.0
   riverpod_lint: ^2.3.10
   test: any
