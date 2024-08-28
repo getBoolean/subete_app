@@ -566,10 +566,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_adaptive_scaffold
-      sha256: "794791e6fc0cc23e375d07ea987e76cf7f0eb7cd753532e45dc35b7e90575e2d"
+      sha256: "3b8f56e0282659db2ebb2edacf61332c1178e8dc03d933709c5af88f92f31dd5"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.11"
+    version: "0.2.2"
   flutter_driver:
     dependency: transitive
     description: flutter
