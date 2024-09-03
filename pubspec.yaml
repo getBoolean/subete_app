@@ -43,7 +43,7 @@ dependencies:
   google_fonts: ^6.2.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  hooks_riverpod: ^2.4.9
+  hooks_riverpod: ^2.5.2
   http: ^1.2.2
   kavita_api:
     path: packages/pub/kavita_api
