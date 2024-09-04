@@ -1563,10 +1563,10 @@ packages:
     dependency: "direct main"
     description:
       name: super_context_menu
-      sha256: "5cb65fc019595efc2f243d4863db83e79c2fd439fb3f05306f628d210e812164"
+      sha256: c21e8a2d5a2f304c5acf56b78c8fd21a36f83ea9aded513529de022dc0a077f3
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.17"
+    version: "0.8.19"
   super_drag_and_drop:
     dependency: "direct main"
     description:
@@ -1579,10 +1579,10 @@ packages:
     dependency: transitive
     description:
       name: super_native_extensions
-      sha256: fa55d452d34b7112453afbb9fa4d13c0527ff201630d10d86546497179030544
+      sha256: c24676825c9f3ae844676a843d45ad186f2270539ffe72be4277753e46d14e29
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.17"
+    version: "0.8.19"
   super_sliver_list:
     dependency: "direct main"
     description:
