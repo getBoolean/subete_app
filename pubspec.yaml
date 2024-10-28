@@ -20,7 +20,7 @@ dependencies:
   constants:
     path: packages/constants
   cross_file: ^0.3.3+8
-  dart_mappable: ^4.2.2
+  dart_mappable: ^4.3.0
   env:
     path: packages/env
   extended_image: ^8.2.0
