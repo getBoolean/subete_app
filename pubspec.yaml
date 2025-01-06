@@ -92,7 +92,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   mason: ^0.1.0-dev.57
-  melos: ^6.1.0
+  melos: ^6.3.0
   mocktail: ^1.0.4
   modddels: ^0.2.0
   msix: ^3.16.8
